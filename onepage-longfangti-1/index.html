@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长方体(一)的所有考点 · 一页讲清楚 · 北师大 5 年级下册 第二单元</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --ink: #1f2937;
+    --ink-2: #4b5563;
+    --ink-3: #9ca3af;
+    --line: #e5e7eb;
+    --line-2: #f3f4f6;
+
+    --m1:    #115e59;
+    --m1-soft: #ecfdf5;
+    --m1-deep: #042f2e;
+
+    --m2:    #a16207;
+    --m2-soft: #fef3c7;
+    --m2-deep: #78350f;
+
+    --m3:    #be185d;
+    --m3-soft: #fdf2f8;
+    --m3-deep: #831843;
+
+    --m4:    #6d28d9;
+    --m4-soft: #faf5ff;
+    --m4-deep: #4c1d95;
+
+    --m5:    #0e7490;
+    --m5-soft: #ecfeff;
+    --m5-deep: #164e63;
+
+    --red: #dc2626;
+    --red-soft: #fef2f2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue",
+                 "Microsoft YaHei", "Hiragino Sans GB", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 760px; margin: 0 auto; background: var(--card); box-shadow: 0 0 0 1px var(--line); }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 36px 44px 28px;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 600px 200px at top right, var(--m1-soft) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 200px at bottom left, var(--m2-soft) 0%, transparent 70%);
+  }
+  header .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--m1-deep);
+    background: var(--m1-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    border: 1px solid #99f6e4;
+  }
+  header h1 {
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  header h1 .q { color: var(--m1-deep); }
+  header .subtitle { font-size: 14.5px; color: var(--ink-2); margin-bottom: 18px; }
+  header .meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  header .chip {
+    font-size: 12px;
+    color: var(--ink-2);
+    background: white;
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  header .chip b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Section base ---------- */
+  section { padding: 26px 44px; border-bottom: 1px solid var(--line-2); }
+  section:last-of-type { border-bottom: none; }
+
+  .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .sec-num {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .sec-title { font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+  .sec-en {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    margin-left: 4px;
+  }
+  .m1 .sec-num { background: var(--m1); }
+  .m2 .sec-num { background: var(--m2); }
+  .m3 .sec-num { background: var(--m3); }
+  .m4 .sec-num { background: var(--m4); }
+  .m5 .sec-num { background: var(--m5); }
+
+  /* ---------- Overview cards ---------- */
+  .ov-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .ov-card {
+    padding: 14px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--card);
+  }
+  .ov-card .emo { font-size: 20px; margin-bottom: 4px; display: block; }
+  .ov-card .name { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .ov-card .en {
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+  }
+  .ov-card.c1 { background: var(--m1-soft); border-color: #99f6e4; }
+  .ov-card.c2 { background: var(--m2-soft); border-color: #fde68a; }
+  .ov-card.c3 { background: var(--m3-soft); border-color: #fbcfe8; }
+  .ov-card.c4 { background: var(--m4-soft); border-color: #ddd6fe; }
+  .ov-card.c5 { background: var(--m5-soft); border-color: #a5f3fc; }
+  .ov-card.c6 { background: var(--red-soft); border-color: #fecaca; }
+
+  /* ---------- Module body ---------- */
+  .mod { font-size: 14.5px; color: var(--ink-2); line-height: 1.7; }
+  .mod p { margin-bottom: 10px; }
+  .mod p:last-child { margin-bottom: 0; }
+  .mod b { color: var(--ink); font-weight: 700; }
+  .mod code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+    background: rgba(0,0,0,0.04);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+
+  h4.sub {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 16px 0 6px;
+  }
+
+  /* callout */
+  .callout {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-left: 4px solid var(--ink-3);
+    background: var(--line-2);
+    border-radius: 6px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  .callout b { color: var(--ink); }
+  .m1 .callout { border-left-color: var(--m1); background: var(--m1-soft); }
+  .m2 .callout { border-left-color: var(--m2); background: var(--m2-soft); }
+  .m3 .callout { border-left-color: var(--m3); background: var(--m3-soft); }
+  .m4 .callout { border-left-color: var(--m4); background: var(--m4-soft); }
+  .m5 .callout { border-left-color: var(--m5); background: var(--m5-soft); }
+
+  /* formula */
+  .eq {
+    margin: 10px 0;
+    padding: 10px 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px;
+    color: var(--ink);
+    text-align: center;
+  }
+  .eq code { background: transparent; padding: 0; font-size: 13px; }
+  .m1 .eq { border-color: #99f6e4; }
+  .m2 .eq { border-color: #fde68a; }
+  .m3 .eq { border-color: #fbcfe8; }
+  .m4 .eq { border-color: #ddd6fe; }
+  .m5 .eq { border-color: #a5f3fc; }
+
+  /* compare table */
+  .cmp {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 10px 0;
+    font-size: 13.5px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .cmp th, .cmp td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .cmp tr:last-child th, .cmp tr:last-child td { border-bottom: none; }
+  .cmp th { background: var(--line-2); font-weight: 700; color: var(--ink); font-size: 12.5px; }
+  .cmp td { color: var(--ink-2); }
+  .m1 .cmp th:first-child { background: var(--m1); color: white; }
+  .m2 .cmp th:first-child { background: var(--m2); color: white; }
+  .m3 .cmp th:first-child { background: var(--m3); color: white; }
+  .m4 .cmp th:first-child { background: var(--m4); color: white; }
+  .m5 .cmp th:first-child { background: var(--m5); color: white; }
+  .cmp .yes { color: var(--m5-deep); font-weight: 700; }
+  .cmp .no  { color: var(--red); font-weight: 700; }
+
+  /* list */
+  .lister { list-style: none; margin: 6px 0; padding: 0; }
+  .lister li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.6;
+  }
+  .lister li::before {
+    content: "";
+    position: absolute;
+    left: 4px; top: 9px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--m1);
+  }
+  .m2 .lister li::before { background: var(--m2); }
+  .m3 .lister li::before { background: var(--m3); }
+  .m4 .lister li::before { background: var(--m4); }
+  .m5 .lister li::before { background: var(--m5); }
+  .lister li b { color: var(--ink); }
+  .lister li code { font-size: 12px; }
+
+  /* scenario cards (5 种表面积情境) */
+  .scn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 10px 0; }
+  .scn {
+    padding: 12px 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--m3);
+    border-radius: 8px;
+  }
+  .scn .head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .scn .emo { font-size: 18px; }
+  .scn .name { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+  .scn .tag {
+    font-size: 10.5px;
+    color: var(--m3-deep);
+    background: var(--m3-soft);
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-left: auto;
+  }
+  .scn .form {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+    color: var(--ink);
+    background: var(--m3-soft);
+    padding: 4px 8px;
+    border-radius: 5px;
+    margin: 4px 0;
+    text-align: center;
+  }
+  .scn .ex { font-size: 12px; color: var(--ink-2); line-height: 1.55; margin-top: 4px; }
+  .scn .ex b { color: var(--m3-deep); }
+  .scn.tank { border-left-color: #f97316; }
+  .scn.chim { border-left-color: #6366f1; }
+  .scn.wall { border-left-color: #16a34a; }
+  .scn.pool { border-left-color: #0891b2; }
+  .scn.tank .tag  { color: #c2410c; background: #fff7ed; }
+  .scn.chim .tag  { color: #4338ca; background: #eef2ff; }
+  .scn.wall .tag  { color: #166534; background: #f0fdf4; }
+  .scn.pool .tag  { color: #155e75; background: #ecfeff; }
+  .scn.tank .form { background: #fff7ed; }
+  .scn.chim .form { background: #eef2ff; }
+  .scn.wall .form { background: #f0fdf4; }
+  .scn.pool .form { background: #ecfeff; }
+
+  /* 11 nets grid */
+  .nets-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin: 10px 0;
+  }
+  .net {
+    padding: 8px 6px;
+    background: var(--card);
+    border: 1px solid #fbcfe8;
+    border-radius: 6px;
+    text-align: center;
+  }
+  .net-svg {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  .net-name {
+    font-size: 12.5px;
+    color: var(--m3-deep);
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .net-desc {
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-top: 1px;
+  }
+
+  /* ---------- Pitfalls (red) ---------- */
+  .pitfall {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    background: var(--red-soft);
+    border: 1px solid #fecaca;
+    border-left: 4px solid var(--red);
+    border-radius: 6px;
+  }
+  .pitfall .x {
+    width: 24px; height: 24px;
+    background: var(--red);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .pitfall .body { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+  .pitfall .wrong {
+    color: var(--red);
+    text-decoration: line-through;
+    text-decoration-color: rgba(220,38,38,0.4);
+    font-weight: 600;
+  }
+  .pitfall .right { color: #047857; font-weight: 700; }
+  .pitfall .arrow { color: var(--ink-3); margin: 0 4px; }
+
+  /* ---------- TL;DR ---------- */
+  .tldr { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0 18px; }
+  .tldr .card {
+    padding: 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--m1);
+    border-radius: 8px;
+  }
+  .tldr .card:nth-child(2) { border-top-color: var(--m3); }
+  .tldr .card:nth-child(3) { border-top-color: var(--m4); }
+  .tldr .card .lab {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .tldr .card .txt { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+  .tldr .card .txt b { color: var(--ink); }
+
+  .one-liner {
+    padding: 18px 20px;
+    background: linear-gradient(135deg, #042f2e 0%, #115e59 100%);
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .one-liner b { color: #5eead4; font-weight: 700; }
+  .ref { text-align: right; color: var(--ink-3); font-size: 11.5px; margin-top: 10px; }
+
+  @media (max-width: 640px) {
+    header, section { padding-left: 22px; padding-right: 22px; }
+    .ov-grid, .tldr, .scn-grid, .nets-grid { grid-template-columns: repeat(2, 1fr); }
+    .cmp { font-size: 12.5px; }
+    .cmp th, .cmp td { padding: 7px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ========== ① 标题区 ========== -->
+  <header>
+    <span class="tag">小学数学 · 5 年级下册 · 第二单元</span>
+    <h1>长方体(一)到底<span class="q">考什么？</span></h1>
+    <p class="subtitle">
+      <b>本单元讲形状 + 表面积</b>:6 面 / 12 棱 / 8 顶点 + 表面积 5 情境 + 11 展开图 + 切拼挖空 + 露在外面 + 涂色切小。
+      <br>
+      <span style="color:var(--m1-deep);font-weight:600;">📘 体积公式 / 单位换算 / 排水法 → 详见 第四单元《长方体(二)》</span>
+    </p>
+    <div class="meta">
+      <span class="chip">📐 <b>北师大版</b> · 5 年级下册</span>
+      <span class="chip">🎯 几何与图形 · 形状 &amp; 表面积</span>
+      <span class="chip">📊 4 大子主题</span>
+    </div>
+  </header>
+
+  <!-- ========== ② 导览 ========== -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num" style="background:var(--ink);">▦</div>
+      <div>
+        <div class="sec-title">这一页,你要掌握 6 件事</div>
+        <div class="sec-en">6 Key Ideas at a Glance</div>
+      </div>
+    </div>
+    <div class="ov-grid">
+      <div class="ov-card c1">
+        <span class="emo">🧊</span>
+        <div class="name">认识长方体</div>
+        <div class="en">Faces · Edges · Vertices</div>
+      </div>
+      <div class="ov-card c2">
+        <span class="emo">🎲</span>
+        <div class="name">正方体是特殊的它</div>
+        <div class="en">Cube = Special Cuboid</div>
+      </div>
+      <div class="ov-card c3">
+        <span class="emo">📦</span>
+        <div class="name">表面积 + 5 情境</div>
+        <div class="en">Surface Area · 5 Cases</div>
+      </div>
+      <div class="ov-card c4">
+        <span class="emo">📄</span>
+        <div class="name">11 种展开图</div>
+        <div class="en">11 Nets</div>
+      </div>
+      <div class="ov-card c5">
+        <span class="emo">✂️</span>
+        <div class="name">切拼 + 挖空</div>
+        <div class="en">Cut &amp; Hollow</div>
+      </div>
+      <div class="ov-card c6">
+        <span class="emo">🎨</span>
+        <div class="name">露在外面 + 涂色切小</div>
+        <div class="en">Exposed &amp; Color Cut</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ③ 编号主模块 ========== -->
+
+  <!-- 01 认识长方体 + 棱长总和 -->
+  <section class="m1">
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <div>
+        <div class="sec-title">认识长方体:6 面 · 12 棱 · 8 顶点</div>
+        <div class="sec-en">Anatomy of a Cuboid</div>
+      </div>
+    </div>
+    <div class="mod">
+      <p>长方体是由 <b>6 个长方形</b>面(特殊情况下有 2 个正方形)围成的立体图形。所有公式都从 <b>6 / 12 / 8</b> 这 3 个数字出发。</p>
+
+      <svg viewBox="0 0 660 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;margin:10px 0;background:#f0fdfa;border:1px solid #99f6e4;border-radius:8px;">
+        <defs>
+          <marker id="arr1" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <polygon points="0,0 8,4 0,8" fill="#042f2e"/>
+          </marker>
+        </defs>
+
+        <polygon points="220,110 420,110 470,75 270,75" fill="#ecfdf5" stroke="#115e59" stroke-width="1.8"/>
+        <polygon points="220,110 420,110 420,220 220,220" fill="white" stroke="#115e59" stroke-width="1.8"/>
+        <polygon points="420,110 470,75 470,185 420,220" fill="white" stroke="#115e59" stroke-width="1.8"/>
+        <polygon points="270,75 470,75 470,185 270,185" fill="none" stroke="#115e59" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+        <polygon points="220,220 420,220 470,185 270,185" fill="none" stroke="#115e59" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+        <g stroke="#115e59" stroke-width="2" fill="none">
+          <line x1="220" y1="220" x2="420" y2="220"/>
+          <line x1="420" y1="220" x2="470" y2="185"/>
+          <line x1="470" y1="185" x2="270" y2="185" stroke-dasharray="3,3" opacity="0.4"/>
+          <line x1="270" y1="185" x2="220" y2="220" stroke-dasharray="3,3" opacity="0.4"/>
+          <line x1="220" y1="110" x2="420" y2="110"/>
+          <line x1="420" y1="110" x2="470" y2="75"/>
+          <line x1="470" y1="75" x2="270" y2="75"/>
+          <line x1="270" y1="75" x2="220" y2="110"/>
+          <line x1="220" y1="110" x2="220" y2="220"/>
+          <line x1="420" y1="110" x2="420" y2="220"/>
+          <line x1="470" y1="75" x2="470" y2="185"/>
+          <line x1="270" y1="75" x2="270" y2="185"/>
+        </g>
+        <g fill="#be185d">
+          <circle cx="220" cy="110" r="4"/><circle cx="420" cy="110" r="4"/>
+          <circle cx="470" cy="75" r="4"/><circle cx="270" cy="75" r="4"/>
+          <circle cx="220" cy="220" r="4"/><circle cx="420" cy="220" r="4"/>
+          <circle cx="470" cy="185" r="4"/><circle cx="270" cy="185" r="4"/>
+        </g>
+        <text x="206" y="108" font-size="10" fill="#831843" font-weight="700">A</text>
+        <text x="426" y="108" font-size="10" fill="#831843" font-weight="700">B</text>
+        <text x="476" y="74" font-size="10" fill="#831843" font-weight="700">B'</text>
+        <text x="256" y="74" font-size="10" fill="#831843" font-weight="700">A'</text>
+        <text x="206" y="236" font-size="10" fill="#831843" font-weight="700">D</text>
+        <text x="426" y="236" font-size="10" fill="#831843" font-weight="700">C</text>
+        <text x="476" y="200" font-size="10" fill="#831843" font-weight="700">C'</text>
+        <text x="256" y="200" font-size="10" fill="#831843" font-weight="700">D'</text>
+
+        <line x1="225" y1="245" x2="415" y2="245" stroke="#042f2e" stroke-width="1.4" marker-end="url(#arr1)"/>
+        <line x1="415" y1="245" x2="225" y2="245" stroke="#042f2e" stroke-width="1.4" marker-end="url(#arr1)"/>
+        <text x="320" y="262" font-size="12" fill="#042f2e" font-weight="700" text-anchor="middle">长 (a)</text>
+
+        <line x1="430" y1="218" x2="466" y2="190" stroke="#042f2e" stroke-width="1.4" marker-end="url(#arr1)"/>
+        <line x1="466" y1="190" x2="430" y2="218" stroke="#042f2e" stroke-width="1.4" marker-end="url(#arr1)"/>
+        <text x="500" y="208" font-size="12" fill="#042f2e" font-weight="700">宽 (b)</text>
+
+        <line x1="190" y1="115" x2="190" y2="215" stroke="#042f2e" stroke-width="1.4" marker-end="url(#arr1)"/>
+        <line x1="190" y1="215" x2="190" y2="115" stroke="#042f2e" stroke-width="1.4" marker-end="url(#arr1)"/>
+        <text x="170" y="170" font-size="12" fill="#042f2e" font-weight="700" text-anchor="middle">高 (h)</text>
+
+        <text x="555" y="50" font-size="11" fill="#115e59" font-weight="700">6 个面</text>
+        <text x="555" y="66" font-size="10" fill="#0d9488">3 组对面,每组 2 个相等</text>
+        <text x="555" y="86" font-size="11" fill="#115e59" font-weight="700">12 条棱</text>
+        <text x="555" y="102" font-size="10" fill="#0d9488">3 组,每组 4 条等长</text>
+        <text x="555" y="122" font-size="11" fill="#115e59" font-weight="700">8 个顶点</text>
+        <text x="555" y="138" font-size="10" fill="#be185d">3 条棱交汇</text>
+      </svg>
+
+      <ul class="lister">
+        <li><b>6 个面</b>:分 3 组,<b>相对的面</b>完全相同(都是长方形,特殊时 2 个正方形)。3 组对面:上下面 / 前后面 / 左右面。</li>
+        <li><b>12 条棱</b>:分 3 组,<b>每组 4 条等长</b>(长 × 4 条、宽 × 4 条、高 × 4 条)。</li>
+        <li><b>8 个顶点</b>:3 条棱交汇的地方,3 组对面交叉的「角」。</li>
+      </ul>
+
+      <div class="eq">
+        棱长总和 = <code>4 × (长 + 宽 + 高)</code> = 4长 + 4宽 + 4高
+      </div>
+
+      <div class="callout">
+        <b>🔍 推导</b>:12 条棱分 3 组(长方向 4 条、宽方向 4 条、高方向 4 条),各取 1 条加起来 = 长 + 宽 + 高,再乘 4(每组 4 条)。<b>例</b>:用 36 cm 铁丝做长 6 cm 宽 2 cm 的长方体框架,高 = 36÷4 − 6 − 2 = <b>1 cm</b>。
+      </div>
+
+      <h4 class="sub">📝 快速记忆法(精准版)</h4>
+      <ul class="lister">
+        <li><b>6 面</b> = 上下面 (a×b) × 2 + 前后面 (a×h) × 2 + 左右面 (b×h) × 2</li>
+        <li><b>12 棱</b> = 4 条长 + 4 条宽 + 4 条高(共 3 组,每组 4 条等长)</li>
+        <li><b>8 顶点</b> = 上面 4 个 + 下面 4 个(上下各一排)</li>
+        <li><b>棱长总和</b> = 4 × (长 + 宽 + 高)<span style="color:var(--ink-3);"> (3 组各取 1 条加起来,再乘 4)</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 02 正方体 -->
+  <section class="m2">
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <div>
+        <div class="sec-title">正方体:长方体家族里的「特殊成员」</div>
+        <div class="sec-en">A Cube is a Special Cuboid</div>
+      </div>
+    </div>
+    <div class="mod">
+      <p>当长方体的 <b>长 = 宽 = 高</b> 时,它就变成了<b>正方体</b>(也叫立方体)。也就是说,<b>正方体是"长方体家族"里"长宽高全相等"的那个特例</b>。</p>
+
+      <table class="cmp">
+        <tr>
+          <th style="width:30%;">对比项</th>
+          <th>长方体</th>
+          <th>正方体</th>
+        </tr>
+        <tr>
+          <th>6 个面</th>
+          <td>3 组对面相等(都是长方形,也可能 2 个正方形)</td>
+          <td class="yes">6 个面<b>完全相同</b>(都是正方形)</td>
+        </tr>
+        <tr>
+          <th>12 条棱</th>
+          <td>3 组,每组 4 条等长(长 / 宽 / 高 三种长度)</td>
+          <td class="yes">12 条棱<b>长度都相等</b></td>
+        </tr>
+        <tr>
+          <th>8 个顶点</th>
+          <td>✓</td>
+          <td class="yes">✓(也是 8 个)</td>
+        </tr>
+        <tr>
+          <th>长宽高</th>
+          <td>长、宽、高 三者<b>不一定相等</b></td>
+          <td class="yes">长 = 宽 = 高 = 棱长 <code>a</code></td>
+        </tr>
+        <tr>
+          <th>关系</th>
+          <td>一般图形</td>
+          <td class="yes">长方体的<b>特殊情况</b></td>
+        </tr>
+        <tr>
+          <th>棱长总和</th>
+          <td><code>4(a + b + h)</code></td>
+          <td class="yes"><code>12a</code></td>
+        </tr>
+        <tr>
+          <th>表面积</th>
+          <td><code>2(ab + ah + bh)</code></td>
+          <td class="yes"><code>6a²</code></td>
+        </tr>
+      </table>
+
+      <div class="callout">
+        <b>🔍 判断口诀</b>:<b>6 个正方形面 → 正方体</b>。考试常考"长方体包括正方体吗?"——<b>包括</b>,正方体是特殊长方体。<b>例</b>:正方体棱长总和 60 cm,棱长 = 60÷12 = <b>5 cm</b>。
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 表面积 + 5 情境 + 11 展开图 -->
+  <section class="m3">
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <div>
+        <div class="sec-title">表面积:6 个面的「总面积」+ 5 情境 + 11 展开图</div>
+        <div class="sec-en">Surface Area · 5 Cases · 11 Nets</div>
+      </div>
+    </div>
+    <div class="mod">
+      <p><b>表面积 = 长方体 6 个面的面积之和</b>。想象给一个快递盒"糊一层纸",需要多少面积的纸?就是表面积。</p>
+
+      <div class="eq">
+        长方体: S = 2 × (长×宽 + 长×高 + 宽×高) = <code>2(ab + ah + bh)</code>
+      </div>
+      <div class="eq">
+        正方体: S = 6 × 棱长² = <code>6a²</code>
+      </div>
+
+      <h4 class="sub">🎯 5 种表面积情境(考试必考变形)</h4>
+      <div class="scn-grid">
+        <div class="scn full">
+          <div class="head">
+            <span class="emo">🎁</span>
+            <span class="name">全封闭 · 礼品盒</span>
+            <span class="tag">6 个面</span>
+          </div>
+          <div class="form">S = 2(ab + ah + bh)</div>
+          <div class="ex"><b>例</b>:长 5 cm 宽 4 cm 高 3 cm 的礼品盒,S = 2×(5×4 + 5×3 + 4×3) = 2×47 = <b>94 cm²</b>。</div>
+        </div>
+
+        <div class="scn tank">
+          <div class="head">
+            <span class="emo">🐟</span>
+            <span class="name">无盖 · 金鱼缸 / 木箱</span>
+            <span class="tag">5 个面</span>
+          </div>
+          <div class="form">S = 2(ab + ah + bh) − ab</div>
+          <div class="ex"><b>例</b>:长 8 dm 宽 5 dm 高 4 dm 无盖鱼缸,S = 8×5 + 2×(8×4 + 5×4) = 40 + 104 = <b>144 dm²</b>。</div>
+        </div>
+
+        <div class="scn chim">
+          <div class="head">
+            <span class="emo">🏭</span>
+            <span class="name">无上下底 · 烟囱 / 通风管</span>
+            <span class="tag">4 个侧面</span>
+          </div>
+          <div class="form">S = 2(a + b)h</div>
+          <div class="ex"><b>例</b>:横截面 3 dm × 3 dm 正方形、长 1.5 m 的烟囱,S = 4 × 3 × 15 = <b>180 dm²</b>(1.5 m = 15 dm)。</div>
+        </div>
+
+        <div class="scn wall">
+          <div class="head">
+            <span class="emo">🏫</span>
+            <span class="name">粉刷 · 教室 (4 墙 + 顶)</span>
+            <span class="tag">5 个面</span>
+          </div>
+          <div class="form">S = ab + 2(ah + bh) − 门窗</div>
+          <div class="ex"><b>例</b>:教室长 8 m 宽 6 m 高 3.5 m,门窗+黑板 12 m²,粉刷面积 = 8×6 + 2×(8×3.5 + 6×3.5) − 12 = <b>134 m²</b>。</div>
+        </div>
+
+        <div class="scn pool">
+          <div class="head">
+            <span class="emo">🏊</span>
+            <span class="name">游泳池 · 贴瓷砖 (4 壁 + 底)</span>
+            <span class="tag">5 个面</span>
+          </div>
+          <div class="form">S = ab + 2(ah + bh)</div>
+          <div class="ex"><b>例</b>:长 20 m 宽 10 m 深 2 m 泳池,贴瓷砖面积 = 20×10 + 2×(20×2 + 10×2) = 200 + 120 = <b>320 m²</b>。</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <b>💡 做题口诀</b>:看到题目先判断"几个面"——<br>
+        ① 全封闭(没说特殊):6 个面 &nbsp; ② 无盖(鱼缸/木箱/粉刷顶):5 个面 = S − 一个顶面 &nbsp; ③ 无前(衣柜门):5 个面 = S − 一个前面 &nbsp; ④ 烟囱/通风管(无上下):4 个侧面 = 2(a+b)h
+      </div>
+
+      <div class="callout" style="margin-top:14px;">
+        <b>📐 长方体(正方体)的展开图</b>:把 6 个面拆开平铺,共有 <b>11 种不同的展开图</b>,大致分 4 大类(1-4-1 型 8 种、1-3-2 型 3 种、2-2-2 型 1 种、3-3 型 1 种)。小学阶段重点掌握最常见的 <b>1-4-1 标准型</b>(中间 4 个面 + 上下各 1 个面在中间),其他变体只考判断,不需要全画。
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 切拼 + 挖空 -->
+  <section class="m4">
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <div>
+        <div class="sec-title">切拼 + 挖空:形状的「手术与挖洞」</div>
+        <div class="sec-en">Cut · Hollow</div>
+      </div>
+    </div>
+    <div class="mod">
+      <p>把一个长方体<b>切开、合上、挖掉一块</b>,表面积会变,体积怎么变?有规律。</p>
+
+      <h4 class="sub">✂️ 切拼:切一刀多 2 面 / 合一块少 2 面</h4>
+      <table class="cmp">
+        <tr>
+          <th style="width:30%;">操作</th>
+          <th>体积</th>
+          <th>表面积</th>
+        </tr>
+        <tr>
+          <th>切 1 刀(沿平面)</th>
+          <td>变(2 块小长方体体积和 = 原体积)</td>
+          <td class="yes">+ 2 个切口面</td>
+        </tr>
+        <tr>
+          <th>切 N 刀(沿不同平面)</th>
+          <td>变(每切 1 刀,2 块体积和不变)</td>
+          <td class="yes">+ 2N 个面</td>
+        </tr>
+        <tr>
+          <th>合 1 块(2 个贴一起)</th>
+          <td>不变(总体积)</td>
+          <td class="no">− 2 个接触面</td>
+        </tr>
+        <tr>
+          <th>合 N 块(N 个贴一起)</th>
+          <td>不变</td>
+          <td class="no">− 2(N−1) 个接触面</td>
+        </tr>
+      </table>
+
+      <div class="callout">
+        <b>💡 例 1 · 切</b>:长 8 cm 宽 6 cm 高 4 cm 的长方体,<b>从中间横切 1 刀</b>分成 2 个 4×6×4 小长方体。表面积增加 2 个切口面 = 2 × 8 × 6 = <b>96 cm²</b>,变成 2×(8×6+8×4+6×4) + 96 = 208 + 96 = <b>304 cm²</b>。<br>
+        <b>例 2 · 合</b>:3 个 2×2×2 的小正方体<b>拼成一排</b>变成 6×2×2 的长方体。原来 3×6×4 = 72 cm²,拼后 2×(12+12+4) = 56 cm²,<b>减少 16 cm²</b>(2 次接触 × 2 面 × 4 cm² = 16)。
+      </div>
+
+      <h4 class="sub">🕳️ 挖空:从长方体里"挖掉"一块</h4>
+      <p>从一个长方体中间<b>挖掉一个小的长方体</b>(或者挖一个方形孔),求体积和表面积。常见 3 种挖法:</p>
+
+      <table class="cmp">
+        <tr>
+          <th style="width:30%;">挖法</th>
+          <th>新体积</th>
+          <th>新表面积</th>
+        </tr>
+        <tr>
+          <th>① 挖中间一个方洞<br>(从头到底挖穿)</th>
+          <td>V<sub>新</sub> = V<sub>大</sub> − V<sub>小洞</sub></td>
+          <td>S<sub>新</sub> = S<sub>大</sub> + 2×挖洞内壁面积 − 2×挖掉的顶/底面</td>
+        </tr>
+        <tr>
+          <th>② 挖一个不穿通的方坑<br>(只在上面挖)</th>
+          <td>V<sub>新</sub> = V<sub>大</sub> − V<sub>小坑</sub></td>
+          <td>S<sub>新</sub> = S<sub>大</sub> + 挖坑内壁 4 个面 − 1 个顶面</td>
+        </tr>
+        <tr>
+          <th>③ 两边对称挖<br>(一头一尾各挖一个)</th>
+          <td>V<sub>新</sub> = V<sub>大</sub> − 2×V<sub>单洞</sub></td>
+          <td>比 ① 还要 + 1 对内壁</td>
+        </tr>
+      </table>
+
+      <div class="callout">
+        <b>💡 例 · 挖中间方洞</b>:长方体长 5 dm 宽 4 dm 高 3 dm,<b>中间挖一个 1 dm × 1 dm × 3 dm 的方洞(从头穿到尾)</b>。<br>
+        ① 体积 = 5×4×3 − 1×1×3 = 60 − 3 = <b>57 dm³</b><br>
+        ② 表面积 = 原来 2×(20+15+12)=94;挖洞内壁 4×1×3=12 dm²;挖掉顶/底各 1 dm²,共 − 2;新表面积 = 94 − 2 + 12 = <b>104 dm²</b>。<br>
+        <b>关键</b>:挖空 = <b>内壁 4 个新面</b>(是原来没有的),<b>顶/底 2 个面</b>(消失了,因为挖穿了)。所以净增加 12 − 2 = 10 dm²。
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 露在外面 + 涂色切小 -->
+  <section class="m5">
+    <div class="sec-head">
+      <div class="sec-num">05</div>
+      <div>
+        <div class="sec-title">露在外面 + 涂色切小:N 个小正方体的组合</div>
+        <div class="sec-en">Exposed Faces &amp; Color &amp; Cut</div>
+      </div>
+    </div>
+    <div class="mod">
+      <p>把 <b>N 个相同的小正方体</b>堆在一起(像乐高),问"露在外面的面有几个"——这是经典题!</p>
+
+      <div class="eq">
+        露在外面的面 = N × 6 − 被盖住的面 × 2
+      </div>
+
+      <ul class="lister">
+        <li>每<b>相邻 2 个</b>小正方体接触,会<b>遮住 2 个面</b>(1 个 + 1 个)</li>
+        <li>如果有 k 个"接触对"(2 个贴一起算 1 对),被遮 = 2k</li>
+        <li><b>例 1</b>:3 个 1×1×1 小正方体<b>排一排</b>,接触 2 对,露 = 3×6 − 2×2 = 18 − 4 = <b>14 个面</b></li>
+        <li><b>例 2</b>:4 个 1×1×1 小正方体<b>摆成 2×2 一层</b>,接触 4 对(横 2 + 竖 2),露 = 4×6 − 4×2 = 24 − 8 = <b>16 个面</b>(底面 4 + 顶面 4 + 侧面 8)</li>
+        <li><b>例 3</b>:8 个小正方体<b>摆成 2×2×2 的正方体</b>,外面 = 6×(2×2) = <b>24 个面</b>(每个面 4 个小方块)</li>
+      </ul>
+
+      <div class="callout">
+        <b>💡 例 · 2×2×2 摆法</b>:8 个 1×1×1 摆成 2×2×2,顶面 4 个面,底面 4 个面,4 个侧面各 4 个面 = 6×4 = <b>24 个面在外面</b>。每个外面的小方块面 = 1 cm²,所以外面面积 = 24 cm²。整个大正方体表面积也是 6×(2×2) = 24 cm²(每个面 4 个小方块)。
+      </div>
+
+      <h4 class="sub">🎨 大正方体表面涂色,切成小正方体</h4>
+      <p>把一个 <b>n × n × n</b> 的大正方体表面涂色,然后切成 <b>n³ 个 1×1×1 的小正方体</b>,每面被涂色的小正方体数有规律。这是奥数常考题:</p>
+
+      <table class="cmp">
+        <tr>
+          <th style="width:30%;">涂色面数</th>
+          <th>位置</th>
+          <th>数量</th>
+        </tr>
+        <tr>
+          <th class="yes">3 面涂色</th>
+          <td>顶点上(角)</td>
+          <td><b>8 个</b>(大正方体 8 个顶点)</td>
+        </tr>
+        <tr>
+          <th class="yes">2 面涂色</th>
+          <td>棱上(非顶点的棱中)</td>
+          <td><b>12(n − 2)</b> 个</td>
+        </tr>
+        <tr>
+          <th class="yes">1 面涂色</th>
+          <td>每面中心(非棱非顶点)</td>
+          <td><b>6(n − 2)²</b> 个</td>
+        </tr>
+        <tr>
+          <th>0 面涂色</th>
+          <td>内部(完全没露出来)</td>
+          <td><b>(n − 2)³</b> 个</td>
+        </tr>
+      </table>
+
+      <div class="callout">
+        <b>💡 例 · 4×4×4 大正方体切小</b>:涂色后切成 64 个 1×1×1 小正方体。<br>
+        ① 3 面涂色 = <b>8 个</b><br>
+        ② 2 面涂色 = 12×(4−2) = <b>24 个</b><br>
+        ③ 1 面涂色 = 6×(4−2)² = 6×4 = <b>24 个</b><br>
+        ④ 0 面涂色 = (4−2)³ = <b>8 个</b>(藏在内核的 2×2×2 小正方体)<br>
+        验算:8 + 24 + 24 + 8 = 64 ✓
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ④ 误区警示 ========== -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num" style="background:var(--red);">!</div>
+      <div>
+        <div class="sec-title">5 个最容易踩的坑</div>
+        <div class="sec-en">5 Common Pitfalls</div>
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div class="body">
+        <span class="wrong">长方体的 6 个面都相等</span>
+        <span class="arrow">👉</span>
+        <span class="right">长方体是「相对面」相等(3 组对面),不是 6 个都相等。</span>
+        6 个面都相等的只有正方体(棱长都相等)。<b>正方体是特殊长方体</b>。
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div class="body">
+        <span class="wrong">棱长总和 = 棱长 × 6</span>
+        <span class="arrow">👉</span>
+        <span class="right">长方体棱长总和 = 4 × (长 + 宽 + 高),正方体 = 12a。</span>
+        12 条棱分 3 组,每组 4 条同长,先求 1 组 = 长+宽+高,再乘 4。
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div class="body">
+        <span class="wrong">烟囱 / 通风管的表面积 = 2(ab + ah + bh)</span>
+        <span class="arrow">👉</span>
+        <span class="right">烟囱只有 4 个侧面 = 2(a + b)h(底面周长 × 高)</span>
+        烟囱无上下底,不能套 6 个面的公式。同样,无盖鱼缸只有 5 个面。
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div class="body">
+        <span class="wrong">长方体切 1 刀表面积不变 / 合 1 块体积不变</span>
+        <span class="arrow">👉</span>
+        <span class="right">切 1 刀 +2 个面 · 合 1 块 −2 个面;体积永远不变(切合都是)。</span>
+        "切"和"合"刚好相反,表面积变化方向相反,但<b>切合过程体积守恒</b>。
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div class="body">
+        <span class="wrong">本单元要考排水法 / 体积公式 / 单位换算</span>
+        <span class="arrow">👉</span>
+        <span class="right">本单元是「形状 + 表面积」;<b>排水法 / 体积公式 / 单位换算 → 第四单元《长方体(二)》</b>。</span>
+        别在这一页死磕体积单位进率!那都是第四单元的考点。
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ⑤ 一句话总结 ========== -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num" style="background:var(--m1);">▣</div>
+      <div>
+        <div class="sec-title">TL;DR · 这一页先记住这 3 件事</div>
+        <div class="sec-en">The 3 Things to Remember</div>
+      </div>
+    </div>
+
+    <div class="tldr">
+      <div class="card">
+        <div class="lab">① 形状 Anatomy</div>
+        <div class="txt"><b>6 面 / 12 棱 / 8 顶点</b>;相对面相等,相对棱相等(每组 4 条);正方体是特殊长方体。棱长总和 = <b>4(a+b+h)</b> 或 <b>12a</b>。</div>
+      </div>
+      <div class="card">
+        <div class="lab">② 表面积 Surface</div>
+        <div class="txt">表面积 <b>S = 2(ab+ah+bh)</b> 或 <b>6a²</b>。看清是 6/5/4 个面(全封闭/无盖/烟囱/粉刷/泳池)。11 种展开图:1-4-1×6 + 1-3-2×3 + 2-2-2×1 + 3-3×1。</div>
+      </div>
+      <div class="card">
+        <div class="lab">③ 切拼挖空 + 组合</div>
+        <div class="txt">切 1 刀 <b>+2 面</b>,合 1 块 <b>−2 面</b>,挖空 <b>内壁多 4 面</b>。N 个小正方体外面 = N×6 − 接触对×2。涂色切小:8 / 12(n-2) / 6(n-2)² / (n-2)³。</div>
+      </div>
+    </div>
+
+    <div class="one-liner">
+      🧊 长方体(一) = <b>形状 + 表面积</b>;<br>
+      <b>表面积</b>算"皮"(<b>糊纸</b>要多大),<b>切拼挖空</b>算"形状怎么变",<b>组合</b>算"堆起来露几面"。
+    </div>
+
+    <p class="ref">📘 参考:北师大版《数学》5 年级下册 · 第二单元「长方体(一)」 · 编排: DONG XINGBO</p>
+
+    <div class="credit" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--ink-3); text-align: center; line-height: 1.6;">
+      <b style="color: var(--ink); font-weight: 700;">由 DONG XINGBO 创建整理</b> · 非授权禁止转载<br>
+      <span style="font-size: 10.5px; color: var(--ink-3);">© 2026 DONG XINGBO · All rights reserved</span>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

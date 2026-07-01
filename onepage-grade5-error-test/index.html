@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>错题背后的核心知识点 · 一页讲清楚</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --ink: #1f2937;
+    --ink-2: #4b5563;
+    --ink-3: #9ca3af;
+    --line: #e5e7eb;
+    --line-2: #f3f4f6;
+
+    /* 5 大模块配色 (错题订正·朱红主色) */
+    --m1:    #dc2626;             /* 01 分数除法  : 朱红 (主色, 警示/纠错) */
+    --m1-soft: #fef2f2;
+    --m1-deep: #7f1d1d;
+
+    --m2:    #b91c1c;             /* 02 长方体    : 深朱红 */
+    --m2-soft: #fef2f2;
+    --m2-deep: #7f1d1d;
+
+    --m3:    #e11d48;             /* 03 位置方向  : 玫瑰 */
+    --m3-soft: #fff1f2;
+    --m3-deep: #881337;
+
+    --m4:    #ea580c;             /* 04 折扣应用  : 橙 (暖警示) */
+    --m4-soft: #fff7ed;
+    --m4-deep: #9a3412;
+
+    --m5:    #be185d;             /* 05 字母&单位 : 紫红 */
+    --m5-soft: #fdf2f8;
+    --m5-deep: #831843;
+
+    --red: #dc2626;
+    --red-soft: #fef2f2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue",
+                 "Microsoft YaHei", "Hiragino Sans GB", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--card);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 36px 44px 28px;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 600px 200px at top right, var(--m1-soft) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 200px at bottom left, var(--m3-soft) 0%, transparent 70%);
+  }
+  header .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--m1-deep);
+    background: var(--m1-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    border: 1px solid #fecaca;
+  }
+  header h1 {
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  header h1 .q { color: var(--m1-deep); }
+  header .subtitle {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+  }
+  header .meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  header .chip {
+    font-size: 12px;
+    color: var(--ink-2);
+    background: white;
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  header .chip b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Section base ---------- */
+  section { padding: 26px 44px; border-bottom: 1px solid var(--line-2); }
+  section:last-of-type { border-bottom: none; }
+
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .sec-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+  .sec-head h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .sec-head .en {
+    font-size: 11.5px;
+    color: var(--ink-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-left: auto;
+  }
+
+  .c1 .sec-num { background: var(--m1); }
+  .c2 .sec-num { background: var(--m2); }
+  .c3 .sec-num { background: var(--m3); }
+  .c4 .sec-num { background: var(--m4); }
+  .c5 .sec-num { background: var(--m5); }
+  .c6 .sec-num { background: var(--red); }
+
+  p { color: var(--ink-2); margin-bottom: 8px; }
+  p strong { color: var(--ink); font-weight: 700; }
+  p .hl { background: linear-gradient(transparent 60%, #fef08a 60%); padding: 0 2px; }
+
+  /* ---------- Overview ---------- */
+  .overview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .ov {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 8px;
+    text-align: center;
+    background: white;
+  }
+  .ov .ico { font-size: 26px; margin-bottom: 6px; display: block; line-height: 1.2; }
+  .ov .name { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .ov .en { font-size: 10px; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase; }
+  .ov.a { background: var(--m1-soft); border-color: #fecaca; }
+  .ov.b { background: var(--m2-soft); border-color: #fecaca; }
+  .ov.c { background: var(--m3-soft); border-color: #fecdd3; }
+  .ov.d { background: var(--m4-soft); border-color: #fed7aa; }
+  .ov.e { background: var(--m5-soft); border-color: #fbcfe8; }
+
+  /* ---------- Card grids ---------- */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 8px; }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px;
+    background: white;
+  }
+  .card .head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .card .pill {
+    display: inline-block;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+  }
+  .card ul { list-style: none; padding: 0; margin: 0; }
+  .card li {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    padding: 3px 0 3px 14px;
+    position: relative;
+  }
+  .card li::before {
+    content: "·";
+    position: absolute;
+    left: 4px;
+    color: var(--ink-3);
+    font-weight: 700;
+  }
+  .card li b { color: var(--ink); font-weight: 700; }
+
+  /* 公式区 */
+  .eq {
+    background: var(--m1-soft);
+    border-left: 4px solid var(--m1);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 10px 0 6px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13.5px;
+    color: var(--ink);
+    overflow-x: auto;
+  }
+  .c2 .eq { background: var(--m2-soft); border-left-color: var(--m2); }
+  .c3 .eq { background: var(--m3-soft); border-left-color: var(--m3); }
+  .c4 .eq { background: var(--m4-soft); border-left-color: var(--m4); }
+  .c5 .eq { background: var(--m5-soft); border-left-color: var(--m5); }
+  .c6 .eq { background: var(--red-soft); border-left-color: var(--red); }
+
+  /* 表格 */
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13.5px; }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+  }
+  th { background: var(--m1-soft); color: var(--m1-deep); font-weight: 700; }
+  .c2 th { background: var(--m2-soft); color: var(--m2-deep); }
+  .c3 th { background: var(--m3-soft); color: var(--m3-deep); }
+  .c4 th { background: var(--m4-soft); color: var(--m4-deep); }
+  .c5 th { background: var(--m5-soft); color: var(--m5-deep); }
+  td { color: var(--ink-2); }
+  td b { color: var(--ink); }
+
+  /* 分数样式 (横线) */
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    font-size: 13px;
+    line-height: 1.1;
+    margin: 0 1px;
+  }
+  .frac .num { border-bottom: 1.5px solid currentColor; padding: 0 3px 1px; }
+  .frac .den { padding: 1px 3px 0; }
+
+  /* SVG 流程图 / 可视化 */
+  .viz {
+    margin: 12px 0 4px;
+    background: var(--m1-soft);
+    border-radius: 10px;
+    padding: 14px 12px 8px;
+  }
+  .viz svg { width: 100%; height: auto; display: block; }
+
+  /* 误区 */
+  .pitfall { display: flex; gap: 10px; margin-top: 10px; align-items: flex-start; }
+  .pitfall .x {
+    flex: 0 0 28px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--red);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+  }
+  .pitfall .body { flex: 1; }
+  .pitfall .wrong {
+    color: #991b1b;
+    text-decoration: line-through;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 1.5px;
+    font-size: 13.5px;
+    margin-bottom: 2px;
+  }
+  .pitfall .right {
+    color: var(--m5-deep);
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+  .pitfall .right::before {
+    content: "👉 ";
+    color: var(--m5);
+  }
+
+  /* 总结 */
+  .takeaway {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .tk {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 12px;
+    background: white;
+  }
+  .tk .label {
+    display: inline-block;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--m1-deep);
+    background: var(--m1-soft);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .tk .body { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+  .tk .body b { color: var(--ink); font-weight: 700; }
+
+  .oneliner {
+    margin-top: 18px;
+    background: linear-gradient(135deg, var(--m1-deep), #450a0a);
+    color: #fecaca;
+    border-radius: 12px;
+    padding: 18px 22px;
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .oneliner b { color: #fde68a; font-weight: 800; }
+
+  /* mobile */
+  @media (max-width: 640px) {
+    .page { max-width: 100%; }
+    header, section { padding-left: 24px; padding-right: 24px; }
+    .overview { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3, .takeaway { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- =========================================================
+     HEADER · 钩子式问句 + meta chips
+     ========================================================= -->
+<header>
+  <span class="tag">错题订正 · 五年级 6 班</span>
+  <h1>18 道错题背后的核心知识点，<br><span class="q">一张图讲清楚？</span></h1>
+  <p class="subtitle">
+    从 <span style="color:var(--m1-deep); font-weight:700;">分数除法</span> 到
+    <span style="color:var(--m5-deep); font-weight:700;">字母与单位</span>，
+    5 大模块吃透<b>18 道</b>错题背后的核心考点。
+  </p>
+  <div class="meta">
+    <span class="chip">📚 年级 <b>5 年级 6 班</b></span>
+    <span class="chip">⏱ 阅读 <b>~3 分钟</b></span>
+    <span class="chip">🎯 错题 <b>18 道</b></span>
+    <span class="chip">📐 考点集群 <b>5 大</b></span>
+  </div>
+</header>
+
+<!-- =========================================================
+     OVERVIEW · 5 大模块导览
+     ========================================================= -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">🗺</span>
+    <h2>本图导览（5 大错题集群）</h2>
+    <span class="en">5 clusters · 18 errors</span>
+  </div>
+  <div class="overview">
+    <div class="ov a">
+      <span class="ico">①</span>
+      <div class="name">分数除法</div>
+      <div class="en">Frac ÷</div>
+    </div>
+    <div class="ov b">
+      <span class="ico">②</span>
+      <div class="name">长方体</div>
+      <div class="en">Cuboid</div>
+    </div>
+    <div class="ov c">
+      <span class="ico">③</span>
+      <div class="name">位置方向</div>
+      <div class="en">Direction</div>
+    </div>
+    <div class="ov d">
+      <span class="ico">④</span>
+      <div class="name">折扣应用</div>
+      <div class="en">Discount</div>
+    </div>
+    <div class="ov e">
+      <span class="ico">⑤</span>
+      <div class="name">字母&单位</div>
+      <div class="en">a + Unit</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 01 · 分数除法
+     ========================================================= -->
+<section class="c1">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2>分数除法 · 单位"1"判断</h2>
+    <span class="en">Fraction Division · Unit "1"</span>
+  </div>
+
+  <p>分数除法的核心 —— <span class="hl">除以一个数 = 乘它的倒数</span>，以及 <b>找准单位"1"</b>。</p>
+
+  <div class="eq">核心法则：<b>a ÷ b（b ≠ 0）= a × <span class="frac"><span class="num">1</span><span class="den">b</span></span> = a × b 的倒数</b></div>
+
+  <div class="grid-2" style="margin-top:12px">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">题1</span>
+        50L 装 1/2L 小盒，能装几盒？
+      </div>
+      <div class="eq" style="margin:0">50 ÷ <span class="frac"><span class="num">1</span><span class="den">2</span></span> = 50 × 2 = <b>100 盒</b></div>
+      <p style="font-size:13px; color:var(--ink-3); margin:6px 0 0">💡 求"一个数里有几个几分之一"</p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">题8</span>
+        8L 油倒进 3/4L 壶，能倒满几壶？
+      </div>
+      <div class="eq" style="margin:0">8 ÷ <span class="frac"><span class="num">3</span><span class="den">4</span></span> = 8 × <span class="frac"><span class="num">4</span><span class="den">3</span></span> = 10 <span class="frac"><span class="num">2</span><span class="den">3</span></span>，取整 <b>10 壶</b></div>
+      <p style="font-size:13px; color:var(--ink-3); margin:6px 0 0">💡 "倒满几壶"取整数部分</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <div class="head">
+      <span class="pill" style="background:var(--m1)">题4 ⚑</span>
+      5 克盐溶入 50 克水，盐占盐水的几分之几？
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+      ⭐ 关键：<b>单位"1"是盐水总重（5+50=55）</b>，不是水的 50 克
+    </p>
+    <div class="eq" style="margin:6px 0 0">盐占盐水 = 5 ÷ (5+50) = 5 ÷ 55 = <b><span class="frac"><span class="num">1</span><span class="den">11</span></span></b></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:10px">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">题3</span>
+        甲×<span class="frac"><span class="num">1</span><span class="den">2</span></span> = 乙×<span class="frac"><span class="num">1</span><span class="den">3</span></span>
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        交叉相乘：3×甲 = 2×乙 → <b>甲 &lt; 乙</b>
+      </p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">题14</span>
+        喝 <span class="frac"><span class="num">1</span><span class="den">5</span></span> 牛奶，加水，再喝 <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        剩纯牛奶 = (1-<span class="frac"><span class="num">1</span><span class="den">5</span></span>) × <span class="frac"><span class="num">1</span><span class="den">2</span></span> = <b><span class="frac"><span class="num">2</span><span class="den">5</span></span></b>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 02 · 长方体
+     ========================================================= -->
+<section class="c2">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2>长方体 · 表面积 / 体积 / 组合</h2>
+    <span class="en">Cuboid · S / V / Pack</span>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m2)">表面积</span>
+        S
+      </div>
+      <div class="eq" style="margin:0">S = 2(ab + ah + bh)</div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m2)">棱长总和</span>
+        L
+      </div>
+      <div class="eq" style="margin:0">L = 4(a + b + h)</div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m2)">体积</span>
+        V
+      </div>
+      <div class="eq" style="margin:0">V = a × b × h</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px; color:var(--m2-deep); margin:14px 0 6px; font-weight:700;">📐 边长扩大 n 倍，量的变化规律</h3>
+  <table>
+    <tr>
+      <th style="width:24%">边长变化</th>
+      <th style="width:24%">棱长总和</th>
+      <th style="width:26%">表面积</th>
+      <th style="width:26%">体 积</th>
+    </tr>
+    <tr>
+      <td>长宽高各 ×n</td>
+      <td>× <b>n</b>（1维）</td>
+      <td>× <b>n²</b>（2维平方）</td>
+      <td>× <b>n³</b>（3维立方）</td>
+    </tr>
+  </table>
+
+  <div class="grid-2" style="margin-top:12px">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m2)">题9 ⚑</span>
+        切最大正方体 + 表面积减少
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        减少的面积 = 4 个正方形面（最大正方体的侧面）<br>
+        宽 = 高 = 减少面积开方 → <b>36÷4=9, 3×3, 棱长 3 dm</b><br>
+        剩余体积 = 8 × 3 × 3 = <b>72 dm³</b>
+      </p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m2)">题7 ⚑</span>
+        4 个盒子组合最省纸
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        三个面：10×8=80，10×5=50，8×5=40<br>
+        <b>最大面重合</b> 减少最多 = 最省纸<br>
+        (80+50)×4 = <b>520 cm²</b>（最大）
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 03 · 位置方向
+     ========================================================= -->
+<section class="c3">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2>位置方向 · 相对性 + 互换</h2>
+    <span class="en">Position · Relative</span>
+  </div>
+
+  <p>描述"在 A 的 XX 方向 XX 距离"和"在 B 的 YY 方向 YY 距离"是 <span class="hl">相对的</span>，反向时：<b>南北互换 + 东西互换 + 距离不变</b>。</p>
+
+  <div class="eq" style="background:var(--m3-soft); border-left-color:var(--m3); font-size:14.5px">
+    方向互换：<b>南 → 北，东 → 西</b>；距离 <b>不变</b>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <div class="head">
+      <span class="pill" style="background:var(--m3)">题6 ⚑</span>
+      图书馆在剧院的南偏东 60° 方向 500m，剧院在图书馆的？
+    </div>
+    <div class="grid-2" style="margin-top:6px">
+      <div class="eq" style="margin:0; background:var(--m3-soft); border-left-color:var(--m3)">从剧院看图书馆：<b>南偏东 60°</b> 500m</div>
+      <div class="eq" style="margin:0; background:var(--m3-soft); border-left-color:var(--m3)">从图书馆看剧院：<b>北偏西 60°</b> 500m = <b>西偏北 30°</b> 500m</div>
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); margin:8px 0 0">
+      💡 <b>南偏东 60° = 东偏南 30°</b>（绕一圈 90°，90-60=30）—— 两个方向等价，<b>选标准方向 (N/S/E/W) 写</b>
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 04 · 折扣应用
+     ========================================================= -->
+<section class="c4">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2>折扣应用 · 百分数乘法</h2>
+    <span class="en">Discount · Percentage</span>
+  </div>
+
+  <p>打几折 = <b>原价的十分之几</b> = <b>百分之几十</b>。核心公式：<span class="hl">现价 = 原价 × 折扣</span>。</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m4)">①</span>
+        求现价
+      </div>
+      <div class="eq" style="margin:0">现价 = 原价 × 折扣</div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m4)">②</span>
+        求原价
+      </div>
+      <div class="eq" style="margin:0">原价 = 现价 ÷ 折扣</div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m4)">③</span>
+        求折扣
+      </div>
+      <div class="eq" style="margin:0">折扣 = 现价 ÷ 原价</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:12px">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m4)">题10 ⚑</span>
+        球拍打 7.5 折后 x 元，原价？
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        x = 原价 × 75% → <b>原价 = x ÷ 75%</b> = <b><span class="frac"><span class="num">4</span><span class="den">3</span></span> x</b> 元
+      </p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m4)">题16</span>
+        衣服原价 a 元打 8 折，180 元 → a？
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        现价 = 0.8a = 180 → <b>a = 180 ÷ 0.8 = 225</b> 元
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 05 · 字母与单位
+     ========================================================= -->
+<section class="c5">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2>字母表示数 & 体积单位换算</h2>
+    <span class="en">Algebra · Volume Units</span>
+  </div>
+
+  <h3 style="font-size:15px; color:var(--m5-deep); margin:0 0 6px; font-weight:700;">📐 字母表示数：体积变化（题15、17）</h3>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m5)">题15 ⚑</span>
+        高增加 6m，体积增加？
+      </div>
+      <div class="eq" style="margin:0">新体积 − 原体积<br>= ab(c+6) − abc<br>= <b>6ab</b> m³</div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:6px 0 0">💡 增加部分 = ab × 6</p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m5)">题17</span>
+        高增加 3m，体积增加？
+      </div>
+      <div class="eq" style="margin:0">增加部分 = ab × 3<br>= <b>3ab</b> m³</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px; color:var(--m5-deep); margin:14px 0 6px; font-weight:700;">📏 体积 / 容积单位（题11、12、18）</h3>
+
+  <table>
+    <tr>
+      <th style="width:18%">单位</th>
+      <th style="width:42%">换算关系</th>
+      <th style="width:40%">使用场景</th>
+    </tr>
+    <tr>
+      <td><b>cm³</b></td>
+      <td>1 cm³ = 1 mL</td>
+      <td>粉笔盒、橡皮等小物件</td>
+    </tr>
+    <tr>
+      <td><b>dm³</b></td>
+      <td>1 dm³ = 1 L = 1000 cm³</td>
+      <td>中等容器、油箱</td>
+    </tr>
+    <tr>
+      <td><b>m³</b></td>
+      <td>1 m³ = 1000 dm³ = 1000 L</td>
+      <td>房间、水池等大空间</td>
+    </tr>
+  </table>
+
+  <div class="card" style="margin-top:10px">
+    <div class="head">
+      <span class="pill" style="background:var(--m5)">题12 ⚑</span>
+      4.7 L = ? dm³ = ? cm³ = ? m³
+    </div>
+    <div class="eq" style="margin:6px 0 0">4.7 L = <b>4.7</b> dm³ = <b>4700</b> cm³ = <b>0.0047</b> m³</div>
+    <p style="font-size:13.5px; color:var(--ink-2); margin:6px 0 0">
+      💡 <b>1 L = 1 dm³</b>（关键恒等式）<b>1 dm³ = 1000 cm³</b>，<b>1 m³ = 1000 dm³</b>
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 06 · 错题模式（红 ✗）
+     ========================================================= -->
+<section class="c6">
+  <div class="sec-head">
+    <span class="sec-num">⚠</span>
+    <h2>5 大典型错题模式</h2>
+    <span class="en">Top 5 Error Patterns</span>
+  </div>
+
+  <div class="pitfall">
+    <div class="x">✗</div>
+    <div class="body">
+      <div class="wrong">长方体边长 ×3，体积扩大 9 倍（混了表面积规律）</div>
+      <div class="right">表面积 ×n² (题2)，体积 ×n³ (题15/17)，别搞混</div>
+    </div>
+  </div>
+
+  <div class="pitfall">
+    <div class="x">✗</div>
+    <div class="body">
+      <div class="wrong">盐占盐水 = 5÷50 = 1/10（用水的重量当单位"1"）</div>
+      <div class="right">单位"1"是<b>盐水总重 55 克</b>，不是水的 50 克 → 5÷55 = 1/11</div>
+    </div>
+  </div>
+
+  <div class="pitfall">
+    <div class="x">✗</div>
+    <div class="body">
+      <div class="wrong">南偏东 60° 的反向 = 东偏南 30°（只换了方向字）</div>
+      <div class="right">南→北、东→西，<b>都换</b>；距离不变 → 北偏西 60° = 西偏北 30°</div>
+    </div>
+  </div>
+
+  <div class="pitfall">
+    <div class="x">✗</div>
+    <div class="body">
+      <div class="wrong">7.5 折后 x 元，原价 = x × 0.75（乘反了）</div>
+      <div class="right">原价 = 现价 ÷ 折扣 = x ÷ 0.75 = 4x/3 元（除不是乘）</div>
+    </div>
+  </div>
+
+  <div class="pitfall">
+    <div class="x">✗</div>
+    <div class="body">
+      <div class="wrong">4.7 L = 4700 dm³（每级 ×1000 错）</div>
+      <div class="right">4.7 L = 4.7 dm³（1L=1dm³）= 4700 cm³ = 0.0047 m³</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER · TL;DR + 一句话总结
+     ========================================================= -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">📌</span>
+    <h2>这一页先记住</h2>
+    <span class="en">TL;DR</span>
+  </div>
+
+  <div class="takeaway">
+    <div class="tk">
+      <span class="label">① 分数</span>
+      <div class="body">
+        <b>单位"1"</b> 永远先找准（盐占盐水 → 5÷55，不是 5÷50）；除以分数 = 乘倒数。
+      </div>
+    </div>
+    <div class="tk">
+      <span class="label">② 长方体</span>
+      <div class="body">
+        边长 ×n → 棱长 ×n、表面积 <b>×n²</b>、体积 <b>×n³</b>；组合最省 = <b>最大面重合</b>。
+      </div>
+    </div>
+    <div class="tk">
+      <span class="label">③ 方向单位</span>
+      <div class="body">
+        方向反向：<b>南北东西都换</b>，距离不变；<b>1 L = 1 dm³</b> 是换算关键。
+      </div>
+    </div>
+  </div>
+
+  <div class="oneliner">
+    <b>一句话总结：</b>错题 5 大模式 —— <b>单位"1"找错 / 平方立方搞混 / 方向只换一半 / 折扣乘反 / 单位进率错</b>。
+  </div>
+
+  <div class="credit" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--ink-3); text-align: center; line-height: 1.6;">
+    <b style="color: var(--ink); font-weight: 700;">由 DONG XINGBO 创建整理</b> · 非授权禁止转载<br>
+    <span style="font-size: 10.5px; color: var(--ink-3);">© 2026 DONG XINGBO · All rights reserved</span>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

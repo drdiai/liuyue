@@ -73,6 +73,33 @@
     .day-items { padding: 0; margin: 0; list-style: none; }
     .day-items li + li { margin-top: 8px; }
 
+    /* 按"年级+学期"分组 */
+    .section { margin-top: 28px; }
+    .section:first-of-type { margin-top: 18px; }
+    .section h3 {
+      margin: 0 4px 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .section h3 .en {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #afb8c1;
+      letter-spacing: 0.04em;
+    }
+    .section h3 .count {
+      margin-left: auto;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #afb8c1;
+      letter-spacing: 0.04em;
+    }
+
     /* 卡片链接 */
     ul { padding: 0; margin: 0; list-style: none; }
     a {
@@ -162,11 +189,50 @@
   <div class="col">
     <h2>小学数学<span class="en">Elementary School Math · onepage 集合</span></h2>
 
-    <div class="day-group">
-      <div class="day-header today">2026-07-01<span class="rel">今天</span></div>
-      <ul class="day-items">
-        <li><a href="onepage-welcome/">liuyue 部署测试页 (验证 Pages 启用) <span class="new">NEW</span></a></li>
-      </ul>
+    <div class="section">
+      <h3>5 年级下册 · 单元复习<span class="en">G5 SPRING · UNIT REVIEW</span><span class="count">8 份</span></h3>
+      <div class="day-group">
+        <ul class="day-items">
+          <li><a href="onepage-fractions/">U1 · 分数加减法的所有考点</a></li>
+          <li><a href="onepage-longfangti-1/">U2 · 长方体(一) 的所有考点</a></li>
+          <li><a href="onepage-fraction-multiplication/">U3 · 分数乘法的所有考点</a></li>
+          <li><a href="onepage-changfangti-2/">U4 · 长方体(二) 的所有考点</a></li>
+          <li><a href="onepage-fraction-division/">U5 · 分数除法的所有考点</a></li>
+          <li><a href="onepage-position-u6/">U6 · 确定位置</a></li>
+          <li><a href="onepage-equation-u7/">U7 · 用方程解决问题</a></li>
+          <li><a href="onepage-statistical-charts/">U8 · 统计图三剑客</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>5 年级下册 · 期末复习<span class="en">G5 SPRING · FINAL REVIEW</span><span class="count">3 份</span></h3>
+      <div class="day-group">
+        <ul class="day-items">
+          <li><a href="onepage-longgao-final-exam/">龙高期末·核心知识点 (33 题)</a></li>
+          <li><a href="onepage-final-exam-g5-2026spring/">龙岗区期末考 5 年级 · 5 大模块全复盘</a></li>
+          <li><a href="onepage-final-keypoints-glass-g5-2026spring/">5 年级数学期末通关一页纸 (玻璃拟态 · 龙岗期末真题 · 4 模块)</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>5 年级 · 错题周周清<span class="en">G5 · WEEKLY ERROR TEST</span><span class="count">2 份</span></h3>
+      <div class="day-group">
+        <ul class="day-items">
+          <li><a href="onepage-grade5-class5-error-test/">5 班错题周周清 (36 题)</a></li>
+          <li><a href="onepage-grade5-error-test/">6 班错题周周清 (18 题)</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>其他<span class="en">MISC</span><span class="count">1 份</span></h3>
+      <div class="day-group">
+        <ul class="day-items">
+          <li><a href="onepage-welcome/">liuyue 部署测试页 (验证 Pages 启用) <span class="new">NEW</span></a></li>
+        </ul>
+      </div>
     </div>
   </div>
 

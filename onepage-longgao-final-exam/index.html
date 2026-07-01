@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>龙高期末·核心知识点 · 一页讲清楚</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --ink: #1f2937;
+    --ink-2: #4b5563;
+    --ink-3: #9ca3af;
+    --line: #e5e7eb;
+    --line-2: #f3f4f6;
+
+    /* 5 大模块配色 (期末·深靛蓝主色) */
+    --m1:    #1d4ed8;             /* 01 分数运算  : 钴蓝 (主色, 计算) */
+    --m1-soft: #eff6ff;
+    --m1-deep: #1e3a8a;
+
+    --m2:    #059669;             /* 02 倒数       : 翠绿 (小巧概念) */
+    --m2-soft: #ecfdf5;
+    --m2-deep: #064e3b;
+
+    --m3:    #7c3aed;             /* 03 长方体     : 紫罗兰 (几何) */
+    --m3-soft: #f5f3ff;
+    --m3-deep: #4c1d95;
+
+    --m4:    #d97706;             /* 04 位置方向   : 琥珀 (指南针) */
+    --m4-soft: #fffbeb;
+    --m4-deep: #78350f;
+
+    --m5:    #e11d48;             /* 05 方程&应用  : 玫红 (代数) */
+    --m5-soft: #fff1f2;
+    --m5-deep: #881337;
+
+    --red: #dc2626;
+    --red-soft: #fef2f2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue",
+                 "Microsoft YaHei", "Hiragino Sans GB", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--card);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 36px 44px 28px;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 600px 200px at top right, var(--m1-soft) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 200px at bottom left, var(--m3-soft) 0%, transparent 70%);
+  }
+  header .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--m1-deep);
+    background: var(--m1-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    border: 1px solid #bfdbfe;
+  }
+  header h1 {
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  header h1 .q { color: var(--m1-deep); }
+  header .subtitle {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+  }
+  header .meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  header .chip {
+    font-size: 12px;
+    color: var(--ink-2);
+    background: white;
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  header .chip b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Section base ---------- */
+  section { padding: 26px 44px; border-bottom: 1px solid var(--line-2); }
+  section:last-of-type { border-bottom: none; }
+
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .sec-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+  .sec-head h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .sec-head .en {
+    font-size: 11.5px;
+    color: var(--ink-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-left: auto;
+  }
+
+  .c1 .sec-num { background: var(--m1); }
+  .c2 .sec-num { background: var(--m2); }
+  .c3 .sec-num { background: var(--m3); }
+  .c4 .sec-num { background: var(--m4); }
+  .c5 .sec-num { background: var(--m5); }
+  .c6 .sec-num { background: var(--red); }
+
+  p { color: var(--ink-2); margin-bottom: 8px; }
+  p strong { color: var(--ink); font-weight: 700; }
+  p .hl { background: linear-gradient(transparent 60%, #fef08a 60%); padding: 0 2px; }
+
+  /* ---------- Overview ---------- */
+  .overview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .ov {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 8px;
+    text-align: center;
+    background: white;
+  }
+  .ov .ico { font-size: 26px; margin-bottom: 6px; display: block; line-height: 1.2; }
+  .ov .name { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .ov .en { font-size: 10px; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase; }
+  .ov.a { background: var(--m1-soft); border-color: #bfdbfe; }
+  .ov.b { background: var(--m2-soft); border-color: #a7f3d0; }
+  .ov.c { background: var(--m3-soft); border-color: #ddd6fe; }
+  .ov.d { background: var(--m4-soft); border-color: #fde68a; }
+  .ov.e { background: var(--m5-soft); border-color: #fecdd3; }
+
+  /* ---------- Card grids ---------- */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 8px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; margin-top: 8px; }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px;
+    background: white;
+  }
+  .card .head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .card .pill {
+    display: inline-block;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+  }
+  .card ul { list-style: none; padding: 0; margin: 0; }
+  .card li {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    padding: 3px 0 3px 14px;
+    position: relative;
+  }
+  .card li::before {
+    content: "·";
+    position: absolute;
+    left: 4px;
+    color: var(--ink-3);
+    font-weight: 700;
+  }
+  .card li b { color: var(--ink); font-weight: 700; }
+
+  /* 公式区 */
+  .eq {
+    background: var(--m1-soft);
+    border-left: 4px solid var(--m1);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 10px 0 6px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13.5px;
+    color: var(--ink);
+    overflow-x: auto;
+  }
+  .c2 .eq { background: var(--m2-soft); border-left-color: var(--m2); }
+  .c3 .eq { background: var(--m3-soft); border-left-color: var(--m3); }
+  .c4 .eq { background: var(--m4-soft); border-left-color: var(--m4); }
+  .c5 .eq { background: var(--m5-soft); border-left-color: var(--m5); }
+  .c6 .eq { background: var(--red-soft); border-left-color: var(--red); }
+
+  /* 表格 */
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13.5px; }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+  }
+  th { background: var(--m1-soft); color: var(--m1-deep); font-weight: 700; }
+  .c2 th { background: var(--m2-soft); color: var(--m2-deep); }
+  .c3 th { background: var(--m3-soft); color: var(--m3-deep); }
+  .c4 th { background: var(--m4-soft); color: var(--m4-deep); }
+  .c5 th { background: var(--m5-soft); color: var(--m5-deep); }
+  td { color: var(--ink-2); }
+  td b { color: var(--ink); }
+
+  /* 分数样式 (横线) */
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    font-size: 13px;
+    line-height: 1.1;
+    margin: 0 1px;
+  }
+  .frac .num { border-bottom: 1.5px solid currentColor; padding: 0 3px 1px; }
+  .frac .den { padding: 1px 3px 0; }
+
+  /* SVG 流程图 / 可视化 */
+  .viz {
+    margin: 12px 0 4px;
+    background: var(--m1-soft);
+    border-radius: 10px;
+    padding: 14px 12px 8px;
+  }
+  .viz svg { width: 100%; height: auto; display: block; }
+
+  /* 误区 */
+  .pitfall { display: flex; gap: 10px; margin-top: 10px; align-items: flex-start; }
+  .pitfall .x {
+    flex: 0 0 28px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--red);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+  }
+  .pitfall .body { flex: 1; }
+  .pitfall .wrong {
+    color: #991b1b;
+    text-decoration: line-through;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 1.5px;
+    font-size: 13.5px;
+    margin-bottom: 2px;
+  }
+  .pitfall .right {
+    color: var(--m5-deep);
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+  .pitfall .right::before {
+    content: "👉 ";
+    color: var(--m5);
+  }
+
+  /* 总结 */
+  .takeaway {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .tk {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 12px;
+    background: white;
+  }
+  .tk .label {
+    display: inline-block;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--m1-deep);
+    background: var(--m1-soft);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .tk .body { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+  .tk .body b { color: var(--ink); font-weight: 700; }
+
+  .oneliner {
+    margin-top: 18px;
+    background: linear-gradient(135deg, var(--m1-deep), #0c1d63);
+    color: #dbeafe;
+    border-radius: 12px;
+    padding: 18px 22px;
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .oneliner b { color: #93c5fd; font-weight: 800; }
+
+  /* mobile */
+  @media (max-width: 640px) {
+    .page { max-width: 100%; }
+    header, section { padding-left: 24px; padding-right: 24px; }
+    .overview { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3, .grid-4, .takeaway { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- =========================================================
+     HEADER · 钩子式问句 + meta chips
+     ========================================================= -->
+<header>
+  <span class="tag">龙高集团·宝龙外国语 · 24-25 期末</span>
+  <h1>33 道题背后的核心知识点，<br><span class="q">一张图讲清楚？</span></h1>
+  <p class="subtitle">
+    从 <span style="color:var(--m1-deep); font-weight:700;">分数运算</span> 到
+    <span style="color:var(--m5-deep); font-weight:700;">方程应用</span>，
+    5 大模块吃透<b>33 题</b>期末质量监测的所有考点。
+  </p>
+  <div class="meta">
+    <span class="chip">📚 学科 <b>小学数学 5 年级</b></span>
+    <span class="chip">⏱ 阅读 <b>~3 分钟</b></span>
+    <span class="chip">🎯 考题 <b>33 道</b></span>
+    <span class="chip">📐 考点集群 <b>5 大</b></span>
+  </div>
+</header>
+
+<!-- =========================================================
+     OVERVIEW · 5 大模块导览
+     ========================================================= -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">🗺</span>
+    <h2>本图导览（5 大考点集群）</h2>
+    <span class="en">5 clusters · 33 questions</span>
+  </div>
+  <div class="overview">
+    <div class="ov a">
+      <span class="ico">①</span>
+      <div class="name">分数运算</div>
+      <div class="en">Frac Ops</div>
+    </div>
+    <div class="ov b">
+      <span class="ico">②</span>
+      <div class="name">倒数</div>
+      <div class="en">Reciprocal</div>
+    </div>
+    <div class="ov c">
+      <span class="ico">③</span>
+      <div class="name">长方体</div>
+      <div class="en">Cuboid</div>
+    </div>
+    <div class="ov d">
+      <span class="ico">④</span>
+      <div class="name">位置方向</div>
+      <div class="en">Direction</div>
+    </div>
+    <div class="ov e">
+      <span class="ico">⑤</span>
+      <div class="name">方程&应用</div>
+      <div class="en">Equation</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 01 · 分数运算
+     ========================================================= -->
+<section class="c1">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2>分数运算 · 加减乘除综合</h2>
+    <span class="en">Fraction Operations</span>
+  </div>
+
+  <p>分数运算是 <span class="hl">整张卷子的核心</span>，覆盖加减乘除 + 估算 + 连续应用。</p>
+
+  <h3 style="font-size:15px; color:var(--m1-deep); margin:8px 0 6px; font-weight:700;">➕ 异分母分数加减：通分是关键</h3>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">题1</span>
+        1/3 + 1/6 = ?
+      </div>
+      <div class="eq" style="margin:0"><span class="frac"><span class="num">1</span><span class="den">3</span></span> + <span class="frac"><span class="num">1</span><span class="den">6</span></span> = <span class="frac"><span class="num">2</span><span class="den">6</span></span> + <span class="frac"><span class="num">1</span><span class="den">6</span></span> = <b><span class="frac"><span class="num">1</span><span class="den">2</span></span></b></div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">题29</span>
+        1/2 + 1/3 = ? 还剩?
+      </div>
+      <div class="eq" style="margin:0">共用: <span class="frac"><span class="num">1</span><span class="den">2</span></span> + <span class="frac"><span class="num">1</span><span class="den">3</span></span> = <b><span class="frac"><span class="num">5</span><span class="den">6</span></span></b><br>还剩: 1 − <span class="frac"><span class="num">5</span><span class="den">6</span></span> = <b><span class="frac"><span class="num">1</span><span class="den">6</span></span></b></div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px; color:var(--m1-deep); margin:14px 0 6px; font-weight:700;">✖️ 分数乘除：单位"1" 找准 + 倒数</h3>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">题17</span>
+        5/6 时的 1/2 = ? 时
+      </div>
+      <div class="eq" style="margin:0"><span class="frac"><span class="num">5</span><span class="den">6</span></span> × <span class="frac"><span class="num">1</span><span class="den">2</span></span> = <b><span class="frac"><span class="num">5</span><span class="den">12</span></span></b> 时 = <b>25 分</b></div>
+      <p style="font-size:13px; color:var(--ink-3); margin:6px 0 0">💡 1 时 = 60 分，5/12 × 60 = 25</p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">题6</span>
+        1 米对折 3 次每段长?
+      </div>
+      <div class="eq" style="margin:0">1 ÷ 2³ = 1 ÷ 8 = <b><span class="frac"><span class="num">1</span><span class="den">8</span></span></b> 米</div>
+      <p style="font-size:13px; color:var(--ink-3); margin:6px 0 0">💡 对折 n 次 = 2ⁿ 段</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px; color:var(--m1-deep); margin:14px 0 6px; font-weight:700;">🔍 估算：不必精算，看关系</h3>
+
+  <div class="card">
+    <div class="head">
+      <span class="pill" style="background:var(--m1)">题3</span>
+      哪个结果小于 1？
+    </div>
+    <table style="margin-top:0">
+      <tr>
+        <th style="width:14%">选项</th>
+        <th style="width:38%">估算</th>
+        <th style="width:48%">结论</th>
+      </tr>
+      <tr><td>A. 1/4 + 4/5</td><td>&lt;1 + &gt;1，可能 &gt;1</td><td>= 1.05，&gt; 1</td></tr>
+      <tr><td><b>B. 9/7 − 1/3</b></td><td>&gt;1 − &lt;1，可能 &lt;1</td><td>= 20/21，<b>&lt; 1 ✓</b></td></tr>
+      <tr><td>C. 5/6 × 7/5</td><td>&lt;1 × &gt;1，结果不一定</td><td>= 7/6，&gt; 1</td></tr>
+      <tr><td>D. 7/8 ÷ 5/6</td><td>&lt;1 ÷ &lt;1，结果 &gt;1</td><td>= 42/40，&gt; 1</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <div class="head">
+      <span class="pill" style="background:var(--m1)">题21 ⚑</span>
+      120kg 水果，第 1 天卖 1/4，第 2 天卖剩下的 1/3
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+      ⭐ <b>第 2 天的单位"1"是剩下的 3/4，不是 120kg</b>
+    </p>
+    <div class="eq" style="margin:6px 0 0">剩 = 1 − 1/4 − (3/4)×(1/3) = 1 − 1/4 − 1/4 = <b>1/2</b> → <b>60 kg</b></div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 02 · 倒数
+     ========================================================= -->
+<section class="c2">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2>倒数 · 定义 + 性质 + 求法</h2>
+    <span class="en">Reciprocal</span>
+  </div>
+
+  <p><b>两个数乘积是 1</b>，互为倒数。<span class="hl">倒数是对两个数说的</span>，不能孤立存在。</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m2)">题4</span>
+        哪组互为倒数？
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        A. 2 × 0.25 = 0.5 ❌<br>
+        <b>B. 4 × 0.25 = 1 ✓</b><br>
+        C. 8 × 0.25 = 2 ❌<br>
+        D. 2 × 0.75 = 1.5 ❌
+      </p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m2)">题8</span>
+        倒数 &lt; 1，原数？
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        倒数 &lt; 1 → 原数 <b>&gt; 1</b>（真分数的倒数是假分数）
+      </p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m2)">题19</span>
+        倒数之和 = 5/6
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        5/6 = <b>1/2 + 1/3</b> → <b>2 和 3</b>
+      </p>
+    </div>
+  </div>
+
+  <div class="eq" style="margin-top:10px"><b>关键性质：</b>1 的倒数 = 1；0 没倒数；分数调换分子分母；整数看作分母为 1 的分数</div>
+</section>
+
+<!-- =========================================================
+     MODULE 03 · 长方体 & 正方体
+     ========================================================= -->
+<section class="c3">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2>长方体 & 正方体 · 公式 + 变形</h2>
+    <span class="en">Cuboid · Cube</span>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">表面积</span>
+        S
+      </div>
+      <div class="eq" style="margin:0">S = 2(ab + ah + bh)</div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">体积</span>
+        V
+      </div>
+      <div class="eq" style="margin:0">V = a × b × h</div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">容积</span>
+        内部尺寸
+      </div>
+      <div class="eq" style="margin:0">长 = 外长 − 2×壁厚</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px; color:var(--m3-deep); margin:14px 0 6px; font-weight:700;">📐 边长 ×n，表面积 ×n²，体积 ×n³（题9）</h3>
+  <table>
+    <tr>
+      <th style="width:24%">边长变化</th>
+      <th style="width:24%">棱长总和</th>
+      <th style="width:26%">表面积</th>
+      <th style="width:26%">体 积</th>
+    </tr>
+    <tr>
+      <td>棱长 ×n</td>
+      <td>× <b>n</b>（1维）</td>
+      <td>× <b>n²</b>（2维平方）</td>
+      <td>× <b>n³</b>（3维立方）</td>
+    </tr>
+  </table>
+
+  <h3 style="font-size:15px; color:var(--m3-deep); margin:14px 0 6px; font-weight:700;">🔧 拼接 / 切割 / 排水 综合应用</h3>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">题5 ⚑</span>
+        医药箱容积（壁厚 1cm）
+      </div>
+      <div class="eq" style="margin:0">内长=45−2=43<br>内宽=24−2=22<br>内高=32−2=30<br>V=43×22×30=28380 cm³<br>= <b>28.38 L</b></div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">题25 ⚑</span>
+        鱼缸放铁块，水面上升？
+      </div>
+      <div class="eq" style="margin:0">铁块 V = 2³ = 8 dm³<br>底面积 = 8 × 5 = 40 dm²<br>上升 = 8 ÷ 40 = <b>0.2 dm</b></div>
+      <p style="font-size:13px; color:var(--ink-3); margin:6px 0 0">💡 排水法：V上升 = V物体 ÷ S底</p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">题18</span>
+        2 个正方体拼长方体
+      </div>
+      <div class="eq" style="margin:0">长 2cm 宽 1cm 高 1cm<br>S = 2×(2+2+1) = <b>10</b> cm²<br>V = <b>2</b> cm³</div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">题22</span>
+        正方体 S=96，求 V
+      </div>
+      <div class="eq" style="margin:0">单面 = 96 ÷ 6 = 16<br>棱长 = 4<br>V = 4³ = <b>64</b> cm³</div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">题33</span>
+        切成 2 个长方体，S+60
+      </div>
+      <div class="eq" style="margin:0">2 × 底面 = 60<br>底面 = 30 cm²<br>V = 30 × 32 = <b>960</b> cm³</div>
+      <p style="font-size:13px; color:var(--ink-3); margin:6px 0 0">💡 切 1 刀 = 增加 2 个切面</p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">题14</span>
+        4 盒糕点最省纸
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        三个面：10×7=70，10×3=30，7×3=21<br>
+        <b>最大面 10×7 重合 → 减少最多 → 最省</b>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 04 · 位置与方向
+     ========================================================= -->
+<section class="c4">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2>位置与方向 · 相对性 + 三角综合</h2>
+    <span class="en">Position · Direction</span>
+  </div>
+
+  <p><span class="hl">方向反向</span>：南→北、东→西 <b>都换</b>，距离不变。带三角形的方向题要把 <b>三角形+指南针</b> 结合看。</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m4)">题10</span>
+        直角三角形 ABC（A=60°，直角在 B）
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        A=60°，B=90°，所以 <b>C=30°</b><br>
+        站在 A 看 C：从 A 经 B 看向 C，<br>
+        三角形底边朝东，C 在 A 的 <b>东偏南 60° 方向 5 km</b>
+      </p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m4)">题20</span>
+        广播站在养鱼塘的？
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        养鱼塘看广播站：<b>北偏东 45° 方向 300 米</b><br>
+        广播站看养鱼塘：<b>南偏西 45° 方向 300 米</b>
+      </p>
+    </div>
+  </div>
+
+  <div class="eq" style="margin-top:10px; background:var(--m4-soft); border-left-color:var(--m4); font-size:14px">
+    💡 <b>北偏东 N° = 东偏北 (90−N)°</b>（旋转到另一基准，度数互余）
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 05 · 方程 & 应用
+     ========================================================= -->
+<section class="c5">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2>方程 & 平均数 & 综合应用</h2>
+    <span class="en">Equation & Application</span>
+  </div>
+
+  <h3 style="font-size:15px; color:var(--m5-deep); margin:0 0 6px; font-weight:700;">📐 列方程解应用题</h3>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m5)">题13</span>
+        甲 = 1.6 乙，甲倒 1.5kg = 乙
+      </div>
+      <div class="eq" style="margin:0">设乙 = x kg<br>1.6x − 1.5 = x<br>1.6x − x = 1.5<br><b>0.6x = 1.5</b> → x = 2.5</div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m5)">题31</span>
+        小明 = 3×小亮，多 24 本
+      </div>
+      <div class="eq" style="margin:0">设小亮 = x 本<br>3x − x = 24<br>2x = 24 → x = 12<br>小亮 12，小明 <b>36</b></div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px; color:var(--m5-deep); margin:14px 0 6px; font-weight:700;">📊 平均数 + 折扣 + 相遇</h3>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m5)">题23</span>
+        语英均 92，加数学后三科均 90
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        语英总 = 92×2 = 184<br>
+        三科总 = 90×3 = 270<br>
+        数学 = 270−184 = <b>86</b>
+      </p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m5)">题7</span>
+        300 元打 8 折，便宜？
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        现价 = 300×0.8 = 240<br>
+        便宜 = 300−240 = <b>60</b>
+      </p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m5)">题32</span>
+        100 米跑道，6+4 m/s 相向
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+        速度和 = 10 m/s<br>
+        时间 = 100 ÷ 10 = <b>10 秒</b>
+      </p>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px; color:var(--m5-deep); margin:14px 0 6px; font-weight:700;">📈 复式条形统计图（题28）</h3>
+
+  <div class="card">
+    <div class="head">
+      <span class="pill" style="background:var(--m5)">题28</span>
+      2020-2024 学生营养情况评价
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+      营养不良 + 肥胖人数：40+38=78, 45+50=95, 35+68=103, 14+40=54, 10+35=45<br>
+      (1) 画<b>复式条形图</b>（双柱并列，用不同颜色 + 图例）<br>
+      (2) 至少 2 条信息，如：肥胖人数<b>先升后降</b>（2020-2022 升，2022-2024 降）；营养不良人数<b>整体下降</b>
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 06 · 5 大典型错题模式
+     ========================================================= -->
+<section class="c6">
+  <div class="sec-head">
+    <span class="sec-num">⚠</span>
+    <h2>5 大典型失分点</h2>
+    <span class="en">Top 5 Trap Points</span>
+  </div>
+
+  <div class="pitfall">
+    <div class="x">✗</div>
+    <div class="body">
+      <div class="wrong">异分母分数加减忘了通分（如 1/2 + 1/3 = 2/5）</div>
+      <div class="right">先通分（找最小公倍数），再分子加减。1/2 + 1/3 = 3/6 + 2/6 = 5/6</div>
+    </div>
+  </div>
+
+  <div class="pitfall">
+    <div class="x">✗</div>
+    <div class="body">
+      <div class="wrong">连续应用题第 2 天单位"1"还是 120kg（题21）</div>
+      <div class="right">第 2 天的"剩下"才是单位"1"，不是总量。1/4 + (3/4)×(1/3) = 1/4 + 1/4 = 1/2</div>
+    </div>
+  </div>
+
+  <div class="pitfall">
+    <div class="x">✗</div>
+    <div class="body">
+      <div class="wrong">医药箱容积用外尺寸，没扣壁厚（题5）</div>
+      <div class="right">内尺寸 = 外尺寸 − 2×壁厚。43×22×30 = 28380 cm³ = 28.38 L</div>
+    </div>
+  </div>
+
+  <div class="pitfall">
+    <div class="x">✗</div>
+    <div class="body">
+      <div class="wrong">长方体切割/拼接时表面积计算漏算接触面（题14/18/24/33）</div>
+      <div class="right">切 1 刀增 2 个面 / 拼接 1 对减 2 个面。最省 = 最大面重合</div>
+    </div>
+  </div>
+
+  <div class="pitfall">
+    <div class="x">✗</div>
+    <div class="body">
+      <div class="wrong">列方程单位"1"设错 → 解出来不合题意（题13/31）</div>
+      <div class="right">找单位"1"，设单位"1" 为 x，其他量用 x 表示，列等量关系</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER · TL;DR + 一句话总结
+     ========================================================= -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">📌</span>
+    <h2>这一页先记住</h2>
+    <span class="en">TL;DR</span>
+  </div>
+
+  <div class="takeaway">
+    <div class="tk">
+      <span class="label">① 分数</span>
+      <div class="body">
+        异分母加减先<b>通分</b>，单位"1"变化要<b>重新设</b>，估算比精算快。
+      </div>
+    </div>
+    <div class="tk">
+      <span class="label">② 立体</span>
+      <div class="body">
+        边×n → S×<b>n²</b>，V×<b>n³</b>；容积扣壁厚；切 1 刀 = 增 2 面；排水法上升 = V物/S底。
+      </div>
+    </div>
+    <div class="tk">
+      <span class="label">③ 应用</span>
+      <div class="body">
+        方向反向：南→北、东→西；方程先<b>找单位"1"</b>，再设 x。
+      </div>
+    </div>
+  </div>
+
+  <div class="oneliner">
+    <b>一句话总结：</b>33 题 5 模块 —— <b>分数看单位"1" / 立体记 S×n²,V×n³ / 方向互换都换 / 方程先定单位"1"</b>。
+  </div>
+
+  <div class="credit" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--ink-3); text-align: center; line-height: 1.6;">
+    <b style="color: var(--ink); font-weight: 700;">由 DONG XINGBO 创建整理</b> · 非授权禁止转载<br>
+    <span style="font-size: 10.5px; color: var(--ink-3);">© 2026 DONG XINGBO · All rights reserved</span>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

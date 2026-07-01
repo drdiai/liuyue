@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>确定位置 · 第六单元 · 北师大版五年级下册 · 一页纸</title>
+<style>
+:root {
+  --m1-deep: #166534;
+  --m1-soft: #dcfce7;
+  --m2-deep: #0d9488;
+  --m2-soft: #ccfbf1;
+  --m3-deep: #b45309;
+  --m3-soft: #fed7aa;
+  --m4-deep: #7c2d12;
+  --m4-soft: #ffedd5;
+  --ink: #111827;
+  --ink-2: #374151;
+  --ink-3: #6b7280;
+  --line: #f3f4f6;
+  --bg: #ffffff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #f5f5f4; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  color: var(--ink);
+  line-height: 1.6;
+  padding: 24px 12px;
+}
+.poster {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--bg);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 22px rgba(0,0,0,0.08);
+}
+section { padding: 26px 36px; border-bottom: 1px solid var(--line); }
+section:last-child { border-bottom: none; }
+
+/* ===== Header ===== */
+header {
+  position: relative;
+  background: linear-gradient(135deg, #166534 0%, #0d9488 100%);
+  color: #fff;
+  padding: 34px 38px 28px;
+}
+header .eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.18);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+header h1 {
+  font-size: 27px;
+  line-height: 1.42;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: -0.005em;
+}
+header h1 .q { color: #fde047; }
+header .subtitle {
+  font-size: 14.5px;
+  color: rgba(255,255,255,0.94);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+header .meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: rgba(255,255,255,0.85);
+}
+header .meta span {
+  background: rgba(255,255,255,0.16);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+header .icons {
+  position: absolute;
+  top: 32px;
+  right: 36px;
+  font-size: 28px;
+  opacity: 0.95;
+  letter-spacing: 4px;
+}
+
+/* ===== Section title ===== */
+.sec-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 16px;
+}
+.sec-title .en { color: var(--m1-deep); margin-left: 6px; font-weight: 700; }
+
+/* ===== Overview ===== */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.ov-card {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 8px;
+  padding: 14px 10px;
+  text-align: center;
+  border-top: 4px solid var(--m1-deep);
+}
+.ov-card:nth-child(1) { border-top-color: var(--m1-deep); }
+.ov-card:nth-child(2) { border-top-color: var(--m2-deep); }
+.ov-card:nth-child(3) { border-top-color: var(--m3-deep); }
+.ov-card:nth-child(4) { border-top-color: var(--m4-deep); }
+.ov-card .icon { font-size: 26px; margin-bottom: 6px; }
+.ov-card .name { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.ov-card .en { font-size: 9.5px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+
+/* ===== Module ===== */
+.mod {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.mod:last-child { margin-bottom: 0; }
+.mod-num {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+.mod-body { flex: 1; min-width: 0; }
+.mod-title {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.mod-title .en {
+  font-size: 10.5px;
+  color: var(--ink-3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.mod-content {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.75;
+}
+.mod-content p { margin-bottom: 8px; }
+.mod-content strong { color: var(--ink); }
+.callout {
+  background: var(--m1-soft);
+  border-left: 4px solid var(--m1-deep);
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin: 10px 0;
+  line-height: 1.7;
+}
+.callout strong { color: var(--m1-deep); }
+.callout.m2 { background: var(--m2-soft); border-left-color: var(--m2-deep); }
+.callout.m2 strong { color: var(--m2-deep); }
+.callout.m3 { background: var(--m3-soft); border-left-color: var(--m3-deep); }
+.callout.m3 strong { color: var(--m3-deep); }
+.callout.m4 { background: var(--m4-soft); border-left-color: var(--m4-deep); }
+.callout.m4 strong { color: var(--m4-deep); }
+
+.eq {
+  background: #fafaf9;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 11px 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  color: var(--ink-2);
+  margin: 8px 0;
+  line-height: 1.85;
+}
+.eq code { color: var(--m1-deep); font-weight: 600; }
+
+table.ex {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 12.5px;
+}
+table.ex th, table.ex td {
+  border: 1px solid var(--line);
+  padding: 7px 10px;
+  text-align: left;
+  line-height: 1.5;
+}
+table.ex th { background: #fafaf9; font-weight: 700; color: var(--ink); }
+table.ex td.hl { background: #f0fdf4; color: var(--m1-deep); font-weight: 700; }
+table.ex td.h2 { background: #ecfeff; color: #0e7490; font-weight: 700; }
+
+.compass {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 4px;
+}
+
+/* ===== Pitfalls ===== */
+.pitfall {
+  display: flex;
+  gap: 11px;
+  background: #fef2f2;
+  border-left: 4px solid #ef4444;
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 9px;
+  line-height: 1.65;
+}
+.pitfall:last-child { margin-bottom: 0; }
+.pitfall .x {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background: #ef4444;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+  margin-top: 1px;
+}
+.pitfall .wrong { text-decoration: line-through; color: #991b1b; }
+.pitfall .right { color: #166534; font-weight: 700; }
+
+/* ===== TL;DR ===== */
+.tldr-points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.tp {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 12px 10px;
+  text-align: center;
+}
+.tp .label {
+  font-size: 11px;
+  color: var(--m1-deep);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.tp .body { font-size: 12.5px; color: var(--ink); line-height: 1.5; }
+.tldr {
+  background: linear-gradient(135deg, #166534 0%, #14532d 100%);
+  color: #fff;
+  padding: 20px 24px;
+  border-radius: 10px;
+  margin-top: 4px;
+}
+.tldr h3 {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #bbf7d0;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.tldr p { font-size: 14.5px; line-height: 1.7; }
+.tldr .hl { color: #fde047; font-weight: 800; }
+
+.credit {
+  font-size: 11.5px;
+  color: var(--ink-3);
+  text-align: center;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  line-height: 1.6;
+}
+.credit b { color: var(--ink); font-weight: 700; }
+
+@media (max-width: 640px) {
+  .overview-grid { grid-template-columns: repeat(2, 1fr); }
+  .tldr-points { grid-template-columns: 1fr; }
+  header h1 { font-size: 22px; }
+  section { padding: 20px 20px; }
+  header { padding: 26px 22px 22px; }
+  header .icons { position: static; margin-top: 8px; font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ====== ① 标题区 ====== -->
+  <header>
+    <div class="icons">🧭 🔄 🗺️</div>
+    <span class="eyebrow">北师大版 · 5 年级下册 · 第六单元</span>
+    <h1>怎么"钉死"一个点?<br><span class="q">观测点 + 方向 + 角度 + 距离</span>,4 要素搞定</h1>
+    <p class="subtitle">
+      8 方位 + 北偏东/南偏西 + <strong>互逆关系(方向相反角度不变)</strong> + 路线描述
+      · 数对与比例尺 1 段带过
+    </p>
+    <div class="meta">
+      <span>📐 核心考点 12 个</span>
+      <span>🎯 北师大 5 下</span>
+      <span>✏️ 必背口诀 3 条</span>
+      <span>🔁 互逆关系 5 例</span>
+    </div>
+  </header>
+
+  <!-- ====== ② 一页导览 ====== -->
+  <section>
+    <div class="sec-title">一页导览 <span class="en">OVERVIEW · 4 KEY POINTS</span></div>
+    <div class="overview-grid">
+      <div class="ov-card">
+        <div class="icon">🧭</div>
+        <div class="name">8 方位 + 角度</div>
+        <div class="en">8 DIRECTIONS</div>
+      </div>
+      <div class="ov-card">
+        <div class="icon">🔄</div>
+        <div class="name">方向互逆(重点)</div>
+        <div class="en">REVERSE</div>
+      </div>
+      <div class="ov-card">
+        <div class="icon">🗺️</div>
+        <div class="name">路线描述</div>
+        <div class="en">ROUTE</div>
+      </div>
+      <div class="ov-card">
+        <div class="icon">📍</div>
+        <div class="name">数对(复习)</div>
+        <div class="en">REVIEW</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ③ 主模块 ====== -->
+  <section>
+    <div class="sec-title">核心考点 <span class="en">CORE POINTS · 01-04</span></div>
+
+    <!-- 01 方向基础 + 描述规则 -->
+    <div class="mod">
+      <div class="mod-num" style="background:var(--m1-deep)">01</div>
+      <div class="mod-body">
+        <div class="mod-title">8 方位 + 描述规则 <span class="en">8 DIRECTIONS + NOTATION</span></div>
+        <div class="mod-content">
+          <p>基本 4 方向(顺时针):<strong>东、南、西、北</strong>。</p>
+          <p>复合 4 方向(夹在基本方向之间):<strong>东南、东北、西南、西北</strong>。</p>
+
+          <div class="compass">
+            <svg viewBox="0 0 260 180" width="260" height="180" style="max-width:100%;">
+              <circle cx="130" cy="90" r="70" fill="#f0fdf4" stroke="#166534" stroke-width="2"/>
+              <circle cx="130" cy="90" r="3" fill="#166534"/>
+              <line x1="130" y1="20" x2="130" y2="160" stroke="#166534" stroke-width="1" stroke-dasharray="2,3" opacity="0.45"/>
+              <line x1="60" y1="90" x2="200" y2="90" stroke="#166534" stroke-width="1" stroke-dasharray="2,3" opacity="0.45"/>
+              <line x1="80" y1="40" x2="180" y2="140" stroke="#0d9488" stroke-width="1" stroke-dasharray="2,3" opacity="0.45"/>
+              <line x1="80" y1="140" x2="180" y2="40" stroke="#0d9488" stroke-width="1" stroke-dasharray="2,3" opacity="0.45"/>
+              <text x="130" y="14" text-anchor="middle" font-size="14" font-weight="700" fill="#166534">北 N</text>
+              <text x="130" y="174" text-anchor="middle" font-size="14" font-weight="700" fill="#166534">南 S</text>
+              <text x="50" y="94" text-anchor="middle" font-size="14" font-weight="700" fill="#166534">西 W</text>
+              <text x="210" y="94" text-anchor="middle" font-size="14" font-weight="700" fill="#166534">东 E</text>
+              <text x="208" y="42" text-anchor="middle" font-size="11" font-weight="600" fill="#0d9488">东北</text>
+              <text x="52" y="42" text-anchor="middle" font-size="11" font-weight="600" fill="#0d9488">西北</text>
+              <text x="208" y="146" text-anchor="middle" font-size="11" font-weight="600" fill="#0d9488">东南</text>
+              <text x="52" y="146" text-anchor="middle" font-size="11" font-weight="600" fill="#0d9488">西南</text>
+              <line x1="130" y1="90" x2="178" y2="55" stroke="#b45309" stroke-width="2" marker-end="url(#arr)"/>
+              <text x="186" y="50" font-size="10" font-weight="700" fill="#b45309">30°</text>
+              <defs>
+                <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#b45309"/>
+                </marker>
+              </defs>
+            </svg>
+          </div>
+
+          <div class="callout">
+            <strong>📐 描述三要素</strong>:<strong>观测点 + 方向 + 距离</strong>(非正方向再加 角度)。<br>
+            模板:"<strong>以 __ 为观测点,目标在 __ 的 __ 方向(北偏东 X°) 距离 __ 米</strong>"。<br>
+            例:以北偏东 30° 方向 500 m 描述时(图中橙色箭头):"以<strong>学校</strong>为观测点,书店在学校的<strong>北偏东 30°</strong>方向<strong> 500 m</strong>"。
+          </div>
+          <div class="callout m2">
+            <strong>✏️ 必背口诀</strong>:
+            <strong>先定观测点,再说方向,最后报距离;非正方向必带角度(0°~90°)</strong>。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 方向互逆(重点) -->
+    <div class="mod">
+      <div class="mod-num" style="background:var(--m2-deep)">02</div>
+      <div class="mod-body">
+        <div class="mod-title">🔁 方向互逆(重点) <span class="en">REVERSE RELATION · ⭐ MUST</span></div>
+        <div class="mod-content">
+          <p><strong>核心规律</strong>:已知 A 在 B 的什么方向,问 B 在 A 的什么方向 → <strong>方向相反、角度不变、距离不变</strong>。</p>
+          <p><strong>方向相反对照表</strong>(必背):</p>
+          <table class="ex">
+            <tr><th>正向(以 B 看 A)</th><th>逆向(以 A 看 B)</th></tr>
+            <tr><td>北</td><td>南</td></tr>
+            <tr><td>南</td><td>北</td></tr>
+            <tr><td>东</td><td>西</td></tr>
+            <tr><td>西</td><td>东</td></tr>
+            <tr><td>东北 / 西南 / 西北 / 东南</td><td>西南 / 东北 / 东南 / 西北</td></tr>
+            <tr><td>北偏东 30°</td><td>南偏西 30°</td></tr>
+            <tr><td>南偏西 45°</td><td>北偏东 45°</td></tr>
+            <tr><td>北偏西 20°</td><td>南偏东 20°</td></tr>
+          </table>
+          <div class="callout m2">
+            <strong>✏️ 必背口诀</strong>:
+            <strong>北↔南,东↔西,东北↔西南,西北↔东南;北偏东 X° ↔ 南偏西 X°;角度不变,距离不变</strong>。
+          </div>
+
+          <p><strong>典型例题 5 道</strong>(⭐ 必考):</p>
+          <table class="ex">
+            <tr><th>题号</th><th>已知(以 A 为观测点)</th><th>求(以 B 为观测点,B 在 A 的哪里?)</th></tr>
+            <tr>
+              <td>①</td>
+              <td>书店在学校的<strong>北偏东 30°</strong> 方向 500 m</td>
+              <td>学校在书店的 <span class="hl">南偏西 30°</span> 方向 500 m</td>
+            </tr>
+            <tr>
+              <td>②</td>
+              <td>公园在小东家的<strong>南偏西 45°</strong> 方向 800 m</td>
+              <td>小东家在公园的 <span class="hl">北偏东 45°</span> 方向 800 m</td>
+            </tr>
+            <tr>
+              <td>③</td>
+              <td>邮局在广场的<strong>正北</strong> 方向 1.2 km</td>
+              <td>广场在邮局的 <span class="hl">正南</span> 方向 1.2 km</td>
+            </tr>
+            <tr>
+              <td>④</td>
+              <td>医院在小明家的<strong>西北</strong> 方向 600 m</td>
+              <td>小明家在医院的 <span class="hl">东南</span> 方向 600 m</td>
+            </tr>
+            <tr>
+              <td>⑤</td>
+              <td>小丽家在学校<strong>北偏西 20°</strong> 方向 300 m</td>
+              <td>学校在小丽家的 <span class="hl">南偏东 20°</span> 方向 300 m</td>
+            </tr>
+          </table>
+          <p style="color:var(--m2-deep); font-weight:600;">👉 关键:换观测点 → 方向相反 + 角度不变 + 距离不变(三个都满足,缺一不可)。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 完整三要素 + 路线描述(重点) -->
+    <div class="mod">
+      <div class="mod-num" style="background:var(--m3-deep)">03</div>
+      <div class="mod-body">
+        <div class="mod-title">🗺️ 路线描述(重点) <span class="en">ROUTE DESCRIPTION · ⭐ MUST</span></div>
+        <div class="mod-content">
+          <p><strong>完整描述 = 观测点 + 方向 + 角度 + 距离</strong>。路线题要把每一步的"四要素"都写出来。</p>
+
+          <div class="callout m3">
+            <strong>✏️ 路线描述模板</strong>:<br>
+            "从 <strong>起点 A</strong> 出发,向 <strong>__ 方向</strong>(带角度) 走 <strong>__ 米</strong> 到达 <strong>转折点 B</strong>;再向 <strong>__ 方向</strong>(带角度) 走 <strong>__ 米</strong> 到达 <strong>终点 C</strong>。"
+          </div>
+
+          <p><strong>典型例题 4 道</strong>(⭐ 必考):</p>
+          <table class="ex">
+            <tr><th>题号</th><th>题目情境</th><th>规范描述</th></tr>
+            <tr>
+              <td>①</td>
+              <td>从学校向 <strong>正东</strong> 走 200 m 到书店,再向 <strong>正北</strong> 走 300 m 到邮局</td>
+              <td>先东 200 m,再北 300 m;终点邮局</td>
+            </tr>
+            <tr>
+              <td>②</td>
+              <td>从小东家向 <strong>北偏东 30°</strong> 走 400 m 到公园,再向 <strong>东</strong> 走 200 m 到图书馆</td>
+              <td>先北偏东 30° 走 400 m,再正东 200 m</td>
+            </tr>
+            <tr>
+              <td>③</td>
+              <td>求"邮局在学校的什么方向、距离多远"(用上面 ① 反推)</td>
+              <td>以学校为观测点,邮局在学校的 <span class="hl">北偏东约 56°</span>(用尺子量角度)方向,实际距离 <span class="hl">≈ 360 m</span></td>
+            </tr>
+            <tr>
+              <td>④</td>
+              <td>已知 A 在 B 的 <strong>北偏东 20°</strong> 方向 500 m,问从 A 走到 B 怎么走?</td>
+              <td>从 A 出发,向 <span class="hl">南偏西 20°</span> 方向走 500 m 到 B(互逆规律)</td>
+            </tr>
+          </table>
+
+          <div class="callout m3">
+            <strong>📘 必背 4 步答题流程</strong>:<br>
+            <strong>① 看图定起点</strong> → <strong>② 量出方向和角度</strong> → <strong>③ 量出图上距离</strong> → <strong>④ 写成完整句子(观测点 + 方向 + 角度 + 距离)</strong>。<br>
+            缺哪一要素扣分!尤其是<strong>观测点</strong>和<strong>角度</strong>。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 数对(复习)+ 比例尺 简提 -->
+    <div class="mod">
+      <div class="mod-num" style="background:var(--m4-deep)">04</div>
+      <div class="mod-body">
+        <div class="mod-title">📍 数对(4 年级复习) + 比例尺简提 <span class="en">REVIEW · BRIEF</span></div>
+        <div class="mod-content">
+          <p><strong>数对</strong>(4 年级已学,本单元复习):<strong>(列, 行)</strong>,先列后行。例:(3, 5) = 第 3 列、第 5 行。同列看第一个数,同行看第二个数。<strong>图形平移</strong>:左右改列(行不变),上下改行(列不变)。</p>
+
+          <div class="callout m4">
+            <strong>📘 比例尺(简提)</strong>:
+            <strong>1 : 分母</strong> 表示图上 1 cm = 实际<strong>分母</strong> cm。<br>
+            实际距离 = 图上距离 × 分母(先统一 cm,再 ÷ 100 = m,÷ 100 000 = km)。<br>
+            <strong>本单元不展开</strong>,六年级「比例尺」单元会系统学习,这里先认字即可。
+          </div>
+          <p style="color:var(--ink-3); font-size:12.5px;">📍 重点回看:本单元 80% 分值都在 <strong>02 互逆关系</strong> 和 <strong>03 路线描述</strong> 上,数对和比例尺 1 道小题顶多 2-3 分。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ④ 红叉误区 ====== -->
+  <section>
+    <div class="sec-title">红叉误区 <span class="en">PITFALLS · 4 COMMON MISTAKES</span></div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div>
+        <span class="wrong">A 在 B 的 北偏东 30°,所以 B 在 A 的 南偏东 30°</span><br>
+        <strong>👉</strong> <span class="right">B 在 A 的 <strong>南偏西 30°</strong>(方向相反,角度不变 30°)。北偏东 ↔ 南偏西,不是南偏东。</span>
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div>
+        <span class="wrong">"书店在学校北边"省略观测点</span><br>
+        <strong>👉</strong> <span class="right">必须写 "<strong>以学校为观测点</strong>,书店在学校的 北偏东 30° 方向 500 m"。<strong>观测点是题目给的关键</strong>,不写扣分。</span>
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div>
+        <span class="wrong">"A 在 B 北偏东 30° 500 m,B 在 A 南偏西 30° 600 m"</span><br>
+        <strong>👉</strong> <span class="right">距离也必须相同:B 在 A 的 <strong>南偏西 30° 方向 500 m</strong>(角度 30°、距离 500 m 都和原来一样,不能改)。</span>
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div>
+        <span class="wrong">描述目标方向只说"东边"或"南偏西方向",不带角度</span><br>
+        <strong>👉</strong> <span class="right">非正方向必须带<strong>角度</strong>:"<strong>北偏东 30°</strong>" 不能省略 30°;否则同一方向上有无数个点,位置不唯一。</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ⑤ TL;DR ====== -->
+  <section>
+    <div class="sec-title">这一页先记住 <span class="en">TL;DR · 3 POINTS</span></div>
+
+    <div class="tldr-points">
+      <div class="tp">
+        <div class="label">观测点</div>
+        <div class="body">必标"<strong>以 __ 为观测点</strong>"<br>决定方向和距离的参照</div>
+      </div>
+      <div class="tp">
+        <div class="label">互逆关系</div>
+        <div class="body"><strong>方向相反</strong><br><strong>角度不变 + 距离不变</strong></div>
+      </div>
+      <div class="tp">
+        <div class="label">路线描述</div>
+        <div class="body">起点 → 方向+距离<br>→ 转折 → 方向+距离</div>
+      </div>
+    </div>
+
+    <div class="tldr">
+      <h3>✏️ 一句话总结</h3>
+      <p>
+        本单元就 1 招 —— <span class="hl">"以 __ 为观测点,说清方向 + 角度 + 距离"</span>。<br>
+        必考题 = <span class="hl">互逆</span>(方向相反 / 角度不变 / 距离不变) + <span class="hl">路线</span>(起点 → 方向+距离 → 转折 → 方向+距离 → 终点)。<br>
+        数对 (列,行) 是 4 年级复习过一遍即可,比例尺是 6 年级重点这里 1 段带过,平移不是本单元重点。
+      </p>
+    </div>
+
+    <div class="credit">
+      <b>由 DONG XINGBO 创建整理</b> · 非授权禁止转载<br>
+      <span style="font-size:10.5px">© 2026 DONG XINGBO · All rights reserved</span>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

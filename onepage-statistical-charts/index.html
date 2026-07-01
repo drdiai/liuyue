@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>统计图三剑客 · 第八单元 · 北师大版五年级下册 · 一页纸</title>
+<style>
+:root {
+  --m1-deep: #334155;
+  --m1-soft: #e2e8f0;
+  --m2-deep: #6366f1;
+  --m2-soft: #e0e7ff;
+  --m3-deep: #0e7490;
+  --m3-soft: #cffafe;
+  --m4-deep: #be185d;
+  --m4-soft: #fce7f3;
+  --ink: #111827;
+  --ink-2: #374151;
+  --ink-3: #6b7280;
+  --line: #f3f4f6;
+  --bg: #ffffff;
+  --warn: #ef4444;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #f5f5f4; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  color: var(--ink);
+  line-height: 1.6;
+  padding: 24px 12px;
+}
+.poster {
+  max-width: 780px;
+  margin: 0 auto;
+  background: var(--bg);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 22px rgba(0,0,0,0.08);
+}
+section { padding: 26px 36px; border-bottom: 1px solid var(--line); }
+section:last-child { border-bottom: none; }
+
+/* ===== Header ===== */
+header {
+  position: relative;
+  background: linear-gradient(135deg, #334155 0%, #475569 100%);
+  color: #fff;
+  padding: 34px 38px 28px;
+}
+header .eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.18);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+header h1 {
+  font-size: 27px;
+  line-height: 1.42;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: -0.005em;
+}
+header h1 .q { color: #fde047; }
+header .subtitle {
+  font-size: 14.5px;
+  color: rgba(255,255,255,0.94);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+header .meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: rgba(255,255,255,0.85);
+}
+header .meta span {
+  background: rgba(255,255,255,0.16);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+header .icons {
+  position: absolute;
+  top: 32px;
+  right: 36px;
+  font-size: 28px;
+  opacity: 0.95;
+  letter-spacing: 4px;
+}
+
+/* ===== Section title ===== */
+.sec-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 16px;
+}
+.sec-title .en { color: var(--m1-deep); margin-left: 6px; font-weight: 700; }
+
+/* ===== Overview ===== */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.ov-card {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 8px;
+  padding: 14px 10px;
+  text-align: center;
+  border-top: 4px solid var(--m1-deep);
+}
+.ov-card:nth-child(1) { border-top-color: var(--m1-deep); }
+.ov-card:nth-child(2) { border-top-color: var(--m2-deep); }
+.ov-card:nth-child(3) { border-top-color: var(--m3-deep); }
+.ov-card:nth-child(4) { border-top-color: var(--m4-deep); }
+.ov-card .icon { font-size: 26px; margin-bottom: 6px; }
+.ov-card .name { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.ov-card .en { font-size: 9.5px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+
+/* ===== Module ===== */
+.mod {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.mod:last-child { margin-bottom: 0; }
+.mod-num {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+.mod-body { flex: 1; min-width: 0; }
+.mod-title {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.mod-title .en {
+  font-size: 10.5px;
+  color: var(--ink-3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.mod-content {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.75;
+}
+.mod-content p { margin-bottom: 8px; }
+.mod-content strong { color: var(--ink); }
+.callout {
+  background: var(--m1-soft);
+  border-left: 4px solid var(--m1-deep);
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin: 10px 0;
+  line-height: 1.7;
+}
+.callout strong { color: var(--m1-deep); }
+.callout.m2 { background: var(--m2-soft); border-left-color: var(--m2-deep); }
+.callout.m2 strong { color: var(--m2-deep); }
+.callout.m3 { background: var(--m3-soft); border-left-color: var(--m3-deep); }
+.callout.m3 strong { color: var(--m3-deep); }
+.callout.m4 { background: var(--m4-soft); border-left-color: var(--m4-deep); }
+.callout.m4 strong { color: var(--m4-deep); }
+
+table.ex {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 12.5px;
+}
+table.ex th, table.ex td {
+  border: 1px solid var(--line);
+  padding: 7px 10px;
+  text-align: left;
+  line-height: 1.5;
+}
+table.ex th { background: #fafaf9; font-weight: 700; color: var(--ink); }
+table.ex td.hl { background: #f0fdf4; color: var(--m1-deep); font-weight: 700; }
+table.ex td.h2 { background: #f0f9ff; color: #0369a1; font-weight: 700; }
+table.ex td.h3 { background: #fdf2f8; color: var(--m4-deep); font-weight: 700; }
+
+.fig-row {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 10px 0 6px;
+  flex-wrap: wrap;
+}
+.fig {
+  background: #fafaf9;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+.fig .cap {
+  font-size: 11.5px;
+  color: var(--ink-3);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* ===== Pitfalls ===== */
+.pitfall {
+  display: flex;
+  gap: 11px;
+  background: #fef2f2;
+  border-left: 4px solid var(--warn);
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 9px;
+  line-height: 1.65;
+}
+.pitfall:last-child { margin-bottom: 0; }
+.pitfall .x {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background: var(--warn);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+  margin-top: 1px;
+}
+.pitfall .wrong { text-decoration: line-through; color: #991b1b; }
+.pitfall .right { color: #166534; font-weight: 700; }
+
+/* ===== TL;DR ===== */
+.tldr-points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.tp {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 12px 10px;
+  text-align: center;
+}
+.tp .label {
+  font-size: 11px;
+  color: var(--m1-deep);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.tp .body { font-size: 12.5px; color: var(--ink); line-height: 1.5; }
+.tp:nth-child(2) .label { color: var(--m2-deep); }
+.tp:nth-child(3) .label { color: var(--m3-deep); }
+
+.tldr {
+  background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+  color: #fff;
+  padding: 20px 24px;
+  border-radius: 10px;
+  margin-top: 4px;
+}
+.tldr h3 {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #cbd5e1;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.tldr p { font-size: 14.5px; line-height: 1.7; }
+.tldr .hl { color: #fde047; font-weight: 800; }
+
+.credit {
+  font-size: 11.5px;
+  color: var(--ink-3);
+  text-align: center;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  line-height: 1.6;
+}
+.credit b { color: var(--ink); font-weight: 700; }
+
+@media (max-width: 640px) {
+  .overview-grid { grid-template-columns: repeat(2, 1fr); }
+  .tldr-points { grid-template-columns: 1fr; }
+  .fig-row { flex-direction: column; align-items: center; }
+  header h1 { font-size: 22px; }
+  section { padding: 20px 20px; }
+  header { padding: 26px 22px 22px; }
+  header .icons { position: static; margin-top: 8px; font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ====== ① 标题区 ====== -->
+  <header>
+    <div class="icons">📊 📈 🎯</div>
+    <span class="eyebrow">北师大版 · 5 年级下册 · 第八单元 · 专项六</span>
+    <h1>看到一堆数据怎么"一眼看穿"?<br><span class="q">复式条形 + 复式折线</span>,2 张图搞定</h1>
+    <p class="subtitle">
+      复式统计表 4 要素 + <strong>复式条形图(纵向/横向)</strong> 5 步画法 +
+      <strong>复式折线图</strong> 趋势 + 三图选图决策 + 扇形简提
+    </p>
+    <div class="meta">
+      <span>📊 核心考点 12 个</span>
+      <span>🎯 北师大 5 下</span>
+      <span>✏️ 选图口诀 1 条</span>
+      <span>🎨 画图 5 步</span>
+    </div>
+  </header>
+
+  <!-- ====== ② 一页导览 ====== -->
+  <section>
+    <div class="sec-title">一页导览 <span class="en">OVERVIEW · 4 KEY POINTS</span></div>
+    <div class="overview-grid">
+      <div class="ov-card">
+        <div class="icon">📊</div>
+        <div class="name">复式条形认知</div>
+        <div class="en">DOUBLE BAR</div>
+      </div>
+      <div class="ov-card">
+        <div class="icon">🎨</div>
+        <div class="name">画图 5 步</div>
+        <div class="en">DRAW STEPS</div>
+      </div>
+      <div class="ov-card">
+        <div class="icon">📈</div>
+        <div class="name">复式折线</div>
+        <div class="en">DOUBLE LINE</div>
+      </div>
+      <div class="ov-card">
+        <div class="icon">🎯</div>
+        <div class="name">三图选哪个</div>
+        <div class="en">WHICH CHART</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ③ 主模块 ====== -->
+  <section>
+    <div class="sec-title">核心考点 <span class="en">CORE POINTS · 01-04</span></div>
+
+    <!-- 01 复式统计表 + 复式条形认知 -->
+    <div class="mod">
+      <div class="mod-num" style="background:var(--m1-deep)">01</div>
+      <div class="mod-body">
+        <div class="mod-title">复式统计表 + 复式条形图认知 <span class="en">DOUBLE BAR · INTRO</span></div>
+        <div class="mod-content">
+          <p><strong>复式统计表 4 要素</strong>:<strong>标题 + 日期 + 线条(横/竖) + 表格(行列表头)</strong>。它把 2 个或多个统计内容的数据合并在一张表上,清晰明了地反映数据情况。</p>
+
+          <p><strong>复式条形统计图</strong>:每组数据中<strong>有 2 个或 2 个以上</strong>的数据,用<strong>几种不同颜色(或阴影/填充)</strong>的直条表示。</p>
+
+          <div class="callout">
+            <strong>📐 读图 3 步</strong>:① <strong>看标题</strong>(知道统计什么) → ② <strong>看图例</strong>(知道哪种颜色/样式代表哪一组) → ③ <strong>看数据</strong>(读直条高度/长度 + 横轴标签)。
+          </div>
+
+          <div class="callout">
+            <strong>✅ 复式条形图优点</strong>:能清楚表示<strong>各种数量的多少</strong>,可以更直观、形象地比较 <strong>2 种或多种数量之间的关系</strong>。
+          </div>
+
+          <p><strong>纵向 vs 横向 复式条形图 怎么选?</strong></p>
+          <table class="ex">
+            <tr><th>类别数</th><th>数据大小</th><th>选用</th><th>理由</th></tr>
+            <tr><td>较多(>4 类)</td><td>较小(几十~几百)</td><td><strong>纵向</strong>(直条往上长)</td><td>横轴放得下所有类别名</td></tr>
+            <tr><td>较少(2~3 类)</td><td>较大(几千~几万)</td><td><strong>横向</strong>(直条往右长)</td><td>长的数据横向更易画、读</td></tr>
+          </table>
+
+          <!-- 纵向复式条形图示意 -->
+          <div class="fig-row">
+            <div class="fig">
+              <svg viewBox="0 0 240 200" width="240" height="200" style="max-width:100%;">
+                <!-- 标题 -->
+                <text x="120" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#111827">5(1)班男女生体重统计(纵向)</text>
+                <!-- Y 轴 -->
+                <line x1="50" y1="30" x2="50" y2="170" stroke="#334155" stroke-width="1.5"/>
+                <!-- X 轴 -->
+                <line x1="50" y1="170" x2="230" y2="170" stroke="#334155" stroke-width="1.5"/>
+                <!-- Y 轴刻度 + 标签 -->
+                <line x1="47" y1="170" x2="50" y2="170" stroke="#334155"/>
+                <text x="44" y="173" text-anchor="end" font-size="9" fill="#6b7280">0</text>
+                <line x1="47" y1="140" x2="50" y2="140" stroke="#334155"/>
+                <text x="44" y="143" text-anchor="end" font-size="9" fill="#6b7280">10</text>
+                <line x1="47" y1="110" x2="50" y2="110" stroke="#334155"/>
+                <text x="44" y="113" text-anchor="end" font-size="9" fill="#6b7280">20</text>
+                <line x1="47" y1="80" x2="50" y2="80" stroke="#334155"/>
+                <text x="44" y="83" text-anchor="end" font-size="9" fill="#6b7280">30</text>
+                <line x1="47" y1="50" x2="50" y2="50" stroke="#334155"/>
+                <text x="44" y="53" text-anchor="end" font-size="9" fill="#6b7280">40</text>
+                <text x="22" y="100" text-anchor="middle" font-size="9" font-weight="600" fill="#374151" transform="rotate(-90 22 100)">人数</text>
+
+                <!-- 组 1: 30kg 以下(男6 女4) -->
+                <rect x="62" y="140" width="14" height="30" fill="#6366f1"/>
+                <rect x="78" y="152" width="14" height="18" fill="#be185d"/>
+                <text x="77" y="184" text-anchor="middle" font-size="9" fill="#374151">&lt;30</text>
+                <!-- 组 2: 30-35(男12 女14) -->
+                <rect x="100" y="110" width="14" height="60" fill="#6366f1"/>
+                <rect x="116" y="102" width="14" height="68" fill="#be185d"/>
+                <text x="115" y="184" text-anchor="middle" font-size="9" fill="#374151">30~35</text>
+                <!-- 组 3: 35-40(男8 女6) -->
+                <rect x="138" y="130" width="14" height="40" fill="#6366f1"/>
+                <rect x="154" y="140" width="14" height="30" fill="#be185d"/>
+                <text x="153" y="184" text-anchor="middle" font-size="9" fill="#374151">35~40</text>
+                <!-- 组 4: >40(男4 女2) -->
+                <rect x="176" y="150" width="14" height="20" fill="#6366f1"/>
+                <rect x="192" y="160" width="14" height="10" fill="#be185d"/>
+                <text x="191" y="184" text-anchor="middle" font-size="9" fill="#374151">&gt;40</text>
+                <text x="146" y="198" text-anchor="middle" font-size="9" font-weight="600" fill="#374151">体重(kg)</text>
+
+                <!-- 图例 -->
+                <rect x="60" y="14" width="9" height="9" fill="#6366f1" transform="translate(120 0)"/>
+                <text x="172" y="22" font-size="9" fill="#374151">男生</text>
+                <rect x="195" y="14" width="9" height="9" fill="#be185d" transform="translate(120 0)"/>
+                <text x="207" y="22" font-size="9" fill="#374151">女生</text>
+              </svg>
+              <div class="cap">图 1: 纵向复式条形(类别多数据小)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 复式条形图 — 画图 5 步(重点) -->
+    <div class="mod">
+      <div class="mod-num" style="background:var(--m2-deep)">02</div>
+      <div class="mod-body">
+        <div class="mod-title">🎨 复式条形图 — 画图 5 步(重点) <span class="en">DRAW STEPS · ⭐ MUST</span></div>
+        <div class="mod-content">
+          <p><strong>画图要素清单</strong>:<strong>标题 + 横轴标签 + 纵轴标签 + 刻度 + 0 + 直条 + 数据标签 + 图例 + 日期</strong>(9 件齐全)。</p>
+
+          <div class="callout m2">
+            <strong>✏️ 必背口诀 · 画图 5 步</strong>:<br>
+            <strong>① 备工具</strong>(尺子、铅笔、橡皮) → <strong>② 写单位、画坐标轴(横/纵 + 0)</strong> → <strong>③ 定单位长度</strong>(0~200 太大就画<strong>波浪线/闪电线断轴</strong>) → <strong>④ 不同组用不同颜色/阴影/填充</strong>区分 → <strong>⑤ 写标题 + 图例 + 日期</strong>。
+          </div>
+
+          <p><strong>画图 5 步详解</strong>(必考实操题):</p>
+          <table class="ex">
+            <tr><th>步骤</th><th>具体操作</th><th>常见错误</th></tr>
+            <tr>
+              <td>① 备工具</td>
+              <td>尺子、铅笔、橡皮、彩笔(或阴影笔)</td>
+              <td>徒手画导致直条不直</td>
+            </tr>
+            <tr>
+              <td>② 写单位,画坐标轴</td>
+              <td>先画<strong>横轴</strong>(类别),再画<strong>纵轴</strong>(数量);标出"<strong>0</strong>"和两轴名称(如"体重(kg)"、"人数")</td>
+              <td>忘标"0"或忘写两轴名称</td>
+            </tr>
+            <tr>
+              <td>③ 定单位长度</td>
+              <td>1 cm 代表多少?(如 1 cm = 10 人);数据大时(如 0~1000),用<strong>波浪线 / 闪电线</strong>断轴</td>
+              <td>数据大但不断轴,图画不下</td>
+            </tr>
+            <tr>
+              <td>④ 区分两组数据</td>
+              <td>不同组用<strong>不同颜色</strong>;无彩笔时用<strong>阴影</strong>(斜线)和<strong>实心填充</strong>区分;<strong>直条宽窄必须相同</strong></td>
+              <td>两组颜色相同无法区分;直条宽窄不一</td>
+            </tr>
+            <tr>
+              <td>⑤ 写标题 + 图例 + 日期</td>
+              <td>图上方写<strong>标题</strong>(说明统计什么);图下方写<strong>图例</strong>(颜色对应哪组);最后写<strong>制图日期</strong>;<strong>每个直条上要标数据</strong></td>
+              <td>忘写标题;忘写图例;忘标数据</td>
+            </tr>
+          </table>
+
+          <p><strong>典型例题 3 道</strong>(⭐ 实操必考):</p>
+          <table class="ex">
+            <tr><th>题号</th><th>题目</th><th>规范做法</th></tr>
+            <tr>
+              <td>① 画图题</td>
+              <td>统计 5(1) 班男女生最喜欢的运动(篮球/足球/乒乓/羽毛球),请画<strong>复式条形统计图</strong></td>
+              <td>横轴=4 种运动,纵轴=人数,每组 2 根直条(蓝=男 粉=女),直条上标人数</td>
+            </tr>
+            <tr>
+              <td>② 改错题</td>
+              <td>小明的图忘写"0"、直条宽窄不一、没图例、两组颜色一样</td>
+              <td>① 补"0" ② 重画等宽直条 ③ 加图例 ④ 两组换不同颜色或一阴影一实心</td>
+            </tr>
+            <tr>
+              <td>③ 选形式</td>
+              <td>统计<strong>某城市 2015~2020 出生人口</strong>(5 年,数据上千),画<strong>纵向还是横向</strong>?</td>
+              <td><span class="hl">横向</span>(类别少=5 年,数据大=上千,横向长直条更易画)</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 复式折线统计图(重点) -->
+    <div class="mod">
+      <div class="mod-num" style="background:var(--m3-deep)">03</div>
+      <div class="mod-body">
+        <div class="mod-title">📈 复式折线统计图(重点) <span class="en">DOUBLE LINE · ⭐ MUST</span></div>
+        <div class="mod-content">
+          <p><strong>复式折线统计图</strong>:每组数据中有 2 个或 2 个以上的数据,用<strong>几种不同颜色(或样式)的折线 + 数据点</strong>表示。</p>
+
+          <p><strong>画法</strong>:用一个单位长度表示一定数量,根据数量多少<strong>描出各点</strong>(每个点标上数据),然后把各点<strong>用线段顺次连接</strong>。</p>
+
+          <div class="callout m3">
+            <strong>✅ 复式折线图优点</strong>:不仅能表示<strong>数量的多少</strong>,更能<strong>清楚地表示出数量增减变化的情况</strong>(=趋势),比较 2 条折线的<strong>上升/下降/波动</strong>。
+          </div>
+
+          <p><strong>📐 复式条形 vs 复式折线 区别</strong>(⭐ 必考选图):</p>
+          <table class="ex">
+            <tr><th>维度</th><th>复式条形图</th><th>复式折线图</th></tr>
+            <tr><td>形状</td><td><strong>直条</strong>(长方形)</td><td><strong>折线</strong>(线段 + 数据点)</td></tr>
+            <tr><td>主要反映</td><td><strong>数量的多少</strong></td><td><strong>数量的增减变化(趋势)</strong></td></tr>
+            <tr><td>横轴</td><td类别名(运动/年级)</td><td><strong>时间</strong>(年份/月份),间隔按实际时间比例</td></tr>
+            <tr><td>适合场景</td><td>不同<strong>类别</strong>比较</td><td>同一<strong>对象</strong>随时间变化</td></tr>
+            <tr><td>判断"趋势"</td><td>不方便</td><td>方便(看线升/降/平)</td></tr>
+          </table>
+
+          <div class="callout m3">
+            <strong>📘 选图口诀</strong>:<br>
+            <strong>"看多少 → 条形;看变化 → 折线;看占比 → 扇形"</strong>。<br>
+            例:"某市 5 年气温变化" → 折线(看变化);"两班人数对比" → 条形(看多少);"全班同学血型占比" → 扇形(看占比)。
+          </div>
+
+          <!-- 复式折线图示意 -->
+          <div class="fig-row">
+            <div class="fig">
+              <svg viewBox="0 0 240 200" width="240" height="200" style="max-width:100%;">
+                <text x="120" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#111827">甲乙两地月平均气温(复式折线)</text>
+                <!-- Y 轴 -->
+                <line x1="50" y1="30" x2="50" y2="170" stroke="#334155" stroke-width="1.5"/>
+                <!-- X 轴 -->
+                <line x1="50" y1="170" x2="230" y2="170" stroke="#334155" stroke-width="1.5"/>
+                <!-- Y 刻度 -->
+                <text x="44" y="173" text-anchor="end" font-size="9" fill="#6b7280">0°</text>
+                <line x1="47" y1="140" x2="50" y2="140" stroke="#334155"/>
+                <text x="44" y="143" text-anchor="end" font-size="9" fill="#6b7280">10°</text>
+                <line x1="47" y1="110" x2="50" y2="110" stroke="#334155"/>
+                <text x="44" y="113" text-anchor="end" font-size="9" fill="#6b7280">20°</text>
+                <line x1="47" y1="80" x2="50" y2="80" stroke="#334155"/>
+                <text x="44" y="83" text-anchor="end" font-size="9" fill="#6b7280">30°</text>
+                <text x="22" y="100" text-anchor="middle" font-size="9" font-weight="600" fill="#374151" transform="rotate(-90 22 100)">温度</text>
+
+                <!-- X 标签 -->
+                <text x="70" y="184" text-anchor="middle" font-size="9" fill="#374151">1月</text>
+                <text x="100" y="184" text-anchor="middle" font-size="9" fill="#374151">3月</text>
+                <text x="130" y="184" text-anchor="middle" font-size="9" fill="#374151">5月</text>
+                <text x="160" y="184" text-anchor="middle" font-size="9" fill="#374151">7月</text>
+                <text x="190" y="184" text-anchor="middle" font-size="9" fill="#374151">9月</text>
+                <text x="220" y="184" text-anchor="middle" font-size="9" fill="#374151">11月</text>
+                <text x="140" y="198" text-anchor="middle" font-size="9" font-weight="600" fill="#374151">月份</text>
+
+                <!-- 甲地(蓝):1月5°(150) 3月12°(130) 5月22°(100) 7月30°(80) 9月25°(90) 11月15°(122) -->
+                <polyline points="70,150 100,130 130,100 160,80 190,90 220,122"
+                          fill="none" stroke="#6366f1" stroke-width="2"/>
+                <circle cx="70" cy="150" r="3" fill="#6366f1"/>
+                <circle cx="100" cy="130" r="3" fill="#6366f1"/>
+                <circle cx="130" cy="100" r="3" fill="#6366f1"/>
+                <circle cx="160" cy="80" r="3" fill="#6366f1"/>
+                <circle cx="190" cy="90" r="3" fill="#6366f1"/>
+                <circle cx="220" cy="122" r="3" fill="#6366f1"/>
+
+                <!-- 乙地(玫红):1月20°(110) 3月18°(116) 5月22°(100) 7月25°(90) 9月24°(92) 11月22°(100) -->
+                <polyline points="70,110 100,116 130,100 160,90 190,92 220,100"
+                          fill="none" stroke="#be185d" stroke-width="2" stroke-dasharray="3,2"/>
+                <circle cx="70" cy="110" r="3" fill="#be185d"/>
+                <circle cx="100" cy="116" r="3" fill="#be185d"/>
+                <circle cx="130" cy="100" r="3" fill="#be185d"/>
+                <circle cx="160" cy="90" r="3" fill="#be185d"/>
+                <circle cx="190" cy="92" r="3" fill="#be185d"/>
+                <circle cx="220" cy="100" r="3" fill="#be185d"/>
+
+                <!-- 图例 -->
+                <line x1="100" y1="14" x2="115" y2="14" stroke="#6366f1" stroke-width="2"/>
+                <text x="118" y="17" font-size="9" fill="#374151">甲地</text>
+                <line x1="155" y1="14" x2="170" y2="14" stroke="#be185d" stroke-width="2" stroke-dasharray="3,2"/>
+                <text x="173" y="17" font-size="9" fill="#374151">乙地</text>
+              </svg>
+              <div class="cap">图 2: 复式折线(实线=甲 虚线=乙,看增减变化)</div>
+            </div>
+          </div>
+
+          <p><strong>典型例题 3 道</strong>(⭐ 必考):</p>
+          <table class="ex">
+            <tr><th>题号</th><th>题目</th><th>答案</th></tr>
+            <tr>
+              <td>① 识图</td>
+              <td>图 2 中,甲地哪个月气温<strong>最高</strong>?乙地呢?</td>
+              <td>甲地 <span class="hl">7 月(30°)</span>;乙地 <span class="hl">7 月(25°)</span></td>
+            </tr>
+            <tr>
+              <td>② 识图</td>
+              <td>图 2 中,两地气温<strong>差距最大</strong>的是哪个月?</td>
+              <td><span class="hl">1 月</span>(甲 5° 乙 20°,差 15°)</td>
+            </tr>
+            <tr>
+              <td>③ 选图</td>
+              <td>"小明连续 6 次数学考试成绩变化"该用哪种图?</td>
+              <td><span class="hl">折线</span>(看变化趋势);条形看不出每次是升是降</td>
+            </tr>
+          </table>
+
+          <div class="callout m3">
+            <strong>📘 折线图注意</strong>:<strong>横轴表示时间</strong>(年份/月份)时,不同时间之间的距离要<strong>按年份或月份的实际间隔</strong>确定,不能等距画(时间不等距时)。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 三种统计图选图决策 + 扇形简提 -->
+    <div class="mod">
+      <div class="mod-num" style="background:var(--m4-deep)">04</div>
+      <div class="mod-body">
+        <div class="mod-title">🎯 三种统计图选图决策 + 扇形简提 <span class="en">WHICH CHART · DECISION</span></div>
+        <div class="mod-content">
+          <p><strong>三种统计图对比总表</strong>(⭐ 必考选图题):</p>
+          <table class="ex">
+            <tr><th>统计图</th><th>用 什么 画</th><th>主要 优点</th><th>典型 场景</th></tr>
+            <tr>
+              <td><strong>条形统计图</strong></td>
+              <td><strong>直条(长方形)</strong></td>
+              <td>很容易看出<strong>各种数量的多少</strong></td>
+              <td>不同类别数量对比(人数/产量)</td>
+            </tr>
+            <tr>
+              <td><strong>折线统计图</strong></td>
+              <td><strong>线段(折线 + 数据点)</strong></td>
+              <td>不仅看多少,更能看<strong>增减变化</strong></td>
+              <td>同一对象随时间变化(气温/成绩)</td>
+            </tr>
+            <tr>
+              <td><strong>扇形统计图</strong></td>
+              <td><strong>整个圆 + 扇形</strong></td>
+              <td>很清楚看<strong>各部分 占总数 的 %</strong></td>
+              <td>总体中各部分占比(血型/支出)</td>
+            </tr>
+          </table>
+
+          <div class="callout m4">
+            <strong>🎯 选图决策口诀</strong>:<br>
+            <strong>看"多少" → 条形;看"增减" → 折线;看"占 %" → 扇形。</strong><br>
+            关键词识别:"<strong>谁多谁少</strong>"=条形;"<strong>上升/下降/趋势</strong>"=折线;"<strong>占总数的百分之几</strong>"=扇形。
+          </div>
+
+          <p><strong>扇形图简提</strong>:</p>
+          <div class="callout m4">
+            <strong>定义</strong>:用<strong>整个圆的面积表示总数(100%)</strong>,用<strong>扇形面积表示各部分所占总数的百分数</strong>。<br>
+            圆周角 = 360°,各扇形圆心角 = 该部分百分比 × 360°(例:30% × 360° = 108°)。<br>
+            <strong>本单元不展开画法</strong>,六年级"扇形统计图"单元会系统学习。
+          </div>
+
+          <p><strong>选图例题 3 道</strong>(⭐ 必考):</p>
+          <table class="ex">
+            <tr><th>题号</th><th>题目情境</th><th>该选</th><th>判断 关键词</th></tr>
+            <tr>
+              <td>①</td>
+              <td>5 年级 4 个班图书数量对比</td>
+              <td><span class="hl">条形</span></td>
+              <td>4 个<strong>类别</strong>比较多少</td>
+            </tr>
+            <tr>
+              <td>②</td>
+              <td>某市 2010~2024 年人口数量变化</td>
+              <td><span class="hl">折线</span></td>
+              <td>随<strong>时间</strong>变化趋势</td>
+            </tr>
+            <tr>
+              <td>③</td>
+              <td>全班 50 人最喜欢的水果种类占比</td>
+              <td><span class="hl">扇形</span></td>
+              <td>各部分<strong>占总数 %</strong></td>
+            </tr>
+          </table>
+
+          <!-- 扇形示意(简) -->
+          <div class="fig-row">
+            <div class="fig">
+              <svg viewBox="0 0 240 200" width="220" height="200" style="max-width:100%;">
+                <text x="120" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#111827">全班水果喜好占比(扇形)</text>
+                <!-- 圆心 (120,110) r=70 -->
+                <!-- 苹果 40% = 144°:0°→144° -->
+                <path d="M 120 110 L 120 40 A 70 70 0 0 1 184 150 z" fill="#6366f1"/>
+                <!-- 香蕉 30% = 108°:144°→252° -->
+                <path d="M 120 110 L 184 150 A 70 70 0 0 1 53 132 z" fill="#0e7490"/>
+                <!-- 葡萄 20% = 72°:252°→324° -->
+                <path d="M 120 110 L 53 132 A 70 70 0 0 1 53 88 z" fill="#be185d"/>
+                <!-- 其他 10% = 36°:324°→360° -->
+                <path d="M 120 110 L 53 88 A 70 70 0 0 1 120 40 z" fill="#ca8a04"/>
+                <!-- 标签 -->
+                <text x="175" y="80" font-size="10" font-weight="700" fill="#374151">苹果 40%</text>
+                <text x="180" y="170" font-size="10" font-weight="700" fill="#374151">香蕉 30%</text>
+                <text x="40" y="155" font-size="10" font-weight="700" fill="#374151">葡萄 20%</text>
+                <text x="40" y="70" font-size="10" font-weight="700" fill="#374151">其他 10%</text>
+              </svg>
+              <div class="cap">图 3: 扇形统计图(整个圆=100%,看占比)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ④ 红叉误区 ====== -->
+  <section>
+    <div class="sec-title">红叉误区 <span class="en">PITFALLS · 4 COMMON MISTAKES</span></div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div>
+        <span class="wrong">画复式条形图两组数据都用同一种颜色(或一种填充),没图例</span><br>
+        <strong>👉</strong> <span class="right">两组数据<strong>必须用不同颜色或阴影/实心区分</strong>,并在图下方写<strong>图例</strong>(颜色对应哪组)。否则图白画了,无法读出信息。</span>
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div>
+        <span class="wrong">画条形图时直条宽窄不一,有的胖有的瘦</span><br>
+        <strong>👉</strong> <span class="right"><strong>直条宽窄必须相同</strong>(只看长度比多少);并且每组内 2 根直条之间也要留同样的间隙。</span>
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div>
+        <span class="wrong">画图时数据范围 0~1000 没断轴,直条顶到天花板</span><br>
+        <strong>👉</strong> <span class="right">数据太大画不下时,在纵轴"<strong>0 上方</strong>"画<strong>波浪线 / 闪电线</strong>断轴,标上断开的数字(如 100),再继续画。</span>
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div>
+        <span class="wrong">"某地 5 年气温变化"画成了条形图,看不出趋势</span><br>
+        <strong>👉</strong> <span class="right">横轴是<strong>时间</strong> + 要看<strong>变化趋势</strong> → 选<strong>折线图</strong>。条形图只反映每年多少,看不出升/降。</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ⑤ TL;DR ====== -->
+  <section>
+    <div class="sec-title">这一页先记住 <span class="en">TL;DR · 3 POINTS</span></div>
+
+    <div class="tldr-points">
+      <div class="tp">
+        <div class="label">条形 · 看多少</div>
+        <div class="body"><strong>直条</strong>长 = 数量多<br>类别间比较</div>
+      </div>
+      <div class="tp">
+        <div class="label">折线 · 看变化</div>
+        <div class="body"><strong>线段</strong>升/降 = 趋势<br>随时间变化</div>
+      </div>
+      <div class="tp">
+        <div class="label">扇形 · 看占比</div>
+        <div class="body"><strong>扇形</strong>角 = 占比%<br>各部分占总数</div>
+      </div>
+    </div>
+
+    <div class="tldr">
+      <h3>✏️ 一句话总结</h3>
+      <p>
+        本单元必考 <span class="hl">2 大图 + 1 决策</span>:
+        <span class="hl">复式条形</span>(直条,看多少,5 步画法) + <span class="hl">复式折线</span>(线段,看变化趋势) +
+        <span class="hl">选图口诀</span>("看多少→条形/看变化→折线/看占比→扇形")。<br>
+        画图 9 件齐全:标题 + 横轴 + 纵轴 + 刻度 + 0 + 直条/线段 + 数据 + 图例 + 日期。
+        <strong>忘图例 / 直条宽窄不一 / 数据大不断轴 = 直接扣分</strong>。
+      </p>
+    </div>
+
+    <div class="credit">
+      <b>由 DONG XINGBO 创建整理</b> · 非授权禁止转载<br>
+      <span style="font-size:10.5px">© 2026 DONG XINGBO · All rights reserved</span>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

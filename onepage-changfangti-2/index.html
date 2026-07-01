@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长方体(二)的所有考点 · 一页讲清楚 · 北师大 5 年级下册 第四单元</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --ink: #1f2937;
+    --ink-2: #4b5563;
+    --ink-3: #9ca3af;
+    --line: #e5e7eb;
+    --line-2: #f3f4f6;
+
+    --m1:    #1e3a8a;             /* 01 体积意义 : 海军蓝 (主色, 沉稳/深入) */
+    --m1-soft: #eff6ff;
+    --m1-deep: #1e3a8a;
+
+    --m2:    #9f1239;             /* 02 三个单位 : 深玫红 */
+    --m2-soft: #fff1f2;
+    --m2-deep: #881337;
+
+    --m3:    #4338ca;             /* 03 单位换算 : 靛蓝 */
+    --m3-soft: #eef2ff;
+    --m3-deep: #312e81;
+
+    --m4:    #047857;             /* 04 生活应用 : 翠绿 */
+    --m4-soft: #ecfdf5;
+    --m4-deep: #064e3b;
+
+    --m5:    #b45309;             /* 05 排水法   : 琥珀深 */
+    --m5-soft: #fffbeb;
+    --m5-deep: #78350f;
+
+    --red: #dc2626;
+    --red-soft: #fef2f2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue",
+                 "Microsoft YaHei", "Hiragino Sans GB", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 760px; margin: 0 auto; background: var(--card); box-shadow: 0 0 0 1px var(--line); }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 36px 44px 28px;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 600px 200px at top right, var(--m1-soft) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 200px at bottom left, var(--m2-soft) 0%, transparent 70%);
+  }
+  header .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--m1-deep);
+    background: var(--m1-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    border: 1px solid #bfdbfe;
+  }
+  header h1 {
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  header h1 .q { color: var(--m1-deep); }
+  header .subtitle { font-size: 14.5px; color: var(--ink-2); margin-bottom: 18px; }
+  header .meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  header .chip {
+    font-size: 12px;
+    color: var(--ink-2);
+    background: white;
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  header .chip b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Section base ---------- */
+  section { padding: 26px 44px; border-bottom: 1px solid var(--line-2); }
+  section:last-of-type { border-bottom: none; }
+
+  .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .sec-num {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .sec-title { font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+  .sec-en {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    margin-left: 4px;
+  }
+  .m1 .sec-num { background: var(--m1); }
+  .m2 .sec-num { background: var(--m2); }
+  .m3 .sec-num { background: var(--m3); }
+  .m4 .sec-num { background: var(--m4); }
+  .m5 .sec-num { background: var(--m5); }
+
+  /* ---------- Overview cards ---------- */
+  .ov-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .ov-card {
+    padding: 14px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--card);
+  }
+  .ov-card .emo { font-size: 20px; margin-bottom: 4px; display: block; }
+  .ov-card .name { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .ov-card .en {
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+  }
+  .ov-card.c1 { background: var(--m1-soft); border-color: #bfdbfe; }
+  .ov-card.c2 { background: var(--m2-soft); border-color: #fecdd3; }
+  .ov-card.c3 { background: var(--m3-soft); border-color: #c7d2fe; }
+  .ov-card.c4 { background: var(--m4-soft); border-color: #a7f3d0; }
+  .ov-card.c5 { background: var(--m5-soft); border-color: #fde68a; }
+  .ov-card.c6 { background: var(--red-soft); border-color: #fecaca; }
+
+  /* ---------- Module body ---------- */
+  .mod { font-size: 14.5px; color: var(--ink-2); line-height: 1.7; }
+  .mod p { margin-bottom: 10px; }
+  .mod p:last-child { margin-bottom: 0; }
+  .mod b { color: var(--ink); font-weight: 700; }
+  .mod code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+    background: rgba(0,0,0,0.04);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+
+  h4.sub {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 16px 0 6px;
+  }
+
+  /* callout */
+  .callout {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-left: 4px solid var(--ink-3);
+    background: var(--line-2);
+    border-radius: 6px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  .callout b { color: var(--ink); }
+  .m1 .callout { border-left-color: var(--m1); background: var(--m1-soft); }
+  .m2 .callout { border-left-color: var(--m2); background: var(--m2-soft); }
+  .m3 .callout { border-left-color: var(--m3); background: var(--m3-soft); }
+  .m4 .callout { border-left-color: var(--m4); background: var(--m4-soft); }
+  .m5 .callout { border-left-color: var(--m5); background: var(--m5-soft); }
+
+  /* formula */
+  .eq {
+    margin: 10px 0;
+    padding: 10px 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px;
+    color: var(--ink);
+    text-align: center;
+  }
+  .eq code { background: transparent; padding: 0; font-size: 13px; }
+  .m1 .eq { border-color: #bfdbfe; }
+  .m2 .eq { border-color: #fecdd3; }
+  .m3 .eq { border-color: #c7d2fe; }
+  .m4 .eq { border-color: #a7f3d0; }
+  .m5 .eq { border-color: #fde68a; }
+
+  /* compare table */
+  .cmp {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 10px 0;
+    font-size: 13.5px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .cmp th, .cmp td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .cmp tr:last-child th, .cmp tr:last-child td { border-bottom: none; }
+  .cmp th { background: var(--line-2); font-weight: 700; color: var(--ink); font-size: 12.5px; }
+  .cmp td { color: var(--ink-2); }
+  .m1 .cmp th:first-child { background: var(--m1); color: white; }
+  .m2 .cmp th:first-child { background: var(--m2); color: white; }
+  .m3 .cmp th:first-child { background: var(--m3); color: white; }
+  .m4 .cmp th:first-child { background: var(--m4); color: white; }
+  .m5 .cmp th:first-child { background: var(--m5); color: white; }
+  .cmp .yes { color: var(--m5-deep); font-weight: 700; }
+  .cmp .no  { color: var(--red); font-weight: 700; }
+
+  /* list */
+  .lister { list-style: none; margin: 6px 0; padding: 0; }
+  .lister li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.6;
+  }
+  .lister li::before {
+    content: "";
+    position: absolute;
+    left: 4px; top: 9px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--m1);
+  }
+  .m2 .lister li::before { background: var(--m2); }
+  .m3 .lister li::before { background: var(--m3); }
+  .m4 .lister li::before { background: var(--m4); }
+  .m5 .lister li::before { background: var(--m5); }
+  .lister li b { color: var(--ink); }
+  .lister li code { font-size: 12px; }
+
+  /* ---------- Pitfalls (red) ---------- */
+  .pitfall {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    background: var(--red-soft);
+    border: 1px solid #fecaca;
+    border-left: 4px solid var(--red);
+    border-radius: 6px;
+  }
+  .pitfall .x {
+    width: 24px; height: 24px;
+    background: var(--red);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .pitfall .body { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+  .pitfall .wrong {
+    color: var(--red);
+    text-decoration: line-through;
+    text-decoration-color: rgba(220,38,38,0.4);
+    font-weight: 600;
+  }
+  .pitfall .right { color: #047857; font-weight: 700; }
+  .pitfall .arrow { color: var(--ink-3); margin: 0 4px; }
+
+  /* ---------- TL;DR ---------- */
+  .tldr { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0 18px; }
+  .tldr .card {
+    padding: 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--m1);
+    border-radius: 8px;
+  }
+  .tldr .card:nth-child(2) { border-top-color: var(--m3); }
+  .tldr .card:nth-child(3) { border-top-color: var(--m5); }
+  .tldr .card .lab {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .tldr .card .txt { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+  .tldr .card .txt b { color: var(--ink); }
+
+  .one-liner {
+    padding: 18px 20px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%);
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .one-liner b { color: #fbbf24; font-weight: 700; }
+  .ref { text-align: right; color: var(--ink-3); font-size: 11.5px; margin-top: 10px; }
+
+  @media (max-width: 640px) {
+    header, section { padding-left: 22px; padding-right: 22px; }
+    .ov-grid, .tldr { grid-template-columns: repeat(2, 1fr); }
+    .cmp { font-size: 12.5px; }
+    .cmp th, .cmp td { padding: 7px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ========== ① 标题区 ========== -->
+  <header>
+    <span class="tag">小学数学 · 5 年级下册 · 第四单元</span>
+    <h1>长方体(二)到底<span class="q">考什么？</span></h1>
+    <p class="subtitle">
+      体积意义 + 3 个常用单位 + 单位换算(进率 1000) + 体积与容积 + 排水法操作,
+      一张图把第二单元没讲完的「立体几何深入」补齐。
+      <br>
+      <span style="color:var(--m1-deep);font-weight:600;">📘 本单元讲体积 + 排水法;形状 / 表面积 / 切拼挖空 → 详见 第二单元《长方体(一)》</span>
+    </p>
+    <div class="meta">
+      <span class="chip">📐 <b>北师大版</b> · 5 年级下册</span>
+      <span class="chip">🎯 几何与图形 深入</span>
+      <span class="chip">📊 4 大子主题</span>
+    </div>
+  </header>
+
+  <!-- ========== ② 导览 ========== -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num" style="background:var(--ink);">▦</div>
+      <div>
+        <div class="sec-title">这一页,你要掌握 6 件事</div>
+        <div class="sec-en">6 Key Ideas at a Glance</div>
+      </div>
+    </div>
+    <div class="ov-grid">
+      <div class="ov-card c1">
+        <span class="emo">📦</span>
+        <div class="name">体积是什么</div>
+        <div class="en">What is Volume</div>
+      </div>
+      <div class="ov-card c2">
+        <span class="emo">📏</span>
+        <div class="name">3 个常用单位</div>
+        <div class="en">m³ · dm³ · cm³</div>
+      </div>
+      <div class="ov-card c3">
+        <span class="emo">🔄</span>
+        <div class="name">单位换算 (进率 1000)</div>
+        <div class="en">Unit Conversion</div>
+      </div>
+      <div class="ov-card c4">
+        <span class="emo">🥤</span>
+        <div class="name">体积 vs 容积</div>
+        <div class="en">Volume &amp; Capacity</div>
+      </div>
+      <div class="ov-card c5">
+        <span class="emo">🛢️</span>
+        <div class="name">生活中的应用</div>
+        <div class="en">Real-life Use</div>
+      </div>
+      <div class="ov-card c6">
+        <span class="emo">🚰</span>
+        <div class="name">排水法操作</div>
+        <div class="en">Displacement</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ③ 编号主模块 ========== -->
+
+  <!-- 01 体积的意义 -->
+  <section class="m1">
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <div>
+        <div class="sec-title">体积是什么:物体所占空间的大小</div>
+        <div class="sec-en">What is Volume</div>
+      </div>
+    </div>
+    <div class="mod">
+      <p><b>体积</b> = 物体<b>所占空间的大小</b>。想象把一个物体放进一个装满水的水槽,水被"挤"出去的水量 = 物体体积。</p>
+
+      <table class="cmp">
+        <tr>
+          <th style="width:30%;">对比</th>
+          <th>面积</th>
+          <th>体积</th>
+        </tr>
+        <tr>
+          <th>含义</th>
+          <td>平面的大小(几平方米)</td>
+          <td class="yes">立体的大小(几立方米)</td>
+        </tr>
+        <tr>
+          <th>维度</th>
+          <td>2 维(长 × 宽)</td>
+          <td class="yes">3 维(长 × 宽 × 高)</td>
+        </tr>
+        <tr>
+          <th>单位</th>
+          <td>m², dm², cm²</td>
+          <td class="yes">m³, dm³, cm³</td>
+        </tr>
+        <tr>
+          <th>进率</th>
+          <td>相邻 × 100</td>
+          <td class="yes">相邻 × 1000 (10³)</td>
+        </tr>
+      </table>
+
+      <h4 class="sub">📝 体积的 3 个性质</h4>
+      <ul class="lister">
+        <li><b>可加性</b>:多个物体合起来的体积 = 各体积之和(体积能"加")</li>
+        <li><b>不可分割为零</b>:体积是连续的,可以无限细分,但总和不减少(没有最小单位)</li>
+        <li><b>单位统一原则</b>:算之前必须先转同一单位(比如 m + cm + dm 混合,要先全转 cm)</li>
+      </ul>
+
+      <div class="callout">
+        <b>💡 例</b>:一个 30 cm × 20 cm × 10 cm 的收纳箱,体积 = 30 × 20 × 10 = <b>6000 cm³</b>;合多少 dm³?1 dm³ = 1000 cm³,所以 = 6000 ÷ 1000 = <b>6 dm³</b>。
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 3 个常用单位 -->
+  <section class="m2">
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <div>
+        <div class="sec-title">3 个常用体积单位:m³ / dm³ / cm³</div>
+        <div class="sec-en">Three Common Volume Units</div>
+      </div>
+    </div>
+    <div class="mod">
+      <p>小学阶段只需要掌握 <b>3 个</b>体积单位:立方米、立方分米、立方厘米。每个单位都是"边长 1 单位的正方体"。</p>
+
+      <table class="cmp">
+        <tr>
+          <th style="width:18%;">单位</th>
+          <th>符号</th>
+          <th>有多大(实物比喻)</th>
+          <th>适用场景</th>
+        </tr>
+        <tr>
+          <th>立方米</th>
+          <td><code>m³</code></td>
+          <td>边长 1 m 的正方体(约一台洗衣机大小)</td>
+          <td>游泳池、教室、卡车车厢</td>
+        </tr>
+        <tr>
+          <th>立方分米</th>
+          <td><code>dm³</code></td>
+          <td>边长 1 dm 的正方体(约一个粉笔盒大小)</td>
+          <td>水桶、纸箱、热水瓶</td>
+        </tr>
+        <tr>
+          <th>立方厘米</th>
+          <td><code>cm³</code></td>
+          <td>边长 1 cm 的正方体(约一个骰子大小)</td>
+          <td>药瓶、文具盒、火柴盒</td>
+        </tr>
+      </table>
+
+      <h4 class="sub">🤏 实物大小对照(让孩子用手感知)</h4>
+      <ul class="lister">
+        <li><b>1 cm³</b>:手指甲盖大小。1 个骰子。</li>
+        <li><b>1 dm³</b>:成人的拳头大小。一个粉笔盒。一个 1 L 的牛奶盒。</li>
+        <li><b>1 m³</b>:一个大型行李箱大小。一台滚筒洗衣机。</li>
+      </ul>
+
+      <div class="callout">
+        <b>💡 例</b>:1 桶 5 L 的色拉油,合多少 dm³?1 L = 1 dm³,所以 <b>5 L = 5 dm³</b>。合多少 m³?5 ÷ 1000 = <b>0.005 m³</b>。
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 单位换算 -->
+  <section class="m3">
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <div>
+        <div class="sec-title">体积单位换算(进率永远 1000)</div>
+        <div class="sec-en">Unit Conversion · 1 m³ = 1000 dm³</div>
+      </div>
+    </div>
+    <div class="mod">
+      <p>长度进率 10,面积进率 100,<b>体积进率 1000 (10³)</b>。这是体积换算的核心,必须死记。</p>
+
+      <div class="eq">
+        <b>1 m = 10 dm</b> &nbsp;→&nbsp; <b>1 m² = 100 dm²</b> &nbsp;→&nbsp; <b>1 m³ = 1000 dm³</b>
+      </div>
+      <div class="eq">
+        高级单位 → 低级单位:<b>× 进率</b> (数字变大) &nbsp;|&nbsp; 低级单位 → 高级单位:<b>÷ 进率</b> (数字变小)
+      </div>
+
+      <h4 class="sub" style="color:var(--m3-deep);font-size:15px;">🌉 桥接容积单位(必背 3 条)</h4>
+      <table class="cmp">
+        <tr>
+          <th style="width:24%;color:var(--m3-deep);background:var(--m3-soft);font-weight:800;">桥接关系</th>
+          <th>说明</th>
+        </tr>
+        <tr>
+          <th style="background:var(--m3-soft);"><code style="color:var(--m3-deep);font-size:14px;font-weight:800;">1 L = 1 dm³</code></th>
+          <td>1 升的液体 = 边长 1 dm 的正方体空间。1 L 牛奶盒 ≈ 1 dm³。</td>
+        </tr>
+        <tr>
+          <th style="background:var(--m3-soft);"><code style="color:var(--m3-deep);font-size:14px;font-weight:800;">1 mL = 1 cm³</code></th>
+          <td>1 毫升的液体 = 边长 1 cm 的正方体空间。1 滴眼药水 ≈ 0.05 mL。</td>
+        </tr>
+        <tr>
+          <th style="background:var(--m3-soft);"><code style="color:var(--m3-deep);font-size:14px;font-weight:800;">1 L = 1000 mL</code></th>
+          <td>升和毫升的进率也是 1000(同一体积家族的进率一致)。</td>
+        </tr>
+      </table>
+
+      <h4 class="sub">📊 完整换算口诀</h4>
+      <div class="eq" style="font-size:12.5px;">
+        <b>1 m³ = 1000 dm³ = 1 000 000 cm³ = 1000 L = 1 000 000 mL</b>
+      </div>
+      <ul class="lister">
+        <li>m → dm:× 1000 &nbsp;|&nbsp; dm → cm:× 1000 &nbsp;|&nbsp; cm → mm:× 1000</li>
+        <li>m³ → dm³:× 1000 &nbsp;|&nbsp; dm³ → cm³:× 1000 &nbsp;|&nbsp; cm³ → mm³:× 1000</li>
+        <li>1 m³ = <b>1000 × 1000</b> = 1 000 000 cm³(三级跳,小心别算成 1000)</li>
+        <li>1 L = 1 dm³,1 mL = 1 cm³,所以 L ↔ mL 进率也是 1000</li>
+      </ul>
+
+      <div class="callout">
+        <b>💡 例 · 3 道经典换算</b>:<br>
+        ① <b>2.5 m³ = ? dm³</b> = 2.5 × 1000 = <b>2500 dm³</b><br>
+        ② <b>3000 cm³ = ? dm³</b> = 3000 ÷ 1000 = <b>3 dm³</b><br>
+        ③ <b>0.4 m³ = ? L</b> = 0.4 × 1000 = <b>400 L</b>(注意 1 m³ = 1000 L)
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 体积 vs 容积 + 生活应用 -->
+  <section class="m4">
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <div>
+        <div class="sec-title">体积 vs 容积 + 生活中的应用</div>
+        <div class="sec-en">Volume vs Capacity · Real-life Use</div>
+      </div>
+    </div>
+    <div class="mod">
+      <table class="cmp">
+        <tr>
+          <th style="width:22%;">对比</th>
+          <th>体积</th>
+          <th>容积</th>
+        </tr>
+        <tr>
+          <th>含义</th>
+          <td>物体<b>本身</b>占空间的大小</td>
+          <td>容器<b>内部</b>能装多少</td>
+        </tr>
+        <tr>
+          <th>测量</th>
+          <td>从<b>外面</b>量</td>
+          <td>从<b>里面</b>量</td>
+        </tr>
+        <tr>
+          <th>常用单位</th>
+          <td><code>m³</code> · <code>dm³</code> · <code>cm³</code></td>
+          <td><code>L</code>(升) · <code>mL</code>(毫升)</td>
+        </tr>
+        <tr>
+          <th>大小关系</th>
+          <td>同一物体,<b>体积 ≥ 容积</b></td>
+          <td>同一物体,<b>容积 ≤ 体积</b>(差壁厚)</td>
+        </tr>
+        <tr>
+          <th>桥接</th>
+          <td colspan="2" style="text-align:center;font-weight:700;color:var(--m4-deep);">1 L = 1 dm³ &nbsp;&nbsp; 1 mL = 1 cm³ &nbsp;&nbsp; 1 L = 1000 mL</td>
+        </tr>
+      </table>
+
+      <h4 class="sub">🛢️ 体积在生活中的应用(选单位)</h4>
+      <table class="cmp">
+        <tr>
+          <th style="width:30%;">场景</th>
+          <th>合适单位</th>
+          <th>典型大小</th>
+        </tr>
+        <tr>
+          <th>游泳池(50 m 标准池)</th>
+          <td>m³</td>
+          <td>50 × 25 × 2 = <b>2500 m³</b></td>
+        </tr>
+        <tr>
+          <th>教室空气体积</th>
+          <td>m³</td>
+          <td>9 × 6 × 3.5 ≈ <b>190 m³</b></td>
+        </tr>
+        <tr>
+          <th>家用轿车后备厢</th>
+          <td>dm³ / L</td>
+          <td>约 <b>400 L = 400 dm³</b></td>
+        </tr>
+        <tr>
+          <th>大卡车车厢</th>
+          <td>m³</td>
+          <td>约 <b>10 m³</b>(装 10 吨沙)</td>
+        </tr>
+        <tr>
+          <th>5 L 食用油桶</th>
+          <td>L / dm³</td>
+          <td><b>5 L = 5 dm³</b></td>
+        </tr>
+        <tr>
+          <th>眼药水瓶</th>
+          <td>mL / cm³</td>
+          <td>10 mL = <b>10 cm³</b></td>
+        </tr>
+      </table>
+
+      <h4 class="sub">📝 选单位口诀</h4>
+      <ul class="lister">
+        <li>看东西有多大:<b>比 1 米大</b>用 m³;<b>比 1 分米大</b>用 dm³ / L;<b>比 1 厘米大</b>用 cm³ / mL</li>
+        <li>看是什么东西:<b>液体</b>优先用 L / mL;<b>固体/气体</b>用 m³ / dm³ / cm³</li>
+        <li>看题目问的:问"装多少水"用容积单位;问"占多大空间"用体积单位</li>
+      </ul>
+
+      <div class="callout">
+        <b>💡 例 · 3 道单位应用题</b>:<br>
+        ① 一个 8 m × 5 m × 3 m 的教室,空气体积 = 8 × 5 × 3 = <b>120 m³</b><br>
+        ② 一个能装 0.5 m³ 水的热水瓶,合多少升?0.5 × 1000 = <b>500 L</b><br>
+        ③ 一瓶 50 mL 的止咳糖浆,合多少 cm³?1 mL = 1 cm³, 所以 = <b>50 cm³</b>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 排水法 -->
+  <section class="m5">
+    <div class="sec-head">
+      <div class="sec-num">05</div>
+      <div>
+        <div class="sec-title">排水法:不规则物体的体积(2 种方法)</div>
+        <div class="sec-en">Water Displacement · 2 Methods</div>
+      </div>
+    </div>
+    <div class="mod">
+      <p>不规则物体(如石头、苹果、橡皮泥团)无法直接量长宽高,需要用<b>排水法</b>(阿基米德原理)。物体排开水的体积 = 物体体积。</p>
+
+      <div class="eq">
+        <b>V<sub>物体</sub> = V<sub>后</sub> − V<sub>前</sub></b> = 水面上升的体积
+      </div>
+
+      <h4 class="sub">🥇 方法 1:量筒法(小物体)</h4>
+
+      <ul class="lister">
+        <li><b>步骤 1</b>:量筒里装<b>足够</b>水(让物体能完全浸没),记读数 V<sub>前</sub></li>
+        <li><b>步骤 2</b>:用细线/铁丝系住物体,小心<b>完全浸没</b>到水中(不能碰到量筒壁/底)</li>
+        <li><b>步骤 3</b>:看新的水位,记 V<sub>后</sub></li>
+        <li><b>步骤 4</b>:V<sub>物体</sub> = V<sub>后</sub> − V<sub>前</sub></li>
+      </ul>
+
+      <h4 class="sub">🥈 方法 2:溢水杯法(大物体或易吸水的)</h4>
+
+      <ul class="lister">
+        <li><b>步骤 1</b>:溢水杯装满水至溢水口(刚刚好不溢出)</li>
+        <li><b>步骤 2</b>:将物体完全浸入溢水杯,被排出的水从溢水口流出</li>
+        <li><b>步骤 3</b>:用小量筒接住溢出的水,读数 = 物体体积</li>
+        <li>适合:<b>太大放不进量筒</b>、<b>易吸水</b>(不怕泡水)、<b>形状不规则</b>的大物体</li>
+      </ul>
+
+      <h4 class="sub">🪶 浮力问题:物体浮起来怎么办?</h4>
+      <p>如果是<b>石蜡、木头、塑料</b>这种比水轻的物体,放进水里会浮起来,排水法测不准。解法:</p>
+      <ul class="lister">
+        <li><b>用细绳/铁丝</b>系住物体,另一头拉住,强制压入水中</li>
+        <li><b>用大头针/筷子</b>按住物体,让物体完全浸没</li>
+        <li><b>先在物体上绑一个重物</b>(比如铁块),让物体总重量大于浮力</li>
+        <li><b>关键</b>:无论用哪种方法,<b>必须保证物体完全浸没</b>,否则 V<sub>后</sub> − V<sub>前</sub> 偏小</li>
+      </ul>
+
+      <h4 class="sub">💧 易吸水物体怎么办?</h4>
+      <ul class="lister">
+        <li>如果物体<b>轻微吸水</b>:先让物体<b>完全吸饱水</b>再做排水法(否则吸进去的水不排出,体积偏大)</li>
+        <li>如果物体<b>大量吸水</b>(如海绵):用<b>溢水杯法</b>(物体直接放进溢水杯,吸进去的水不影响排出量)</li>
+        <li>如果物体<b>溶于水</b>(如糖块):用<b>细沙/面粉</b>代替水(把物体埋进沙里,沙填满物体占据的空间,沙子减少的体积 = 物体体积)</li>
+      </ul>
+
+      <div class="callout">
+        <b>💡 3 道经典例题</b>:<br>
+        ① <b>量筒法</b>:量筒水 100 mL,放土豆后 150 mL,土豆 = <b>50 cm³</b><br>
+        ② <b>溢水杯法</b>:溢水杯满水,大石头浸入后小量筒接 80 mL,石头 = <b>80 cm³</b><br>
+        ③ <b>浮力法</b>:石蜡浮起,用针压入水中,水位上升 40 mL,石蜡 = <b>40 cm³</b>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ④ 误区警示 ========== -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num" style="background:var(--red);">!</div>
+      <div>
+        <div class="sec-title">5 个最容易踩的坑</div>
+        <div class="sec-en">5 Common Pitfalls</div>
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div class="body">
+        <span class="wrong">1 m³ = 100 dm³(类比 1 m² = 100 dm²)</span>
+        <span class="arrow">👉</span>
+        <span class="right">1 m³ = 1000 dm³(进率 1000,不是 100!)</span>
+        长度 10,面积 100,<b>体积 1000 (10³)</b>。差一位数就差 10 倍。
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div class="body">
+        <span class="wrong">1 L = 1 cm³(都带"立方",单位一样)</span>
+        <span class="arrow">👉</span>
+        <span class="right">1 L = 1 dm³ = 1000 cm³(1 L 比 1 cm³ 大 1000 倍!)</span>
+        1 L 是个大单位(粉笔盒大小),1 cm³ 是个小单位(骰子大小)。两者<b>差 1000 倍</b>。
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div class="body">
+        <span class="wrong">单位混合算:m + cm 不转直接乘</span>
+        <span class="arrow">👉</span>
+        <span class="right">先全转同一单位,再算</span>
+        例:长 2 m 宽 30 cm 高 4 dm,必须先全转 cm:200 × 30 × 40,然后再算。<b>混单位算会差 10/100/1000 倍</b>。
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div class="body">
+        <span class="wrong">浮起来的物体排水法:V物体 = V前 − 0</span>
+        <span class="arrow">👉</span>
+        <span class="right">必须用针/铁丝把物体压入水中,V物体 = V后 − V前</span>
+        浮起来的物体不强制浸没,V<sub>后</sub> 读数会偏小,算出来体积偏小。
+      </div>
+    </div>
+
+    <div class="pitfall">
+      <div class="x">✗</div>
+      <div class="body">
+        <span class="wrong">易吸水物体直接量筒法:V后 − V前 = 物体体积</span>
+        <span class="arrow">👉</span>
+        <span class="right">用溢水杯法,或先让物体完全吸饱水</span>
+        海绵等物体没吸饱水时,排水法测得的是"物体+吸入水"的体积,<b>比真实物体体积大</b>。
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ⑤ 一句话总结 ========== -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num" style="background:var(--m1);">▣</div>
+      <div>
+        <div class="sec-title">TL;DR · 这一页先记住这 3 件事</div>
+        <div class="sec-en">The 3 Things to Remember</div>
+      </div>
+    </div>
+
+    <div class="tldr">
+      <div class="card">
+        <div class="lab">① 体积 Volume</div>
+        <div class="txt"><b>物体占空间的大小</b>。3 维(m³/dm³/cm³)。体积 = 物体本身大小,<b>容积</b> = 容器内部空间(差壁厚)。</div>
+      </div>
+      <div class="card">
+        <div class="lab">② 进率 1000</div>
+        <div class="txt">长度 10,面积 100,<b>体积 1000 (10³)</b>。1 L = 1 dm³,1 mL = 1 cm³,1 L = 1000 mL。<b>混单位必先转</b>。</div>
+      </div>
+      <div class="card">
+        <div class="lab">③ 排水法 Displacement</div>
+        <div class="txt">V<sub>物体</sub> = V<sub>后</sub> − V<sub>前</sub>。<b>小物体用量筒,大物体/易吸水用溢水杯,浮起来的要用针压入</b>。</div>
+      </div>
+    </div>
+
+    <div class="one-liner">
+      📐 长方体(二) = <b>体积</b> + <b>进率 1000</b> + <b>排水法</b>;<br>
+      <b>体积</b>算"占多大空间",<b>单位</b>必先统一再算,<b>排水法</b>就是不规则物体的"丈量工具"。
+    </div>
+
+    <p class="ref">📘 参考:北师大版《数学》5 年级下册 · 第四单元「长方体(二)」 · 编排: DONG XINGBO</p>
+
+    <div class="credit" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--ink-3); text-align: center; line-height: 1.6;">
+      <b style="color: var(--ink); font-weight: 700;">由 DONG XINGBO 创建整理</b> · 非授权禁止转载<br>
+      <span style="font-size: 10.5px; color: var(--ink-3);">© 2026 DONG XINGBO · All rights reserved</span>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
