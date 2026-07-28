@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>北师大版六年级数学上册 · 第二单元《圆的认识（二）》全屏交互式课件</title>
+  <style>
+    /* ==================== CORE CSS CONFIGURATION ==================== */
+    :root {
+      --bg-dark: #020f0e;
+      --card-dark: #042624;
+      --card-glass: rgba(8, 38, 36, 0.4);
+      --border-soft: rgba(6, 182, 212, 0.25);
+      --border-active: rgba(6, 182, 212, 0.6);
+      
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dark: #020f0e;
+
+      --accent-cyan: #06b6d4;     /* 电子青 */
+      --accent-gold: #f59e0b;     /* 晨曦金 */
+      --accent-red: #ef4444;      /* 朱砂红 */
+      --accent-green: #10b981;    /* 翡翠绿 */
+      --accent-blue: #3b82f6;
+
+      --font-family: "SimSun", "STSong", "Songti SC", "华文宋体", Georgia, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #010606;
+      color: var(--text-main);
+      font-family: var(--font-family);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .viewport-wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .deck-container {
+      width: 1280px;
+      height: 720px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(6, 182, 212, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(245, 158, 11, 0.04) 0%, transparent 40%);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ==================== GLOBAL UI COMPONENTS ==================== */
+    .top-bar {
+      height: 40px;
+      background: rgba(2, 15, 14, 0.8);
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      font-family: sans-serif;
+    }
+
+    .logo-info { display: flex; align-items: center; gap: 12px; }
+    .tag-bnu {
+      background: rgba(6, 182, 212, 0.15); border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan); font-size: 0.75rem; font-weight: bold;
+      padding: 2px 8px; border-radius: 12px;
+    }
+    .title-text { font-size: 0.9rem; font-weight: bold; color: var(--text-muted); }
+    .help-tips { font-size: 0.8rem; color: var(--text-muted); }
+
+    .side-nav {
+      position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 15px; align-items: center; z-index: 50;
+    }
+    .nav-arrow-btn {
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-soft);
+      color: var(--accent-cyan); width: 36px; height: 36px; border-radius: 50%;
+      display: flex; justify-content: center; align-items: center;
+      cursor: pointer; transition: all 0.2s; font-size: 1rem;
+    }
+    .nav-arrow-btn:hover:not(:disabled) { background: rgba(6, 182, 212, 0.2); box-shadow: 0 0 10px rgba(6, 182, 212, 0.4); }
+    .nav-arrow-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+    .page-indicator-vertical { display: flex; flex-direction: column; align-items: center; }
+
+    .slides-wrapper { flex: 1; position: relative; }
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+      display: flex; flex-direction: column; padding: 25px 60px 25px 40px;
+    }
+    .slide.active { opacity: 1; pointer-events: auto; }
+
+    .slide-header {
+      margin-bottom: 20px; display: flex; align-items: center; gap: 15px;
+    }
+    .topic-badge {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, #0369a1 100%);
+      color: var(--text-dark); font-weight: bold; font-size: 0.95rem;
+      padding: 6px 14px; border-radius: 8px; box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+    }
+    .slide-title { font-size: 1.8rem; font-weight: bold; color: var(--text-main); text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    .page-index { margin-left: auto; font-family: monospace; font-size: 1.1rem; color: var(--text-muted); }
+
+    .slide-body {
+      flex: 1; display: flex; flex-direction: column; position: relative;
+    }
+    .slide-body.justify-center { justify-content: center; }
+    
+    /* Cover */
+    .cover-layout {
+      width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    }
+    .cover-layout .subtitle { color: var(--accent-gold); font-weight: bold; letter-spacing: 0.3em; margin-bottom: 15px; font-size: 1.1rem; }
+    .cover-layout .desc { color: var(--text-muted); font-size: 1.2rem; max-width: 700px; line-height: 1.6; margin: 20px 0 40px; }
+    .start-btn {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, #0369a1 100%);
+      border: 1px solid var(--accent-cyan); color: var(--text-dark);
+      font-size: 1.2rem; font-weight: bold; padding: 12px 35px; border-radius: 30px;
+      cursor: pointer; transition: all 0.3s; font-family: var(--font-family); box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
+    }
+    .start-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(6, 182, 212, 0.5); }
+    .start-btn:active { transform: translateY(0); }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--text-muted); color: var(--text-main);
+      padding: 8px 24px; border-radius: 20px; font-size: 0.95rem; cursor: pointer; transition: all 0.2s;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--text-main); }
+
+    /* Map Grid */
+    .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; align-content: center; }
+    .map-node { background: var(--card-glass); border: 1.5px solid var(--border-soft); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between; height: 180px; position: relative; }
+    .map-node:hover { border-color: var(--accent-cyan); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(6, 182, 212, 0.2); }
+    .map-tag { font-size: 0.8rem; font-weight: bold; background: rgba(6, 182, 212, 0.15); border: 1px solid var(--border-soft); padding: 3px 10px; border-radius: 12px; color: var(--accent-cyan); align-self: flex-start; }
+    .map-title { font-size: 1.4rem; font-weight: bold; color: var(--text-main); margin: 10px 0; }
+    .map-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* Cards */
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1 1 auto; }
+    .card { background: var(--card-glass); border: 1px solid var(--border-soft); border-radius: 16px; padding: 25px; display: flex; flex-direction: column; box-shadow: inset 0 0 20px rgba(0,0,0,0.2); }
+    .card h3 { color: var(--accent-gold); font-size: 1.3rem; margin-bottom: 15px; border-bottom: 1px dashed rgba(245, 158, 11, 0.3); padding-bottom: 10px; }
+
+    .highlight-gold { color: var(--accent-gold); font-weight: bold; }
+    .highlight-cyan { color: var(--accent-cyan); font-weight: bold; }
+
+    .thought-card {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 4px solid var(--accent-cyan);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      margin-top: 15px;
+      line-height: 1.6;
+    }
+
+    /* ==================== SVG FOLDING / INTERACTIVE STYLES ==================== */
+    .explore-split { display: grid; grid-template-columns: 420px 1fr; gap: 30px; height: 100%; align-items: stretch; }
+    .svg-visual-box { background: rgba(0,0,0,0.3); border: 1.5px solid var(--border-soft); border-radius: 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); overflow: hidden; position: relative; }
+    .explore-desc { background: var(--card-glass); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 25px; display: flex; flex-direction: column; justify-content: center; }
+    .explore-desc h4 { color: var(--accent-cyan); font-size: 1.2rem; margin-bottom: 12px; }
+
+    /* SVGs */
+    .svg-interactive { width: 100%; max-height: 300px; display: block; overflow: visible; }
+    .svg-axis { stroke: var(--accent-red); stroke-width: 2.5; stroke-dasharray: 6 4; transition: opacity 0.3s; }
+
+    /* Half circles for folding */
+    .paper-circle {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.15);
+      border: 3px solid var(--accent-green);
+      perspective: 1000px;
+    }
+    
+    .half-circle {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      top: 0;
+      left: 0;
+      background: rgba(16, 185, 129, 0.3);
+      border: 3px solid var(--accent-green);
+      border-bottom: 2px dashed var(--accent-gold);
+      border-top-left-radius: 120px;
+      border-top-right-radius: 120px;
+      transform-origin: bottom;
+      transition: transform 1.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+    .fold-active .half-circle { transform: rotateX(-178deg); }
+
+    .center-dot {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.5s;
+      z-index: 10;
+    }
+    .show-center .center-dot { opacity: 1; box-shadow: 0 0 10px var(--accent-gold); }
+
+    /* ==================== MEDAL, MINDMAP & PK CSS ==================== */
+    .mindmap-container { display: flex; align-items: center; justify-content: center; gap: 30px; width: 100%; height: 100%; padding: 10px 0; }
+    .mindmap-root { flex: 0 0 auto; display: flex; align-items: center; }
+    .mindmap-core { background: linear-gradient(135deg, var(--accent-gold) 0%, #d97706 100%); color: var(--text-dark); font-weight: bold; font-size: 1.15rem; padding: 15px 25px; border-radius: 12px; text-align: center; border: 2px solid var(--accent-gold); box-shadow: 0 5px 15px rgba(217, 119, 6, 0.4); line-height: 1.4; }
+    .mindmap-branches { display: flex; flex-direction: column; gap: 15px; flex: 1; max-width: 680px; }
+    .mindmap-branch-item { display: flex; align-items: center; gap: 15px; background: rgba(255, 255, 255, 0.02); border: 1px dashed var(--border-soft); border-radius: 10px; padding: 10px 15px; }
+    .mindmap-node { font-weight: bold; font-size: 0.95rem; padding: 5px 12px; border-radius: 6px; color: var(--text-dark); min-width: 110px; text-align: center; flex-shrink: 0; }
+    .mindmap-node.n1 { background: var(--accent-blue); }
+    .mindmap-node.n2 { background: var(--accent-cyan); }
+    .mindmap-node.n3 { background: var(--accent-green); }
+    .mindmap-leafs { display: flex; flex-direction: row; gap: 10px; flex: 1; justify-content: flex-start; flex-wrap: wrap; }
+    .mindmap-tag { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-soft); border-radius: 6px; padding: 3px 10px; font-size: 0.82rem; font-weight: bold; color: var(--text-main); }
+
+    .medal-container { position: relative; width: 140px; height: 180px; margin: 10px auto; display: flex; justify-content: center; align-items: center; }
+    .gold-medal { width: 95px; height: 95px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #fef08a 0%, #ca8a04 60%, #854d0e 100%); border: 4px solid #fef08a; box-shadow: 0 8px 25px rgba(202, 138, 4, 0.55), inset 0 0 10px rgba(0,0,0,0.3); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5; position: relative; animation: float-medal 3s ease-in-out infinite; }
+    .medal-star { font-size: 2.3rem; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.4); line-height: 1; }
+    .medal-text { font-size: 0.75rem; font-weight: bold; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); margin-top: -2px; }
+    .medal-ribbon { position: absolute; top: 75px; width: 25px; height: 75px; z-index: 2; transform-origin: top center; }
+    .medal-ribbon.left { background: linear-gradient(to bottom, #ef4444 0%, #b91c1c 100%); transform: rotate(20deg); left: 45px; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%); }
+    .medal-ribbon.right { background: linear-gradient(to bottom, #ef4444 0%, #b91c1c 100%); transform: rotate(-20deg); right: 45px; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%); }
+    @keyframes float-medal { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+    .pk-split-container { display: flex; width: 100%; height: 100%; gap: 20px; position: relative; }
+    .pk-pane { flex: 1; border-radius: 16px; padding: 15px 20px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; border: 2px solid transparent; background: rgba(255,255,255,0.02); transition: all 0.3s; }
+    .pk-pane.player1 { border-color: rgba(239,68,68,0.3); }
+    .pk-pane.player2 { border-color: rgba(96,165,250,0.3); }
+    .pk-pane-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(255,255,255,0.08); padding-bottom: 8px; }
+    .pk-team-name { font-size: 1.15rem; font-weight: bold; }
+    .pk-pane.player1 .pk-team-name { color: var(--accent-red); }
+    .pk-pane.player2 .pk-team-name { color: var(--accent-blue); }
+    .pk-score-badge { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 3px 10px; font-family: monospace; font-size: 0.88rem; }
+    .pk-question-box { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 14px; text-align: center; min-height: 110px; display: flex; align-items: center; justify-content: center; font-size: 1.08rem; font-weight: bold; line-height: 1.5; }
+    .pk-options-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    .pk-opt-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); border-radius: 8px; padding: 9px 14px; font-family: var(--font-family); font-size: 0.92rem; font-weight: bold; cursor: pointer; transition: all 0.2s; text-align: center; }
+    .pk-pane.player1 .pk-opt-btn:hover:not(:disabled) { background: rgba(239,68,68,0.1); border-color: var(--accent-red); }
+    .pk-pane.player2 .pk-opt-btn:hover:not(:disabled) { background: rgba(96,165,250,0.1); border-color: var(--accent-blue); }
+    .pk-opt-btn.correct { background: rgba(16,185,129,0.25)!important; border-color: var(--accent-green)!important; color: #34d399!important; }
+    .pk-opt-btn.wrong   { background: rgba(239,68,68,0.25)!important;  border-color: var(--accent-red)!important;   color: #f87171!important; }
+    .pk-screen-overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(2,15,14,0.88); backdrop-filter: blur(8px); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; z-index: 10; padding: 20px; }
+    .pk-screen-overlay h4 { font-size: 1.5rem; margin-bottom: 12px; color: var(--accent-gold); }
+    .pk-winner-banner { width: 100%; background: linear-gradient(90deg, transparent 0%, rgba(245,158,11,0.15) 50%, transparent 100%); border-top: 1.5px solid var(--accent-gold); border-bottom: 1.5px solid var(--accent-gold); padding: 12px 0; text-align: center; font-size: 1.7rem; font-weight: bold; color: var(--accent-gold); margin: 15px 0; }
+
+    /* ==================== QUIZ STYLING ==================== */
+    .quiz-card { background: rgba(0,0,0,0.2); border: 1px solid var(--border-soft); border-radius: 12px; padding: 15px; }
+    .quiz-question { font-size: 1.05rem; font-weight: bold; margin-bottom: 12px; color: var(--text-main); }
+    .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+    .quiz-opt { background: rgba(255,255,255,0.03); border: 1px solid var(--border-soft); border-radius: 8px; padding: 10px 16px; color: var(--text-main); font-family: var(--font-family); font-size: 0.95rem; cursor: pointer; transition: all 0.25s; text-align: left; }
+    .quiz-opt:hover { background: rgba(6, 182, 212, 0.1); border-color: var(--accent-cyan); }
+    .quiz-opt.correct { background: rgba(16, 185, 129, 0.15)!important; border-color: var(--accent-green)!important; color: #34d399!important; font-weight: bold; }
+    .quiz-opt.wrong { background: rgba(239, 68, 68, 0.15)!important; border-color: var(--accent-red)!important; color: #f87171!important; font-weight: bold; }
+    .quiz-feedback { margin-top: 10px; font-size: 0.92rem; font-weight: bold; opacity: 0; transition: opacity 0.3s; }
+    .quiz-feedback.show { opacity: 1; }
+  </style>
+</head>
+<body>
+<div class="viewport-wrapper">
+  <div class="deck-container">
+    <div class="top-bar">
+      <div class="logo-info">
+        <span class="tag-bnu">北师大版</span>
+        <span class="title-text">六年级数学上册 · 第二单元《圆》第2课时</span>
+      </div>
+      <div class="help-tips">💡 提示：按 ◀ / ▶ 键翻页 | 多页面附带交互操作</div>
+    </div>
+    
+    <div class="slides-wrapper">
+      <!-- SLIDE 1: 封面 -->
+      <div class="slide active" id="slide-1">
+        <div class="cover-layout">
+          <p class="subtitle">几 何 形 状 探 索 课 · 北 师 大 版</p>
+          <h1 style="font-size: 3.5rem; letter-spacing: 0.05em;">圆的认识（二）</h1>
+          <p class="desc">学习路线：探索对称美 ➔ 发现无数条对称轴 ➔ 折纸找圆心 ➔ 多边形家族大比拼</p>
+          <button class="start-btn" onclick="nextSlide()">开启对称之旅</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: 大纲导航图 -->
+      <div class="slide" id="slide-2">
+        <div class="slide-header">
+          <span class="topic-badge">大纲路线</span>
+          <span class="slide-title">《圆的认识（二）》大纲地图</span>
+          <span class="page-index">02 / 13</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="map-grid">
+            <div class="map-node" onclick="goToSlide(3)">
+              <span class="map-tag">第一关</span>
+              <span class="map-title">折纸探秘</span>
+              <span class="map-desc">通过对折圆片，亲手验证圆是否为轴对称图形。</span>
+            </div>
+            <div class="map-node" onclick="goToSlide(5)">
+              <span class="map-title">无穷之美</span>
+              <span class="map-desc">寻找圆的对称轴，发现那令人惊叹的“无数条”奥秘。</span>
+            </div>
+            <div class="map-node" onclick="goToSlide(7)">
+              <span class="map-tag">第三关</span>
+              <span class="map-title">巧找圆心</span>
+              <span class="map-desc">运用对称性质，挑战在一张纯白圆纸上找出精确的圆心。</span>
+            </div>
+            <div class="map-node" onclick="goToSlide(9)">
+              <span class="map-tag">第四关</span>
+              <span class="map-title">家族比拼</span>
+              <span class="map-desc">对比正方形、长方形、等边三角形的对称轴，揭开圆的王者地位。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: 第一关过渡 -->
+      <div class="slide" id="slide-3">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 1</p>
+          <h1 style="color: var(--accent-cyan);">第一关：折纸探秘</h1>
+          <p class="desc">探索目标：圆是轴对称图形吗？它的对称轴在哪里？</p>
+          <button class="start-btn" onclick="nextSlide()">进入关卡</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: 折纸交互 -->
+      <div class="slide" id="slide-4">
+        <div class="slide-header">
+          <span class="topic-badge">第一关：互动折纸</span>
+          <span class="slide-title">对折圆片，你发现了什么？</span>
+          <span class="page-index">04 / 13</span>
+        </div>
+        <div class="slide-body">
+          <div class="explore-split">
+            <div class="svg-visual-box" style="height: 350px;">
+              <div class="paper-circle" id="foldCircle1">
+                <div class="half-circle" id="topHalf1"></div>
+                <div style="position:absolute; width:100%; height:2px; top:50%; background:var(--accent-gold); display:none;" id="axisLine1"></div>
+              </div>
+            </div>
+            <div class="explore-desc">
+              <h4>🎯 任务：点击按钮对折纸片</h4>
+              <button class="start-btn" style="padding: 10px 20px; font-size:1rem; margin:15px 0;" onclick="toggleFold1()">对折 / 展开</button>
+              <div class="thought-card" style="opacity: 0; transition: opacity 0.5s;" id="foldThought1">
+                <p><b>现象：</b>对折后，两侧的图形能够<b>完全重合</b>。</p>
+                <p style="margin-top: 10px;"><b>结论：</b>圆是<b>轴对称图形</b>。</p>
+                <p style="margin-top: 10px;">中间的折痕就是它的<b>对称轴</b>，它正好是圆的一条<b>直径所在的直线</b>！</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: 第二关过渡 -->
+      <div class="slide" id="slide-5">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 2</p>
+          <h1 style="color: var(--accent-gold);">第二关：无穷之美</h1>
+          <p class="desc">探索目标：圆到底有多少条对称轴？</p>
+          <button class="start-btn" onclick="nextSlide()">进入关卡</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: 无数条对称轴交互 -->
+      <div class="slide" id="slide-6">
+        <div class="slide-header">
+          <span class="topic-badge">第二关：画轴探究</span>
+          <span class="slide-title">动手画一画：圆的对称轴</span>
+          <span class="page-index">06 / 13</span>
+        </div>
+        <div class="slide-body">
+          <div class="explore-split">
+            <div class="svg-visual-box" style="height: 380px;">
+              <svg viewBox="0 0 200 200" style="width: 100%; height: 100%;">
+                <circle cx="100" cy="100" r="80" class="svg-circle"/>
+                <circle cx="100" cy="100" r="3" fill="var(--accent-gold)"/>
+                <text x="105" y="95" fill="var(--accent-gold)" font-size="10" font-weight="bold">O</text>
+                <g id="axisLinesGroup"></g>
+              </svg>
+            </div>
+            <div class="explore-desc">
+              <h4>🎯 任务：点击下方按钮添加对称轴</h4>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">提示：只要穿过圆心（即直径所在直线）就能将圆平分。</p>
+              <button class="start-btn" style="padding: 10px 20px; font-size:1rem; margin:15px 0;" onclick="addAxisLine()">画一条对称轴</button>
+              <button class="nav-btn" style="margin-bottom: 15px;" onclick="resetAxisLines()">重置清空</button>
+              
+              <div style="font-size: 1.1rem; font-weight: bold; color: var(--accent-cyan); margin-bottom: 10px;">
+                当前已画：<span id="axisCountDisplay" style="font-size: 1.5rem; color: var(--accent-gold);">0</span> 条
+              </div>
+
+              <div class="thought-card" style="border-left-color: var(--accent-gold);">
+                <p>💡 <b>结论：</b>只要是穿过圆心的直线（也就是直径所在的直线），都是圆的对称轴。</p>
+                <p style="margin-top: 10px; color: var(--accent-cyan); font-weight: bold; font-size: 1.1rem;">因此，圆有【无数条】对称轴！</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: 第三关过渡 -->
+      <div class="slide" id="slide-7">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 3</p>
+          <h1 style="color: var(--accent-green);">第三关：巧找圆心</h1>
+          <p class="desc">探索目标：只有一张圆形白纸，怎么找出它的圆心？</p>
+          <button class="start-btn" onclick="nextSlide()">进入关卡</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 8: 找圆心交互 -->
+      <div class="slide" id="slide-8">
+        <div class="slide-header">
+          <span class="topic-badge">第三关：巧找圆心</span>
+          <span class="slide-title">不用尺子，折出圆心！</span>
+          <span class="page-index">08 / 13</span>
+        </div>
+        <div class="slide-body">
+          <div class="explore-split">
+            <div class="svg-visual-box" style="height: 380px;">
+              <div class="paper-circle" id="findCenterCircle" style="transition: transform 1s;">
+                <div class="half-circle" id="findCenterTopHalf"></div>
+                <div style="position:absolute; width:100%; height:2px; top:50%; background:var(--accent-red); opacity:0; transition:opacity 0.5s;" id="foldLine1"></div>
+                <div style="position:absolute; width:2px; height:100%; left:50%; background:var(--accent-blue); opacity:0; transition:opacity 0.5s;" id="foldLine2"></div>
+                <div class="center-dot" id="foundCenterDot"></div>
+              </div>
+            </div>
+            <div class="explore-desc">
+              <h4>🎯 操作步骤：</h4>
+              <div style="display: flex; gap: 10px; margin: 15px 0;">
+                <button class="start-btn" style="padding: 8px 15px; font-size:0.95rem; background: var(--accent-red); color: white;" onclick="doCenterFold1()">1. 任意对折一次</button>
+                <button class="start-btn" style="padding: 8px 15px; font-size:0.95rem; background: var(--accent-blue); color: white;" onclick="doCenterFold2()" id="btnFold2" disabled>2. 换个方向再折一次</button>
+                <button class="nav-btn" onclick="resetCenterFold()">重置</button>
+              </div>
+
+              <div class="thought-card" style="opacity: 0; transition: opacity 0.5s;" id="centerThought">
+                <p><b>揭秘：</b></p>
+                <p>第一次对折，产生了一条折痕（一条对称轴，也是直径）。</p>
+                <p>第二次对折，产生了第二条折痕（另一条直径）。</p>
+                <p style="margin-top: 10px; color: var(--accent-gold); font-weight: bold;">两条直径的【交点】，就是这个圆的圆心 O！</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: 第四关过渡 -->
+      <div class="slide" id="slide-9">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 4</p>
+          <h1 style="color: var(--accent-blue);">第四关：家族比拼</h1>
+          <p class="desc">探索目标：圆的对称轴和长方形、正方形比起来，谁多谁少？</p>
+          <button class="start-btn" onclick="nextSlide()">进入比拼</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 10: 对称轴大比拼 -->
+      <div class="slide" id="slide-10">
+        <div class="slide-header">
+          <span class="topic-badge">第四关：家族比拼</span>
+          <span class="slide-title">常见图形对称轴数量大比拼</span>
+          <span class="page-index">10 / 13</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 15px;">
+            <!-- Rectangle -->
+            <div class="card" style="padding: 15px; text-align: center; align-items: center;">
+              <h4 style="color: var(--accent-cyan); margin-bottom: 10px;">长方形</h4>
+              <svg viewBox="0 0 100 100" style="width:100px; height:100px; overflow:visible;">
+                <rect x="10" y="25" width="80" height="50" fill="rgba(6,182,212,0.2)" stroke="var(--accent-cyan)" stroke-width="2"/>
+                <line x1="50" y1="15" x2="50" y2="85" class="svg-axis" style="opacity:0;" id="axRect1"/>
+                <line x1="0" y1="50" x2="100" y2="50" class="svg-axis" style="opacity:0;" id="axRect2"/>
+              </svg>
+              <button class="nav-btn" style="margin-top:15px; width:100%;" onclick="showAxis('axRect', 2, 'ansRect')">显示对称轴</button>
+              <div style="margin-top:10px; font-weight:bold; font-size:1.2rem; color:var(--accent-cyan);" id="ansRect">? 条</div>
+            </div>
+
+            <!-- Square -->
+            <div class="card" style="padding: 15px; text-align: center; align-items: center;">
+              <h4 style="color: var(--accent-green); margin-bottom: 10px;">正方形</h4>
+              <svg viewBox="0 0 100 100" style="width:100px; height:100px; overflow:visible;">
+                <rect x="15" y="15" width="70" height="70" fill="rgba(16,185,129,0.2)" stroke="var(--accent-green)" stroke-width="2"/>
+                <line x1="50" y1="5" x2="50" y2="95" class="svg-axis" style="opacity:0;" id="axSq1"/>
+                <line x1="5" y1="50" x2="95" y2="50" class="svg-axis" style="opacity:0;" id="axSq2"/>
+                <line x1="10" y1="10" x2="90" y2="90" class="svg-axis" style="opacity:0;" id="axSq3"/>
+                <line x1="90" y1="10" x2="10" y2="90" class="svg-axis" style="opacity:0;" id="axSq4"/>
+              </svg>
+              <button class="nav-btn" style="margin-top:15px; width:100%;" onclick="showAxis('axSq', 4, 'ansSq')">显示对称轴</button>
+              <div style="margin-top:10px; font-weight:bold; font-size:1.2rem; color:var(--accent-green);" id="ansSq">? 条</div>
+            </div>
+
+            <!-- Equilateral Triangle -->
+            <div class="card" style="padding: 15px; text-align: center; align-items: center;">
+              <h4 style="color: var(--accent-gold); margin-bottom: 10px;">等边三角形</h4>
+              <svg viewBox="0 0 100 100" style="width:100px; height:100px; overflow:visible;">
+                <polygon points="50,15 15,85 85,85" fill="rgba(245,158,11,0.2)" stroke="var(--accent-gold)" stroke-width="2"/>
+                <line x1="50" y1="5" x2="50" y2="95" class="svg-axis" style="opacity:0;" id="axTri1"/>
+                <line x1="10" y1="75" x2="70" y2="40" class="svg-axis" style="opacity:0;" id="axTri2"/>
+                <line x1="90" y1="75" x2="30" y2="40" class="svg-axis" style="opacity:0;" id="axTri3"/>
+              </svg>
+              <button class="nav-btn" style="margin-top:15px; width:100%;" onclick="showAxis('axTri', 3, 'ansTri')">显示对称轴</button>
+              <div style="margin-top:10px; font-weight:bold; font-size:1.2rem; color:var(--accent-gold);" id="ansTri">? 条</div>
+            </div>
+
+            <!-- Circle -->
+            <div class="card" style="padding: 15px; text-align: center; align-items: center; border-color: var(--accent-red); box-shadow: 0 0 15px rgba(239,68,68,0.2);">
+              <h4 style="color: var(--accent-red); margin-bottom: 10px;">圆 (王者)</h4>
+              <svg viewBox="0 0 100 100" style="width:100px; height:100px; overflow:visible;">
+                <circle cx="50" cy="50" r="35" fill="rgba(239,68,68,0.2)" stroke="var(--accent-red)" stroke-width="2"/>
+                <line x1="50" y1="5" x2="50" y2="95" class="svg-axis" style="opacity:0; stroke:var(--accent-cyan)" id="axCirc1"/>
+                <line x1="5" y1="50" x2="95" y2="50" class="svg-axis" style="opacity:0; stroke:var(--accent-cyan)" id="axCirc2"/>
+                <line x1="18" y1="18" x2="82" y2="82" class="svg-axis" style="opacity:0; stroke:var(--accent-cyan)" id="axCirc3"/>
+                <line x1="82" y1="18" x2="18" y2="82" class="svg-axis" style="opacity:0; stroke:var(--accent-cyan)" id="axCirc4"/>
+              </svg>
+              <button class="nav-btn" style="margin-top:15px; width:100%; background: var(--accent-red); color: white;" onclick="showAxis('axCirc', 4, 'ansCirc', '无数')">揭晓最终答案</button>
+              <div style="margin-top:10px; font-weight:bold; font-size:1.2rem; color:var(--accent-red);" id="ansCirc">? 条</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 11: 判断小练习 -->
+      <div class="slide" id="slide-11">
+        <div class="slide-header">
+          <span class="topic-badge">巩固练习</span>
+          <span class="slide-title">概念辨析小挑战</span>
+          <span class="page-index">11 / 13</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div style="display: flex; flex-direction: column; gap: 20px; max-width: 900px; margin: 0 auto; width: 100%;">
+            
+            <div class="quiz-card">
+              <div class="quiz-question">① 半圆是轴对称图形，它有（ ）条对称轴。</div>
+              <div class="quiz-options">
+                <button class="quiz-opt" data-correct="false" onclick="checkQuizAnswer(this)">A. 0</button>
+                <button class="quiz-opt" data-correct="true" onclick="checkQuizAnswer(this)">B. 1</button>
+                <button class="quiz-opt" data-correct="false" onclick="checkQuizAnswer(this)">C. 无数</button>
+              </div>
+              <div class="quiz-feedback" data-explainer="【解析】半圆只能沿着过其圆心且垂直于底边的线对折才能重合，所以只有 1 条对称轴。选 B。"></div>
+            </div>
+
+            <div class="quiz-card">
+              <div class="quiz-question">② 关于圆的对称轴，说法正确的是（ ）。</div>
+              <div class="quiz-options">
+                <button class="quiz-opt" data-correct="false" onclick="checkQuizAnswer(this)">A. 直径就是圆的对称轴</button>
+                <button class="quiz-opt" data-correct="true" onclick="checkQuizAnswer(this)">B. 直径所在的直线是圆的对称轴</button>
+                <button class="quiz-opt" data-correct="false" onclick="checkQuizAnswer(this)">C. 圆心是圆的对称轴</button>
+              </div>
+              <div class="quiz-feedback" data-explainer="【解析】对称轴是一条直线，而直径是一条线段。所以必须说“直径所在的直线”。选 B。"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 12: 双人PK概念辨析大赛 -->
+      <div class="slide" id="slide-12">
+        <div class="slide-header">
+          <span class="topic-badge">⚔️ 双人竞技</span>
+          <span class="slide-title">对称大闯关：双人PK大赛</span>
+          <span class="page-index">12 / 13</span>
+        </div>
+        <div class="slide-body">
+          <div class="pk-split-container">
+            <div class="pk-screen-overlay" id="pkStartScreen">
+              <h4>⚔️ 轴对称概念辨析 · 双人同屏对决</h4>
+              <p style="font-size: 1.05rem; color: var(--text-main); margin-bottom: 20px; max-width: 600px;">
+                红队（左侧）与蓝队（右侧）各回答 5 道乱序判断/选择题。<br>拼手速，拼脑力！两人同时答完后公布胜负！
+              </p>
+              <button class="start-btn" onclick="startPK()">开始 PK 大赛</button>
+            </div>
+
+            <!-- Player 1 Pane -->
+            <div class="pk-pane player1" id="cp1Pane">
+              <div class="pk-pane-header">
+                <span class="pk-team-name">🔴 红队 (Player 1)</span>
+                <span class="pk-score-badge" id="cp1ScoreLabel">得分: 0 分</span>
+              </div>
+              <div style="font-size: 0.9rem; color: var(--accent-red); text-align: center;" id="cp1IndexLabel">第 1 / 5 题</div>
+              <div class="pk-question-box" id="cp1QuestionBox">题目加载中...</div>
+              <div class="pk-options-grid" id="cp1OptionsBox"></div>
+              <div class="pk-screen-overlay" id="cp1FinishOverlay" style="display: none;">
+                <h4 style="color: var(--accent-red);">🔴 红队已答完</h4>
+                <p style="font-size: 1.2rem;" id="cp1FinalLabel">等待蓝队完成...</p>
+              </div>
+            </div>
+
+            <!-- Player 2 Pane -->
+            <div class="pk-pane player2" id="cp2Pane">
+              <div class="pk-pane-header">
+                <span class="pk-team-name">🔵 蓝队 (Player 2)</span>
+                <span class="pk-score-badge" id="cp2ScoreLabel">得分: 0 分</span>
+              </div>
+              <div style="font-size: 0.9rem; color: var(--accent-blue); text-align: center;" id="cp2IndexLabel">第 1 / 5 题</div>
+              <div class="pk-question-box" id="cp2QuestionBox">题目加载中...</div>
+              <div class="pk-options-grid" id="cp2OptionsBox"></div>
+              <div class="pk-screen-overlay" id="cp2FinishOverlay" style="display: none;">
+                <h4 style="color: var(--accent-blue);">🔵 蓝队已答完</h4>
+                <p style="font-size: 1.2rem;" id="cp2FinalLabel">等待红队完成...</p>
+              </div>
+            </div>
+
+            <!-- Winner Overlay -->
+            <div class="pk-screen-overlay" id="pkWinnerOverlay" style="display: none; background: rgba(2,15,14,0.95);">
+              <h4>🏆 辨析战斗结束</h4>
+              <div class="pk-winner-banner" id="pkWinnerBanner">胜负揭晓！</div>
+              <p style="font-size: 1.05rem; margin-bottom: 20px;" id="pkWinnerDetail">红队: 0分 | 蓝队: 0分</p>
+              <button class="nav-btn" style="padding: 10px 30px; font-size: 1rem; border-color: var(--accent-gold); color: var(--accent-gold);" onclick="resetPK()">重新决斗</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 13: 通关勋章 -->
+      <div class="slide" id="slide-13">
+        <div class="cover-layout">
+          <p class="subtitle" style="margin-bottom: 10px;">二 单 元 · 第 2 课 时 · 北 师 大 版</p>
+          <h1 style="font-size: 2.8rem; margin-bottom: 10px;">《圆的认识（二）》大通关</h1>
+
+          <div class="medal-container">
+            <div class="gold-medal">
+              <div class="medal-shine"></div>
+              <div class="medal-star">★</div>
+              <div class="medal-text">通关奖章</div>
+            </div>
+            <div class="medal-ribbon left"></div>
+            <div class="medal-ribbon right"></div>
+          </div>
+
+          <p class="desc" style="font-size: 1.15rem; color: var(--accent-gold); font-weight: bold; margin-bottom: 25px;">
+            🎉 恭喜你！成功掌握了圆的轴对称特性！
+          </p>
+          <button class="start-btn" onclick="goToSlide(1)">重新开始回顾</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slim progress bar at the very bottom -->
+    <div class="deck-progress-bar" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 3.5px; background: rgba(255,255,255,0.05); z-index: 10;">
+      <div class="progress-fill" id="progress-indicator" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-gold) 100%); transition: width 0.3s ease;"></div>
+    </div>
+
+    <!-- Vertical side nav bar -->
+    <div class="side-nav">
+      <button class="nav-arrow-btn" id="prev-btn" onclick="prevSlide()" title="上一页">▲</button>
+      <div class="page-indicator-vertical">
+        <span id="current-page-num" style="font-size: 1.15rem; font-weight: bold; color: var(--accent-gold);">1</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); margin: 2px 0;">/</span>
+        <span id="total-page-num" style="font-size: 0.85rem; color: var(--text-muted);">13</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">页</span>
+      </div>
+      <button class="nav-arrow-btn" id="next-btn" onclick="nextSlide()" title="下一页">▼</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentSlideIndex = 1;
+  const totalSlides = 13;
+
+  function showSlide(index) {
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach(slide => slide.classList.remove('active'));
+
+    const targetSlide = document.getElementById(`slide-${index}`);
+    if (targetSlide) {
+      targetSlide.classList.add('active');
+    }
+
+    document.getElementById('current-page-num').innerText = index;
+    document.getElementById('total-page-num').innerText = totalSlides;
+    const progressPercent = ((index - 1) / (totalSlides - 1)) * 100;
+    document.getElementById('progress-indicator').style.width = `${progressPercent}%`;
+
+    document.getElementById('prev-btn').disabled = (index === 1);
+    document.getElementById('next-btn').disabled = (index === totalSlides);
+
+    currentSlideIndex = index;
+  }
+
+  function nextSlide() { if (currentSlideIndex < totalSlides) showSlide(currentSlideIndex + 1); }
+  function prevSlide() { if (currentSlideIndex > 1) showSlide(currentSlideIndex - 1); }
+  function goToSlide(index) { if (index >= 1 && index <= totalSlides) showSlide(index); }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') nextSlide();
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+  });
+
+  function adjustScale() {
+    const wrapper = document.querySelector('.deck-container');
+    const targetWidth = 1280;
+    const targetHeight = 720;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const scale = Math.min(w / targetWidth, h / targetHeight);
+    wrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  
+  window.addEventListener('resize', adjustScale);
+  window.addEventListener('DOMContentLoaded', () => {
+    adjustScale();
+    showSlide(1);
+  });
+  /* ==================== SLIDE 4: 折纸交互 ==================== */
+  let isFolded1 = false;
+  function toggleFold1() {
+    isFolded1 = !isFolded1;
+    const circle = document.getElementById('foldCircle1');
+    const axis = document.getElementById('axisLine1');
+    const thought = document.getElementById('foldThought1');
+    
+    if (isFolded1) {
+      circle.classList.add('fold-active');
+      setTimeout(() => {
+        axis.style.display = 'block';
+        thought.style.opacity = '1';
+      }, 1000);
+    } else {
+      circle.classList.remove('fold-active');
+      axis.style.display = 'none';
+    }
+  }
+
+  /* ==================== SLIDE 6: 无数条对称轴 ==================== */
+  let axisCount = 0;
+  function addAxisLine() {
+    axisCount++;
+    const group = document.getElementById('axisLinesGroup');
+    const angle = (axisCount * 15) % 180; // Rotate by 15 degrees each time
+    
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', '20');
+    line.setAttribute('y1', '100');
+    line.setAttribute('x2', '180');
+    line.setAttribute('y2', '100');
+    line.setAttribute('stroke', 'var(--accent-red)');
+    line.setAttribute('stroke-width', '1.5');
+    line.setAttribute('stroke-dasharray', '5 3');
+    line.setAttribute('transform', `rotate(${angle}, 100, 100)`);
+    
+    group.appendChild(line);
+    document.getElementById('axisCountDisplay').innerText = axisCount;
+  }
+
+  function resetAxisLines() {
+    axisCount = 0;
+    document.getElementById('axisLinesGroup').innerHTML = '';
+    document.getElementById('axisCountDisplay').innerText = '0';
+  }
+
+  /* ==================== SLIDE 8: 找圆心 ==================== */
+  function doCenterFold1() {
+    const circle = document.getElementById('findCenterCircle');
+    circle.classList.add('fold-active');
+    setTimeout(() => {
+      circle.classList.remove('fold-active');
+      document.getElementById('foldLine1').style.opacity = '1';
+      document.getElementById('btnFold2').disabled = false;
+    }, 1200);
+  }
+
+  function doCenterFold2() {
+    const circle = document.getElementById('findCenterCircle');
+    circle.style.transform = 'rotate(90deg)';
+    setTimeout(() => {
+      circle.classList.add('fold-active');
+      setTimeout(() => {
+        circle.classList.remove('fold-active');
+        document.getElementById('foldLine2').style.opacity = '1';
+        
+        setTimeout(() => {
+          circle.style.transform = 'rotate(0deg)';
+          document.getElementById('findCenterCircle').classList.add('show-center');
+          document.getElementById('centerThought').style.opacity = '1';
+        }, 800);
+      }, 1200);
+    }, 1000);
+  }
+
+  function resetCenterFold() {
+    const circle = document.getElementById('findCenterCircle');
+    circle.classList.remove('fold-active', 'show-center');
+    circle.style.transform = 'rotate(0deg)';
+    document.getElementById('foldLine1').style.opacity = '0';
+    document.getElementById('foldLine2').style.opacity = '0';
+    document.getElementById('centerThought').style.opacity = '0';
+    document.getElementById('btnFold2').disabled = true;
+  }
+
+  /* ==================== SLIDE 10: 家族比拼 ==================== */
+  function showAxis(prefix, count, ansId, overrideText = null) {
+    for (let i = 1; i <= count; i++) {
+      const el = document.getElementById(`${prefix}${i}`);
+      if (el) el.style.opacity = '1';
+    }
+    document.getElementById(ansId).innerText = overrideText ? `${overrideText} 条` : `${count} 条`;
+  }
+
+  /* ==================== SLIDE 11: QUIZ ==================== */
+  function checkQuizAnswer(btn) {
+    const parent = btn.closest('.quiz-card');
+    const buttons = parent.querySelectorAll('.quiz-opt');
+    const feedback = parent.querySelector('.quiz-feedback');
+    const isCorrect = btn.getAttribute('data-correct') === 'true';
+
+    buttons.forEach(b => { b.disabled = true; });
+
+    if (isCorrect) {
+      btn.classList.add('correct');
+      feedback.innerHTML = '✅ 回答正确！' + feedback.getAttribute('data-explainer');
+      feedback.style.color = 'var(--accent-green)';
+    } else {
+      btn.classList.add('wrong');
+      const correctBtn = parent.querySelector('[data-correct="true"]');
+      correctBtn.classList.add('correct');
+      feedback.innerHTML = '❌ 回答错误！' + feedback.getAttribute('data-explainer');
+      feedback.style.color = 'var(--accent-red)';
+    }
+    feedback.classList.add('show');
+  }
+
+  /* ==================== SLIDE 12: PK GAME ==================== */
+  const pkBank = [
+    { q: "圆有无数条对称轴。", ans: "T" },
+    { q: "半圆有无数条对称轴。", ans: "F" },
+    { q: "通过圆心的直线就是圆的对称轴。", ans: "T" },
+    { q: "圆心决定圆的大小。", ans: "F" },
+    { q: "正方形有4条对称轴。", ans: "T" },
+    { q: "长方形有4条对称轴。", ans: "F" },
+    { q: "任意一个圆的对称轴都相交于圆心。", ans: "T" },
+    { q: "将圆纸片对折一次就能找到圆心。", ans: "F" },
+    { q: "等边三角形有3条对称轴。", ans: "T" },
+    { q: "平行四边形是轴对称图形。", ans: "F" }
+  ];
+
+  let pkState = {
+    p1: { score: 0, qIndex: 0, questions: [], finished: false },
+    p2: { score: 0, qIndex: 0, questions: [], finished: false }
+  };
+
+  function shuffleArr(arr) {
+    return arr.map(a => ({sort: Math.random(), value: a})).sort((a,b) => a.sort - b.sort).map(a => a.value);
+  }
+
+  function startPK() {
+    document.getElementById('pkStartScreen').style.display = 'none';
+    
+    // Pick 5 random for P1, 5 random for P2
+    pkState.p1.questions = shuffleArr([...pkBank]).slice(0, 5);
+    pkState.p2.questions = shuffleArr([...pkBank]).slice(0, 5);
+    
+    pkState.p1.score = 0; pkState.p1.qIndex = 0; pkState.p1.finished = false;
+    pkState.p2.score = 0; pkState.p2.qIndex = 0; pkState.p2.finished = false;
+
+    document.getElementById('cp1FinishOverlay').style.display = 'none';
+    document.getElementById('cp2FinishOverlay').style.display = 'none';
+    document.getElementById('pkWinnerOverlay').style.display = 'none';
+
+    updatePKPane(1);
+    updatePKPane(2);
+  }
+
+  function updatePKPane(playerNum) {
+    const st = pkState[`p${playerNum}`];
+    document.getElementById(`cp${playerNum}ScoreLabel`).innerText = `得分: ${st.score} 分`;
+    
+    if (st.qIndex >= 5) {
+      st.finished = true;
+      document.getElementById(`cp${playerNum}FinishOverlay`).style.display = 'flex';
+      checkPKGameOver();
+      return;
+    }
+
+    document.getElementById(`cp${playerNum}IndexLabel`).innerText = `第 ${st.qIndex + 1} / 5 题`;
+    
+    const q = st.questions[st.qIndex];
+    document.getElementById(`cp${playerNum}QuestionBox`).innerHTML = q.q;
+    
+    const optBox = document.getElementById(`cp${playerNum}OptionsBox`);
+    optBox.innerHTML = `
+      <button class="pk-opt-btn" onclick="answerPK(${playerNum}, 'T')">正确 (True)</button>
+      <button class="pk-opt-btn" onclick="answerPK(${playerNum}, 'F')">错误 (False)</button>
+    `;
+  }
+
+  function answerPK(playerNum, choice) {
+    const st = pkState[`p${playerNum}`];
+    const q = st.questions[st.qIndex];
+    
+    const optBox = document.getElementById(`cp${playerNum}OptionsBox`);
+    const btns = optBox.querySelectorAll('button');
+    btns.forEach(b => b.disabled = true);
+
+    if (choice === q.ans) {
+      st.score += 20;
+      btns[choice === 'T' ? 0 : 1].classList.add('correct');
+    } else {
+      btns[choice === 'T' ? 0 : 1].classList.add('wrong');
+    }
+
+    setTimeout(() => {
+      st.qIndex++;
+      updatePKPane(playerNum);
+    }, 600);
+  }
+
+  function checkPKGameOver() {
+    if (pkState.p1.finished && pkState.p2.finished) {
+      setTimeout(() => {
+        document.getElementById('pkWinnerOverlay').style.display = 'flex';
+        const s1 = pkState.p1.score;
+        const s2 = pkState.p2.score;
+        
+        const banner = document.getElementById('pkWinnerBanner');
+        if (s1 > s2) banner.innerHTML = '🏆 红队获胜！';
+        else if (s2 > s1) banner.innerHTML = '🏆 蓝队获胜！';
+        else banner.innerHTML = '🤝 势均力敌，平局！';
+
+        document.getElementById('pkWinnerDetail').innerText = `红队: ${s1}分 | 蓝队: ${s2}分`;
+      }, 500);
+    }
+  }
+
+  function resetPK() {
+    document.getElementById('pkWinnerOverlay').style.display = 'none';
+    document.getElementById('pkStartScreen').style.display = 'flex';
+  }
+</script>
+</body>
+</html>
