@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>U1 第3课时 《分数除法（三）》核心考点一页清 - 六年级上册数学</title>
+<style>
+  :root {
+    --bg-light: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #1e1b4b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    
+    /* 模块主题色 (深海蓝与翡翠绿系) */
+    --m-primary: #1d4ed8;     /* 主色：深海蓝 */
+    --m-primary-soft: #eff6ff;
+    --m-primary-deep: #1e3a8a;
+    
+    --m-gold: #b45309;        /* 辅助：琥珀金 */
+    --m-gold-soft: #fef3c7;
+    --m-gold-deep: #78350f;
+    
+    --m-green: #047857;       /* 辅助：翡翠绿 */
+    --m-green-soft: #ecfdf5;
+    --m-green-deep: #064e3b;
+    
+    --m-red: #be185d;         /* 警示：深玫红 */
+    --m-red-soft: #fdf2f8;
+    --m-red-deep: #831843;
+
+    --font-family: "SimSun", "STSong", "Songti SC", "华文宋体", Georgia, serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-light);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .onepage-container {
+    width: 100%;
+    max-width: 800px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+
+  /* ==================== HEADER SECTION ==================== */
+  header {
+    padding: 35px 40px;
+    border-bottom: 2px solid rgba(29, 78, 216, 0.1);
+    background: 
+      radial-gradient(ellipse 400px 150px at top right, var(--m-primary-soft) 0%, transparent 80%),
+      radial-gradient(ellipse 300px 150px at bottom left, var(--m-gold-soft) 0%, transparent 80%);
+    position: relative;
+  }
+
+  .header-tag {
+    display: inline-block;
+    font-size: 11px;
+    background: var(--m-primary-soft);
+    color: var(--m-primary-deep);
+    border: 1px solid rgba(29, 78, 216, 0.3);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  header h1 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+  }
+
+  .header-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+  }
+
+  .meta-grid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .meta-badge {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: var(--text-secondary);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  .meta-badge b {
+    color: var(--text-primary);
+  }
+
+  /* ==================== SECTION LAYOUT ==================== */
+  section {
+    padding: 30px 40px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  section:last-of-type {
+    border-bottom: none;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  .section-title h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-primary);
+  }
+
+  /* ==================== MATHEMATICAL FRACTION ==================== */
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0 4px;
+    line-height: 1.1;
+    font-weight: bold;
+  }
+  .frac .num {
+    border-bottom: 1.6px solid var(--text-primary);
+    padding-bottom: 1px;
+    font-size: 0.95em;
+  }
+  .frac .den {
+    padding-top: 1px;
+    font-size: 0.95em;
+  }
+
+  /* ==================== CARDS & MODULES ==================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .card-grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+  }
+
+  .info-card {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+  }
+
+  .info-card h3 {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    padding-left: 8px;
+    border-left: 4px solid var(--m-primary);
+  }
+
+  /* Emojis & Highlights */
+  .hl-gold { color: var(--m-gold-deep); font-weight: bold; }
+  .hl-purple { color: var(--m-primary-deep); font-weight: bold; }
+  .hl-red { color: var(--m-red-deep); font-weight: bold; }
+  .hl-green { color: var(--m-green-deep); font-weight: bold; }
+
+  /* ==================== VISUAL GRID REPRESENTATIONS ==================== */
+  .visual-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  @media (min-width: 640px) {
+    .visual-flex {
+      flex-direction: row;
+      gap: 25px;
+    }
+  }
+
+  .visual-item {
+    flex: 1;
+    background: white;
+    border: 1.5px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .svg-box {
+    width: 260px;
+    height: 130px;
+    background: #f0f4ff;
+    border: 1px solid rgba(29, 78, 216, 0.15);
+    border-radius: 8px;
+  }
+
+  .badge-formula {
+    background: var(--m-gold-soft);
+    border: 1.5px dashed var(--m-gold);
+    color: var(--m-gold-deep);
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  /* ==================== SECTION SPECIFIC STYLES ==================== */
+  .sec-1 .section-num { background: var(--m-primary); }
+  .sec-1 .info-card h3 { border-left-color: var(--m-primary); }
+
+  .sec-2 .section-num { background: var(--m-gold); }
+  .sec-2 .info-card h3 { border-left-color: var(--m-gold); }
+
+  .sec-3 .section-num { background: var(--m-red); }
+  .sec-3 .info-card h3 { border-left-color: var(--m-red); }
+
+  .sec-4 .section-num { background: var(--m-green); }
+  .sec-4 .info-card h3 { border-left-color: var(--m-green); }
+
+  /* Tabular styling for Mistakes */
+  .table-mistakes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .table-mistakes th, .table-mistakes td {
+    padding: 8px 10px;
+    border: 1px solid var(--border-color);
+    font-size: 12.5px;
+  }
+
+  .table-mistakes th {
+    background: #f1f5f9;
+    font-weight: bold;
+    text-align: left;
+    color: var(--text-primary);
+  }
+
+  .table-mistakes td {
+    line-height: 1.4;
+  }
+
+  .tag-wrong {
+    background: var(--m-red-soft);
+    color: var(--m-red);
+    border: 1px solid rgba(190, 24, 93, 0.2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 11px;
+  }
+
+  .tag-right {
+    background: var(--m-green-soft);
+    color: var(--m-green);
+    border: 1px solid rgba(4, 120, 87, 0.2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 11px;
+  }
+
+  /* Core comparison table styling */
+  .mistake-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .mistake-table th, .mistake-table td {
+    padding: 6px 8px;
+    border: 1px solid var(--border-color);
+    font-size: 12.5px;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .mistake-table th {
+    background: #f1f5f9;
+    font-weight: bold;
+    color: var(--text-primary);
+  }
+
+  /* Exercises styling */
+  .ex-box {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-top: 8px;
+  }
+
+  .ex-question {
+    font-weight: bold;
+    font-size: 14.5px;
+    margin-bottom: 5px;
+  }
+
+  .ex-steps {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    border-left: 2px solid var(--m-green);
+    padding-left: 10px;
+    margin-top: 6px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="onepage-container">
+
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <span class="header-tag">单元必通一页清</span>
+    <h1>U1 第3课时 · 《分数除法（三）》核心考点一页清</h1>
+    <p class="header-subtitle">攻克“已知一个数的几分之几是多少，求这个数”的线段分析图，轻松掌握方程解题模型</p>
+    <div class="meta-grid">
+      <div class="meta-badge">学段：<b>六年级上册</b></div>
+      <div class="meta-badge">教材：<b>北师大版</b></div>
+      <div class="meta-badge">单元课时：<b>第 1 单元第 3 课时</b></div>
+      <div class="meta-badge">制作人：<b>WANG DI</b></div>
+    </div>
+  </header>
+
+  <!-- ==================== SECTION 1: VISUAL GRIDS ==================== -->
+  <section class="sec-1">
+    <div class="section-title">
+      <span class="section-num">1</span>
+      <h2>直观物理意义与线段对比图解探究</h2>
+    </div>
+    
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>💡 核心概念：已知部分量和所占分率，求单位“1”总量</h3>
+        <p>在分数实际应用问题中，当我们不知道<b>单位“1”（总量）</b>时，可以通过画线段图来对应<b>已知数量</b>与其<b>所占分率</b>，建立等量关系求解。</p>
+        
+        <div class="visual-flex">
+          <!-- Segment Model 1 -->
+          <div class="visual-item">
+            <p class="hl-purple">探究 ①：基础线段图 (x &times; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ 12)</p>
+            <svg class="svg-box" viewBox="0 0 260 130">
+              <!-- Main line (5 parts) -->
+              <line x1="30" y1="80" x2="230" y2="80" stroke="var(--text-primary)" stroke-width="1.8"></line>
+              
+              <!-- Ticks -->
+              <g stroke="var(--text-primary)" stroke-width="1.2">
+                <line x1="30" y1="75" x2="30" y2="85"></line>
+                <line x1="70" y1="75" x2="70" y2="85"></line>
+                <line x1="110" y1="75" x2="110" y2="85"></line>
+                <line x1="150" y1="75" x2="150" y2="85"></line>
+                <line x1="190" y1="75" x2="190" y2="85"></line>
+                <line x1="230" y1="75" x2="230" y2="85"></line>
+              </g>
+
+              <!-- Highlight part (2 segments) -->
+              <line x1="30" y1="80" x2="110" y2="80" stroke="var(--m-gold)" stroke-width="3"></line>
+
+              <!-- Top Bracket for the highlighted part (2/5) -->
+              <path d="M 30 65 Q 70 52 110 65" fill="none" stroke="var(--m-gold)" stroke-width="1.2"></path>
+              <foreignObject x="15" y="25" width="110" height="30">
+                <div style="font-size: 10px; color: var(--m-gold-deep); font-weight: bold; text-align: center; font-family: var(--font-family); line-height: 1.25;">
+                  对应量 12人 (占 <span class="frac"><span class="num">2</span><span class="den">5</span></span>)
+                </div>
+              </foreignObject>
+
+              <!-- Bottom Bracket for the whole line (Unit 1) -->
+              <path d="M 30 95 Q 130 110 230 95" fill="none" stroke="var(--m-primary)" stroke-width="1.2"></path>
+              <text x="130" y="122" fill="var(--m-primary-deep)" font-size="10.5" font-weight="bold" text-anchor="middle">总量：x 人 (单位“1”未知)</text>
+            </svg>
+            <p style="font-size: 13px; text-align: center; color: var(--text-secondary);">
+              <b>算理：</b>总人数被平均分成 5 份，其中的 2 份对应的实际数量是 12 人。
+            </p>
+          </div>
+          
+          <!-- Segment Model 2 -->
+          <div class="visual-item">
+            <p class="hl-purple">探究 ②：双量对比图 (y &times; <span class="frac"><span class="num">1</span><span class="den">2</span></span> ＝ 6)</p>
+            <svg class="svg-box" viewBox="0 0 260 130">
+              <!-- Skipping Rope (Unit 1) -->
+              <text x="25" y="20" fill="var(--m-primary-deep)" font-size="10.5" font-weight="bold">跳绳人数 (单位“1”):</text>
+              <line x1="25" y1="35" x2="225" y2="35" stroke="var(--m-primary)" stroke-width="2.5"></line>
+              <line x1="25" y1="30" x2="25" y2="40" stroke="var(--text-primary)" stroke-width="1"></line>
+              <line x1="125" y1="30" x2="125" y2="40" stroke="var(--text-primary)" stroke-width="1"></line>
+              <line x1="225" y1="30" x2="225" y2="40" stroke="var(--text-primary)" stroke-width="1"></line>
+              <text x="125" y="52" fill="var(--m-primary-deep)" font-size="9.5" text-anchor="middle">y 人 (未知总量)</text>
+
+              <!-- Soccer (1/2) -->
+              <text x="25" y="78" fill="var(--m-gold-deep)" font-size="10.5" font-weight="bold">足球人数:</text>
+              <line x1="25" y1="92" x2="125" y2="92" stroke="var(--m-gold)" stroke-width="2.5"></line>
+              <line x1="25" y1="87" x2="25" y2="97" stroke="var(--text-primary)" stroke-width="1"></line>
+              <line x1="125" y1="87" x2="125" y2="97" stroke="var(--text-primary)" stroke-width="1"></line>
+              
+              <foreignObject x="25" y="102" width="120" height="25">
+                <div style="font-size: 10px; color: var(--m-gold-deep); font-weight: bold; font-family: var(--font-family); line-height: 1.1;">
+                  6人 (占跳绳人数的 <span class="frac"><span class="num">1</span><span class="den">2</span></span>)
+                </div>
+              </foreignObject>
+            </svg>
+            <p style="font-size: 13px; text-align: center; color: var(--text-secondary);">
+              <b>算理：</b>足球人数相当于把跳绳人数平分成 2 份后的 1 份，跳绳人数是足球人数的 2 倍。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 2: FORMULA & MNEMONIC ==================== -->
+  <section class="sec-2">
+    <div class="section-title">
+      <span class="section-num">2</span>
+      <h2>核心数量关系、解题三字诀与口诀归纳</h2>
+    </div>
+    
+    <div class="card-grid-2col">
+      <div class="info-card">
+        <h3>⚡ 核心等量关系式</h3>
+        <p style="font-size:13.5px; line-height: 1.6;">
+          解答本课实际应用题的通用等量关系式是：<br>
+          <span style="font-size: 13.5px; font-weight: bold; display: block; margin: 6px 0; color: var(--m-primary-deep); text-align: center;">
+            单位“1”的量 &times; 对应分率 ＝ 对应量
+          </span>
+          由此可派生出两种经典求解路径：<br>
+          👉 **方程法**：设单位“1”的量为 $x$，列出顺向方程求解。<br>
+          👉 **除法算术法**：直接用：**对应量 &divide; 对应分率 ＝ 单位“1”的量**。
+        </p>
+      </div>
+      
+      <div class="info-card">
+        <h3>🛠️ 解题三字诀：设、列、解</h3>
+        <p style="font-size:13.5px; line-height: 1.6;">
+          👉 <b>设：</b> 设未知数。写好“解：设单位‘1’的量为 $x$”。<br>
+          👉 <b>列：</b> 根据“单位‘1’ &times; 对应分率 ＝ 对应量”顺向关系式列出方程。<br>
+          👉 <b>解：</b> 解方程（除以分数等于乘该分数的倒数）。<br>
+          <span class="hl-gold" style="display:block; margin-top: 8px;">💡 <b>分数问题做题口诀歌：</b><br>
+          分数应用并不难，最先关键找单位“1”。<br>
+          “的”字前面“是”字后，单位“1”量就藏里面。<br>
+          “1”已知，用乘法；“1”未知，用方程或除法。<br>
+          数量除以对应率，便求单位“1”总量！</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="badge-formula">
+      顺向方程关系式与逆向除法公式对比：<br>
+      <span style="font-size: 16px; display: inline-flex; align-items: center; gap: 15px; margin-top: 8px;">
+        <span><b>方程模型</b>： x &times; <span class="frac"><span class="num">b</span><span class="den">c</span></span> ＝ a</span>
+        <span style="color: var(--m-gold-deep);">➔</span>
+        <span><b>除法模型</b>： x ＝ a &divide; <span class="frac"><span class="num">b</span><span class="den">c</span></span> ＝ a &times; <span class="frac"><span class="num">c</span><span class="den">b</span></span></span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 3: LAW OF RELATION ==================== -->
+  <section class="sec-3">
+    <div class="section-title">
+      <span class="section-num">3</span>
+      <h2>核心考点：如何辨别单位“1”的已知与未知？</h2>
+    </div>
+    
+    <div class="info-card">
+      <h3 style="margin-bottom: 12px;">⚖️ 乘法应用题 vs 除法/方程应用题对比</h3>
+      
+      <table class="mistake-table" style="margin-top: 0; margin-bottom: 12px;">
+        <thead>
+          <tr>
+            <th style="width: 35%;">典型描述</th>
+            <th style="width: 25%;">单位“1”状态</th>
+            <th style="width: 20%;">计算方法</th>
+            <th style="width: 20%;">列式模型</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>操场上有 30 人，跳绳占其中的 <span class="frac"><span class="num">2</span><span class="den">5</span></span>，跳绳有多少人？</td>
+            <td><b class="hl-green">已知</b> (总人数是 30)</td>
+            <td><b>乘法计算</b></td>
+            <td>30 &times; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ 12 人</td>
+          </tr>
+          <tr>
+            <td>操场上有跳绳的 12 人，占总人数的 <span class="frac"><span class="num">2</span><span class="den">5</span></span>，总人数是多少？</td>
+            <td><b class="hl-red">未知</b> (设总人数为 $x$)</td>
+            <td><b>方程或除法</b></td>
+            <td>12 &divide; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ 30 人</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <p style="font-size: 13.5px; line-height: 1.6; color: var(--text-secondary);">
+        🔍 <b>解题钥匙：</b> 拿到题目第一件事，就是找到表示分率的分数（如 <span class="frac"><span class="num">2</span><span class="den">5</span></span>），找到它所对应的<b>标准量（单位“1”）</b>。若标准量是已知的具体数值，直接相乘；若标准量是个未知量，立刻设其为 $x$ 列方程或者用除法。
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4: ERROR DIAGNOSIS ==================== -->
+  <section class="sec-4">
+    <div class="section-title">
+      <span class="section-num">4</span>
+      <h2>典型错题避坑指南与诊断表</h2>
+    </div>
+    
+    <table class="table-mistakes">
+      <thead>
+        <tr>
+          <th style="width: 35%;">常见错误算式</th>
+          <th style="width: 35%;">正确规范算式</th>
+          <th style="width: 30%;">错因剖析与诊断</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="tag-wrong">错误</span> 
+            12 &times; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ 4.8人
+          </td>
+          <td>
+            <span class="tag-right">正确</span> 
+            12 &divide; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ 12 &times; <span class="frac"><span class="num">5</span><span class="den">2</span></span> ＝ 30人
+          </td>
+          <td><b>乘除颠倒：</b> 混淆了单位“1”已知和未知。本题求的是总量，应当使用除法。人数不可能出现小数。</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="tag-wrong">错误</span> 
+            30 &divide; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ 75kg
+          </td>
+          <td>
+            <span class="tag-right">正确</span> 
+            30 &divide; ( 1 &minus; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ) ＝ 30 &divide; <span class="frac"><span class="num">3</span><span class="den">5</span></span> ＝ 50kg
+          </td>
+          <td><b>量率不对应：</b> 30kg 对应的是<b>剩下的重量</b>，而 <span class="frac"><span class="num">2</span><span class="den">5</span></span> 是<b>吃去的分率</b>，两者不匹配。必须使用 1 减去吃去的分率。</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="tag-wrong">错误</span> 
+            设共有 $x$ 人。<br>
+            x ＋ <span class="frac"><span class="num">1</span><span class="den">5</span></span> ＝ 24
+          </td>
+          <td>
+            <span class="tag-right">正确</span> 
+            设共有 $x$ 人。<br>
+            x &times; ( 1 ＋ <span class="frac"><span class="num">1</span><span class="den">5</span></span> ) ＝ 24
+          </td>
+          <td><b>分率关系错误：</b> 误把“比原来多 <span class="frac"><span class="num">1</span><span class="den">5</span></span>”写成相加，这里的分率是指增加原数量的 <span class="frac"><span class="num">1</span><span class="den">5</span></span>，应列为原量乘 (1 ＋ <span class="frac"><span class="num">1</span><span class="den">5</span></span>)。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ==================== SECTION 5: PRACTICES ==================== -->
+  <section class="sec-5" style="background: rgba(4, 120, 87, 0.02);">
+    <div class="section-title">
+      <span class="section-num" style="background: var(--m-green);">5</span>
+      <h2>当堂多维度母题精练（带解题步骤）</h2>
+    </div>
+
+    <!-- Ex 1 -->
+    <div class="ex-box">
+      <div class="ex-question">📝 题型一：基础“知几求一”应用题</div>
+      <div class="ex-question" style="font-weight: normal; font-size: 13.5px;">
+        操场上有 12 名女生在跳小绳，占操场上总女生人数的 <span class="frac"><span class="num">2</span><span class="den">5</span></span>。操场上共有多少名女生？
+      </div>
+      <div class="ex-steps">
+        <b>💡 方法与步骤：</b><br>
+        1. 找单位“1”：<b>操场上总女生人数</b>（未知量）。<br>
+        2. 方程法：解：设操场上共有 $x$ 名女生。<br>
+        <span style="font-size: 13.5px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px; margin: 4px 0; color: var(--m-primary-deep);">
+          x &times; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ 12 ➔ x ＝ 12 &divide; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ➔ x ＝ 12 &times; <span class="frac"><span class="num">5</span><span class="den">2</span></span> ➔ x ＝ 30
+        </span><br>
+        3. 算术除法： 12 &divide; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ 30 （名）。<br>
+        答：操场上共有 30 名女生。
+      </div>
+    </div>
+
+    <!-- Ex 2 -->
+    <div class="ex-box">
+      <div class="ex-question">📝 题型二：量率不对应问题（带剩余比例）</div>
+      <div class="ex-question" style="font-weight: normal; font-size: 13.5px;">
+        一袋面粉吃去了它的 <span class="frac"><span class="num">2</span><span class="den">5</span></span>，还剩 18 kg。这袋面粉原来有多少千克？
+      </div>
+      <div class="ex-steps">
+        <b>💡 方法与步骤：</b><br>
+        1. 找对应分率：吃去占 <span class="frac"><span class="num">2</span><span class="den">5</span></span>，那么剩下的 18kg 占总重量的 ( 1 &minus; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ) ＝ <span class="frac"><span class="num">3</span><span class="den">5</span></span>。<br>
+        2. 方程法：解：设原来有 $x$ kg 面粉。<br>
+        <span style="font-size: 13.5px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px; margin: 4px 0; color: var(--m-primary-deep);">
+          ( 1 &minus; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ) x ＝ 18 ➔ <span class="frac"><span class="num">3</span><span class="den">5</span></span> x ＝ 18 ➔ x ＝ 18 &divide; <span class="frac"><span class="num">3</span><span class="den">5</span></span> ➔ x ＝ 18 &times; <span class="frac"><span class="num">5</span><span class="den">3</span></span> ➔ x ＝ 30
+        </span><br>
+        3. 算术除法： 18 &divide; ( 1 &minus; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ) ＝ 18 &divide; <span class="frac"><span class="num">3</span><span class="den">5</span></span> ＝ 30 （kg）。<br>
+        答：这袋面粉原来有 30 kg。
+      </div>
+    </div>
+
+    <!-- Ex 3 -->
+    <div class="ex-box">
+      <div class="ex-question">📝 题型三：“比一个数多/少几分之几”的变式应用题</div>
+      <div class="ex-question" style="font-weight: normal; font-size: 13.5px;">
+        学校六月份节约用水 24 吨，比五月份多节约了 <span class="frac"><span class="num">1</span><span class="den">5</span></span>。五月份节约用水多少吨？
+      </div>
+      <div class="ex-steps">
+        <b>💡 方法与步骤：</b><br>
+        1. 找单位“1”：<b>五月份节约水量</b>（未知量，设为 $x$）。六月份比五月份多 <span class="frac"><span class="num">1</span><span class="den">5</span></span>，即是五月份的 ( 1 ＋ <span class="frac"><span class="num">1</span><span class="den">5</span></span> )。<br>
+        2. 方程法：解：设五月份节约用水 $x$ 吨。<br>
+        <span style="font-size: 13.5px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px; margin: 4px 0; color: var(--m-primary-deep);">
+          ( 1 ＋ <span class="frac"><span class="num">1</span><span class="den">5</span></span> ) x ＝ 24 ➔ <span class="frac"><span class="num">6</span><span class="den">5</span></span> x ＝ 24 ➔ x ＝ 24 &divide; <span class="frac"><span class="num">6</span><span class="den">5</span></span> ➔ x ＝ 24 &times; <span class="frac"><span class="num">5</span><span class="den">6</span></span> ➔ x ＝ 20
+        </span><br>
+        3. 算术除法： 24 &divide; ( 1 ＋ <span class="frac"><span class="num">1</span><span class="den">5</span></span> ) ＝ 20 （吨）。<br>
+        答：五月份节约用水 20 吨。
+      </div>
+    </div>
+
+    <!-- Ex 4 -->
+    <div class="ex-box">
+      <div class="ex-question">📝 题型四：多重分数乘除复合挑战题</div>
+      <div class="ex-question" style="font-weight: normal; font-size: 13.5px;">
+        一根绳子，第一次剪去了它的 <span class="frac"><span class="num">1</span><span class="den">3</span></span>，第二次剪去了 <span class="frac"><span class="num">1</span><span class="den">3</span></span> 米，最终还剩 1 米。这根绳子原来有多长？
+      </div>
+      <div class="ex-steps">
+        <b>💡 方法与步骤（特别注意分清“带单位米”和“不带单位的分率”）：</b><br>
+        1. 排除带单位的第二次剪去的物理量：去掉剪去的 <span class="frac"><span class="num">1</span><span class="den">3</span></span> 米，绳子剩下的长度是： 1 ＋ <span class="frac"><span class="num">1</span><span class="den">3</span></span> ＝ <span class="frac"><span class="num">4</span><span class="den">3</span></span> 米。<br>
+        2. 这部分长度正好对应绳子扣除第一次剪去 <span class="frac"><span class="num">1</span><span class="den">3</span></span> 后剩下的分率，即： 1 &minus; <span class="frac"><span class="num">1</span><span class="den">3</span></span> ＝ <span class="frac"><span class="num">2</span><span class="den">3</span></span>。<br>
+        3. 用除法求原来的总长（单位“1”）：<br>
+        <span style="font-size: 13.5px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px; margin: 4px 0; color: var(--m-primary-deep);">
+          <span class="frac"><span class="num">4</span><span class="den">3</span></span> &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span> 
+          ＝ <span class="frac"><span class="num">4</span><span class="den">3</span></span> &times; <span class="frac"><span class="num">3</span><span class="den">2</span></span> 
+          ＝ 2 （米）
+        </span><br>
+        答：这根绳子原来有 2 米长。
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>
