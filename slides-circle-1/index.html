@@ -921,6 +921,10 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-8px); }
     }
+    @keyframes spin-compass {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
     /* ==================== DOUBLE-PLAYER PK GAME STYLING ==================== */
     .pk-split-container {
@@ -1104,28 +1108,30 @@
               <svg viewBox="0 0 240 260" style="width: 100%; max-height: 230px; display: block;">
 
                 <!-- ===== COMPASS BODY ===== -->
-                <!-- Central hinge bolt -->
-                <circle cx="120" cy="50" r="7" fill="#9ca3af" stroke="#6b7280" stroke-width="1.5"/>
-                <!-- Hinge highlight -->
-                <circle cx="120" cy="50" r="4" fill="#d1d5db"/>
+                <g style="transform-origin: 95px 205px; animation: spin-compass 6s linear infinite;">
+                  <!-- Central hinge bolt -->
+                  <circle cx="120" cy="50" r="7" fill="#9ca3af" stroke="#6b7280" stroke-width="1.5"/>
+                  <!-- Hinge highlight -->
+                  <circle cx="120" cy="50" r="4" fill="#d1d5db"/>
 
-                <!-- Left arm (needle side) - straight down -->
-                <line x1="120" y1="57" x2="95" y2="190" stroke="#d1d5db" stroke-width="5" stroke-linecap="round"/>
-                <!-- needle tip -->
-                <polygon points="95,190 92,205 98,205" fill="var(--accent-red)"/>
+                  <!-- Left arm (needle side) - straight down -->
+                  <line x1="120" y1="57" x2="95" y2="190" stroke="#d1d5db" stroke-width="5" stroke-linecap="round"/>
+                  <!-- needle tip -->
+                  <polygon points="95,190 92,205 98,205" fill="var(--accent-red)"/>
+                  
+                  <!-- Right arm (pencil side) - angled -->
+                  <line x1="120" y1="57" x2="168" y2="188" stroke="#d1d5db" stroke-width="5" stroke-linecap="round"/>
+                  <!-- pencil body (yellow rectangle) -->
+                  <rect x="160" y="188" width="14" height="26" rx="2" fill="#facc15"/>
+                  <!-- pencil tip (triangle) -->
+                  <polygon points="160,214 174,214 167,228" fill="#78350f"/>
+                  <!-- pencil graphite -->
+                  <line x1="167" y1="225" x2="167" y2="230" stroke="#374151" stroke-width="2"/>
+                </g>
                 <!-- label: 针尖 -->
                 <text x="75" y="215" fill="var(--accent-red)" font-size="11" font-weight="bold">针尖</text>
                 <!-- label: 固定圆心 -->
                 <text x="40" y="228" fill="var(--text-muted)" font-size="10">(固定圆心)</text>
-
-                <!-- Right arm (pencil side) - angled -->
-                <line x1="120" y1="57" x2="168" y2="188" stroke="#d1d5db" stroke-width="5" stroke-linecap="round"/>
-                <!-- pencil body (yellow rectangle) -->
-                <rect x="160" y="188" width="14" height="26" rx="2" fill="#facc15"/>
-                <!-- pencil tip (triangle) -->
-                <polygon points="160,214 174,214 167,228" fill="#78350f"/>
-                <!-- pencil graphite -->
-                <line x1="167" y1="225" x2="167" y2="230" stroke="#374151" stroke-width="2"/>
                 <!-- label: 铅笔芯 -->
                 <text x="180" y="215" fill="var(--accent-gold)" font-size="11" font-weight="bold">铅笔</text>
 
@@ -1237,7 +1243,7 @@
               <h3>📏 直径 (d)</h3>
               <p style="font-size: 1.05rem; line-height: 1.7; margin-top: 8px;">
                 🔴 <b>直径 (d)</b>：通过圆心且两端都在圆上的线段。<br>
-                直径是圆内**最长的一条线段**。<br>
+                直径是圆内<b>最长的一条线段</b>。<br>
                 直径的长度决定了圆的最大跨度。
               </p>
               <div class="thought-card" style="font-size: 0.9rem;">
@@ -1355,9 +1361,9 @@
                 <span style="color: var(--accent-green);">🟢 圆形车轮 (轴心高恒定)</span>
                 <span id="circleTraceLabel" style="font-family: monospace; font-size: 0.82rem;">平稳度: 100% (极佳)</span>
               </div>
-              <svg class="lane-svg" id="circleLane">
+              <svg class="lane-svg" id="circleLane" viewBox="0 0 700 110">
                 <!-- Flat Ground -->
-                <line x1="10" y1="80" x2="250" y2="80" stroke="var(--text-muted)" stroke-width="1.5"></line>
+                <line x1="10" y1="80" x2="680" y2="80" stroke="var(--text-muted)" stroke-width="1.5"></line>
                 <!-- Axis Center line -->
                 <line id="circleCenterLine" x1="40" y1="50" x2="40" y2="50" stroke="var(--accent-green)" stroke-dasharray="3 2" stroke-width="2"></line>
                 <!-- Rolling Wheel -->
@@ -1376,9 +1382,9 @@
                 <span style="color: var(--accent-red);">🔴 方形车轮 (轴心上下颠簸)</span>
                 <span id="squareTraceLabel" style="font-family: monospace; font-size: 0.82rem;">平稳度: 20% (极差)</span>
               </div>
-              <svg class="lane-svg" id="squareLane">
+              <svg class="lane-svg" id="squareLane" viewBox="0 0 700 110">
                 <!-- Flat Ground -->
-                <line x1="10" y1="80" x2="250" y2="80" stroke="var(--text-muted)" stroke-width="1.5"></line>
+                <line x1="10" y1="80" x2="680" y2="80" stroke="var(--text-muted)" stroke-width="1.5"></line>
                 <!-- Axis Center line -->
                 <path id="squareCenterLine" d="M 40,50" fill="none" stroke="var(--accent-red)" stroke-dasharray="3 2" stroke-width="2"></path>
                 <!-- Rolling Wheel -->
@@ -1392,6 +1398,9 @@
             </div>
           </div>
 
+          <div style="text-align: center; margin-top: 5px; margin-bottom: 5px; color: var(--accent-cyan); font-weight: bold; font-size: 1.08rem;">
+            ❓ 讨论：观察滚动轨迹，你能说一说为什么车轮要做成圆形的吗？
+          </div>
           <div style="text-align: center; margin-top: 10px; display: flex; justify-content: center; gap: 15px; flex: 0 0 auto;">
             <button class="start-btn" style="padding: 8px 30px; font-size: 0.92rem;" id="rollWheelsBtn" onclick="animateWheelsRolling()">开始滚动车轮</button>
             <button class="nav-btn" onclick="resetWheelsSimulation()">重置</button>
@@ -1970,7 +1979,7 @@
     const squareCenterLine = document.getElementById('squareCenterLine');
 
     let posX = 40;
-    const endX = 230;
+    const endX = 630;
     const stepX = 1.5;
 
     let sqPath = "M 40,50";
