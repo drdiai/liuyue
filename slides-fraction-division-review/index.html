@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>北师大版六年级数学上册 · 第一单元《分数除法》单元复习课件</title>
+  <style>
+    /* ==================== CORE CSS CONFIGURATION ==================== */
+    :root {
+      --bg-dark: #040d12;
+      --card-dark: #0d1e15;
+      --card-glass: rgba(13, 30, 21, 0.4);
+      --border-soft: rgba(52, 211, 153, 0.25);
+      --border-active: rgba(52, 211, 153, 0.6);
+      
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dark: #040d12;
+
+      --accent-purple: #c084fc;
+      --accent-gold: #fbbf24;
+      --accent-red: #f87171;
+      --accent-green: #34d399;
+      --accent-blue: #60a5fa;
+
+      --font-family: "SimSun", "STSong", "Songti SC", "华文宋体", Georgia, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #010403;
+      color: var(--text-main);
+      font-family: var(--font-family);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 16:9 Viewport Scaling System */
+    .viewport-wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .deck-container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1280px;
+      height: 720px;
+      transform-origin: center center;
+      background: radial-gradient(circle at 50% 30%, #0d2818 0%, var(--bg-dark) 80%);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      border: 2.5px solid var(--border-soft);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ==================== GLOBAL TOP BAR ==================== */
+    .top-bar {
+      height: 50px;
+      border-bottom: 1.5px solid var(--border-soft);
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(4, 13, 18, 0.5);
+      backdrop-filter: blur(10px);
+      flex: 0 0 auto;
+      z-index: 10;
+    }
+
+    .logo-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tag-bnu {
+      font-size: 0.72rem;
+      font-weight: bold;
+      background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: white;
+      letter-spacing: 0.05em;
+    }
+
+    .title-text {
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: var(--text-main);
+      letter-spacing: 0.05em;
+    }
+
+    .help-tips {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== SLIDES WRAPPER ==================== */
+    .slides-wrapper {
+      flex: 1 1 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      padding: 30px 90px 35px 60px;
+      display: none;
+      flex-direction: column;
+      box-sizing: border-box;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* ==================== DYNAMIC NAVIGATION ==================== */
+    .slide-body.justify-center {
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    .slide-body.justify-center p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+    }
+    .slide-body.justify-center li {
+      font-size: 1.22rem;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .slide-body.justify-center h3 {
+      font-size: 1.55rem;
+      margin-bottom: 18px;
+    }
+    .slide-body.justify-center .thought-card p {
+      font-size: 1.2rem;
+      line-height: 1.7;
+    }
+    .slide-body.justify-center .formula {
+      font-size: 1.6rem;
+    }
+
+    /* Vertical side nav bar */
+    .side-nav {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 54px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      background: rgba(13, 30, 21, 0.7);
+      border: 1px solid var(--border-soft);
+      border-radius: 28px;
+      padding: 18px 4px;
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .nav-arrow-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(52, 211, 153, 0.2);
+      border: 1.2px solid var(--border-soft);
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.25s;
+    }
+    .nav-arrow-btn:hover:not(:disabled) {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+      color: var(--text-dark);
+      box-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+      transform: scale(1.1);
+    }
+    .nav-arrow-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+    .page-indicator-vertical {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: monospace;
+      margin: 4px 0;
+    }
+
+    /* ==================== COMMON HEADER ==================== */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 2px solid rgba(52, 211, 153, 0.2);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      flex: 0 0 auto;
+    }
+
+    .slide-header .topic-badge {
+      font-size: 0.8rem;
+      font-weight: bold;
+      background: rgba(52, 211, 153, 0.25);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      padding: 2px 10px;
+      border-radius: 20px;
+      color: #d1fae5;
+      letter-spacing: 0.05em;
+    }
+
+    .slide-header .slide-title {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--text-main);
+      margin-left: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .slide-header .page-index {
+      font-size: 0.95rem;
+      font-family: monospace;
+      color: var(--text-muted);
+    }
+
+    .slide-body {
+      flex: 1 1 auto;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    /* ==================== MATH FRACTIONS ==================== */
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: middle;
+      text-align: center;
+      padding: 0 4px;
+      line-height: 1.1;
+      font-weight: bold;
+    }
+    .frac .num {
+      border-bottom: 1.8px solid var(--text-main);
+      padding-bottom: 1px;
+      font-size: 0.95em;
+    }
+    .frac .den {
+      padding-top: 1px;
+      font-size: 0.95em;
+    }
+
+    .formula {
+      font-size: 1.45rem;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ==================== REVEAL ACTION BUTTON ==================== */
+    .reveal-btn {
+      align-self: center;
+      background: linear-gradient(135deg, rgba(52, 211, 153, 0.3) 0%, rgba(5, 150, 105, 0.3) 100%);
+      border: 1.5px solid var(--text-muted);
+      color: var(--text-main);
+      padding: 8px 24px;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: var(--font-family);
+      font-weight: bold;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.2);
+      flex: 0 0 auto;
+    }
+
+    .reveal-btn:hover {
+      background: var(--accent-gold);
+      color: var(--text-dark);
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .reveal-panel {
+      max-height: 0;
+      opacity: 0;
+      overflow-y: auto;
+      transition: max-height 0.4s ease-out, opacity 0.3s ease-out, padding 0.3s, margin 0.3s;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed transparent;
+      border-radius: 12px;
+      padding: 0 20px;
+      margin-top: 0;
+      flex: 0 1 auto;
+      width: 100%;
+    }
+
+    .reveal-panel.active {
+      max-height: 380px;
+      opacity: 1;
+      padding: 12px 20px;
+      margin-top: 10px;
+      border-color: var(--border-soft);
+    }
+
+    .note-badge {
+      position: absolute;
+      top: -10px;
+      right: 0;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1.5px solid var(--accent-gold);
+      color: var(--accent-gold);
+      font-size: 0.82rem;
+      font-weight: bold;
+      padding: 3px 12px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      animation: pulse-glow 2s infinite;
+      z-index: 5;
+    }
+
+    @keyframes pulse-glow {
+      0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(251, 191, 36, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+    }
+
+    /* ==================== GENERAL LAYOUTS & CARDS ==================== */
+    .cover-layout {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(52, 211, 153, 0.1) 0%, transparent 60%);
+    }
+
+    .cover-layout .subtitle {
+      font-size: 1.25rem;
+      letter-spacing: 0.3em;
+      color: var(--accent-green);
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .cover-layout h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      letter-spacing: 0.1em;
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .cover-layout .desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 45px;
+    }
+
+    .start-btn {
+      background: linear-gradient(135deg, var(--accent-green) 0%, #059669 100%);
+      color: var(--text-dark);
+      border: none;
+      padding: 14px 44px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+      transition: all 0.3s;
+      font-family: var(--font-family);
+    }
+
+    .start-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(5, 150, 105, 0.6);
+      background: linear-gradient(135deg, #6ee7b7 0%, var(--accent-green) 100%);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--card-glass);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      color: var(--accent-gold);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p, .card li {
+      font-size: 1rem;
+      color: var(--text-main);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .card ul, .card ol {
+      padding-left: 20px;
+    }
+
+    .highlight-gold {
+      color: var(--accent-gold);
+      font-weight: bold;
+    }
+    .highlight-green {
+      color: #a7f3d0;
+      font-weight: bold;
+    }
+
+    .thought-card {
+      background: rgba(52, 211, 153, 0.08);
+      border-left: 4.5px solid var(--accent-green);
+      padding: 12px 18px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 8px;
+    }
+    .thought-card p {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+    .thought-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ==================== EXPLORE DOUBLE-COLUMN SPLIT ==================== */
+    .explore-split {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 30px;
+      align-items: stretch;
+      flex: 1 1 auto;
+    }
+
+    .svg-visual-box {
+      background: rgba(5, 15, 10, 0.6);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .svg-interactive {
+      width: 100%;
+      height: 250px;
+      background: #051009;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-btn {
+      background: var(--card-dark);
+      border: 1px solid var(--border-soft);
+      color: var(--text-main);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: var(--font-family);
+      transition: all 0.3s;
+    }
+    .nav-btn:hover {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+      color: var(--text-dark);
+      box-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
+    }
+
+    .explore-desc {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .explore-desc h4 {
+      font-size: 1.15rem;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    /* ==================== INTERACTIVE QUIZ ==================== */
+    .quiz-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .quiz-card {
+      background: var(--card-glass);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .quiz-question {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .quiz-opt {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 10px 16px;
+      color: var(--text-main);
+      font-family: var(--font-family);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      text-align: left;
+    }
+
+    .quiz-opt:hover {
+      background: rgba(52, 211, 153, 0.1);
+      border-color: var(--accent-green);
+    }
+
+    .quiz-opt.correct {
+      background: rgba(16, 185, 129, 0.15) !important;
+      border-color: var(--accent-green) !important;
+      color: #34d399 !important;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+
+    .quiz-opt.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #f87171 !important;
+      font-weight: bold;
+    }
+
+    .quiz-feedback {
+      margin-top: 10px;
+      font-size: 0.92rem;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .quiz-feedback.show {
+      opacity: 1;
+    }
+
+    /* ==================== ROAD MAP STYLING ==================== */
+    .map-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+      height: 100%;
+      align-content: center;
+    }
+
+    .map-node {
+      background: var(--card-glass);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 190px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-node:hover {
+      border-color: var(--accent-green);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(52, 211, 153, 0.2);
+    }
+
+    .map-node::after {
+      content: "➔";
+      position: absolute;
+      bottom: 20px;
+      right: 24px;
+      font-size: 1.5rem;
+      color: var(--accent-green);
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    .map-node:hover::after {
+      opacity: 1;
+      transform: translateX(5px);
+    }
+
+    .map-tag {
+      font-size: 0.8rem;
+      font-weight: bold;
+      background: rgba(52, 211, 153, 0.15);
+      border: 1px solid var(--border-soft);
+      padding: 3px 10px;
+      border-radius: 12px;
+      color: var(--accent-green);
+      align-self: flex-start;
+    }
+
+    .map-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--text-main);
+      margin: 10px 0;
+    }
+
+    .map-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ==================== MATCH GAME GRID ==================== */
+    .match-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      width: 100%;
+    }
+
+    .match-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .match-card {
+      background: var(--card-glass);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 14px 20px;
+      cursor: pointer;
+      transition: all 0.25s;
+      font-size: 1rem;
+      font-weight: bold;
+      text-align: center;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .match-card:hover {
+      border-color: var(--accent-green);
+      background: rgba(52, 211, 153, 0.05);
+    }
+
+    .match-card.selected {
+      border-color: var(--accent-gold);
+      background: rgba(251, 191, 36, 0.12);
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+    }
+
+    .match-card.correct {
+      border-color: var(--accent-green) !important;
+      background: rgba(16, 185, 129, 0.2) !important;
+      color: #34d399 !important;
+      cursor: default;
+    }
+
+    .match-card.wrong {
+      border-color: var(--accent-red) !important;
+      background: rgba(239, 68, 68, 0.2) !important;
+      color: #f87171 !important;
+    }
+
+    /* ==================== MINDMAP DIAGRAM STYLING ==================== */
+    .mindmap-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+      height: 100%;
+      padding: 10px 0;
+    }
+
+    .mindmap-root {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+    }
+
+    .mindmap-core {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #d97706 100%);
+      color: var(--text-dark);
+      font-weight: bold;
+      font-size: 1.15rem;
+      padding: 15px 25px;
+      border-radius: 12px;
+      text-align: center;
+      border: 2px solid var(--accent-gold);
+      box-shadow: 0 5px 15px rgba(217, 119, 6, 0.4);
+      line-height: 1.4;
+    }
+
+    .mindmap-branches {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+      max-width: 680px;
+    }
+
+    .mindmap-branch-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed var(--border-soft);
+      border-radius: 10px;
+      padding: 10px 15px;
+    }
+
+    .mindmap-node {
+      font-weight: bold;
+      font-size: 0.95rem;
+      padding: 5px 12px;
+      border-radius: 6px;
+      color: var(--text-dark);
+      min-width: 110px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .mindmap-node.n1 {
+      background: var(--accent-blue);
+    }
+
+    .mindmap-node.n2 {
+      background: var(--accent-purple);
+    }
+
+    .mindmap-node.n3 {
+      background: var(--accent-green);
+    }
+
+    .mindmap-leafs {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      flex: 1;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+<div class="viewport-wrapper">
+  <div class="deck-container">
+
+    <!-- GLOBAL TOP BAR -->
+    <div class="top-bar">
+      <div class="logo-info">
+        <span class="tag-bnu">北师大版</span>
+        <span class="title-text">六年级数学上册 · 第一单元《分数除法》大复习</span>
+      </div>
+      <div class="help-tips">💡 提示：按 ◀ / ▶ 键翻页 | 第四关附带交互通关小游戏</div>
+    </div>
+
+    <!-- SLIDES WRAPPER -->
+    <div class="slides-wrapper">
+
+      <!-- SLIDE 1: 封面 -->
+      <div class="slide active" id="slide-1">
+        <div class="cover-layout">
+          <p class="subtitle">单 元 结 构 化 复 习 课 · 北 师 大 版</p>
+          <h1 style="font-size: 3.5rem;">第一单元：分数除法</h1>
+          <p class="desc">学习路线：数形融合理解算理 ➔ 口诀提炼掌握运算法则 ➔ 乘除对比建立方程模型</p>
+          <button class="start-btn" onclick="nextSlide()">开启大通关之旅</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: 通关导航图 -->
+      <div class="slide" id="slide-2">
+        <div class="slide-header">
+          <span class="topic-badge">1. 复习路线</span>
+          <span class="slide-title">结构化复习通关地图</span>
+          <span class="page-index">02 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="map-grid">
+            <div class="map-node" onclick="goToSlide(3)">
+              <span class="map-tag">第一关</span>
+              <span class="map-title">数形结合 · 探算理</span>
+              <span class="map-desc">折纸折出商，数轴跳出理。重温分数除法一、二课时的物理折叠与线段跃迁。</span>
+            </div>
+            <div class="map-node" onclick="goToSlide(7)">
+              <span class="map-tag">第二关</span>
+              <span class="map-title">口诀妙招 · 巧计算</span>
+              <span class="map-desc">改、倒、约三字诀与口诀歌。设立“算式诊疗所”，彻底根除漏变倒数等恶习。</span>
+            </div>
+            <div class="map-node" onclick="goToSlide(10)">
+              <span class="map-tag">第三关</span>
+              <span class="map-title">火眼金睛 · 辩大小</span>
+              <span class="map-desc">掌握商与被除数的大小对应规律。利用“符号吞噬兽”游戏进行秒杀训练。</span>
+            </div>
+            <div class="map-node" onclick="goToSlide(13)">
+              <span class="map-tag">第四关</span>
+              <span class="map-title">情境大练兵 · 破应用</span>
+              <span class="map-desc">攻破分数应用题。解析单位“1”已知与未知的关系，通关路程、剩余等变式题。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: 第一关过渡页 -->
+      <div class="slide" id="slide-3">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 1</p>
+          <h1 style="color: var(--accent-green);">第一关：数形结合 · 探算理</h1>
+          <p class="desc">复习重点：通过折纸和数轴图，深刻体悟除法如何转化为乘法</p>
+          <button class="start-btn" onclick="nextSlide()">进入关卡</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: 分数除以整数 (算理) -->
+      <div class="slide" id="slide-4">
+        <div class="slide-header">
+          <span class="topic-badge">第一关：数形结合</span>
+          <span class="slide-title">分数除以整数的折纸图解</span>
+          <span class="page-index">04 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="explore-split">
+            <div class="svg-visual-box">
+              <svg class="svg-interactive" viewBox="0 0 260 130">
+                <!-- 5 columns -->
+                <rect x="10" y="15" width="44" height="80" fill="rgba(52, 211, 153, 0.15)" stroke="#fff" stroke-width="1"></rect>
+                <rect x="54" y="15" width="44" height="80" fill="rgba(52, 211, 153, 0.15)" stroke="#fff" stroke-width="1"></rect>
+                <rect x="98" y="15" width="44" height="80" fill="rgba(52, 211, 153, 0.15)" stroke="#fff" stroke-width="1"></rect>
+                <rect x="142" y="15" width="44" height="80" fill="rgba(52, 211, 153, 0.15)" stroke="#fff" stroke-width="1"></rect>
+                <rect x="186" y="15" width="44" height="80" fill="none" stroke="#fff" stroke-width="1"></rect>
+                
+                <!-- Fold line (Horizontal divide into 3) -->
+                <line x1="10" y1="41.6" x2="230" y2="41.6" stroke="var(--accent-gold)" stroke-width="1" stroke-dasharray="3 2"></line>
+                <line x1="10" y1="68.3" x2="230" y2="68.3" stroke="var(--accent-gold)" stroke-width="1" stroke-dasharray="3 2"></line>
+                
+                <!-- Highlight top row of first 4 columns -->
+                <rect x="10" y="15" width="176" height="26.6" fill="rgba(251, 191, 36, 0.25)" stroke="var(--accent-gold)" stroke-width="1.8"></rect>
+                
+                <text x="120" y="115" text-anchor="middle" font-size="10" fill="var(--text-muted)">整个面被平分成 5 &times; 3 ＝ 15 小份</text>
+                <text x="98" y="32" text-anchor="middle" font-size="9" fill="var(--accent-gold)" font-weight="bold">得到的 1 份是 4/15</text>
+              </svg>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">图示：把 <span class="frac"><span class="num">4</span><span class="den">5</span></span> 平均分成 3 份</div>
+            </div>
+            <div class="explore-desc">
+              <div>
+                <h4>💡 核心概念：分数除以整数的物理意义</h4>
+                <p style="font-size: 1.05rem; line-height: 1.6; margin-top: 10px;">
+                  把一个数平均分成 <i>n</i> 份，求每份是多少，就是求这个数的<b>“几分之一是多少”</b>。<br>
+                  因此：<br>
+                  <span class="formula" style="font-size: 1.25rem; color: var(--accent-green); margin: 8px 0;">
+                    <span class="frac"><span class="num">4</span><span class="den">5</span></span> &divide; 3 
+                    ＝ <span class="frac"><span class="num">4</span><span class="den">5</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">3</span></span> 
+                    ＝ <span class="frac"><span class="num">4</span><span class="den">15</span></span>
+                  </span>
+                </p>
+                <button class="reveal-btn" onclick="toggleReveal(this)">展示转化思想</button>
+                <div class="reveal-panel">
+                  <div class="thought-card" style="font-size: 0.92rem;">
+                    <b>转化思想（新变旧）：</b> 遇到除以整数，直接转化为<b>乘以该整数的倒数</b>，从而利用已学过的分数乘法快速得出答案。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: 整数除以分数 (算理) -->
+      <div class="slide" id="slide-5">
+        <div class="slide-header">
+          <span class="topic-badge">第一关：数形结合</span>
+          <span class="slide-title">整数除以分数的数轴图解</span>
+          <span class="page-index">05 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="explore-split">
+            <div class="svg-visual-box">
+              <svg class="svg-interactive" viewBox="0 0 260 130">
+                <!-- Axis line -->
+                <line x1="20" y1="80" x2="240" y2="80" stroke="var(--text-main)" stroke-width="1.8"></line>
+                
+                <!-- Ticks for integers -->
+                <g stroke="var(--text-main)" stroke-width="1.5">
+                  <line x1="30" y1="75" x2="30" y2="85"></line>
+                  <line x1="80" y1="75" x2="80" y2="85"></line>
+                  <line x1="130" y1="75" x2="130" y2="85"></line>
+                  <line x1="180" y1="75" x2="180" y2="85"></line>
+                  <line x1="230" y1="75" x2="230" y2="85"></line>
+                </g>
+                <g fill="var(--text-main)" font-size="10" text-anchor="middle" font-weight="bold">
+                  <text x="30" y="98">0</text>
+                  <text x="80" y="98">1</text>
+                  <text x="130" y="98">2</text>
+                  <text x="180" y="98">3</text>
+                  <text x="230" y="98">4</text>
+                </g>
+
+                <!-- Subticks for thirds -->
+                <g stroke="var(--text-muted)" stroke-width="0.8">
+                  <line x1="46.6" y1="77" x2="46.6" y2="83"></line>
+                  <line x1="63.3" y1="77" x2="63.3" y2="83"></line>
+                  <line x1="96.6" y1="77" x2="96.6" y2="83"></line>
+                  <line x1="113.3" y1="77" x2="113.3" y2="83"></line>
+                  <line x1="146.6" y1="77" x2="146.6" y2="83"></line>
+                  <line x1="163.3" y1="77" x2="163.3" y2="83"></line>
+                  <line x1="196.6" y1="77" x2="196.6" y2="83"></line>
+                  <line x1="213.3" y1="77" x2="213.3" y2="83"></line>
+                </g>
+
+                <!-- Jumping arcs of 2/3 -->
+                <g fill="none" stroke="var(--accent-green)" stroke-width="1.5">
+                  <path d="M 30,80 Q 46.6,50 63.3,80"></path>
+                  <path d="M 63.3,80 Q 80,50 96.6,80"></path>
+                  <path d="M 96.6,80 Q 113.3,50 130,80"></path>
+                  <path d="M 130,80 Q 146.6,50 163.3,80"></path>
+                  <path d="M 163.3,80 Q 180,50 196.6,80"></path>
+                  <path d="M 196.6,80 Q 213.3,50 230,80"></path>
+                </g>
+                <g fill="var(--accent-green)" font-size="8.5" font-weight="bold" text-anchor="middle">
+                  <text x="46.6" y="45">①</text>
+                  <text x="80" y="45">②</text>
+                  <text x="113.3" y="45">③</text>
+                  <text x="146.6" y="45">④</text>
+                  <text x="180" y="45">⑤</text>
+                  <text x="213.3" y="45">⑥</text>
+                </g>
+              </svg>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">图示：计算 4 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span></div>
+            </div>
+            <div class="explore-desc">
+              <div>
+                <h4>💡 核心概念：求包含个数的物理意义</h4>
+                <p style="font-size: 1.05rem; line-height: 1.6; margin-top: 10px;">
+                  整数除以分数，相当于求<b>“这个整数里包含多少个分数分率”</b>。<br>
+                  如图，在 0 到 4 间以 <span class="frac"><span class="num">2</span><span class="den">3</span></span> 为一步进行跳跃，正好能跳 6 步。即：<br>
+                  <span class="formula" style="font-size: 1.25rem; color: var(--accent-green); margin: 8px 0;">
+                    4 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span> 
+                    ＝ 4 &times; <span class="frac"><span class="num">3</span><span class="den">2</span></span> 
+                    ＝ 6
+                  </span>
+                </p>
+                <button class="reveal-btn" onclick="toggleReveal(this)">展示分步理解</button>
+                <div class="reveal-panel">
+                  <div class="thought-card" style="font-size: 0.92rem;">
+                    <b>算理拆解：</b> 先求出 4 个整块内包含的 <span class="frac"><span class="num">1</span><span class="den">3</span></span> 块数 (4 &times; 3 ＝ 12份)；再每 2 份分为一组 (12 &divide; 2 ＝ 6组)。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: 第一关互动游戏：对对碰 -->
+      <div class="slide" id="slide-6">
+        <div class="slide-header">
+          <span class="topic-badge">第一关：互动小游戏</span>
+          <span class="slide-title">第一关：算理翻牌对对碰</span>
+          <span class="page-index">06 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div style="text-align: center; margin-bottom: 15px; position: relative;">
+            <div class="note-badge">🎮 匹配挑战</div>
+            <p style="font-size: 1.05rem; color: var(--accent-gold); font-weight: bold;">请先点击左侧的“描述卡”，再点击右侧对应的“算式卡”完成配对：</p>
+          </div>
+
+          <div class="match-container">
+            <!-- Left Desc Column -->
+            <div class="match-column" id="matchLeftCol">
+              <div class="match-card" data-id="1" onclick="selectMatchCard('left', this)">把 <span class="frac"><span class="num">2</span><span class="den">5</span></span> 平均分成 4 份</div>
+              <div class="match-card" data-id="2" onclick="selectMatchCard('left', this)">2 里面包含几个 <span class="frac"><span class="num">2</span><span class="den">3</span></span></div>
+              <div class="match-card" data-id="3" onclick="selectMatchCard('left', this)">求 <span class="frac"><span class="num">4</span><span class="den">5</span></span> 的 <span class="frac"><span class="num">1</span><span class="den">3</span></span> 是多少</div>
+              <div class="match-card" data-id="4" onclick="selectMatchCard('left', this)">3 里面包含多少个 <span class="frac"><span class="num">1</span><span class="den">4</span></span></div>
+            </div>
+            
+            <!-- Right Formula Column -->
+            <div class="match-column" id="matchRightCol">
+              <!-- Randomly ordered in code for gameplay -->
+              <div class="match-card" data-id="4" onclick="selectMatchCard('right', this)">3 &divide; <span class="frac"><span class="num">1</span><span class="den">4</span></span></div>
+              <div class="match-card" data-id="1" onclick="selectMatchCard('right', this)"><span class="frac"><span class="num">2</span><span class="den">5</span></span> &divide; 4</div>
+              <div class="match-card" data-id="3" onclick="selectMatchCard('right', this)"><span class="frac"><span class="num">4</span><span class="den">5</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">3</span></span></div>
+              <div class="match-card" data-id="2" onclick="selectMatchCard('right', this)">2 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span></div>
+            </div>
+          </div>
+
+          <div id="matchFeedback" style="text-align: center; margin-top: 15px; font-weight: bold; color: var(--text-muted); font-size: 1.05rem; height: 30px;">
+            请开始你的匹配挑战吧！
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: 第二关过渡页 -->
+      <div class="slide" id="slide-7">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 2</p>
+          <h1 style="color: var(--accent-gold);">第二关：口诀妙招 · 巧计算</h1>
+          <p class="desc">复习重点：精熟运算法则，用计算三字诀和纠错诊断攻克运算难关</p>
+          <button class="start-btn" onclick="nextSlide()">进入关卡</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 8: 计算法则与口诀 -->
+      <div class="slide" id="slide-8">
+        <div class="slide-header">
+          <span class="topic-badge">第二关：法则口诀</span>
+          <span class="slide-title">分数除法通用计算法则</span>
+          <span class="page-index">08 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card-grid">
+            <div class="card">
+              <h3>🛠️ 计算“三字诀”</h3>
+              <p style="font-size: 1.1rem; line-height: 1.7; margin-top: 10px;">
+                🔴 <b>改</b> —— 把“除号”改写为“乘号”；<br>
+                🔴 <b>倒</b> —— 颠倒除数的分子和分母（变倒数）；<br>
+                🔴 <b>约</b> —— 先交叉约分，化成最简后相乘。<br>
+                <span class="highlight-gold" style="display:block; margin-top:10px;">⚠️ 被除数绝对保持原状，不能颠倒！</span>
+              </p>
+            </div>
+            <div class="card">
+              <h3>🎵 分数除法口诀歌</h3>
+              <div style="background: rgba(52, 211, 153, 0.1); padding: 15px; border-radius: 8px; border: 1.5px dashed var(--accent-green); text-align: center;">
+                <p style="font-size: 1.1rem; font-weight: bold; color: var(--accent-green); line-height: 1.7; margin-bottom: 0;">
+                  分数除法并不难，被除数它坐泰山。<br>
+                  除号一变乘号现，除数翻转天倒地。<br>
+                  先约分来后相乘，算得答案快又准！
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: 第二关游戏：算式诊疗所 -->
+      <div class="slide" id="slide-9">
+        <div class="slide-header">
+          <span class="topic-badge">第二关：互动小游戏</span>
+          <span class="slide-title">第二关：分数算式诊疗所</span>
+          <span class="page-index">09 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div style="text-align: center; margin-bottom: 12px; position: relative;">
+            <div class="note-badge">🏥 纠错诊疗</div>
+            <p style="font-size: 1.05rem; color: var(--accent-gold); font-weight: bold;">这三道算式都病了！请点击下方的按钮为它们诊断并开出处方吧：</p>
+          </div>
+
+          <div class="card-grid" style="gap: 15px;">
+            <!-- Patient 1 -->
+            <div class="card" style="padding: 12px 18px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div style="font-size: 0.98rem; font-weight: bold; color: var(--accent-red); margin-bottom: 5px;">❌ 算式 A（病症）：</div>
+              <p class="formula" style="font-size: 1.25rem; margin-bottom: 8px;">
+                6 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span> ＝ 6 &times; <span class="frac"><span class="num">2</span><span class="den">3</span></span> ＝ 4
+              </p>
+              <button class="reveal-btn" style="padding: 4px 15px; font-size: 0.85rem;" onclick="toggleReveal(this)">诊断并开方</button>
+              <div class="reveal-panel">
+                <div class="thought-card" style="padding: 8px 12px; font-size: 0.88rem;">
+                  <b>病因：</b> 改写乘号时，除数<b>没有倒转</b>！<br>
+                  <b>正确处方：</b> 6 &times; <span class="frac"><span class="num">3</span><span class="den">2</span></span> ＝ 9。
+                </div>
+              </div>
+            </div>
+
+            <!-- Patient 2 -->
+            <div class="card" style="padding: 12px 18px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div style="font-size: 0.98rem; font-weight: bold; color: var(--accent-red); margin-bottom: 5px;">❌ 算式 B（病症）：</div>
+              <p class="formula" style="font-size: 1.25rem; margin-bottom: 8px;">
+                <span class="frac"><span class="num">2</span><span class="den">3</span></span> &divide; 4 ＝ <span class="frac"><span class="num">2</span><span class="den">3</span></span> &times; 4 ＝ <span class="frac"><span class="num">8</span><span class="den">3</span></span>
+              </p>
+              <button class="reveal-btn" style="padding: 4px 15px; font-size: 0.85rem;" onclick="toggleReveal(this)">诊断并开方</button>
+              <div class="reveal-panel">
+                <div class="thought-card" style="padding: 8px 12px; font-size: 0.88rem;">
+                  <b>病因：</b> 除数是整数 4，误以为不用倒转。<br>
+                  <b>正确处方：</b> <span class="frac"><span class="num">2</span><span class="den">3</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">4</span></span> ＝ <span class="frac"><span class="num">1</span><span class="den">6</span></span>。
+                </div>
+              </div>
+            </div>
+
+            <!-- Patient 3 -->
+            <div class="card" style="padding: 12px 18px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div style="font-size: 0.98rem; font-weight: bold; color: var(--accent-red); margin-bottom: 5px;">❌ 算式 C（病症）：</div>
+              <p class="formula" style="font-size: 1.25rem; margin-bottom: 8px;">
+                8 &divide; <span class="frac"><span class="num">4</span><span class="den">5</span></span> ＝ <span class="frac"><span class="num">1</span><span class="den">8</span></span> &times; <span class="frac"><span class="num">5</span><span class="den">4</span></span> ＝ <span class="frac"><span class="num">5</span><span class="den">32</span></span>
+              </p>
+              <button class="reveal-btn" style="padding: 4px 15px; font-size: 0.85rem;" onclick="toggleReveal(this)">诊断并开方</button>
+              <div class="reveal-panel">
+                <div class="thought-card" style="padding: 8px 12px; font-size: 0.88rem;">
+                  <b>病因：</b> 搞错对象，把被除数 8 倒转了！<br>
+                  <b>正确处方：</b> 8 &times; <span class="frac"><span class="num">5</span><span class="den">4</span></span> ＝ 10。被除数绝对不动。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 10: 第三关过渡页 -->
+      <div class="slide" id="slide-10">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 3</p>
+          <h1 style="color: var(--accent-purple);">第三关：火眼金睛 · 辩大小</h1>
+          <p class="desc">复习重点：深入理解除数与1的关系，不计算快速秒杀大小比较题</p>
+          <button class="start-btn" onclick="nextSlide()">进入关卡</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 11: 大小规律总结 -->
+      <div class="slide" id="slide-11">
+        <div class="slide-header">
+          <span class="topic-badge">第三关：规律大小</span>
+          <span class="slide-title">商与被除数的大小对应规律</span>
+          <span class="page-index">11 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
+            <h3>⚖️ 核心规律表（被除数 a ＞ 0）</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px; border: 1.5px solid var(--border-soft); font-size: 1.1rem; text-align: center;">
+              <thead>
+                <tr style="background: rgba(52, 211, 153, 0.15); height: 45px;">
+                  <th style="border: 1px solid var(--border-soft);">除数范围</th>
+                  <th style="border: 1px solid var(--border-soft);">商与被除数大小</th>
+                  <th style="border: 1px solid var(--border-soft);">典型算式</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="height: 48px;">
+                  <td style="border: 1px solid var(--border-soft);"><b class="highlight-green">小于 1</b> (真分数)</td>
+                  <td style="border: 1px solid var(--border-soft); color: var(--accent-red); font-weight: bold;">商 ＞ 被除数</td>
+                  <td style="border: 1px solid var(--border-soft);">12 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span> ＝ 18 (18 &gt; 12)</td>
+                </tr>
+                <tr style="height: 48px;">
+                  <td style="border: 1px solid var(--border-soft);"><b>等于 1</b></td>
+                  <td style="border: 1px solid var(--border-soft); font-weight: bold;">商 ＝ 被除数</td>
+                  <td style="border: 1px solid var(--border-soft);">12 &divide; 1 ＝ 12</td>
+                </tr>
+                <tr style="height: 48px;">
+                  <td style="border: 1px solid var(--border-soft);"><b class="highlight-purple">大于 1</b> (假分数/整数)</td>
+                  <td style="border: 1px solid var(--border-soft); color: var(--accent-green); font-weight: bold;">商 ＜ 被除数</td>
+                  <td style="border: 1px solid var(--border-soft);">12 &divide; <span class="frac"><span class="num">3</span><span class="den">2</span></span> ＝ 8 (8 &lt; 12)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 12: 第三关游戏：符号吞噬兽 -->
+      <div class="slide" id="slide-12">
+        <div class="slide-header">
+          <span class="topic-badge">第三关：互动小游戏</span>
+          <span class="slide-title">第三关：符号吞噬兽挑战</span>
+          <span class="page-index">12 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div style="text-align: center; margin-bottom: 12px; position: relative;">
+            <div class="note-badge">🎮 符号吞噬</div>
+            <p style="font-size: 1.05rem; color: var(--accent-gold); font-weight: bold;">吞噬兽饿了！请帮它选择正确的比较符号填入 ◯ 中（点击按钮）：</p>
+          </div>
+
+          <div class="card-grid" style="gap: 15px;">
+            <!-- Q 1 -->
+            <div class="card" style="padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 8px;" id="compareCard1">
+              <div style="font-size: 1.25rem; font-weight: bold;">
+                15 &divide; <span class="frac"><span class="num">5</span><span class="den">6</span></span> <span id="symbol1" style="color: var(--accent-gold); border: 1.5px dashed var(--accent-gold); padding: 2px 8px; border-radius: 4px; margin: 0 5px;">◯</span> 15
+              </div>
+              <div style="display:flex; gap: 8px;">
+                <button class="nav-btn" onclick="checkCompare(1, '＞', true, '因为除数 5/6 小于 1，商大于被除数！')">＞</button>
+                <button class="nav-btn" onclick="checkCompare(1, '＜', false, '因为除数小于 1，商变大，所以应该填 ＞ 噢！')">＜</button>
+                <button class="nav-btn" onclick="checkCompare(1, '＝', false, '除数不等于 1，不相等噢！')">＝</button>
+              </div>
+              <div class="quiz-feedback" style="font-size: 0.85rem; height: 35px; text-align: center;"></div>
+            </div>
+
+            <!-- Q 2 -->
+            <div class="card" style="padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 8px;" id="compareCard2">
+              <div style="font-size: 1.25rem; font-weight: bold;">
+                <span class="frac"><span class="num">7</span><span class="den">8</span></span> &divide; <span class="frac"><span class="num">8</span><span class="den">7</span></span> <span id="symbol2" style="color: var(--accent-gold); border: 1.5px dashed var(--accent-gold); padding: 2px 8px; border-radius: 4px; margin: 0 5px;">◯</span> <span class="frac"><span class="num">7</span><span class="den">8</span></span>
+              </div>
+              <div style="display:flex; gap: 8px;">
+                <button class="nav-btn" onclick="checkCompare(2, '＞', false, '因为除数 8/7 大于 1，商会变小！')">＞</button>
+                <button class="nav-btn" onclick="checkCompare(2, '＜', true, '因为除数 8/7 大于 1，商小于被除数！')">＜</button>
+                <button class="nav-btn" onclick="checkCompare(2, '＝', false, '除数大于 1，会缩小，不相等噢！')">＝</button>
+              </div>
+              <div class="quiz-feedback" style="font-size: 0.85rem; height: 35px; text-align: center;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 13: 第四关过渡页 -->
+      <div class="slide" id="slide-13">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 4</p>
+          <h1 style="color: var(--accent-green);">第四关：情境大练兵 · 破应用</h1>
+          <p class="desc">复习重点：在经典情境中找准单位“1”，熟练掌握方程与算术解法</p>
+          <button class="start-btn" onclick="nextSlide()">进入关卡</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 14: 情境一：操场运动会 -->
+      <div class="slide" id="slide-14">
+        <div class="slide-header">
+          <span class="topic-badge">第四关：情境应用</span>
+          <span class="slide-title">情境一：操场体育课跳绳人数</span>
+          <span class="page-index">14 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="card" style="width: 100%; margin-bottom: 12px;">
+            <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
+              🏃 <b>运动场情境：</b> 女生有 12 人在跳绳，<b>正好占操场上总女生人数的</b> <span class="frac"><span class="num">2</span><span class="den">5</span></span>。操场上共有多少名女生？
+            </p>
+          </div>
+          
+          <button class="reveal-btn" onclick="toggleReveal(this)">展示解题思路与解答</button>
+          <div class="reveal-panel">
+            <div class="card-grid" style="margin-top: 5px;">
+              <div class="card" style="padding: 15px;">
+                <h3>🔍 找准单位“1”</h3>
+                <ul style="list-style-type: none; padding-left: 0; font-size: 0.95rem;">
+                  <li style="margin-bottom: 8px;">1. 单位“1”：<b>操场上总女生人数</b>（未知量）。</li>
+                  <li style="margin-bottom: 8px;">2. 数量关系式：<br>总女生人数 &times; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ 跳绳女生人数。</li>
+                </ul>
+              </div>
+              <div class="card" style="padding: 15px;">
+                <h3>📝 方程与除法解答</h3>
+                <p>解：设操场上共有 <i>x</i> 名女生。</p>
+                <p class="formula" style="font-size: 1.15rem; margin: 4px 0;">
+                  x &times; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ 12 ➔ x ＝ 30
+                </p>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">算术除法：12 &divide; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ 30（名）。 答：共有 30 名女生。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 15: 情境二：大米仓库记 -->
+      <div class="slide" id="slide-15">
+        <div class="slide-header">
+          <span class="topic-badge">第四关：情境应用</span>
+          <span class="slide-title">情境二：量率不对应问题</span>
+          <span class="page-index">15 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="card" style="width: 100%; margin-bottom: 12px;">
+            <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
+              🌾 <b>仓库情境：</b> 粮仓里有一袋面粉，食堂吃去了整袋的 <span class="frac"><span class="num">2</span><span class="den">5</span></span>，<b>还剩 18 千克</b>。这袋面粉原来重多少千克？
+            </p>
+          </div>
+          
+          <button class="reveal-btn" onclick="toggleReveal(this)">展示解题思路与解答</button>
+          <div class="reveal-panel">
+            <div class="card-grid" style="margin-top: 5px;">
+              <div class="card" style="padding: 15px;">
+                <h3>🔍 找准对应分率</h3>
+                <ul style="list-style-type: none; padding-left: 0; font-size: 0.95rem;">
+                  <li style="margin-bottom: 6px;">1. 单位“1”：<b>面粉总重</b>（未知）。</li>
+                  <li style="margin-bottom: 6px;">2. 注意：18kg 是<b>剩余重量</b>，不能直接除以 <span class="frac"><span class="num">2</span><span class="den">5</span></span>！</li>
+                  <li style="margin-bottom: 6px;">3. 对应关系：18kg 对应的是剩下的分率 ( 1 &minus; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ＝ <span class="frac"><span class="num">3</span><span class="den">5</span></span> )。</li>
+                </ul>
+              </div>
+              <div class="card" style="padding: 15px;">
+                <h3>📝 方程与除法解答</h3>
+                <p>解：设这袋面粉原来重 <i>x</i> 千克。</p>
+                <p class="formula" style="font-size: 1.15rem; margin: 4px 0;">
+                  ( 1 &minus; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ) x ＝ 18 ➔ <span class="frac"><span class="num">3</span><span class="den">5</span></span> x ＝ 18 ➔ x ＝ 30
+                </p>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">算术除法：18 &divide; ( 1 &minus; <span class="frac"><span class="num">2</span><span class="den">5</span></span> ) ＝ 30（kg）。 答：原来重 30 kg。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 16: 情境三：水表节约战 -->
+      <div class="slide" id="slide-16">
+        <div class="slide-header">
+          <span class="topic-badge">第四关：情境应用</span>
+          <span class="slide-title">情境三：“比一个数多/少几分之几”</span>
+          <span class="page-index">16 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="card" style="width: 100%; margin-bottom: 12px;">
+            <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
+              💧 <b>节水情境：</b> 学校六月份节约用水 24 吨，<b>比五月份多节约了</b> <span class="frac"><span class="num">1</span><span class="den">5</span></span>。五月份节约用水多少吨？
+            </p>
+          </div>
+          
+          <button class="reveal-btn" onclick="toggleReveal(this)">展示解题思路与解答</button>
+          <div class="reveal-panel">
+            <div class="card-grid" style="margin-top: 5px;">
+              <div class="card" style="padding: 15px;">
+                <h3>🔍 剖析倍数分率</h3>
+                <ul style="list-style-type: none; padding-left: 0; font-size: 0.95rem;">
+                  <li style="margin-bottom: 6px;">1. 单位“1”：<b>五月份节约水量</b>（未知）。</li>
+                  <li style="margin-bottom: 6px;">2. “比五月份多 <span class="frac"><span class="num">1</span><span class="den">5</span></span>”，指六月份是五月份的 ( 1 ＋ <span class="frac"><span class="num">1</span><span class="den">5</span></span> ＝ <span class="frac"><span class="num">6</span><span class="den">5</span></span> )。</li>
+                  <li style="margin-bottom: 6px;">3. 等量关系式：五月水量 &times; ( 1 ＋ <span class="frac"><span class="num">1</span><span class="den">5</span></span> ) ＝ 六月水量。</li>
+                </ul>
+              </div>
+              <div class="card" style="padding: 15px;">
+                <h3>📝 方程与除法解答</h3>
+                <p>解：设五月份节约用水 <i>x</i> 吨。</p>
+                <p class="formula" style="font-size: 1.15rem; margin: 4px 0;">
+                  ( 1 ＋ <span class="frac"><span class="num">1</span><span class="den">5</span></span> ) x ＝ 24 ➔ <span class="frac"><span class="num">6</span><span class="den">5</span></span> x ＝ 24 ➔ x ＝ 20
+                </p>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">算术除法：24 &divide; ( 1 ＋ <span class="frac"><span class="num">1</span><span class="den">5</span></span> ) ＝ 20（吨）。 答：五月份节约 20 吨。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 17: 情境四：绳艺大挑战 -->
+      <div class="slide" id="slide-17">
+        <div class="slide-header">
+          <span class="topic-badge">第四关：情境应用</span>
+          <span class="slide-title">情境四：多重复合乘除雷区题</span>
+          <span class="page-index">17 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="card" style="width: 100%; margin-bottom: 12px;">
+            <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
+              🧶 <b>绳子情境：</b> 一根绳子，第一次剪去了它的 <span class="frac"><span class="num">1</span><span class="den">3</span></span>，第二次剪去了 <span class="frac"><span class="num">1</span><span class="den">3</span></span> 米，最后还剩下 1 米。这根绳子原来有多长？
+            </p>
+          </div>
+          
+          <button class="reveal-btn" onclick="toggleReveal(this)">展示解题思路与解答</button>
+          <div class="reveal-panel">
+            <div class="card-grid" style="margin-top: 5px;">
+              <div class="card" style="padding: 15px;">
+                <h3>🔍 剥离单位与分率</h3>
+                <ul style="list-style-type: none; padding-left: 0; font-size: 0.95rem;">
+                  <li style="margin-bottom: 6px;">1. <b>核心区别：</b> <span class="frac"><span class="num">1</span><span class="den">3</span></span> 是分率，没有单位；而 <span class="frac"><span class="num">1</span><span class="den">3</span></span> 米是具体的长度量！</li>
+                  <li style="margin-bottom: 6px;">2. 第一步：把具体的米数加回来，剩下的量为 1 ＋ <span class="frac"><span class="num">1</span><span class="den">3</span></span> ＝ <span class="frac"><span class="num">4</span><span class="den">3</span></span> 米。</li>
+                  <li style="margin-bottom: 6px;">3. 第二步：对应第一次剪去后剩下的分率 ( 1 &minus; <span class="frac"><span class="num">1</span><span class="den">3</span></span> ＝ <span class="frac"><span class="num">2</span><span class="den">3</span></span> )，用除法计算。</li>
+                </ul>
+              </div>
+              <div class="card" style="padding: 15px;">
+                <h3>📝 计算步骤与答案</h3>
+                <p>列式计算：</p>
+                <p class="formula" style="font-size: 1.15rem; margin: 10px 0; color: var(--accent-green);">
+                  ( 1 ＋ <span class="frac"><span class="num">1</span><span class="den">3</span></span> ) &divide; ( 1 &minus; <span class="frac"><span class="num">1</span><span class="den">3</span></span> ) 
+                  ＝ <span class="frac"><span class="num">4</span><span class="den">3</span></span> &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span> 
+                  ＝ 2 （米）
+                </p>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">答：这根绳子原来有 2 米长。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 18: 第四关游戏：应用题分类器 -->
+      <div class="slide" id="slide-18">
+        <div class="slide-header">
+          <span class="topic-badge">第四关：互动小游戏</span>
+          <span class="slide-title">第四关：应用题类别分类器</span>
+          <span class="page-index">18 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card" style="max-width: 850px; margin: 0 auto; width: 100%; position: relative;">
+            <div class="note-badge">🎮 分类挑战</div>
+            <h3 style="font-size:1.2rem; text-align: center; margin-bottom: 12px;">“修路队修路，已修了 12 千米，正好占全长的 <span class="frac"><span class="num">2</span><span class="den">5</span></span>，全长多少千米？”</h3>
+            <p style="text-align: center; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 15px;">这道题目应该用乘法还是除法/方程来解决？请做出选择：</p>
+            
+            <div class="quiz-options" style="max-width: 500px; margin: 0 auto;">
+              <button class="quiz-opt" style="padding: 12px;" onclick="checkCategory(this, false)">A. 已知单位“1”，直接相乘</button>
+              <button class="quiz-opt" style="padding: 12px;" onclick="checkCategory(this, true)">B. 未知单位“1”，用除法或列方程</button>
+            </div>
+
+            <div class="quiz-feedback" style="margin-top: 15px; font-size: 0.95rem; text-align: center; min-height: 40px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 19: 结构化思维导图 -->
+      <div class="slide" id="slide-19">
+        <div class="slide-header">
+          <span class="topic-badge">💡 单元脑图</span>
+          <span class="slide-title">第一单元《分数除法》结构化思维导图</span>
+          <span class="page-index">19 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="mindmap-container">
+            <div class="mindmap-root">
+              <div class="mindmap-core">🌟 第一单元<br>《分数除法》</div>
+            </div>
+            
+            <div class="mindmap-branches">
+              <div class="mindmap-branch-item">
+                <div class="mindmap-node n1">🎨 算理探究</div>
+                <div class="mindmap-leafs">
+                  <div class="match-card correct" style="padding: 4px 10px; font-size: 0.8rem; min-height: unset; line-height: 1.2;">分数除以整数 ➔ 等于乘其倒数</div>
+                  <div class="match-card correct" style="padding: 4px 10px; font-size: 0.8rem; min-height: unset; line-height: 1.2;">整数除以分数 ➔ 包含多少个分率</div>
+                </div>
+              </div>
+              
+              <div class="mindmap-branch-item">
+                <div class="mindmap-node n2">🧮 计算口诀</div>
+                <div class="mindmap-leafs">
+                  <div class="match-card correct" style="padding: 4px 10px; font-size: 0.8rem; min-height: unset; line-height: 1.2;">三字诀：改、倒、约</div>
+                  <div class="match-card correct" style="padding: 4px 10px; font-size: 0.8rem; min-height: unset; line-height: 1.2;">除数 ＜ 1 ➔ 商 ＞ 被除数</div>
+                </div>
+              </div>
+
+              <div class="mindmap-branch-item">
+                <div class="mindmap-node n3">⚠️ 实际应用</div>
+                <div class="mindmap-leafs">
+                  <div class="match-card correct" style="padding: 4px 10px; font-size: 0.8rem; min-height: unset; line-height: 1.2;">等量关系式：单位1 &times; 对应分率 ＝ 对应量</div>
+                  <div class="match-card correct" style="padding: 4px 10px; font-size: 0.8rem; min-height: unset; line-height: 1.2;">量率不对应 ➔ 用 1 减或加分率</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 20: 毕业测试题 -->
+      <div class="slide" id="slide-20">
+        <div class="slide-header">
+          <span class="topic-badge">💪 单元检测</span>
+          <span class="slide-title">第一单元毕业大测试</span>
+          <span class="page-index">20 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="quiz-container" style="gap: 10px; overflow-y: auto; max-height: 540px;">
+            <!-- Quiz 1 -->
+            <div class="quiz-card" style="padding: 10px 18px;">
+              <div class="quiz-question" style="font-size: 0.95rem; margin-bottom: 6px;">
+                <span>① 一个数（非0）除以 <span class="frac"><span class="num">1</span><span class="den">4</span></span>，这个数就（ ）。</span>
+              </div>
+              <div class="quiz-options" style="gap: 8px;">
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="false" onclick="checkQuizAnswer(this)">A. 缩小到原来的 1/4</button>
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="true" onclick="checkQuizAnswer(this)">B. 扩大到原来的 4 倍</button>
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="false" onclick="checkQuizAnswer(this)">C. 保持不变</button>
+              </div>
+              <div class="quiz-feedback" style="font-size: 0.82rem; margin-top: 4px;" data-explainer="【解析】除以一个分数，等于乘这个分数的倒数。除以 1/4 等于乘 4，所以扩大到原来的 4 倍。选择 B。"></div>
+            </div>
+
+            <!-- Quiz 2 -->
+            <div class="quiz-card" style="padding: 10px 18px;">
+              <div class="quiz-question" style="font-size: 0.95rem; margin-bottom: 6px;">
+                <span>② 某袋大米吃去了 <span class="frac"><span class="num">3</span><span class="den">4</span></span>，正好剩 5 kg，这袋大米原来重（ ）kg。</span>
+              </div>
+              <div class="quiz-options" style="gap: 8px;">
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="false" onclick="checkQuizAnswer(this)">A. 15 kg</button>
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="false" onclick="checkQuizAnswer(this)">B. 6.67 kg</button>
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="true" onclick="checkQuizAnswer(this)">C. 20 kg</button>
+              </div>
+              <div class="quiz-feedback" style="font-size: 0.82rem; margin-top: 4px;" data-explainer="【解析】吃去 3/4 说明剩下占 1 &minus; 3/4 ＝ 1/4。根据除法公式：剩下重量 &divide; 剩下分率 ＝ 总量。 5 &divide; 1/4 ＝ 20 kg。选择 C。"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 21: 封底 -->
+      <div class="slide" id="slide-21">
+        <div class="cover-layout">
+          <p class="subtitle">六 年 级 数 学 上 册 · 北 师 大 版</p>
+          <h1>《分数除法》大通关完成</h1>
+          <p class="desc">学习结语：结构化思维，帮助我们举一反三，触类旁通！</p>
+          <button class="start-btn" onclick="goToSlide(1)">重新回顾复习</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Slim progress bar at the very bottom -->
+    <div class="deck-progress-bar" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 3.5px; background: rgba(255,255,255,0.05); z-index: 10;">
+      <div class="progress-fill" id="progress-indicator" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent-green) 0%, var(--accent-gold) 100%); transition: width 0.3s ease;"></div>
+    </div>
+
+    <!-- Vertical side nav bar -->
+    <div class="side-nav">
+      <button class="nav-arrow-btn" id="prev-btn" onclick="prevSlide()" title="上一页">▲</button>
+      <div class="page-indicator-vertical">
+        <span id="current-page-num" style="font-size: 1.15rem; font-weight: bold; color: var(--accent-gold);">1</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); margin: 2px 0;">/</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">21</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">页</span>
+      </div>
+      <button class="nav-arrow-btn" id="next-btn" onclick="nextSlide()" title="下一页">▼</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== JAVASCRIPT LOGIC ========== -->
+<script>
+  /* ==================== GLOBAL CONTROLLER ==================== */
+  let currentSlideIndex = 1;
+  const totalSlides = 21;
+
+  function showSlide(index) {
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach(slide => slide.classList.remove('active'));
+
+    const revealPanels = document.querySelectorAll('.reveal-panel');
+    revealPanels.forEach(panel => panel.classList.remove('active'));
+    
+    const revealButtons = document.querySelectorAll('.reveal-btn');
+    revealButtons.forEach(btn => {
+      btn.innerText = btn.innerText.includes('思路') ? '展示解题思路与解答' : (btn.innerText.includes('转化') ? '展示转化思想' : (btn.innerText.includes('分步') ? '展示分步理解' : (btn.innerText.includes('开方') ? '诊断并开方' : (btn.innerText.includes('步骤') ? '展示计算步骤与答案' : '展示解题思路与解答'))));
+    });
+
+    const targetSlide = document.getElementById(`slide-${index}`);
+    if (targetSlide) {
+      targetSlide.classList.add('active');
+    }
+
+    document.getElementById('current-page-num').innerText = index;
+    const progressPercent = ((index - 1) / (totalSlides - 1)) * 100;
+    document.getElementById('progress-indicator').style.width = `${progressPercent}%`;
+
+    document.getElementById('prev-btn').disabled = (index === 1);
+    document.getElementById('next-btn').disabled = (index === totalSlides);
+
+    currentSlideIndex = index;
+  }
+
+  function nextSlide() {
+    if (currentSlideIndex < totalSlides) {
+      showSlide(currentSlideIndex + 1);
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlideIndex > 1) {
+      showSlide(currentSlideIndex - 1);
+    }
+  }
+
+  function goToSlide(index) {
+    if (index >= 1 && index <= totalSlides) {
+      showSlide(index);
+    }
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      prevSlide();
+    }
+  });
+
+  function adjustScale() {
+    const wrapper = document.querySelector('.deck-container');
+    const targetWidth = 1280;
+    const targetHeight = 720;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const scale = Math.min(w / targetWidth, h / targetHeight);
+    wrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+
+  window.addEventListener('resize', adjustScale);
+  window.addEventListener('DOMContentLoaded', () => {
+    adjustScale();
+    showSlide(1);
+    resetMatchGame();
+  });
+
+  function toggleReveal(button) {
+    const container = button.closest('.card') || button.closest('.slide') || button.parentElement;
+    const panel = container.querySelector('.reveal-panel');
+    if (panel) {
+      panel.classList.toggle('active');
+      const textMap = {
+        '展示解题思路与解答': '隐藏解题思路与解答',
+        '隐藏解题思路与解答': '展示解题思路与解答',
+        '展示转化思想': '隐藏转化思想',
+        '隐藏转化思想': '展示转化思想',
+        '展示分步理解': '隐藏分步理解',
+        '隐藏分步理解': '展示分步理解',
+        '诊断并开方': '隐藏诊疗单',
+        '隐藏诊疗单': '诊断并开方',
+        '展示计算步骤与答案': '隐藏计算步骤与答案',
+        '隐藏计算步骤与答案': '展示计算步骤与答案'
+      };
+      button.innerText = textMap[button.innerText] || button.innerText;
+    }
+  }
+
+  /* ==================== GAME 1: MATCHING LOGIC ==================== */
+  let selectedLeftCard = null;
+  let matchesSolved = 0;
+
+  function selectMatchCard(side, card) {
+    if (card.classList.contains('correct')) return;
+
+    if (side === 'left') {
+      const allLefts = document.querySelectorAll('#matchLeftCol .match-card');
+      allLefts.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedLeftCard = card;
+      document.getElementById('matchFeedback').innerText = "你已选择了一个描述，请选择对应的算式！";
+      document.getElementById('matchFeedback').style.color = 'var(--text-main)';
+    } else {
+      if (!selectedLeftCard) {
+        document.getElementById('matchFeedback').innerText = "请先点击左侧选择描述，再点击右侧算式配对！";
+        document.getElementById('matchFeedback').style.color = 'var(--accent-red)';
+        return;
+      }
+
+      const matchId = card.getAttribute('data-id');
+      const leftId = selectedLeftCard.getAttribute('data-id');
+
+      if (leftId === matchId) {
+        // Correct pair
+        card.classList.add('correct');
+        selectedLeftCard.classList.add('correct');
+        selectedLeftCard.classList.remove('selected');
+        selectedLeftCard = null;
+        matchesSolved++;
+
+        document.getElementById('matchFeedback').innerText = "🎉 匹配正确！做得好！";
+        document.getElementById('matchFeedback').style.color = '#34d399';
+
+        if (matchesSolved === 4) {
+          document.getElementById('matchFeedback').innerText = "🏆 恭喜！你成功完成了第一关所有算理配对！";
+          document.getElementById('matchFeedback').style.color = 'var(--accent-gold)';
+        }
+      } else {
+        // Incorrect pair
+        card.classList.add('wrong');
+        document.getElementById('matchFeedback').innerText = "❌ 匹配错误，它们物理算理不匹配哦！再试一次！";
+        document.getElementById('matchFeedback').style.color = '#f87171';
+        
+        setTimeout(() => {
+          card.classList.remove('wrong');
+        }, 1000);
+      }
+    }
+  }
+
+  function resetMatchGame() {
+    selectedLeftCard = null;
+    matchesSolved = 0;
+    const cards = document.querySelectorAll('.match-card');
+    cards.forEach(c => c.classList.remove('selected', 'correct', 'wrong'));
+    document.getElementById('matchFeedback').innerText = "请开始你的匹配挑战吧！";
+    document.getElementById('matchFeedback').style.color = 'var(--text-muted)';
+  }
+
+  /* ==================== GAME 3: SYMBOL DEVOURER ==================== */
+  function checkCompare(questionId, choice, isCorrect, feedbackText) {
+    const parentCard = document.getElementById(`compareCard${questionId}`);
+    const symbolSpan = document.getElementById(`symbol${questionId}`);
+    const feedbackBox = parentCard.querySelector('.quiz-feedback');
+    const buttons = parentCard.querySelectorAll('.nav-btn');
+
+    buttons.forEach(btn => btn.disabled = true);
+
+    if (isCorrect) {
+      symbolSpan.innerText = choice;
+      symbolSpan.style.borderColor = '#34d399';
+      symbolSpan.style.color = '#34d399';
+      feedbackBox.innerHTML = `🎉 答对啦！${feedbackText}`;
+      feedbackBox.style.color = '#34d399';
+    } else {
+      symbolSpan.innerText = choice;
+      symbolSpan.style.borderColor = '#f87171';
+      symbolSpan.style.color = '#f87171';
+      feedbackBox.innerHTML = `❌ 答错喽。${feedbackText}`;
+      feedbackBox.style.color = '#f87171';
+      
+      setTimeout(() => {
+        symbolSpan.innerText = '◯';
+        symbolSpan.style.borderColor = 'var(--accent-gold)';
+        symbolSpan.style.color = 'var(--accent-gold)';
+        buttons.forEach(btn => btn.disabled = false);
+      }, 2500);
+    }
+    feedbackBox.classList.add('show');
+  }
+
+  /* ==================== GAME 4: CATEGORIZER ==================== */
+  function checkCategory(button, isCorrect) {
+    const parent = button.closest('.card');
+    const options = parent.querySelectorAll('.quiz-opt');
+    const feedback = parent.querySelector('.quiz-feedback');
+
+    options.forEach(opt => {
+      opt.disabled = true;
+    });
+
+    if (isCorrect) {
+      button.classList.add('correct');
+      feedback.innerHTML = '🎉 答对啦！“全长”是单位“1”，题目中它作为未知量，因此必须用<b>除法</b>或<b>列方程</b>来解答！';
+      feedback.style.color = '#34d399';
+    } else {
+      button.classList.add('wrong');
+      feedback.innerHTML = '❌ 答错喽！“全长”是比较的标准量（单位“1”），题目要求全长，说明总量未知，应该用<b>除法或方程</b>哦！';
+      feedback.style.color = '#f87171';
+      
+      options.forEach(opt => {
+        if (opt.innerText.includes('未知')) {
+          opt.classList.add('correct');
+        }
+      });
+    }
+    feedback.classList.add('show');
+  }
+
+  /* ==================== GRADUATION TEST ==================== */
+  function checkQuizAnswer(button) {
+    const parentCard = button.closest('.quiz-card');
+    const options = parentCard.querySelectorAll('.quiz-opt');
+    const feedback = parentCard.querySelector('.quiz-feedback');
+    const isCorrect = button.getAttribute('data-correct') === 'true';
+    const explainer = feedback.getAttribute('data-explainer');
+
+    options.forEach(opt => {
+      opt.classList.remove('correct', 'wrong');
+      opt.disabled = true;
+    });
+
+    if (isCorrect) {
+      button.classList.add('correct');
+      feedback.innerHTML = `🎉 恭喜你，答对啦！<br>${explainer}`;
+      feedback.style.color = '#34d399';
+    } else {
+      button.classList.add('wrong');
+      feedback.innerHTML = `❌ 答错喽，再思考一下吧！<br>${explainer}`;
+      feedback.style.color = '#f87171';
+      
+      options.forEach(opt => {
+        if (opt.getAttribute('data-correct') === 'true') {
+          opt.classList.add('correct');
+        }
+      });
+    }
+
+    feedback.classList.add('show');
+  }
+</script>
+
+</body>
+</html>
