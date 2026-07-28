@@ -748,8 +748,9 @@
       text-align: left;
       transition: all 0.25s ease;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
+      gap: 8px;
     }
 
     .quiz-opt:hover:not(.disabled) {
@@ -1846,10 +1847,10 @@
             <div class="quiz-item active" id="quiz-item-0">
               <div class="quiz-question">Q1. 算式 <span class="frac"><span class="num">5</span><span class="den">6</span></span> &divide; 5 的正确计算结果是？</div>
               <div class="quiz-options">
-                <button class="quiz-opt" onclick="checkAnswer(this, 0, false)">A. <span class="frac"><span class="num">25</span><span class="den">6</span></span></button>
-                <button class="quiz-opt" onclick="checkAnswer(this, 0, true)">B. <span class="frac"><span class="num">1</span><span class="den">6</span></span></button>
-                <button class="quiz-opt" onclick="checkAnswer(this, 0, false)">C. <span class="frac"><span class="num">5</span><span class="den">30</span></span></button>
-                <button class="quiz-opt" onclick="checkAnswer(this, 0, false)">D. <span class="frac"><span class="num">5</span><span class="den">6</span></span></button>
+                <button class="quiz-opt" data-correct="false" onclick="checkAnswer(this, 0, false)">A. <span class="frac"><span class="num">25</span><span class="den">6</span></span></button>
+                <button class="quiz-opt" data-correct="true" onclick="checkAnswer(this, 0, true)">B. <span class="frac"><span class="num">1</span><span class="den">6</span></span></button>
+                <button class="quiz-opt" data-correct="false" onclick="checkAnswer(this, 0, false)">C. <span class="frac"><span class="num">5</span><span class="den">30</span></span></button>
+                <button class="quiz-opt" data-correct="false" onclick="checkAnswer(this, 0, false)">D. <span class="frac"><span class="num">5</span><span class="den">6</span></span></button>
               </div>
               <div class="quiz-feedback">
                 <h5>解析：</h5>
@@ -1861,10 +1862,10 @@
             <div class="quiz-item" id="quiz-item-1">
               <div class="quiz-question">Q2. 计算 <span class="frac"><span class="num">3</span><span class="den">7</span></span> &divide; 2 的过程，下面算式正确的是？</div>
               <div class="quiz-options">
-                <button class="quiz-opt" onclick="checkAnswer(this, 1, false)">A. <span class="frac"><span class="num">3</span><span class="den">7</span></span> &times; 2</button>
-                <button class="quiz-opt" onclick="checkAnswer(this, 1, false)">B. <span class="frac"><span class="num">7</span><span class="den">3</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">2</span></span></button>
-                <button class="quiz-opt" onclick="checkAnswer(this, 1, true)">C. <span class="frac"><span class="num">3</span><span class="den">7</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">2</span></span></button>
-                <button class="quiz-opt" onclick="checkAnswer(this, 1, false)">D. <span class="frac"><span class="num">7</span><span class="den">3</span></span> &times; 2</button>
+                <button class="quiz-opt" data-correct="false" onclick="checkAnswer(this, 1, false)">A. <span class="frac"><span class="num">3</span><span class="den">7</span></span> &times; 2</button>
+                <button class="quiz-opt" data-correct="false" onclick="checkAnswer(this, 1, false)">B. <span class="frac"><span class="num">7</span><span class="den">3</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">2</span></span></button>
+                <button class="quiz-opt" data-correct="true" onclick="checkAnswer(this, 1, true)">C. <span class="frac"><span class="num">3</span><span class="den">7</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">2</span></span></button>
+                <button class="quiz-opt" data-correct="false" onclick="checkAnswer(this, 1, false)">D. <span class="frac"><span class="num">7</span><span class="den">3</span></span> &times; 2</button>
               </div>
               <div class="quiz-feedback">
                 <h5>解析：</h5>
@@ -1876,8 +1877,8 @@
             <div class="quiz-item" id="quiz-item-2">
               <div class="quiz-question">Q3. “分数除以整数，等于分数乘这个整数的倒数。” 这句话对吗？</div>
               <div class="quiz-options">
-                <button class="quiz-opt" onclick="checkAnswer(this, 2, false)">A. 对，完全正确</button>
-                <button class="quiz-opt" onclick="checkAnswer(this, 2, true)">B. 不对，因为 0 没有倒数，除数不能为 0</button>
+                <button class="quiz-opt" data-correct="false" onclick="checkAnswer(this, 2, false)">A. 对，完全正确</button>
+                <button class="quiz-opt" data-correct="true" onclick="checkAnswer(this, 2, true)">B. 不对，因为 0 没有倒数，除数不能为 0</button>
               </div>
               <div class="quiz-feedback">
                 <h5>解析：</h5>
@@ -2206,8 +2207,7 @@
   function highlightCorrectOption(quizItem) {
     const options = quizItem.querySelectorAll('.quiz-opt');
     options.forEach(opt => {
-      const text = opt.innerText;
-      if (text.includes('B. 一分之六') || text.includes('B. 1\n6') || text.includes('B. 1') || text.includes('C. 3\n7') || text.includes('C. 3') || text.includes('B. 不对')) {
+      if (opt.getAttribute('data-correct') === 'true') {
         opt.classList.add('correct');
       }
     });
