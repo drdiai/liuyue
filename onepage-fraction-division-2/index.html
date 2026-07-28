@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>U1 第2课时 《分数除法（二）》核心考点一页清 - 六年级上册数学</title>
+<style>
+  :root {
+    --bg-light: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #1e1b4b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    
+    /* 模块主题色 (高雅皇家蓝与琥珀金系) */
+    --m-primary: #1d4ed8;     /* 主色：皇家蓝 */
+    --m-primary-soft: #eff6ff;
+    --m-primary-deep: #1e3a8a;
+    
+    --m-gold: #b45309;        /* 辅助：琥珀金 */
+    --m-gold-soft: #fef3c7;
+    --m-gold-deep: #78350f;
+    
+    --m-green: #047857;       /* 辅助：翡翠绿 */
+    --m-green-soft: #ecfdf5;
+    --m-green-deep: #064e3b;
+    
+    --m-red: #be185d;         /* 警示：深玫红 */
+    --m-red-soft: #fdf2f8;
+    --m-red-deep: #831843;
+
+    --font-family: "SimSun", "STSong", "Songti SC", "华文宋体", Georgia, serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-light);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .onepage-container {
+    width: 100%;
+    max-width: 800px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+
+  /* ==================== HEADER SECTION ==================== */
+  header {
+    padding: 35px 40px;
+    border-bottom: 2px solid rgba(29, 78, 216, 0.1);
+    background: 
+      radial-gradient(ellipse 400px 150px at top right, var(--m-primary-soft) 0%, transparent 80%),
+      radial-gradient(ellipse 300px 150px at bottom left, var(--m-gold-soft) 0%, transparent 80%);
+    position: relative;
+  }
+
+  .header-tag {
+    display: inline-block;
+    font-size: 11px;
+    background: var(--m-primary-soft);
+    color: var(--m-primary-deep);
+    border: 1px solid rgba(29, 78, 216, 0.3);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  header h1 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+  }
+
+  .header-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+  }
+
+  .meta-grid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .meta-badge {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: var(--text-secondary);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  .meta-badge b {
+    color: var(--text-primary);
+  }
+
+  /* ==================== SECTION LAYOUT ==================== */
+  section {
+    padding: 30px 40px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  section:last-of-type {
+    border-bottom: none;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  .section-title h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-primary);
+  }
+
+  /* ==================== MATHEMATICAL FRACTION ==================== */
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0 4px;
+    line-height: 1.1;
+    font-weight: bold;
+  }
+  .frac .num {
+    border-bottom: 1.6px solid var(--text-primary);
+    padding-bottom: 1px;
+    font-size: 0.95em;
+  }
+  .frac .den {
+    padding-top: 1px;
+    font-size: 0.95em;
+  }
+
+  /* ==================== CARDS & MODULES ==================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .card-grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+  }
+
+  .info-card {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+  }
+
+  .info-card h3 {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    padding-left: 8px;
+    border-left: 4px solid var(--m-primary);
+  }
+
+  /* Emojis & Highlights */
+  .hl-gold { color: var(--m-gold-deep); font-weight: bold; }
+  .hl-purple { color: var(--m-primary-deep); font-weight: bold; }
+  .hl-red { color: var(--m-red-deep); font-weight: bold; }
+  .hl-green { color: var(--m-green-deep); font-weight: bold; }
+
+  /* ==================== VISUAL GRID REPRESENTATIONS ==================== */
+  .visual-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  @media (min-width: 640px) {
+    .visual-flex {
+      flex-direction: row;
+      gap: 25px;
+    }
+  }
+
+  .visual-item {
+    flex: 1;
+    background: white;
+    border: 1.5px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .svg-box {
+    width: 260px;
+    height: 130px;
+    background: #f0f4ff;
+    border: 1px solid rgba(29, 78, 216, 0.15);
+    border-radius: 8px;
+  }
+
+  .badge-formula {
+    background: var(--m-gold-soft);
+    border: 1.5px dashed var(--m-gold);
+    color: var(--m-gold-deep);
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  /* ==================== SECTION SPECIFIC STYLES ==================== */
+  .sec-1 .section-num { background: var(--m-primary); }
+  .sec-1 .info-card h3 { border-left-color: var(--m-primary); }
+
+  .sec-2 .section-num { background: var(--m-gold); }
+  .sec-2 .info-card h3 { border-left-color: var(--m-gold); }
+
+  .sec-3 .section-num { background: var(--m-red); }
+  .sec-3 .info-card h3 { border-left-color: var(--m-red); }
+
+  .sec-4 .section-num { background: var(--m-green); }
+  .sec-4 .info-card h3 { border-left-color: var(--m-green); }
+
+  /* Tabular styling for Mistakes */
+  .table-mistakes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .table-mistakes th, .table-mistakes td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 13.5px;
+  }
+
+  .table-mistakes th {
+    background: #f1f5f9;
+    font-weight: bold;
+    text-align: left;
+    color: var(--text-primary);
+  }
+
+  .table-mistakes td {
+    line-height: 1.4;
+  }
+
+  .tag-wrong {
+    background: var(--m-red-soft);
+    color: var(--m-red);
+    border: 1px solid rgba(190, 24, 93, 0.2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 11px;
+  }
+
+  .tag-right {
+    background: var(--m-green-soft);
+    color: var(--m-green);
+    border: 1px solid rgba(4, 120, 87, 0.2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 11px;
+  }
+
+  /* Exercises styling */
+  .ex-box {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-top: 8px;
+  }
+
+  .ex-question {
+    font-weight: bold;
+    font-size: 14.5px;
+    margin-bottom: 5px;
+  }
+
+  .ex-steps {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    border-left: 2px solid var(--m-green);
+    padding-left: 10px;
+    margin-top: 6px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="onepage-container">
+
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <span class="header-tag">单元必通一页清</span>
+    <h1>U1 第2课时 · 《分数除法（二）》核心考点一页清</h1>
+    <p class="header-subtitle">打通“数形结合”与“除以分数等于乘倒数”的转换模型，攻克商与被除数的大小规律</p>
+    <div class="meta-grid">
+      <div class="meta-badge">学段：<b>六年级上册</b></div>
+      <div class="meta-badge">教材：<b>北师大版</b></div>
+      <div class="meta-badge">单元课时：<b>第 1 单元第 2 课时</b></div>
+      <div class="meta-badge">制作人：<b>WANG DI</b></div>
+    </div>
+  </header>
+
+  <!-- ==================== SECTION 1: VISUAL GRIDS ==================== -->
+  <section class="sec-1">
+    <div class="section-title">
+      <span class="section-num">1</span>
+      <h2>直观物理意义与双重图解探究</h2>
+    </div>
+    
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>💡 核心概念：整数除以分数的实际意义是什么？</h3>
+        <p>整数除以分数的本质可以理解为：<b>被除数里面包含着多少个除数</b>（即分率单位）。</p>
+        
+        <div class="visual-flex">
+          <!-- Area Model -->
+          <div class="visual-item">
+            <p class="hl-purple">探究 ①：面积模型 (4 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span>)</p>
+            <svg class="svg-box" viewBox="0 0 260 130">
+              <!-- 4 wholes split into thirds -->
+              <g stroke="#1e1b4b" stroke-width="1.2" fill="none">
+                <rect x="10" y="15" width="50" height="60" fill="rgba(29, 78, 216, 0.08)"></rect>
+                <rect x="70" y="15" width="50" height="60" fill="rgba(29, 78, 216, 0.08)"></rect>
+                <rect x="130" y="15" width="50" height="60" fill="rgba(29, 78, 216, 0.08)"></rect>
+                <rect x="190" y="15" width="50" height="60" fill="rgba(29, 78, 216, 0.08)"></rect>
+              </g>
+              
+              <!-- Dashed partition lines -->
+              <g stroke="#1e1b4b" stroke-width="0.8" stroke-dasharray="3 2">
+                <line x1="26.6" y1="15" x2="26.6" y2="75"></line>
+                <line x1="43.3" y1="15" x2="43.3" y2="75"></line>
+                <line x1="86.6" y1="15" x2="86.6" y2="75"></line>
+                <line x1="103.3" y1="15" x2="103.3" y2="75"></line>
+                <line x1="146.6" y1="15" x2="146.6" y2="75"></line>
+                <line x1="163.3" y1="15" x2="163.3" y2="75"></line>
+                <line x1="206.6" y1="15" x2="206.6" y2="75"></line>
+                <line x1="223.3" y1="15" x2="223.3" y2="75"></line>
+              </g>
+
+              <!-- Brackets indicating 6 groups of 2/3 -->
+              <g fill="none" stroke="var(--m-gold)" stroke-width="1.2">
+                <path d="M 10 82 Q 26.6 90 43.3 82"></path>
+                <path d="M 43.3 82 Q 65 92 86.6 82"></path>
+                <path d="M 86.6 82 Q 103.3 90 120 82"></path>
+                <path d="M 130 82 Q 146.6 90 163.3 82"></path>
+                <path d="M 163.3 82 Q 185 92 206.6 82"></path>
+                <path d="M 206.6 82 Q 223.3 90 240 82"></path>
+              </g>
+
+              <g fill="var(--m-gold-deep)" font-size="9" font-weight="bold" text-anchor="middle">
+                <text x="26.6" y="94">①</text>
+                <text x="65" y="96">②</text>
+                <text x="103.3" y="94">③</text>
+                <text x="146.6" y="94">④</text>
+                <text x="185" y="96">⑤</text>
+                <text x="223.3" y="94">⑥</text>
+              </g>
+              <text x="130" y="118" text-anchor="middle" font-size="9" fill="var(--text-secondary)">每块分3份共12份，每2份(即2/3)一组，包含6组</text>
+            </svg>
+            <p style="font-size: 13px; text-align: center; color: var(--text-secondary);">
+              <b>算理：</b>先求出4个整块共有 $4 \times 3 = 12$ 份 <span class="frac"><span class="num">1</span><span class="den">3</span></span>，再除以分子 2，即 $12 \div 2 = 6$。
+            </p>
+          </div>
+          
+          <!-- Number Line Model -->
+          <div class="visual-item">
+            <p class="hl-purple">探究 ②：数轴跳跃 (4 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span>)</p>
+            <svg class="svg-box" viewBox="0 0 260 130">
+              <!-- Number line -->
+              <line x1="20" y1="80" x2="240" y2="80" stroke="var(--text-primary)" stroke-width="1.8" marker-end="url(#arrow)"></line>
+              
+              <!-- Ticks -->
+              <g stroke="var(--text-primary)" stroke-width="1.5">
+                <line x1="30" y1="75" x2="30" y2="85"></line>
+                <line x1="80" y1="75" x2="80" y2="85"></line>
+                <line x1="130" y1="75" x2="130" y2="85"></line>
+                <line x1="180" y1="75" x2="180" y2="85"></line>
+                <line x1="230" y1="75" x2="230" y2="85"></line>
+              </g>
+
+              <!-- Inner ticks (thirds) -->
+              <g stroke="var(--text-secondary)" stroke-width="0.8">
+                <line x1="46.6" y1="77" x2="46.6" y2="83"></line>
+                <line x1="63.3" y1="77" x2="63.3" y2="83"></line>
+                <line x1="96.6" y1="77" x2="96.6" y2="83"></line>
+                <line x1="113.3" y1="77" x2="113.3" y2="83"></line>
+                <line x1="146.6" y1="77" x2="146.6" y2="83"></line>
+                <line x1="163.3" y1="77" x2="163.3" y2="83"></line>
+                <line x1="196.6" y1="77" x2="196.6" y2="83"></line>
+                <line x1="213.3" y1="77" x2="213.3" y2="83"></line>
+              </g>
+
+              <!-- Jump arcs -->
+              <g fill="none" stroke="var(--m-primary)" stroke-width="1.5">
+                <path d="M 30,80 Q 46.6,50 63.3,80" marker-end="url(#jump-arrow)"></path>
+                <path d="M 63.3,80 Q 80,50 96.6,80" marker-end="url(#jump-arrow)"></path>
+                <path d="M 96.6,80 Q 113.3,50 130,80" marker-end="url(#jump-arrow)"></path>
+                <path d="M 130,80 Q 146.6,50 163.3,80" marker-end="url(#jump-arrow)"></path>
+                <path d="M 163.3,80 Q 180,50 196.6,80" marker-end="url(#jump-arrow)"></path>
+                <path d="M 196.6,80 Q 213.3,50 230,80" marker-end="url(#jump-arrow)"></path>
+              </g>
+
+              <g fill="var(--m-primary-deep)" font-size="8.5" font-weight="bold" text-anchor="middle">
+                <text x="46.6" y="45">①</text>
+                <text x="80" y="45">②</text>
+                <text x="113.3" y="45">③</text>
+                <text x="146.6" y="45">④</text>
+                <text x="180" y="45">⑤</text>
+                <text x="213.3" y="45">⑥</text>
+              </g>
+
+              <g fill="var(--text-primary)" font-size="10" text-anchor="middle" font-weight="bold">
+                <text x="30" y="98">0</text>
+                <text x="80" y="98">1</text>
+                <text x="130" y="98">2</text>
+                <text x="180" y="98">3</text>
+                <text x="230" y="98">4</text>
+              </g>
+
+              <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--text-primary)"></path>
+                </marker>
+                <marker id="jump-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--m-primary)"></path>
+                </marker>
+              </defs>
+            </svg>
+            <p style="font-size: 13px; text-align: center; color: var(--text-secondary);">
+              <b>算理：</b>从 0 到 4 每次跳跃跨度为 <span class="frac"><span class="num">2</span><span class="den">3</span></span> 个单位，正好能跳跃 6 次到达终点。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 2: FORMULA ==================== -->
+  <section class="sec-2">
+    <div class="section-title">
+      <span class="section-num">2</span>
+      <h2>计算法则公式与倒数转化模型</h2>
+    </div>
+    
+    <div class="card-grid-2col">
+      <div class="info-card">
+        <h3>⚡ 算理三步拆解 (以 4 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span> 为例)</h3>
+        <p style="font-size:13.5px; line-height: 1.6;">
+          1. <b>拆成单份：</b> 4 里面有 $4 \times 3 = 12$ 个 <span class="frac"><span class="num">1</span><span class="den">3</span></span>。<br>
+          2. <b>组合分率：</b> 每 2 个 <span class="frac"><span class="num">1</span><span class="den">3</span></span> 组成一个 <span class="frac"><span class="num">2</span><span class="den">3</span></span>。<br>
+          3. <b>得出商：</b> 共有 $12 \div 2 = 6$ 个，即：
+          $$4 \div \frac{2}{3} = 4 \times 3 \div 2 = 4 \times \frac{3}{2} = 6$$
+        </p>
+      </div>
+      
+      <div class="info-card">
+        <h3>🛠️ 计算诀窍：一改、二倒、三约分</h3>
+        <p style="font-size:13.5px; line-height: 1.6;">
+          <b>1. 一改：</b> 把“除号”改写为“乘号”；<br>
+          <b>2. 二倒：</b> 把除数（分数）分子分母“颠倒”位置（变成倒数）；<br>
+          <b>3. 三约分：</b> 整数与分母、分子能约分的先约分，最后计算。<br>
+          <span class="hl-gold">注意：被除数（整数）保持不变！</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="badge-formula">
+      整数除以分数的通用运算法则：<br>
+      <span style="font-size: 20px; display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;">
+        a &divide; <span class="frac"><span class="num">b</span><span class="den">c</span></span> 
+        = a &times; <span class="frac"><span class="num">c</span><span class="den">b</span></span> 
+        （a 为任意整数，<span class="hl-purple">b、c 均不为 0</span>）
+      </span>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 3: LAW OF RELATION ==================== -->
+  <section class="sec-3">
+    <div class="section-title">
+      <span class="section-num">3</span>
+      <h2>核心考点：商与被除数的大小规律</h2>
+    </div>
+    
+    <div class="info-card">
+      <h3 style="margin-bottom: 15px;">⚖️ 核心规律（在被除数 a ＞ 0 的前提下）</h3>
+      
+      <table class="mistake-table" style="margin-top: 0; margin-bottom: 12px;">
+        <thead>
+          <tr>
+            <th style="width: 25%;">除数的大小范围</th>
+            <th style="width: 35%;">商与被除数的大小关系</th>
+            <th style="width: 40%;">典型算例对比</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b class="hl-purple">除数 ＜ 1</b> (真分数)</td>
+            <td><b class="hl-red">商 ＞ 被除数</b></td>
+            <td>$6 \div \frac{2}{3} = 9 \quad (9 > 6)$</td>
+          </tr>
+          <tr>
+            <td><b>除数 ＝ 1</b></td>
+            <td><b>商 ＝ 被除数</b></td>
+            <td>$6 \div 1 = 6 \quad (6 = 6)$</td>
+          </tr>
+          <tr>
+            <td><b class="hl-purple">除数 ＞ 1</b> (假分数/整数)</td>
+            <td><b class="hl-green">商 ＜ 被除数</b></td>
+            <td>$6 \div \frac{3}{2} = 4 \quad (4 < 6)$</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <p style="font-size: 13.5px; line-height: 1.6; color: var(--text-secondary);">
+        🔍 <b>思维速记：</b> 除以一个“缩小的数”（小于1），商反而会“变大”；除以一个“放大的数”（大于1），商反而会“变小”。这在选择题和比较大小题中是**常考秒杀技巧**！
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4: ERROR DIAGNOSIS ==================== -->
+  <section class="sec-4">
+    <div class="section-title">
+      <span class="section-num">4</span>
+      <h2>典型错题避坑指南与诊断表</h2>
+    </div>
+    
+    <table class="table-mistakes">
+      <thead>
+        <tr>
+          <th style="width: 35%;">常见错误算式</th>
+          <th style="width: 35%;">正确规范算式</th>
+          <th style="width: 30%;">错因剖析与诊断</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="tag-wrong">错误</span> 
+            $6 \div \frac{2}{3} = 6 \times \frac{2}{3} = 4$
+          </td>
+          <td>
+            <span class="tag-right">正确</span> 
+            $6 \div \frac{2}{3} = 6 \times \frac{3}{2} = 9$
+          </td>
+          <td><b>漏变倒数：</b> 除号改乘号时，除数没有翻转分子分母。</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="tag-wrong">错误</span> 
+            $\frac{2}{3} \div 4 = \frac{2}{3} \times 4 = \frac{8}{3}$
+          </td>
+          <td>
+            <span class="tag-right">正确</span> 
+            $\frac{2}{3} \div 4 = \frac{2}{3} \times \frac{1}{4} = \frac{1}{6}$
+          </td>
+          <td><b>整数未倒数：</b> 误以为只有除数是分数时才翻转，整数作为除数同样需要变倒数（4 变成 $\frac{1}{4}$）。</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="tag-wrong">错误</span> 
+            $8 \div \frac{4}{5} = \frac{1}{8} \times \frac{5}{4} = \frac{5}{32}$
+          </td>
+          <td>
+            <span class="tag-right">正确</span> 
+            $8 \div \frac{4}{5} = 8 \times \frac{5}{4} = 10$
+          </td>
+          <td><b>误变被除数：</b> 被除数是主体，位置绝对不能颠倒！只有除数变倒数。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ==================== SECTION 5: PRACTICES ==================== -->
+  <section class="sec-5" style="background: rgba(4, 120, 87, 0.02);">
+    <div class="section-title">
+      <span class="section-num" style="background: var(--m-green);">5</span>
+      <h2>当堂典型母题精练（带步骤解析）</h2>
+    </div>
+
+    <!-- Ex 1 -->
+    <div class="ex-box">
+      <div class="ex-question">📝 母题一：不计算，在 ◯ 里填上“＞”、“＜”或“＝”。</div>
+      <div style="font-size: 14px; margin-bottom: 8px;">
+        ① $12 \div \frac{3}{4}$ ◯ $12$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        ② $\frac{4}{5} \div \frac{5}{4}$ ◯ $\frac{4}{5}$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        ③ $9 \div \frac{7}{7}$ ◯ $9$
+      </div>
+      <div class="ex-steps">
+        <b>💡 解析：</b><br>
+        ① 因为除数 $\frac{3}{4} < 1$，所以商大，填 <b>＞</b>；<br>
+        ② 因为除数 $\frac{5}{4} > 1$，所以商小，填 <b>＜</b>；<br>
+        ③ 因为除数 $\frac{7}{7} = 1$，所以商相等，填 <b>＝</b>。
+      </div>
+    </div>
+
+    <!-- Ex 2 -->
+    <div class="ex-box">
+      <div class="ex-question">📝 母题二：实际应用题。一辆货车 $\frac{2}{3}$ 小时行驶了 40 千米，平均每小时行驶多少千米？</div>
+      <div class="ex-steps">
+        <b>💡 解析：</b><br>
+        列式：路程 &divide; 时间 ＝ 速度。<br>
+        列式计算：
+        $$40 \div \frac{2}{3} = 40 \times \frac{3}{2} = 20 \times 3 = 60 \text{ （千米/小时）}$$
+        答：平均每小时行驶 60 千米。
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>
