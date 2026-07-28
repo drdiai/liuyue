@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>U1 第1课时 《分数除法（一）》核心考点一页清 - 六年级上册数学</title>
+<style>
+  :root {
+    --bg-light: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #1e1b4b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    
+    /* 模块主题色 (高雅紫罗兰色系) */
+    --m-primary: #6d28d9;     /* 主色：深紫罗兰 */
+    --m-primary-soft: #f5f3ff;
+    --m-primary-deep: #4c1d95;
+    
+    --m-gold: #b45309;        /* 辅助：琥珀金 */
+    --m-gold-soft: #fef3c7;
+    --m-gold-deep: #78350f;
+    
+    --m-green: #047857;       /* 辅助：翡翠绿 */
+    --m-green-soft: #ecfdf5;
+    --m-green-deep: #064e3b;
+    
+    --m-red: #be185d;         /* 警示：深玫红 */
+    --m-red-soft: #fdf2f8;
+    --m-red-deep: #831843;
+
+    --font-family: "SimSun", "STSong", "Songti SC", "华文宋体", Georgia, serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-light);
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .onepage-container {
+    width: 100%;
+    max-width: 800px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+
+  /* ==================== HEADER SECTION ==================== */
+  header {
+    padding: 35px 40px;
+    border-bottom: 2px solid rgba(109, 40, 217, 0.1);
+    background: 
+      radial-gradient(ellipse 400px 150px at top right, var(--m-primary-soft) 0%, transparent 80%),
+      radial-gradient(ellipse 300px 150px at bottom left, var(--m-gold-soft) 0%, transparent 80%);
+    position: relative;
+  }
+
+  .header-tag {
+    display: inline-block;
+    font-size: 11px;
+    background: var(--m-primary-soft);
+    color: var(--m-primary-deep);
+    border: 1px solid rgba(109, 40, 217, 0.3);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  header h1 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+  }
+
+  .header-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+  }
+
+  .meta-grid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .meta-badge {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: var(--text-secondary);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  .meta-badge b {
+    color: var(--text-primary);
+  }
+
+  /* ==================== SECTION LAYOUT ==================== */
+  section {
+    padding: 30px 40px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  section:last-of-type {
+    border-bottom: none;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  .section-title h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-primary);
+  }
+
+  /* ==================== MATHEMATICAL FRACTION ==================== */
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0 4px;
+    line-height: 1.1;
+    font-weight: bold;
+  }
+  .frac .num {
+    border-bottom: 1.6px solid var(--text-primary);
+    padding-bottom: 1px;
+    font-size: 0.95em;
+  }
+  .frac .den {
+    padding-top: 1px;
+    font-size: 0.95em;
+  }
+
+  /* ==================== CARDS & MODULES ==================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .card-grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+  }
+
+  .info-card {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+  }
+
+  .info-card h3 {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    padding-left: 8px;
+    border-left: 4px solid var(--m-primary);
+  }
+
+  /* Emojis & Highlights */
+  .hl-gold { color: var(--m-gold-deep); font-weight: bold; }
+  .hl-purple { color: var(--m-primary-deep); font-weight: bold; }
+  .hl-red { color: var(--m-red-deep); font-weight: bold; }
+  .hl-green { color: var(--m-green-deep); font-weight: bold; }
+
+  /* ==================== VISUAL GRID REPRESENTATIONS ==================== */
+  .visual-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  @media (min-width: 640px) {
+    .visual-flex {
+      flex-direction: row;
+      gap: 25px;
+    }
+  }
+
+  .visual-item {
+    flex: 1;
+    background: white;
+    border: 1.5px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .svg-box {
+    width: 260px;
+    height: 130px;
+    background: #faf5ff;
+    border: 1px solid rgba(109, 40, 217, 0.15);
+    border-radius: 8px;
+  }
+
+  .badge-formula {
+    background: var(--m-gold-soft);
+    border: 1.5px dashed var(--m-gold);
+    color: var(--m-gold-deep);
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  /* ==================== SECTION SPECIFIC STYLES ==================== */
+  .sec-1 .section-num { background: var(--m-primary); }
+  .sec-1 .info-card h3 { border-left-color: var(--m-primary); }
+
+  .sec-2 .section-num { background: var(--m-gold); }
+  .sec-2 .info-card h3 { border-left-color: var(--m-gold); }
+
+  .sec-3 .section-num { background: var(--m-red); }
+  .sec-3 .info-card h3 { border-left-color: var(--m-red); }
+
+  .sec-4 .section-num { background: var(--m-green); }
+  .sec-4 .info-card h3 { border-left-color: var(--m-green); }
+
+  /* Tabular styling for Mistakes */
+  .table-mistakes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .table-mistakes th, .table-mistakes td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 13.5px;
+  }
+
+  .table-mistakes th {
+    background: #f1f5f9;
+    font-weight: bold;
+    text-align: left;
+    color: var(--text-primary);
+  }
+
+  .table-mistakes td {
+    line-height: 1.4;
+  }
+
+  .tag-wrong {
+    background: var(--m-red-soft);
+    color: var(--m-red);
+    border: 1px solid rgba(190, 24, 93, 0.2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 11px;
+  }
+
+  .tag-right {
+    background: var(--m-green-soft);
+    color: var(--m-green);
+    border: 1px solid rgba(4, 120, 87, 0.2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 11px;
+  }
+
+  /* Exercises styling */
+  .ex-box {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-top: 8px;
+  }
+
+  .ex-question {
+    font-weight: bold;
+    font-size: 14.5px;
+    margin-bottom: 5px;
+  }
+
+  .ex-steps {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    border-left: 2px solid var(--m-green);
+    padding-left: 10px;
+    margin-top: 6px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="onepage-container">
+
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <span class="header-tag">单元必通一页清</span>
+    <h1>U1 第1课时 · 《分数除法（一）》核心考点一页清</h1>
+    <p class="header-subtitle">打通“数形结合”与“转化思想”，轻松攻克分数除以整数的算理与算法</p>
+    <div class="meta-grid">
+      <div class="meta-badge">学段：<b>六年级上册</b></div>
+      <div class="meta-badge">教材：<b>北师大版</b></div>
+      <div class="meta-badge">单元课时：<b>第 1 单元第 1 课时</b></div>
+      <div class="meta-badge">制作人：<b>WANG DI</b></div>
+    </div>
+  </header>
+
+  <!-- ==================== SECTION 1: VISUAL GRIDS ==================== -->
+  <section class="sec-1">
+    <div class="section-title">
+      <span class="section-num">1</span>
+      <h2>直观物理意义与折纸图解探究</h2>
+    </div>
+    
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>💡 核心概念：分数除以整数的实际意义是什么？</h3>
+        <p>分数除以整数的意义与<b>整数除法的意义完全相同</b>：都是把一个量<b>平均分成几份，求每份是多少</b>。</p>
+        
+        <div class="visual-flex">
+          <!-- Vis 1 -->
+          <div class="visual-item">
+            <p class="hl-purple">探究 ①：<span class="frac"><span class="num">4</span><span class="den">5</span></span> &divide; 2 (分子能整除)</p>
+            <svg class="svg-box" viewBox="0 0 260 130">
+              <!-- Grid Background (5 parts) -->
+              <rect x="10" y="15" width="44" height="80" fill="rgba(109, 40, 217, 0.3)" stroke="#1e1b4b" stroke-width="1.2"></rect>
+              <rect x="54" y="15" width="44" height="80" fill="rgba(109, 40, 217, 0.3)" stroke="#1e1b4b" stroke-width="1.2"></rect>
+              <rect x="98" y="15" width="44" height="80" fill="rgba(109, 40, 217, 0.3)" stroke="#1e1b4b" stroke-width="1.2"></rect>
+              <rect x="142" y="15" width="44" height="80" fill="rgba(109, 40, 217, 0.3)" stroke="#1e1b4b" stroke-width="1.2"></rect>
+              <rect x="186" y="15" width="44" height="80" fill="none" stroke="#1e1b4b" stroke-width="1.2"></rect>
+              <!-- Bracket -->
+              <path d="M 10 100 L 10 106 L 120 106 L 120 112 L 120 106 L 230 106 L 230 100" fill="none" stroke="var(--m-gold)" stroke-width="1.5"></path>
+              <!-- Label -->
+              <text x="120" y="125" text-anchor="middle" font-size="10.5" fill="var(--m-gold)" font-weight="bold">占整张纸的 4/5</text>
+              <!-- Fold line (Horizontal divide into 2) -->
+              <line x1="10" y1="55" x2="230" y2="55" stroke="var(--m-primary)" stroke-width="1.5" stroke-dasharray="4 3"></line>
+              <!-- Highlight one part -->
+              <rect x="10" y="15" width="176" height="40" fill="rgba(251, 191, 36, 0.25)" stroke="var(--m-gold)" stroke-width="2"></rect>
+              <text x="98" y="39" text-anchor="middle" font-size="11" fill="var(--m-gold-deep)" font-weight="bold">平均分成2份，每份是 2/5</text>
+            </svg>
+            <p style="font-size: 13px; text-align: center; color: var(--text-secondary);">
+              <b>算理：</b>把 4 个 <span class="frac"><span class="num">1</span><span class="den">5</span></span> 平均分成 2 份，就是求 4 &divide; 2 = 2 份，即 <span class="hl-purple"><span class="frac"><span class="num">2</span><span class="den">5</span></span></span>。
+            </p>
+          </div>
+          
+          <!-- Vis 2 -->
+          <div class="visual-item">
+            <p class="hl-purple">探究 ②：<span class="frac"><span class="num">4</span><span class="den">5</span></span> &divide; 3 (分子不能整除)</p>
+            <svg class="svg-box" viewBox="0 0 260 130">
+              <!-- Grid Background (5 columns) -->
+              <rect x="10" y="15" width="44" height="80" fill="rgba(109, 40, 217, 0.25)" stroke="#1e1b4b" stroke-width="1"></rect>
+              <rect x="54" y="15" width="44" height="80" fill="rgba(109, 40, 217, 0.25)" stroke="#1e1b4b" stroke-width="1"></rect>
+              <rect x="98" y="15" width="44" height="80" fill="rgba(109, 40, 217, 0.25)" stroke="#1e1b4b" stroke-width="1"></rect>
+              <rect x="142" y="15" width="44" height="80" fill="rgba(109, 40, 217, 0.25)" stroke="#1e1b4b" stroke-width="1"></rect>
+              <rect x="186" y="15" width="44" height="80" fill="none" stroke="#1e1b4b" stroke-width="1"></rect>
+              <!-- Fold line (Horizontal divide into 3) -->
+              <line x1="10" y1="41.6" x2="230" y2="41.6" stroke="var(--m-primary)" stroke-width="1" stroke-dasharray="3 2"></line>
+              <line x1="10" y1="68.3" x2="230" y2="68.3" stroke="var(--m-primary)" stroke-width="1" stroke-dasharray="3 2"></line>
+              <!-- Highlight top row -->
+              <rect x="10" y="15" width="176" height="26.6" fill="rgba(251, 191, 36, 0.35)" stroke="var(--m-gold)" stroke-width="1.8"></rect>
+              <text x="98" y="32" text-anchor="middle" font-size="10.5" fill="var(--m-gold-deep)" font-weight="bold">得到的 1 份是 4/15</text>
+              <text x="120" y="115" text-anchor="middle" font-size="10" fill="var(--text-secondary)">整个图被分割成了 5×3=15 小格</text>
+            </svg>
+            <p style="font-size: 13px; text-align: center; color: var(--text-secondary);">
+              <b>算理：</b>求 <span class="frac"><span class="num">4</span><span class="den">5</span></span> 的 <span class="frac"><span class="num">1</span><span class="den">3</span></span> 是多少，利用乘法计算：即 <span class="frac"><span class="num">4</span><span class="den">5</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">3</span></span> = <span class="hl-purple"><span class="frac"><span class="num">4</span><span class="den">15</span></span></span>。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 2: FORMULA ==================== -->
+  <section class="sec-2">
+    <div class="section-title">
+      <span class="section-num">2</span>
+      <h2>计算公式、算理推导与转化思想</h2>
+    </div>
+    
+    <div class="card-grid-2col">
+      <div class="info-card">
+        <h3>⚡ 算理推导（从图意到算式）</h3>
+        <p style="font-size:13.5px; line-height: 1.5;">
+          把一个分数平均分成 <i>n</i> 份，求每份是多少，就相当于求这个分数的<b>“几分之一是多少”</b>。<br><br>
+          因此，我们可以把未知的“分数除法”转化成已学过的“分数乘法”进行计算：<br>
+          <span class="hl-purple">除以一个整数 ➔ 等于乘这个整数的倒数</span>。
+        </p>
+      </div>
+      
+      <div class="info-card">
+        <h3>🛠️ 转化思想的体现</h3>
+        <p style="font-size:13.5px; line-height: 1.5;">
+          <b>转化思想</b>是数学中非常重要的思维方式。在计算 <span class="frac"><span class="num">4</span><span class="den">5</span></span> &divide; 3 时：<br><br>
+          我们无法直接将分子 4 被 3 整除，于是利用倒数将其<b>转化</b>为 <span class="frac"><span class="num">4</span><span class="den">5</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">3</span></span> 进行算乘。<br>
+          <span class="hl-gold">新知识（分数除法）➔ 转化 ➔ 旧知识（分数乘法）</span>。
+        </p>
+      </div>
+    </div>
+
+    <div class="badge-formula">
+      分数除以整数的通用计算法则公式：<br>
+      <span style="font-size: 20px; display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;">
+        <span class="frac"><span class="num">a</span><span class="den">b</span></span> &divide; c 
+        = <span class="frac"><span class="num">a</span><span class="den">b</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">c</span></span> 
+        = <span class="frac"><span class="num">a</span><span class="den">b &times; c</span></span> 
+        &nbsp;&nbsp;(其中 <span style="color: var(--m-red-deep);">c &ne; 0</span>)
+      </span>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 3: MISTAKES ==================== -->
+  <section class="sec-3">
+    <div class="section-title">
+      <span class="section-num">3</span>
+      <h2>典型易错点防线与避坑法则</h2>
+    </div>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>⚠️ 易错典型案例分析</h3>
+        
+        <table class="table-mistakes">
+          <thead>
+            <tr>
+              <th style="width: 22%;">错误点</th>
+              <th style="width: 32%;">错误写照</th>
+              <th style="width: 32%;">正确姿态</th>
+              <th style="width: 14%;">避坑指南</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>忘变倒数</b></td>
+              <td><span class="tag-wrong">错</span> <span class="frac"><span class="num">4</span><span class="den">7</span></span> &divide; 2 = <span class="frac"><span class="num">4</span><span class="den">7</span></span> &times; 2 = <span class="frac"><span class="num">8</span><span class="den">7</span></span></td>
+              <td><span class="tag-right">对</span> <span class="frac"><span class="num">4</span><span class="den">7</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">2</span></span> = <span class="frac"><span class="num">2</span><span class="den">7</span></span></td>
+              <td class="hl-red">除数要变倒数</td>
+            </tr>
+            <tr>
+              <td><b>乱颠倒被除数</b></td>
+              <td><span class="tag-wrong">错</span> <span class="frac"><span class="num">3</span><span class="den">8</span></span> &divide; 4 = <span class="frac"><span class="num">8</span><span class="den">3</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">4</span></span> = <span class="frac"><span class="num">2</span><span class="den">3</span></span></td>
+              <td><span class="tag-right">对</span> <span class="frac"><span class="num">3</span><span class="den">8</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">4</span></span> = <span class="frac"><span class="num">3</span><span class="den">32</span></span></td>
+              <td class="hl-red">被除数必须不变</td>
+            </tr>
+            <tr>
+              <td><b>分子分母同除</b></td>
+              <td><span class="tag-wrong">错</span> <span class="frac"><span class="num">3</span><span class="den">5</span></span> &divide; 2 = <span class="frac"><span class="num">3 &divide; 2</span><span class="den">5 &divide; 2</span></span> = &hellip;</td>
+              <td><span class="tag-right">对</span> <span class="frac"><span class="num">3</span><span class="den">5</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">2</span></span> = <span class="frac"><span class="num">3</span><span class="den">10</span></span></td>
+              <td class="hl-red">切勿生搬性质</td>
+            </tr>
+            <tr>
+              <td><b>忽略除数是 0</b></td>
+              <td><span class="tag-wrong">错</span> <span class="frac"><span class="num">2</span><span class="den">5</span></span> &divide; 0 = <span class="frac"><span class="num">2</span><span class="den">5</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">0</span></span> = &hellip;</td>
+              <td><span class="tag-right">对</span> 无意义！除数不能为 0</td>
+              <td class="hl-red">0 没有倒数</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4: EXERCISES ==================== -->
+  <section class="sec-4">
+    <div class="section-title">
+      <span class="section-num">4</span>
+      <h2>核心真题精练与实际应用通关</h2>
+    </div>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>📝 基础考点：快速口算</h3>
+        
+        <div class="card-grid-2col" style="gap: 15px; margin-bottom: 0;">
+          <div class="ex-box">
+            <div class="ex-question">① <span class="frac"><span class="num">6</span><span class="den">7</span></span> &divide; 3 = （ ? ）</div>
+            <div class="ex-steps">
+              解法一（分子整除）：<span class="frac"><span class="num">6 &divide; 3</span><span class="den">7</span></span> = <span class="hl-green"><span class="frac"><span class="num">2</span><span class="den">7</span></span></span><br>
+              解法二（乘倒数）：<span class="frac"><span class="num">6</span><span class="den">7</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">3</span></span> = <span class="hl-green"><span class="frac"><span class="num">2</span><span class="den">7</span></span></span>
+            </div>
+          </div>
+          <div class="ex-box">
+            <div class="ex-question">② <span class="frac"><span class="num">5</span><span class="den">8</span></span> &divide; 10 = （ ? ）</div>
+            <div class="ex-steps">
+              解法（乘倒数且先约分）：<br>
+              <span class="frac"><span class="num">5</span><span class="den">8</span></span> &divide; 10 
+              = <span class="frac"><span class="num">5</span><span class="den">8</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">10</span></span> 
+              = <span class="frac"><span class="num">1</span><span class="den">8</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">2</span></span> 
+              = <span class="hl-green"><span class="frac"><span class="num">1</span><span class="den">16</span></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>📝 解决生活中的数学问题（应用题）</h3>
+
+        <div class="ex-box">
+          <div class="ex-question">
+            🚩 典型应用一：一根铁丝长 <span class="frac"><span class="num">8</span><span class="den">9</span></span> 米，如果把它平均分成 4 段，每段铁丝长多少米？
+          </div>
+          <div class="ex-steps">
+            <b>思路：</b>平均分成 4 段即把总长度除以 4。<br>
+            <b>列式：</b><span class="frac"><span class="num">8</span><span class="den">9</span></span> &divide; 4 
+            = <span class="frac"><span class="num">8</span><span class="den">9</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">4</span></span> 
+            = <span class="hl-green"><span class="frac"><span class="num">2</span><span class="den">9</span></span></span>（米）<br>
+            <b>答：</b>每段铁丝长 <span class="frac"><span class="num">2</span><span class="den">9</span></span> 米。
+          </div>
+        </div>
+
+        <div class="ex-box" style="margin-top: 15px;">
+          <div class="ex-question">
+            🚩 典型应用二：一瓶饮料有 <span class="frac"><span class="num">3</span><span class="den">4</span></span> 升，平均分给 3 个小朋友，每个小朋友分得多少升？
+          </div>
+          <div class="ex-steps">
+            <b>思路：</b>把总饮料量平均分给 3 人，用除法。<br>
+            <b>列式：</b><span class="frac"><span class="num">3</span><span class="den">4</span></span> &divide; 3 
+            = <span class="frac"><span class="num">3 &divide; 3</span><span class="den">4</span></span> 
+            = <span class="hl-green"><span class="frac"><span class="num">1</span><span class="den">4</span></span></span>（升） &nbsp;&nbsp;(也可以写为 <span class="frac"><span class="num">3</span><span class="den">4</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">3</span></span> = <span class="frac"><span class="num">1</span><span class="den">4</span></span> 升)<br>
+            <b>答：</b>每个小朋友分得 <span class="frac"><span class="num">1</span><span class="den">4</span></span> 升。
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>
