@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>圆的认识（一）的所有核心考点 · 一页讲清楚</title>
+<title>车轮为什么是圆的 & 圆的认识（一）的所有核心考点 · 一页讲清楚</title>
 <style>
   :root {
     --bg: #fafafa;
@@ -334,6 +334,45 @@
   }
   .oneliner b { color: #60a5fa; font-weight: 800; }
 
+  /* 火柴人故事四格漫画 */
+  .comic-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 14px 0 18px;
+  }
+  @media (max-width: 640px) {
+    .comic-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .comic-panel {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  }
+  .comic-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .comic-title span {
+    display: inline-block;
+    padding: 1px 6px;
+    background: var(--line-2);
+    border-radius: 4px;
+    margin-right: 6px;
+    font-size: 11px;
+    color: var(--ink-3);
+  }
+
   /* mobile */
   @media (max-width: 640px) {
     .page { max-width: 100%; }
@@ -351,10 +390,10 @@
      ========================================================= -->
 <header>
   <span class="tag">小学数学 · 第一单元 · 圆</span>
-  <h1>圆的认识（一），<br><span class="q">如何一次性讲透？</span></h1>
+  <h1>车轮为什么是圆的？<br><span class="q">《圆的认识（一）》核心考点</span></h1>
   <p class="subtitle">
-    从 <span style="color:var(--m1-deep); font-weight:700;">曲线图形的特征</span> 到
-    <span style="color:var(--m4-deep); font-weight:700;">「一中同长」</span> 的古代智慧，
+    从 <span style="color:var(--m4-deep); font-weight:700;">火柴人的车轮故事</span> 到
+    <span style="color:var(--m1-deep); font-weight:700;">「一中同长」</span> 的几何奥秘，
     5 大模块轻松拿下圆的入门核心考点。
   </p>
   <div class="meta">
@@ -392,8 +431,8 @@
     </div>
     <div class="ov d">
       <span class="ico">④</span>
-      <div class="name">一中同长</div>
-      <div class="en">Math Culture</div>
+      <div class="name">车轮与文化</div>
+      <div class="en">Wheel & Culture</div>
     </div>
     <div class="ov e">
       <span class="ico">⑤</span>
@@ -522,7 +561,7 @@
         定长 (定半径)
       </div>
       <p style="font-size:13px; color:var(--ink-2)">
-        把圆规的两脚分开，根据要求的半径长度定好两脚间的距离。<b>(注意：两脚距离 = 半径)</b>
+        把圆规两脚分开，根据要求的半径长度定好距离。<b>(注意：两脚距离 = 半径)</b>
       </p>
     </div>
     <div class="card">
@@ -544,19 +583,14 @@
       </p>
     </div>
   </div>
-
-  <div class="eq" style="margin-top:14px; font-weight:700;">
-    📌 考点速记：圆心决定圆的<span style="color:var(--m3-deep)">【位置】</span>，半径决定圆的<span style="color:var(--m3-deep)">【大小】</span>。
-  </div>
 </section>
 
 <!-- =========================================================
-     MODULE 04 · 数学文化与生活应用
+     MODULE 04 · 数学文化与生活应用 (火柴人讲故事)
      ========================================================= -->
 <section class="c4">
   <div class="sec-head">
     <span class="sec-num">04</span>
-    <h2>古代智慧与生活应用</h2>
     <span class="en">Culture & Application</span>
   </div>
 
