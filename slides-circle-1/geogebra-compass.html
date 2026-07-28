@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆规画圆 - 动态数学教学课件</title>
+    <!-- 加载 GeoGebra 渲染引擎 -->
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', 'Segoe UI', "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #090615 0%, #0f0b24 50%, #181236 100%);
+            color: #f1f0f6;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 左侧控制面板 */
+        .sidebar {
+            width: 380px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+        }
+
+        .top-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .title-area {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .title {
+            font-size: 26px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #a78bfa, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* 交互控件区域 */
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .control-label {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-value {
+            color: #ec4899;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* 自定义滑动条样式 */
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #1e1b4b;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #ec4899;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #f43f5e;
+        }
+
+        .slider:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* 按钮样式 */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 底部版权与下载 */
+        .bottom-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* 右侧展示区域 */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            background: radial-gradient(circle at center, #15102a 0%, #0a0718 100%);
+        }
+
+        #ggb-container {
+            width: 900px;
+            height: 600px;
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+            background: #ffffff; /* GeoGebra画布默认为白色 */
+            overflow: hidden;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧控制面板 -->
+        <div class="sidebar">
+            <div class="top-content">
+                <div class="title-area">
+                    <span class="subtitle">Interactive Math Lab</span>
+                    <span class="title">圆规画圆动态演示</span>
+                </div>
+                
+                <div class="description">
+                    本课件模拟使用圆规在平面上画圆的经典几何操作。圆规的一个脚固定在圆心，另一个带有铅笔的脚旋转绘制出完美的圆形。
+                </div>
+
+                <!-- 交互组件 -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>半径设定 (Radius)</span>
+                        <span class="control-value" id="radius-val">3.0</span>
+                    </div>
+                    <input type="range" id="radius-slider" class="slider" min="1.0" max="5.0" step="0.1" value="3.0" oninput="updateRadius(this.value)">
+                    
+                    <div class="btn-group">
+                        <button id="btn-draw" class="btn btn-primary" onclick="startDrawing()">✏️ 开始画圆</button>
+                        <button id="btn-reset" class="btn btn-secondary" onclick="resetDrawing()">🔄 重置</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部操作区 -->
+            <div class="bottom-content">
+                <button class="btn btn-download" onclick="downloadGGB()">📥 下载 .ggb 原件</button>
+            </div>
+        </div>
+
+        <!-- 右侧画布区 -->
+        <div class="main-content">
+            <div id="ggb-container">
+                <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%; color:#64748b; font-size:15px; font-weight:600; gap: 15px; background: #ffffff;">
+                    <div class="spinner" style="width: 40px; height: 40px; border: 4px solid rgba(236, 72, 153, 0.1); border-top-color: #ec4899; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    <span>🎨 GeoGebra 引擎加载中，请稍候...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 定义 GeoGebra 构造命令
+        const ggbCommands = [
+            // 设定圆心
+            "O = (0, 0)",
+            // 设定初始变量
+            "r = 3.0",
+            "theta = 0.001", // 设极小值防止圆弧退化报错
+            // 铅笔 tip 坐标
+            "P = O + (r * cos(theta), r * sin(theta))",
+            // 绘制圆规划过的圆弧轨迹
+            "c = CircularArc(O, O + (r, 0), P)",
+            
+            // 设定圆规腿长 L
+            "L = 6.5",
+            // 计算圆规顶端铰链 H 的动态坐标，利用垂直平分线和勾股定理实现腿长恒为 L
+            "H = (r/2 * cos(theta) - sqrt(L^2 - (r/2)^2) * sin(theta), r/2 * sin(theta) + sqrt(L^2 - (r/2)^2) * cos(theta))",
+            
+            // 绘制圆规两腿和握柄
+            "leg1 = Segment(O, H)", // 金属针脚腿
+            "leg2 = Segment(P, H)", // 铅笔腿
+            "handle = Segment(H, H + 0.8 * (-sin(theta), cos(theta)))", // 握柄
+            
+            // 样式与美化设定
+            "SetColor(c, '#ec4899')", // 粉红色轨迹
+            "SetLineThickness(c, 4)",
+            
+            "SetColor(leg1, '#64748b')", // 钢灰色针脚
+            "SetLineThickness(leg1, 8)",
+            
+            "SetColor(leg2, '#94a3b8')", // 浅灰色铅笔腿
+            "SetLineThickness(leg2, 8)",
+            
+            "SetColor(handle, '#334155')", // 深灰握柄
+            "SetLineThickness(handle, 12)",
+            
+            // 隐藏点与线段的标签以保持画布干净
+            "ShowLabel(O, false)",
+            "ShowLabel(P, false)",
+            "ShowLabel(H, false)",
+            "ShowLabel(leg1, false)",
+            "ShowLabel(leg2, false)",
+            "ShowLabel(handle, false)",
+            "ShowLabel(c, false)",
+            
+            // 锁定圆心防止被用户拖动
+            "SetFixed(O, true)"
+        ];
+
+        // GeoGebra 初始化参数
+        const params = {
+            "appName": "classic",
+            "width": 900,
+            "height": 600,
+            "showToolBar": false,
+            "showMenuBar": false,
+            "showAlgebraInput": false,
+            "showResetIcon": false,
+            "enableLabelDrags": false,
+            "enableShiftDragZoom": true,
+            "enableRightClick": false,
+            "useBrowserForJS": true,
+            "appletOnLoad": function(api) {
+                console.log("GeoGebra Loaded successfully!");
+                // 自动执行初始指令
+                ggbCommands.forEach(cmd => {
+                    try {
+                        api.evalCommand(cmd);
+                    } catch(e) {
+                        console.error("GGB Execution Error:", cmd, e);
+                    }
+                });
+                // 居中显示坐标
+                api.setCoordSystem(-6, 6, -4, 6);
+            }
+        };
+
+        const applet = new GGBApplet(params, '5.0');
+        window.onload = function() {
+            applet.inject('ggb-container');
+        };
+
+        // 更新半径滑块值并重置角度
+        function updateRadius(val) {
+            document.getElementById('radius-val').innerText = parseFloat(val).toFixed(1);
+            if (typeof ggbApplet !== 'undefined') {
+                ggbApplet.setValue('r', val);
+                resetDrawing();
+            }
+        }
+
+        // 自动执行画圆动画
+        let animId = null;
+        function startDrawing() {
+            if (typeof ggbApplet === 'undefined') return;
+            if (animId) cancelAnimationFrame(animId);
+
+            // 锁定控件，防止画圆时改变半径
+            document.getElementById('radius-slider').disabled = true;
+            document.getElementById('btn-draw').disabled = true;
+
+            let theta = 0.001;
+            function animate() {
+                theta += 0.06; // 控制画圆速度
+                if (theta >= 6.283) { // 2*PI，完成一周
+                    theta = 6.283;
+                    ggbApplet.setValue('theta', theta);
+                    // 恢复控件可用状态
+                    document.getElementById('radius-slider').disabled = false;
+                    document.getElementById('btn-draw').disabled = false;
+                    animId = null;
+                    return;
+                }
+                ggbApplet.setValue('theta', theta);
+                animId = requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // 重置画圆状态
+        function resetDrawing() {
+            if (typeof ggbApplet === 'undefined') return;
+            if (animId) {
+                cancelAnimationFrame(animId);
+                animId = null;
+            }
+            ggbApplet.setValue('theta', 0.001);
+            document.getElementById('radius-slider').disabled = false;
+            document.getElementById('btn-draw').disabled = false;
+        }
+
+        // 一键导出并下载 .ggb 课件原件
+        function downloadGGB() {
+            if (typeof ggbApplet === 'undefined') {
+                alert("GeoGebra 尚未加载完成，请稍候！");
+                return;
+            }
+            ggbApplet.getBase64(function(base64Data) {
+                const byteCharacters = atob(base64Data);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], {type: "application/octet-stream"});
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = "圆规画圆.ggb";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+    </script>
+</body>
+</html>
