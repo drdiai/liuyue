@@ -123,7 +123,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      padding: 30px 60px 35px;
+      padding: 30px 90px 35px 60px;
       display: none;
       flex-direction: column;
       box-sizing: border-box;
@@ -134,6 +134,83 @@
     .slide.active {
       display: flex;
       opacity: 1;
+    }
+
+    /* ==================== DYNAMIC NAVIGATION & LARGE TEXT OPTIMIZATION ==================== */
+    .slide-body.justify-center {
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    .slide-body.justify-center p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+    }
+    .slide-body.justify-center li {
+      font-size: 1.22rem;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .slide-body.justify-center h3 {
+      font-size: 1.55rem;
+      margin-bottom: 18px;
+    }
+    .slide-body.justify-center .thought-card p {
+      font-size: 1.2rem;
+      line-height: 1.7;
+    }
+    .slide-body.justify-center .formula {
+      font-size: 1.6rem;
+    }
+
+    /* Vertical side nav bar */
+    .side-nav {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 54px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      background: rgba(25, 18, 58, 0.7);
+      border: 1px solid var(--border-soft);
+      border-radius: 28px;
+      padding: 18px 4px;
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .nav-arrow-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(139, 92, 246, 0.2);
+      border: 1.2px solid var(--border-soft);
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.25s;
+    }
+    .nav-arrow-btn:hover:not(:disabled) {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+      transform: scale(1.1);
+    }
+    .nav-arrow-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+    .page-indicator-vertical {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: monospace;
+      margin: 4px 0;
     }
 
     /* ==================== COMMON HEADER ==================== */
@@ -731,16 +808,7 @@
 
     /* ==================== GLOBAL BOTTOM NAVIGATION CONTROLS ==================== */
     .bottom-bar {
-      height: 60px;
-      border-top: 1.5px solid var(--border-soft);
-      padding: 0 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(11, 7, 30, 0.6);
-      backdrop-filter: blur(10px);
-      flex: 0 0 auto;
-      z-index: 10;
+      display: none;
     }
 
     .nav-btn-group {
@@ -1697,7 +1765,7 @@
           <span class="page-index">19 / 22</span>
         </div>
         <div class="slide-body">
-          <div class="quiz-container" style="gap: 12px; overflow-y: auto; max-height: 480px; padding-right: 5px;">
+          <div class="quiz-container" style="gap: 12px; overflow-y: auto; max-height: 545px; padding-right: 5px;">
             
             <!-- Question 1 -->
             <div class="quiz-card" style="padding: 12px 18px;">
@@ -1840,19 +1908,25 @@
 
     </div>
 
-    <!-- GLOBAL BOTTOM NAVIGATION CONTROLS -->
-    <div class="bottom-bar">
-      <div class="nav-btn-group">
-        <button class="control-btn" id="prev-btn" onclick="prevSlide()" disabled>上一页</button>
-        <button class="control-btn" id="next-btn" onclick="nextSlide()">下一页</button>
-      </div>
-      <div class="slide-progress-bar">
-        <div class="progress-fill" id="progress-indicator"></div>
-      </div>
-      <div class="help-tips" id="slide-counter-badge">1 / 22</div>
+    <!-- GLOBAL BOTTOM NAVIGATION CONTROLS (VERTICAL NAV OPTIMIZATION) -->
+    <!-- Slim progress bar at the very bottom of deck-container -->
+    <div class="deck-progress-bar" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 3.5px; background: rgba(255,255,255,0.05); z-index: 10;">
+      <div class="progress-fill" id="progress-indicator" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-gold) 100%); transition: width 0.3s ease;"></div>
     </div>
 
+    <!-- Vertical side nav bar at the far right -->
+    <div class="side-nav">
+      <button class="nav-arrow-btn" id="prev-btn" onclick="prevSlide()" title="上一页">▲</button>
+      <div class="page-indicator-vertical">
+        <span id="current-page-num" style="font-size: 1.15rem; font-weight: bold; color: var(--accent-gold);">1</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); margin: 2px 0;">/</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">22</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">页</span>
+      </div>
+      <button class="nav-arrow-btn" id="next-btn" onclick="nextSlide()" title="下一页">▼</button>
+    </div>
   </div>
+</div>
 </div>
 
 <script>
