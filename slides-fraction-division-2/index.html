@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -1958,7 +1958,7 @@
     }
 
     // Update index counter and progress bar
-    document.getElementById('slide-counter-badge').innerText = `${index} / ${totalSlides}`;
+    document.getElementById('current-page-num').innerText = index;
     const progressPercent = ((index - 1) / (totalSlides - 1)) * 100;
     document.getElementById('progress-indicator').style.width = `${progressPercent}%`;
 
