@@ -259,6 +259,7 @@
     .pk-opt-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); border-radius: 8px; padding: 9px 14px; font-family: var(--font-family); font-size: 0.92rem; font-weight: bold; cursor: pointer; transition: all 0.2s; text-align: center; }
     .pk-pane.player1 .pk-opt-btn:hover:not(:disabled) { background: rgba(239,68,68,0.1); border-color: var(--accent-red); }
     .pk-pane.player2 .pk-opt-btn:hover:not(:disabled) { background: rgba(96,165,250,0.1); border-color: var(--accent-blue); }
+    .pk-opt-btn-yellow:hover:not(:disabled) { background: rgba(245,158,11,0.1) !important; border-color: var(--accent-gold) !important; }
     .pk-opt-btn.correct { background: rgba(16,185,129,0.25)!important; border-color: var(--accent-green)!important; color: #34d399!important; }
     .pk-opt-btn.wrong   { background: rgba(239,68,68,0.25)!important;  border-color: var(--accent-red)!important;   color: #f87171!important; }
     .pk-screen-overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(2,15,14,0.88); backdrop-filter: blur(8px); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; z-index: 10; padding: 20px; }
@@ -283,7 +284,7 @@
     <div class="top-bar">
       <div class="logo-info">
         <span class="tag-bnu">北师大版</span>
-        <span class="title-text">六年级数学上册 · 第二单元《圆》第2课时</span>
+        <span class="title-text">六年级数学上册 · 第二单元《圆》第3课时</span>
       </div>
       <div class="help-tips">💡 提示：按 ◀ / ▶ 键翻页 | 多页面附带交互操作</div>
     </div>
@@ -304,7 +305,7 @@
         <div class="slide-header">
           <span class="topic-badge">大纲路线</span>
           <span class="slide-title">《圆的认识（二）》大纲地图</span>
-          <span class="page-index">02 / 13</span>
+          <span class="page-index">02 / 17</span>
         </div>
         <div class="slide-body justify-center">
           <div class="map-grid">
@@ -317,12 +318,12 @@
               <span class="map-title">无穷之美</span>
               <span class="map-desc">寻找圆的对称轴，发现那令人惊叹的“无数条”奥秘。</span>
             </div>
-            <div class="map-node" onclick="goToSlide(7)">
+            <div class="map-node" onclick="goToSlide(9)">
               <span class="map-tag">第三关</span>
               <span class="map-title">巧找圆心</span>
               <span class="map-desc">运用对称性质，挑战在一张纯白圆纸上找出精确的圆心。</span>
             </div>
-            <div class="map-node" onclick="goToSlide(9)">
+            <div class="map-node" onclick="goToSlide(11)">
               <span class="map-tag">第四关</span>
               <span class="map-title">家族比拼</span>
               <span class="map-desc">对比正方形、长方形、等边三角形的对称轴，揭开圆的王者地位。</span>
@@ -346,7 +347,7 @@
         <div class="slide-header">
           <span class="topic-badge">第一关：互动折纸</span>
           <span class="slide-title">对折圆片，你发现了什么？</span>
-          <span class="page-index">04 / 13</span>
+          <span class="page-index">04 / 17</span>
         </div>
         <div class="slide-body">
           <div class="explore-split">
@@ -384,13 +385,13 @@
         <div class="slide-header">
           <span class="topic-badge">第二关：画轴探究</span>
           <span class="slide-title">动手画一画：圆的对称轴</span>
-          <span class="page-index">06 / 13</span>
+          <span class="page-index">06 / 17</span>
         </div>
         <div class="slide-body">
           <div class="explore-split">
             <div class="svg-visual-box" style="height: 380px;">
               <svg viewBox="0 0 200 200" style="width: 100%; height: 100%;">
-                <circle cx="100" cy="100" r="80" class="svg-circle"/>
+                <circle cx="100" cy="100" r="80" class="svg-circle" style="stroke-width: 4; stroke: var(--accent-cyan); filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.8));"/>
                 <circle cx="100" cy="100" r="3" fill="var(--accent-gold)"/>
                 <text x="105" y="95" fill="var(--accent-gold)" font-size="10" font-weight="bold">O</text>
                 <g id="axisLinesGroup"></g>
@@ -415,8 +416,53 @@
         </div>
       </div>
 
-      <!-- SLIDE 7: 第三关过渡 -->
+      <!-- SLIDE 7: 绕口令 -->
       <div class="slide" id="slide-7">
+        <div class="slide-header">
+          <span class="topic-badge">趣味挑战</span>
+          <span class="slide-title">节奏绕口令：圆的自白</span>
+          <span class="page-index">07 / 17</span>
+        </div>
+        <div class="slide-body justify-center">
+           <div class="thought-card" style="font-size: 1.8rem; text-align: center; line-height: 2.5; border-left: none; padding: 40px; background: rgba(245, 158, 11, 0.1); border-radius: 16px; box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);">
+              <span style="color: var(--accent-gold); font-weight: bold;">圆圆圆，一中同长真好看，</span><br>
+              <span style="color: var(--accent-cyan); font-weight: bold;">折一折，两边重合是对称。</span><br>
+              <span style="color: var(--accent-red); font-weight: bold;">折痕直线穿圆心，它的名字叫对称轴，</span><br>
+              <span style="color: var(--accent-green); font-weight: bold;">只要通过那圆心，转一圈儿有无数条！</span>
+           </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 8: 画图要点 -->
+      <div class="slide" id="slide-8">
+        <div class="slide-header">
+          <span class="topic-badge">画图要点</span>
+          <span class="slide-title">画对称轴的 3 个“必须”</span>
+          <span class="page-index">08 / 17</span>
+        </div>
+        <div class="slide-body justify-center">
+           <div class="card-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+              <div class="card" style="align-items: center; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">📏</div>
+                <h3 style="color: var(--accent-cyan);">1. 必须是直线</h3>
+                <p style="font-size: 1.05rem;">不能画成线段。对称轴向两端无限延伸。</p>
+              </div>
+              <div class="card" style="align-items: center; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">✂️</div>
+                <h3 style="color: var(--accent-gold);">2. 必须是虚线</h3>
+                <p style="font-size: 1.05rem;">几何作图中，对称轴统一使用虚线（或点划线）绘制，以区分实物轮廓。</p>
+              </div>
+              <div class="card" style="align-items: center; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🖼️</div>
+                <h3 style="color: var(--accent-red);">3. 必须出头</h3>
+                <p style="font-size: 1.05rem;">画对称轴时，两端要略微超出图形的边界线。</p>
+              </div>
+           </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: 第三关过渡 -->
+      <div class="slide" id="slide-9">
         <div class="cover-layout">
           <p class="subtitle">CHECKPOINT 3</p>
           <h1 style="color: var(--accent-green);">第三关：巧找圆心</h1>
@@ -425,12 +471,12 @@
         </div>
       </div>
 
-      <!-- SLIDE 8: 找圆心交互 -->
-      <div class="slide" id="slide-8">
+      <!-- SLIDE 10: 找圆心交互 -->
+      <div class="slide" id="slide-10">
         <div class="slide-header">
           <span class="topic-badge">第三关：巧找圆心</span>
           <span class="slide-title">不用尺子，折出圆心！</span>
-          <span class="page-index">08 / 13</span>
+          <span class="page-index">08 / 17</span>
         </div>
         <div class="slide-body">
           <div class="explore-split">
@@ -461,8 +507,8 @@
         </div>
       </div>
 
-      <!-- SLIDE 9: 第四关过渡 -->
-      <div class="slide" id="slide-9">
+      <!-- SLIDE 11: 第四关过渡 -->
+      <div class="slide" id="slide-11">
         <div class="cover-layout">
           <p class="subtitle">CHECKPOINT 4</p>
           <h1 style="color: var(--accent-blue);">第四关：家族比拼</h1>
@@ -471,12 +517,12 @@
         </div>
       </div>
 
-      <!-- SLIDE 10: 对称轴大比拼 -->
-      <div class="slide" id="slide-10">
+      <!-- SLIDE 12: 对称轴大比拼 -->
+      <div class="slide" id="slide-12">
         <div class="slide-header">
           <span class="topic-badge">第四关：家族比拼</span>
           <span class="slide-title">常见图形对称轴数量大比拼</span>
-          <span class="page-index">10 / 13</span>
+          <span class="page-index">10 / 17</span>
         </div>
         <div class="slide-body justify-center">
           <div class="card-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 15px;">
@@ -510,10 +556,10 @@
             <div class="card" style="padding: 15px; text-align: center; align-items: center;">
               <h4 style="color: var(--accent-gold); margin-bottom: 10px;">等边三角形</h4>
               <svg viewBox="0 0 100 100" style="width:100px; height:100px; overflow:visible;">
-                <polygon points="50,15 15,85 85,85" fill="rgba(245,158,11,0.2)" stroke="var(--accent-gold)" stroke-width="2"/>
-                <line x1="50" y1="5" x2="50" y2="95" class="svg-axis" style="opacity:0;" id="axTri1"/>
-                <line x1="10" y1="75" x2="70" y2="40" class="svg-axis" style="opacity:0;" id="axTri2"/>
-                <line x1="90" y1="75" x2="30" y2="40" class="svg-axis" style="opacity:0;" id="axTri3"/>
+                <polygon points="50,15 15,75.6 85,75.6" fill="rgba(245,158,11,0.2)" stroke="var(--accent-gold)" stroke-width="2"/>
+                <line x1="50" y1="5" x2="50" y2="85.6" class="svg-axis" style="opacity:0;" id="axTri1"/>
+                <line x1="50" y1="5" x2="50" y2="85.6" class="svg-axis" style="opacity:0; transform-origin: 50px 55.4px; transform: rotate(120deg);" id="axTri2"/>
+                <line x1="50" y1="5" x2="50" y2="85.6" class="svg-axis" style="opacity:0; transform-origin: 50px 55.4px; transform: rotate(240deg);" id="axTri3"/>
               </svg>
               <button class="nav-btn" style="margin-top:15px; width:100%;" onclick="showAxis('axTri', 3, 'ansTri')">显示对称轴</button>
               <div style="margin-top:10px; font-weight:bold; font-size:1.2rem; color:var(--accent-gold);" id="ansTri">? 条</div>
@@ -536,12 +582,12 @@
         </div>
       </div>
 
-      <!-- SLIDE 11: 判断小练习 -->
-      <div class="slide" id="slide-11">
+      <!-- SLIDE 13: 判断小练习 -->
+      <div class="slide" id="slide-13">
         <div class="slide-header">
           <span class="topic-badge">巩固练习</span>
           <span class="slide-title">概念辨析小挑战</span>
-          <span class="page-index">11 / 13</span>
+          <span class="page-index">11 / 17</span>
         </div>
         <div class="slide-body justify-center">
           <div style="display: flex; flex-direction: column; gap: 20px; max-width: 900px; margin: 0 auto; width: 100%;">
@@ -570,12 +616,40 @@
         </div>
       </div>
 
-      <!-- SLIDE 12: 双人PK概念辨析大赛 -->
-      <div class="slide" id="slide-12">
+      <!-- SLIDE 14: 常考题型 -->
+      <div class="slide" id="slide-14">
+        <div class="slide-header">
+          <span class="topic-badge">考场揭秘</span>
+          <span class="slide-title">组合图形对称轴常考题型</span>
+          <span class="page-index">14 / 17</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card-grid">
+            <div class="card">
+              <h3 style="color: var(--accent-red);">半圆的对称轴</h3>
+              <p style="font-size: 1.15rem; line-height: 1.8;">
+                ⚠️ <b>易错点</b>：半圆不是有无数条！<br>
+                只有 <b>1条</b>对称轴。<br>
+                必须是过圆心且垂直于底边直径的直线。
+              </p>
+            </div>
+            <div class="card">
+              <h3 style="color: var(--accent-gold);">两个圆组成的组合图形</h3>
+              <p style="font-size: 1.15rem; line-height: 1.8;">
+                🟢 <b>无数条</b>：如果两个圆是同心圆（圆心重合）。<br>
+                🟢 <b>1条</b>：如果两个圆并排（圆心不重合），只有连结两圆心的直线是它们的对称轴。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 15: 双人PK概念辨析大赛 -->
+      <div class="slide" id="slide-15">
         <div class="slide-header">
           <span class="topic-badge">⚔️ 双人竞技</span>
           <span class="slide-title">对称大闯关：双人PK大赛</span>
-          <span class="page-index">12 / 13</span>
+          <span class="page-index">12 / 17</span>
         </div>
         <div class="slide-body">
           <div class="pk-split-container">
@@ -628,10 +702,80 @@
         </div>
       </div>
 
-      <!-- SLIDE 13: 通关勋章 -->
-      <div class="slide" id="slide-13">
+      <!-- SLIDE 16: 三人PK大乱斗 -->
+      <div class="slide" id="slide-16">
+        <div class="slide-header">
+          <span class="topic-badge">⚔️ 三人竞技</span>
+          <span class="slide-title">终极手速赛：三人同屏抢答</span>
+          <span class="page-index">16 / 17</span>
+        </div>
+        <div class="slide-body">
+          <div class="pk-split-container" style="gap: 15px;">
+            <div class="pk-screen-overlay" id="pk3StartScreen">
+              <h4>⚔️ 轴对称概念辨析 · 三人同屏对决</h4>
+              <p style="font-size: 1.05rem; color: var(--text-main); margin-bottom: 20px;">
+                红队、黄队与蓝队各回答 5 道随机题目。<br>比拼谁的正确率高且速度快！
+              </p>
+              <button class="start-btn" onclick="startPK3()">开始三人大乱斗</button>
+            </div>
+
+            <!-- Player 1 -->
+            <div class="pk-pane player1" id="cp3_1Pane" style="padding: 10px 15px;">
+              <div class="pk-pane-header">
+                <span class="pk-team-name">🔴 1队</span>
+                <span class="pk-score-badge" id="cp3_1ScoreLabel">0分</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--accent-red); text-align: center;" id="cp3_1IndexLabel">1/5题</div>
+              <div class="pk-question-box" id="cp3_1QuestionBox" style="min-height: 90px; font-size: 0.95rem;">加载中...</div>
+              <div class="pk-options-grid" id="cp3_1OptionsBox"></div>
+              <div class="pk-screen-overlay" id="cp3_1FinishOverlay" style="display: none; padding: 10px;">
+                <h4 style="color: var(--accent-red); font-size: 1.2rem;">🔴 完成</h4>
+              </div>
+            </div>
+
+            <!-- Player 2 -->
+            <div class="pk-pane" id="cp3_2Pane" style="padding: 10px 15px; border-color: rgba(245,158,11,0.3);">
+              <div class="pk-pane-header">
+                <span class="pk-team-name" style="color: var(--accent-gold);">🟡 2队</span>
+                <span class="pk-score-badge" id="cp3_2ScoreLabel">0分</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--accent-gold); text-align: center;" id="cp3_2IndexLabel">1/5题</div>
+              <div class="pk-question-box" id="cp3_2QuestionBox" style="min-height: 90px; font-size: 0.95rem;">加载中...</div>
+              <div class="pk-options-grid" id="cp3_2OptionsBox"></div>
+              <div class="pk-screen-overlay" id="cp3_2FinishOverlay" style="display: none; padding: 10px;">
+                <h4 style="color: var(--accent-gold); font-size: 1.2rem;">🟡 完成</h4>
+              </div>
+            </div>
+
+            <!-- Player 3 -->
+            <div class="pk-pane player2" id="cp3_3Pane" style="padding: 10px 15px;">
+              <div class="pk-pane-header">
+                <span class="pk-team-name">🔵 3队</span>
+                <span class="pk-score-badge" id="cp3_3ScoreLabel">0分</span>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--accent-blue); text-align: center;" id="cp3_3IndexLabel">1/5题</div>
+              <div class="pk-question-box" id="cp3_3QuestionBox" style="min-height: 90px; font-size: 0.95rem;">加载中...</div>
+              <div class="pk-options-grid" id="cp3_3OptionsBox"></div>
+              <div class="pk-screen-overlay" id="cp3_3FinishOverlay" style="display: none; padding: 10px;">
+                <h4 style="color: var(--accent-blue); font-size: 1.2rem;">🔵 完成</h4>
+              </div>
+            </div>
+
+            <!-- Winner Overlay -->
+            <div class="pk-screen-overlay" id="pk3WinnerOverlay" style="display: none; background: rgba(2,15,14,0.95);">
+              <h4>🏆 乱斗结束</h4>
+              <div class="pk-winner-banner" id="pk3WinnerBanner">胜负揭晓！</div>
+              <p style="font-size: 1rem; margin-bottom: 20px;" id="pk3WinnerDetail">1队:0分 | 2队:0分 | 3队:0分</p>
+              <button class="nav-btn" style="padding: 10px 30px; border-color: var(--accent-gold); color: var(--accent-gold);" onclick="resetPK3()">再来一局</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 17: 通关勋章 -->
+      <div class="slide" id="slide-17">
         <div class="cover-layout">
-          <p class="subtitle" style="margin-bottom: 10px;">二 单 元 · 第 2 课 时 · 北 师 大 版</p>
+          <p class="subtitle" style="margin-bottom: 10px;">二 单 元 · 第 3 课 时 · 北 师 大 版</p>
           <h1 style="font-size: 2.8rem; margin-bottom: 10px;">《圆的认识（二）》大通关</h1>
 
           <div class="medal-container">
@@ -663,7 +807,7 @@
       <div class="page-indicator-vertical">
         <span id="current-page-num" style="font-size: 1.15rem; font-weight: bold; color: var(--accent-gold);">1</span>
         <span style="font-size: 0.75rem; color: var(--text-muted); margin: 2px 0;">/</span>
-        <span id="total-page-num" style="font-size: 0.85rem; color: var(--text-muted);">13</span>
+        <span id="total-page-num" style="font-size: 0.85rem; color: var(--text-muted);">17</span>
         <span style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">页</span>
       </div>
       <button class="nav-arrow-btn" id="next-btn" onclick="nextSlide()" title="下一页">▼</button>
@@ -673,7 +817,7 @@
 
 <script>
   let currentSlideIndex = 1;
-  const totalSlides = 13;
+  const totalSlides = 17;
 
   function showSlide(index) {
     const slides = document.querySelectorAll('.slide');
@@ -942,6 +1086,93 @@
   function resetPK() {
     document.getElementById('pkWinnerOverlay').style.display = 'none';
     document.getElementById('pkStartScreen').style.display = 'flex';
+  }
+
+  /* ==================== SLIDE 16: PK GAME 3 PLAYER ==================== */
+  let pk3State = {
+    p1: { score: 0, qIndex: 0, questions: [], finished: false },
+    p2: { score: 0, qIndex: 0, questions: [], finished: false },
+    p3: { score: 0, qIndex: 0, questions: [], finished: false }
+  };
+
+  function startPK3() {
+    document.getElementById('pk3StartScreen').style.display = 'none';
+    pk3State.p1.questions = shuffleArr([...pkBank]).slice(0, 5);
+    pk3State.p2.questions = shuffleArr([...pkBank]).slice(0, 5);
+    pk3State.p3.questions = shuffleArr([...pkBank]).slice(0, 5);
+    
+    for(let i=1; i<=3; i++) {
+      pk3State[`p${i}`].score = 0; 
+      pk3State[`p${i}`].qIndex = 0; 
+      pk3State[`p${i}`].finished = false;
+      document.getElementById(`cp3_${i}FinishOverlay`).style.display = 'none';
+      updatePK3Pane(i);
+    }
+    document.getElementById('pk3WinnerOverlay').style.display = 'none';
+  }
+
+  function updatePK3Pane(playerNum) {
+    const st = pk3State[`p${playerNum}`];
+    document.getElementById(`cp3_${playerNum}ScoreLabel`).innerText = `${st.score}分`;
+    if (st.qIndex >= 5) {
+      st.finished = true;
+      document.getElementById(`cp3_${playerNum}FinishOverlay`).style.display = 'flex';
+      checkPK3GameOver();
+      return;
+    }
+    document.getElementById(`cp3_${playerNum}IndexLabel`).innerText = `${st.qIndex + 1}/5题`;
+    const q = st.questions[st.qIndex];
+    document.getElementById(`cp3_${playerNum}QuestionBox`).innerHTML = q.q;
+    const optBox = document.getElementById(`cp3_${playerNum}OptionsBox`);
+    
+    // Add special class for hover color of yellow team
+    const btnClass = playerNum === 2 ? 'pk-opt-btn-yellow' : 'pk-opt-btn';
+    
+    optBox.innerHTML = `
+      <button class="${btnClass} pk-opt-btn" onclick="answerPK3(${playerNum}, 'T')">正确(T)</button>
+      <button class="${btnClass} pk-opt-btn" onclick="answerPK3(${playerNum}, 'F')">错误(F)</button>
+    `;
+  }
+
+  function answerPK3(playerNum, choice) {
+    const st = pk3State[`p${playerNum}`];
+    const q = st.questions[st.qIndex];
+    const optBox = document.getElementById(`cp3_${playerNum}OptionsBox`);
+    const btns = optBox.querySelectorAll('button');
+    btns.forEach(b => b.disabled = true);
+    if (choice === q.ans) {
+      st.score += 20;
+      btns[choice === 'T' ? 0 : 1].classList.add('correct');
+    } else {
+      btns[choice === 'T' ? 0 : 1].classList.add('wrong');
+    }
+    setTimeout(() => { st.qIndex++; updatePK3Pane(playerNum); }, 500);
+  }
+
+  function checkPK3GameOver() {
+    if (pk3State.p1.finished && pk3State.p2.finished && pk3State.p3.finished) {
+      setTimeout(() => {
+        document.getElementById('pk3WinnerOverlay').style.display = 'flex';
+        const scores = [
+          {name: '1队(红)', score: pk3State.p1.score},
+          {name: '2队(黄)', score: pk3State.p2.score},
+          {name: '3队(蓝)', score: pk3State.p3.score}
+        ];
+        scores.sort((a,b) => b.score - a.score);
+        
+        let winnerText = `🏆 ${scores[0].name} 获胜！`;
+        if(scores[0].score === scores[1].score && scores[1].score === scores[2].score) winnerText = '🤝 三队平局！';
+        else if(scores[0].score === scores[1].score) winnerText = `🏆 ${scores[0].name} 与 ${scores[1].name} 并列第一！`;
+
+        document.getElementById('pk3WinnerBanner').innerHTML = winnerText;
+        document.getElementById('pk3WinnerDetail').innerText = `1队:${pk3State.p1.score}分 | 2队:${pk3State.p2.score}分 | 3队:${pk3State.p3.score}分`;
+      }, 500);
+    }
+  }
+
+  function resetPK3() {
+    document.getElementById('pk3WinnerOverlay').style.display = 'none';
+    document.getElementById('pk3StartScreen').style.display = 'flex';
   }
 </script>
 </body>
