@@ -824,6 +824,226 @@
       justify-content: flex-start;
       flex-wrap: wrap;
     }
+
+    /* ==================== DOUBLE-PLAYER PK GAME STYLING ==================== */
+    .pk-split-container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      gap: 20px;
+      position: relative;
+    }
+
+    .pk-pane {
+      flex: 1;
+      border-radius: 16px;
+      padding: 15px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid transparent;
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.3s;
+    }
+
+    .pk-pane.player1 {
+      border-color: rgba(239, 68, 68, 0.3);
+      box-shadow: inset 0 0 20px rgba(239, 68, 68, 0.05);
+    }
+    .pk-pane.player1.active-turn {
+      border-color: var(--accent-red);
+      box-shadow: inset 0 0 30px rgba(239, 68, 68, 0.15), 0 0 15px rgba(239, 68, 68, 0.2);
+    }
+
+    .pk-pane.player2 {
+      border-color: rgba(96, 165, 250, 0.3);
+      box-shadow: inset 0 0 20px rgba(96, 165, 250, 0.05);
+    }
+    .pk-pane.player2.active-turn {
+      border-color: var(--accent-blue);
+      box-shadow: inset 0 0 30px rgba(96, 165, 250, 0.15), 0 0 15px rgba(96, 165, 250, 0.2);
+    }
+
+    .pk-pane-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid rgba(255,255,255,0.08);
+      padding-bottom: 8px;
+    }
+
+    .pk-team-name {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    .pk-pane.player1 .pk-team-name { color: var(--accent-red); }
+    .pk-pane.player2 .pk-team-name { color: var(--accent-blue); }
+
+    .pk-score-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 3px 10px;
+      font-family: monospace;
+      font-size: 0.95rem;
+    }
+
+    .pk-question-box {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    .pk-options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .pk-opt-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-family: var(--font-family);
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .pk-pane.player1 .pk-opt-btn:hover:not(:disabled) {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: var(--accent-red);
+    }
+    .pk-pane.player2 .pk-opt-btn:hover:not(:disabled) {
+      background: rgba(96, 165, 250, 0.1);
+      border-color: var(--accent-blue);
+    }
+
+    .pk-opt-btn.correct {
+      background: rgba(16, 185, 129, 0.25) !important;
+      border-color: var(--accent-green) !important;
+      color: #34d399 !important;
+    }
+    .pk-opt-btn.wrong {
+      background: rgba(239, 68, 68, 0.25) !important;
+      border-color: var(--accent-red) !important;
+      color: #f87171 !important;
+    }
+
+    .pk-screen-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(4, 13, 18, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 10;
+      padding: 20px;
+    }
+
+    .pk-screen-overlay h4 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      color: var(--accent-gold);
+    }
+
+    .pk-winner-banner {
+      width: 100%;
+      background: linear-gradient(90deg, transparent 0%, rgba(251, 191, 36, 0.15) 50%, transparent 100%);
+      border-top: 1.5px solid var(--accent-gold);
+      border-bottom: 1.5px solid var(--accent-gold);
+      padding: 12px 0;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--accent-gold);
+      margin: 15px 0;
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+    }
+
+    /* ==================== GOLD MEDAL AWARD STYLING ==================== */
+    .medal-container {
+      position: relative;
+      width: 140px;
+      height: 180px;
+      margin: 10px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .gold-medal {
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fef08a 0%, #ca8a04 60%, #854d0e 100%);
+      border: 4px solid #fef08a;
+      box-shadow: 0 8px 25px rgba(202, 138, 4, 0.55), inset 0 0 10px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      position: relative;
+      animation: float-medal 3s ease-in-out infinite;
+    }
+    .medal-star {
+      font-size: 2.3rem;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+      line-height: 1;
+    }
+    .medal-text {
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      margin-top: -2px;
+    }
+    .medal-ribbon {
+      position: absolute;
+      top: 75px;
+      width: 25px;
+      height: 75px;
+      z-index: 2;
+      transform-origin: top center;
+    }
+    .medal-ribbon.left {
+      background: linear-gradient(to bottom, #ef4444 0%, #b91c1c 100%);
+      transform: rotate(20deg);
+      left: 45px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+    }
+    .medal-ribbon.right {
+      background: linear-gradient(to bottom, #ef4444 0%, #b91c1c 100%);
+      transform: rotate(-20deg);
+      right: 45px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+    }
+    @keyframes float-medal {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
   </style>
 </head>
 <body>
@@ -1104,11 +1324,16 @@
             </div>
             <div class="card">
               <h3>🎵 分数除法口诀歌</h3>
-              <div style="background: rgba(52, 211, 153, 0.1); padding: 15px; border-radius: 8px; border: 1.5px dashed var(--accent-green); text-align: center;">
-                <p style="font-size: 1.1rem; font-weight: bold; color: var(--accent-green); line-height: 1.7; margin-bottom: 0;">
-                  分数除法并不难，被除数它坐泰山。<br>
-                  除号一变乘号现，除数翻转天倒地。<br>
-                  先约分来后相乘，算得答案快又准！
+              <div style="background: rgba(52, 211, 153, 0.1); padding: 12px 15px; border-radius: 8px; border: 1.5px dashed var(--accent-green); text-align: left;">
+                <p style="font-size: 1.05rem; font-weight: bold; color: var(--accent-green); line-height: 1.7; margin-bottom: 0; padding: 0 10px;">
+                  分数除法别畏难，（nan）<br>
+                  法则牢牢记心间。（jian）<br>
+                  被除数呀像座山，（shan）<br>
+                  原封不动坐中间。（jian）<br>
+                  除号变乘别偷懒，（lan）<br>
+                  除数翻转上下颠。（dian）<br>
+                  交叉约分化最简，（jian）<br>
+                  计算正确人人赞！（zan）
                 </p>
               </div>
             </div>
@@ -1499,12 +1724,86 @@
         </div>
       </div>
 
-      <!-- SLIDE 20: 毕业测试题 -->
+      <!-- SLIDE 20: 双人PK大作战 -->
       <div class="slide" id="slide-20">
+        <div class="slide-header">
+          <span class="topic-badge">第四关：双人小游戏</span>
+          <span class="slide-title">第一单元大通关：双人PK大对决</span>
+          <span class="page-index">20 / 22</span>
+        </div>
+        <div class="slide-body">
+          <div class="pk-split-container">
+            <!-- Start overlay screen -->
+            <div class="pk-screen-overlay" id="pkStartScreen">
+              <h4>⚔️ 双人同屏竞技大对决</h4>
+              <p style="font-size: 1.05rem; color: var(--text-main); margin-bottom: 20px; max-width: 600px;">
+                红队（左侧）与蓝队（右侧）各回答 5 道随机乱序题目。<br>点击下方按钮开始对决，在交互式白板/触屏上比比谁算得又快又准吧！
+              </p>
+              <button class="start-btn" onclick="startPKGame()">开始PK大作战</button>
+            </div>
+
+            <!-- Player 1 Pane (Left - Red) -->
+            <div class="pk-pane player1" id="p1Pane">
+              <div class="pk-pane-header">
+                <span class="pk-team-name">🔴 红队 (Player 1)</span>
+                <span class="pk-score-badge" id="p1ScoreLabel">当前得分: 0 分</span>
+              </div>
+              <div style="font-size: 0.9rem; color: var(--accent-red); text-align: center;" id="p1IndexLabel">第 1 / 5 题</div>
+              <div class="pk-question-box" id="p1QuestionBox">
+                题目加载中...
+              </div>
+              <div class="pk-options-grid" id="p1OptionsBox">
+                <!-- dynamic options -->
+              </div>
+              <!-- Finished Overlay P1 -->
+              <div class="pk-screen-overlay" id="p1FinishOverlay" style="display: none;">
+                <h4 style="color: var(--accent-red);">🔴 红队已答完</h4>
+                <p style="font-size: 1.2rem;" id="p1FinalScoreLabel">得分: 0 / 5</p>
+              </div>
+            </div>
+
+            <!-- Player 2 Pane (Right - Blue) -->
+            <div class="pk-pane player2" id="p2Pane">
+              <div class="pk-pane-header">
+                <span class="pk-team-name">🔵 蓝队 (Player 2)</span>
+                <span class="pk-score-badge" id="p2ScoreLabel">当前得分: 0 分</span>
+              </div>
+              <div style="font-size: 0.9rem; color: var(--accent-blue); text-align: center;" id="p2IndexLabel">第 1 / 5 题</div>
+              <div class="pk-question-box" id="p2QuestionBox">
+                题目加载中...
+              </div>
+              <div class="pk-options-grid" id="p2OptionsBox">
+                <!-- dynamic options -->
+              </div>
+              <!-- Finished Overlay P2 -->
+              <div class="pk-screen-overlay" id="p2FinishOverlay" style="display: none;">
+                <h4 style="color: var(--accent-blue);">🔵 蓝队已答完</h4>
+                <p style="font-size: 1.2rem;" id="p2FinalScoreLabel">得分: 0 / 5</p>
+              </div>
+            </div>
+
+            <!-- Winner Overlay (Both finished) -->
+            <div class="pk-screen-overlay" id="pkWinnerOverlay" style="display: none; background: rgba(4, 13, 18, 0.95);">
+              <h4>🏆 战斗已结束</h4>
+              <div class="pk-winner-banner" id="pkWinnerBanner">
+                红队 胜利！
+              </div>
+              <p style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 20px;" id="pkWinnerDetail">
+                红队: 0分 | 蓝队: 0分
+              </p>
+              <button class="nav-btn" style="padding: 10px 30px; font-size: 1rem; border-color: var(--accent-gold); color: var(--accent-gold);" onclick="resetPKGame()">重新决斗</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 21: 毕业测试题 -->
+      <div class="slide" id="slide-21">
         <div class="slide-header">
           <span class="topic-badge">💪 单元检测</span>
           <span class="slide-title">第一单元毕业大测试</span>
-          <span class="page-index">20 / 21</span>
+          <span class="page-index">21 / 22</span>
         </div>
         <div class="slide-body">
           <div class="quiz-container" style="gap: 10px; overflow-y: auto; max-height: 540px;">
@@ -1537,13 +1836,27 @@
         </div>
       </div>
 
-      <!-- SLIDE 21: 封底 -->
-      <div class="slide" id="slide-21">
+      <!-- SLIDE 22: 封底 -->
+      <div class="slide" id="slide-22">
         <div class="cover-layout">
-          <p class="subtitle">六 年 级 数 学 上 册 · 北 师 大 版</p>
-          <h1>《分数除法》大通关完成</h1>
-          <p class="desc">学习结语：结构化思维，帮助我们举一反三，触类旁通！</p>
-          <button class="start-btn" onclick="goToSlide(1)">重新回顾复习</button>
+          <p class="subtitle" style="margin-bottom: 10px;">六 年 级 数 学 上 册 · 北 师 大 版</p>
+          <h1 style="font-size: 2.8rem; margin-bottom: 10px;">《分数除法》单元复习大通关</h1>
+
+          <!-- Gold medal award container -->
+          <div class="medal-container">
+            <div class="gold-medal">
+              <div class="medal-shine"></div>
+              <div class="medal-star">★</div>
+              <div class="medal-text">通关奖章</div>
+            </div>
+            <div class="medal-ribbon left"></div>
+            <div class="medal-ribbon right"></div>
+          </div>
+
+          <p class="desc" style="font-size: 1.15rem; color: var(--accent-gold); font-weight: bold; margin-bottom: 25px;">
+            🎉 恭喜你！成功获得第一单元复习通关勋章！
+          </p>
+          <button class="start-btn" onclick="goToSlide(1)">重新开始回顾</button>
         </div>
       </div>
 
@@ -1560,7 +1873,7 @@
       <div class="page-indicator-vertical">
         <span id="current-page-num" style="font-size: 1.15rem; font-weight: bold; color: var(--accent-gold);">1</span>
         <span style="font-size: 0.75rem; color: var(--text-muted); margin: 2px 0;">/</span>
-        <span style="font-size: 0.85rem; color: var(--text-muted);">21</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">22</span>
         <span style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">页</span>
       </div>
       <button class="nav-arrow-btn" id="next-btn" onclick="nextSlide()" title="下一页">▼</button>
@@ -1572,7 +1885,7 @@
 <script>
   /* ==================== GLOBAL CONTROLLER ==================== */
   let currentSlideIndex = 1;
-  const totalSlides = 21;
+  const totalSlides = 22;
 
   function showSlide(index) {
     const slides = document.querySelectorAll('.slide');
@@ -1640,6 +1953,11 @@
   window.addEventListener('resize', adjustScale);
   window.addEventListener('DOMContentLoaded', () => {
     adjustScale();
+    // Dynamic replacement to update "/ 21" headers to "/ 22"
+    const pageIndices = document.querySelectorAll('.page-index');
+    pageIndices.forEach(el => {
+      el.innerText = el.innerText.replace('/ 21', '/ 22');
+    });
     showSlide(1);
     resetMatchGame();
   });
@@ -1816,6 +2134,191 @@
     }
 
     feedback.classList.add('show');
+  }
+
+  /* ==================== DOUBLE-PLAYER PK SYSTEM ==================== */
+  const pkQuestions = [
+    {
+      text: "15 &divide; <span class='frac'><span class='num'>5</span><span class='den'>6</span></span> ◯ 15",
+      options: ["＞", "＜", "＝"],
+      correct: 0
+    },
+    {
+      text: "计算：<span class='frac'><span class='num'>2</span><span class='den'>3</span></span> &divide; 4",
+      options: [
+        "<span class='frac'><span class='num'>8</span><span class='den'>3</span></span>",
+        "<span class='frac'><span class='num'>1</span><span class='den'>6</span></span>",
+        "<span class='frac'><span class='num'>2</span><span class='den'>12</span></span>"
+      ],
+      correct: 1
+    },
+    {
+      text: "计算：6 &divide; <span class='frac'><span class='num'>2</span><span class='den'>3</span></span>",
+      options: ["4", "9", "36"],
+      correct: 1
+    },
+    {
+      text: "面粉吃去 <span class='frac'><span class='num'>2</span><span class='den'>5</span></span> 还剩 18kg，原来重多少 kg？",
+      options: ["30 kg", "45 kg", "18.4 kg"],
+      correct: 0
+    },
+    {
+      text: "学校六月节水 24 吨，比五月多 <span class='frac'><span class='num'>1</span><span class='den'>5</span></span>，五月节水多少吨？",
+      options: ["20 吨", "28 吨", "30 吨"],
+      correct: 0
+    }
+  ];
+
+  let p1Order = [];
+  let p2Order = [];
+  let p1Current = 0;
+  let p2Current = 0;
+  let p1Score = 0;
+  let p2Score = 0;
+  let p1Finished = false;
+  let p2Finished = false;
+
+  function shuffleArray(arr) {
+    const newArr = [...arr];
+    for (let i = newArr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+    }
+    return newArr;
+  }
+
+  function startPKGame() {
+    p1Order = shuffleArray([0, 1, 2, 3, 4]);
+    p2Order = shuffleArray([0, 1, 2, 3, 4]);
+    p1Current = 0;
+    p2Current = 0;
+    p1Score = 0;
+    p2Score = 0;
+    p1Finished = false;
+    p2Finished = false;
+
+    document.getElementById('pkStartScreen').style.display = 'none';
+    document.getElementById('pkWinnerOverlay').style.display = 'none';
+    document.getElementById('p1FinishOverlay').style.display = 'none';
+    document.getElementById('p2FinishOverlay').style.display = 'none';
+
+    renderP1Question();
+    renderP2Question();
+  }
+
+  function renderP1Question() {
+    if (p1Current >= 5) {
+      p1Finished = true;
+      document.getElementById('p1FinishOverlay').style.display = 'flex';
+      document.getElementById('p1FinalScoreLabel').innerText = `最终得分: ${p1Score} / 5`;
+      checkPKGameOver();
+      return;
+    }
+    const qIdx = p1Order[p1Current];
+    const q = pkQuestions[qIdx];
+    document.getElementById('p1IndexLabel').innerText = `第 ${p1Current + 1} / 5 题`;
+    document.getElementById('p1ScoreLabel').innerText = `当前得分: ${p1Score} 分`;
+    document.getElementById('p1QuestionBox').innerHTML = q.text;
+
+    const optBox = document.getElementById('p1OptionsBox');
+    optBox.innerHTML = '';
+    q.options.forEach((optText, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'pk-opt-btn';
+      btn.innerHTML = optText;
+      btn.onclick = () => handleP1Answer(idx, q.correct, btn);
+      optBox.appendChild(btn);
+    });
+  }
+
+  function handleP1Answer(selectedIdx, correctIdx, btn) {
+    const optBox = document.getElementById('p1OptionsBox');
+    const buttons = optBox.querySelectorAll('.pk-opt-btn');
+    buttons.forEach(b => b.disabled = true);
+
+    if (selectedIdx === correctIdx) {
+      btn.classList.add('correct');
+      p1Score++;
+    } else {
+      btn.classList.add('wrong');
+      buttons[correctIdx].classList.add('correct');
+    }
+
+    setTimeout(() => {
+      p1Current++;
+      renderP1Question();
+    }, 1000);
+  }
+
+  function renderP2Question() {
+    if (p2Current >= 5) {
+      p2Finished = true;
+      document.getElementById('p2FinishOverlay').style.display = 'flex';
+      document.getElementById('p2FinalScoreLabel').innerText = `最终得分: ${p2Score} / 5`;
+      checkPKGameOver();
+      return;
+    }
+    const qIdx = p2Order[p2Current];
+    const q = pkQuestions[qIdx];
+    document.getElementById('p2IndexLabel').innerText = `第 ${p2Current + 1} / 5 题`;
+    document.getElementById('p2ScoreLabel').innerText = `当前得分: ${p2Score} 分`;
+    document.getElementById('p2QuestionBox').innerHTML = q.text;
+
+    const optBox = document.getElementById('p2OptionsBox');
+    optBox.innerHTML = '';
+    q.options.forEach((optText, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'pk-opt-btn';
+      btn.innerHTML = optText;
+      btn.onclick = () => handleP2Answer(idx, q.correct, btn);
+      optBox.appendChild(btn);
+    });
+  }
+
+  function handleP2Answer(selectedIdx, correctIdx, btn) {
+    const optBox = document.getElementById('p2OptionsBox');
+    const buttons = optBox.querySelectorAll('.pk-opt-btn');
+    buttons.forEach(b => b.disabled = true);
+
+    if (selectedIdx === correctIdx) {
+      btn.classList.add('correct');
+      p2Score++;
+    } else {
+      btn.classList.add('wrong');
+      buttons[correctIdx].classList.add('correct');
+    }
+
+    setTimeout(() => {
+      p2Current++;
+      renderP2Question();
+    }, 1000);
+  }
+
+  function checkPKGameOver() {
+    if (p1Finished && p2Finished) {
+      const winnerOverlay = document.getElementById('pkWinnerOverlay');
+      const winnerBanner = document.getElementById('pkWinnerBanner');
+      const winnerDetail = document.getElementById('pkWinnerDetail');
+
+      winnerOverlay.style.display = 'flex';
+      winnerDetail.innerText = `红队得分: ${p1Score} 分 | 蓝队得分: ${p2Score} 分`;
+
+      if (p1Score > p2Score) {
+        winnerBanner.innerText = "🏆 红队 (Player 1) 获胜！";
+        winnerBanner.style.color = 'var(--accent-red)';
+      } else if (p2Score > p1Score) {
+        winnerBanner.innerText = "🏆 蓝队 (Player 2) 获胜！";
+        winnerBanner.style.color = 'var(--accent-blue)';
+      } else {
+        winnerBanner.innerText = "🤝 势均力敌，平局！";
+        winnerBanner.style.color = 'var(--accent-gold)';
+      }
+    }
+  }
+
+  function resetPKGame() {
+    document.getElementById('pkStartScreen').style.display = 'flex';
+    document.getElementById('pkWinnerOverlay').style.display = 'none';
   }
 </script>
 
