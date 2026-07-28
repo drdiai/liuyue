@@ -1429,13 +1429,13 @@
                 <td>有 30kg 苹果，吃去了 <span class="frac"><span class="num">2</span><span class="den">3</span></span>，吃去多少？</td>
                 <td class="correct-col">苹果总重 (已知)</td>
                 <td>总重 &times; 吃去分率 = 吃去重量</td>
-                <td><b>乘法算式</b><br>$30 \times \frac{2}{3}$</td>
+                <td><b>乘法算式</b><br>30 &times; <span class="frac"><span class="num">2</span><span class="den">3</span></span></td>
               </tr>
               <tr>
                 <td>苹果吃去了 <span class="frac"><span class="num">2</span><span class="den">3</span></span>，正好是 20kg，苹果共有多少？</td>
                 <td class="wrong-col">苹果总重 (未知)</td>
                 <td>吃去重量 &divide; 吃去分率 = 总重</td>
-                <td><b>方程或除法</b><br>$20 \div \frac{2}{3}$</td>
+                <td><b>方程或除法</b><br>20 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span></td>
               </tr>
             </tbody>
           </table>
@@ -1476,7 +1476,7 @@
                 <p class="formula" style="color:var(--accent-green); font-size:1.25rem; margin-top:4px;">
                   120 &divide; <span class="frac"><span class="num">1</span><span class="den">4</span></span> ＝ 120 &times; 4 ＝ 480 （克）
                 </p>
-                <p style="font-size: 0.88rem; color: var(--text-muted); margin-top:4px;">（方程法：设总重 $x$ 克， $\frac{1}{4}x = 120 \Rightarrow x = 480$ 克）</p>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-top:4px;">（方程法：设总重 $x$ 克， <span class="frac"><span class="num">1</span><span class="den">4</span></span> x ＝ 120 ➔ x ＝ 480 克）</p>
               </div>
             </div>
           </div>
@@ -1615,8 +1615,8 @@
               <div class="reveal-panel">
                 <div class="thought-card" style="font-size: 0.95rem; line-height: 1.6;">
                   <b>提示：</b> 第二次用去的是带单位的物理量。<br>
-                  去掉第二次用去的长度，剩下的长度是： $1 + \frac{1}{3} = \frac{4}{3}$ 米。<br>
-                  这部分长度正好对应总长度的： $1 - \frac{1}{3} = \frac{2}{3}$。<br>
+                  去掉第二次用去的长度，剩下的长度是： 1 ＋ <span class="frac"><span class="num">1</span><span class="den">3</span></span> ＝ <span class="frac"><span class="num">4</span><span class="den">3</span></span> 米。<br>
+                  这部分长度正好对应总长度的： 1 &minus; <span class="frac"><span class="num">1</span><span class="den">3</span></span> ＝ <span class="frac"><span class="num">2</span><span class="den">3</span></span>。<br>
                   总长度： <span class="frac"><span class="num">4</span><span class="den">3</span></span> &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span> ＝ 2 （米）。
                 </div>
               </div>
@@ -1737,8 +1737,8 @@
   });
 
   function toggleReveal(button) {
-    const parent = button.parentElement;
-    const panel = parent.querySelector('.reveal-panel');
+    const container = button.closest('.card') || button.closest('.slide') || button.parentElement;
+    const panel = container.querySelector('.reveal-panel');
     if (panel) {
       panel.classList.toggle('active');
       const textMap = {
