@@ -272,9 +272,9 @@
   }
 
   .table-mistakes th, .table-mistakes td {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border-color);
-    font-size: 13.5px;
+    padding: 8px 10px;
+    border: 1px solid var(--border-color);
+    font-size: 12.5px;
   }
 
   .table-mistakes th {
@@ -306,6 +306,27 @@
     border-radius: 4px;
     font-weight: bold;
     font-size: 11px;
+  }
+
+  /* Core comparison table styling */
+  .mistake-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .mistake-table th, .mistake-table td {
+    padding: 6px 8px;
+    border: 1px solid var(--border-color);
+    font-size: 12.5px;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .mistake-table th {
+    background: #f1f5f9;
+    font-weight: bold;
+    color: var(--text-primary);
   }
 
   /* Exercises styling */
@@ -413,10 +434,10 @@
                 <text x="185" y="96">⑤</text>
                 <text x="223.3" y="94">⑥</text>
               </g>
-              <text x="130" y="118" text-anchor="middle" font-size="9" fill="var(--text-secondary)">每块分3份共12份，每2份为一组，包含6组</text>
+              <text x="130" y="118" text-anchor="middle" font-size="9" fill="var(--text-secondary)">把 4 个整块各分 3 份，每 2 份分为一组，共 6 组</text>
             </svg>
             <p style="font-size: 13px; text-align: center; color: var(--text-secondary);">
-              <b>算理：</b>先求出4个整块共有 4 &times; 3 ＝ 12 份 <span class="frac"><span class="num">1</span><span class="den">3</span></span>，再除以分子 2，即 12 &divide; 2 ＝ 6。
+              <b>算理：</b>4 个整块被各分成 3 份，共有 12 小份。以 2 份为一组（即 <span class="frac"><span class="num">2</span><span class="den">3</span></span>），共有 12 &divide; 2 ＝ 6 组。
             </p>
           </div>
           
@@ -485,7 +506,7 @@
               </defs>
             </svg>
             <p style="font-size: 13px; text-align: center; color: var(--text-secondary);">
-              <b>算理：</b>从 0 到 4 每次跳跃跨度为 <span class="frac"><span class="num">2</span><span class="den">3</span></span> 个单位，正好能跳跃 6 次抵达终点。
+              <b>算理：</b>在数轴上，以 <span class="frac"><span class="num">2</span><span class="den">3</span></span> 为单位长度向右画弧，从 0 跳到 4 正好需要跳 6 次。
             </p>
           </div>
         </div>
@@ -504,13 +525,12 @@
     <div class="card-grid-2col">
       <div class="info-card">
         <h3>⚡ 算理三步拆解 (以 4 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span> 为例)</h3>
-        <p style="font-size:13.5px; line-height: 1.7;">
-          1. <b>拆单份：</b> 4 里面有 4 &times; 3 ＝ 12 个 <span class="frac"><span class="num">1</span><span class="den">3</span></span>。<br>
-          2. <b>合分率：</b> 每 2 个 <span class="frac"><span class="num">1</span><span class="den">3</span></span> 组合成一个 <span class="frac"><span class="num">2</span><span class="den">3</span></span>。<br>
-          3. <b>求结果：</b> 共有 12 &divide; 2 ＝ 6 组，计算写为：<br>
-          <span class="formula-display" style="font-size: 1.15rem; margin-top: 5px;">
+        <p style="font-size:13.5px; line-height: 1.6;">
+          1. <b>拆小份：</b> 4 个整块，每个分 3 份，共有 4 &times; 3 ＝ 12 份。<br>
+          2. <b>做分组：</b> 每 2 份组成一组。<br>
+          3. <b>求组数：</b> 共有 12 &divide; 2 ＝ 6 组。列式计算写为：<br>
+          <span style="font-size: 13.5px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; color: var(--m-primary-deep);">
             4 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span> 
-            ＝ 4 &times; 3 &divide; 2 
             ＝ 4 &times; <span class="frac"><span class="num">3</span><span class="den">2</span></span> 
             ＝ 6
           </span>
@@ -563,20 +583,20 @@
           <tr>
             <td><b class="hl-purple">除数 ＜ 1</b> (真分数)</td>
             <td><b class="hl-red">商 ＞ 被除数</b></td>
-            <td style="display:inline-flex; align-items:center; gap:4px; height: 42px;">
-              6 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span> ＝ 9 ➔ 9 ＞ 6
+            <td>
+              6 &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span> ＝ 9 &nbsp; (9 ＞ 6)
             </td>
           </tr>
           <tr>
             <td><b>除数 ＝ 1</b></td>
             <td><b>商 ＝ 被除数</b></td>
-            <td>6 &divide; 1 ＝ 6 ➔ 6 ＝ 6</td>
+            <td>6 &divide; 1 ＝ 6 &nbsp; (6 ＝ 6)</td>
           </tr>
           <tr>
             <td><b class="hl-purple">除数 ＞ 1</b> (假分数/整数)</td>
             <td><b class="hl-green">商 ＜ 被除数</b></td>
-            <td style="display:inline-flex; align-items:center; gap:4px; height: 42px;">
-              6 &divide; <span class="frac"><span class="num">3</span><span class="den">2</span></span> ＝ 4 ➔ 4 ＜ 6
+            <td>
+              6 &divide; <span class="frac"><span class="num">3</span><span class="den">2</span></span> ＝ 4 &nbsp; (4 ＜ 6)
             </td>
           </tr>
         </tbody>
@@ -657,12 +677,12 @@
       <div class="ex-steps">
         <b>💡 方法与步骤：</b><br>
         1. 连续的除以分数，可以全部改写为乘它们的倒数：<br>
-        <span class="formula-display" style="font-size: 1.1rem; margin-top: 5px;">
+        <span style="font-size: 13.5px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px; margin: 4px 0; color: var(--m-primary-deep);">
           12 &divide; <span class="frac"><span class="num">3</span><span class="den">4</span></span> &divide; <span class="frac"><span class="num">2</span><span class="den">3</span></span>
           ＝ 12 &times; <span class="frac"><span class="num">4</span><span class="den">3</span></span> &times; <span class="frac"><span class="num">3</span><span class="den">2</span></span>
         </span><br>
         2. 先将 12 与分母中的 3 约分（得 4），再与分母中的 2 约分：<br>
-        <span class="formula-display" style="font-size: 1.1rem; margin-top: 5px;">
+        <span style="font-size: 13.5px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px; margin: 4px 0; color: var(--m-primary-deep);">
           ＝ 4 &times; 4 &times; <span class="frac"><span class="num">3</span><span class="den">2</span></span>
           ＝ 2 &times; 4 &times; 3
           ＝ 24
@@ -694,14 +714,14 @@
       <div class="ex-steps">
         <b>💡 方法与步骤（“求什么，什么就作除数！”）：</b><br>
         1. <b>求每小时飞行多少千米：</b> 速度 ＝ 路程 &divide; 时间。小时数作除数：<br>
-        <span class="formula-display" style="font-size: 1.1rem; margin-top: 5px;">
+        <span style="font-size: 13.5px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px; margin: 4px 0; color: var(--m-primary-deep);">
           30 &divide; <span class="frac"><span class="num">2</span><span class="den">5</span></span> 
           ＝ 30 &times; <span class="frac"><span class="num">5</span><span class="den">2</span></span> 
           ＝ 15 &times; 5 
           ＝ 75 （千米/小时）
         </span><br>
         2. <b>求飞行 1 千米需要多少小时：</b> 时间 ＝ 小时数 &divide; 路程。千米数作除数：<br>
-        <span class="formula-display" style="font-size: 1.1rem; margin-top: 5px;">
+        <span style="font-size: 13.5px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px; margin: 4px 0; color: var(--m-primary-deep);">
           <span class="frac"><span class="num">2</span><span class="den">5</span></span> &divide; 30 
           ＝ <span class="frac"><span class="num">2</span><span class="den">5</span></span> &times; <span class="frac"><span class="num">1</span><span class="den">30</span></span> 
           ＝ <span class="frac"><span class="num">1</span><span class="den">75</span></span> （小时）
