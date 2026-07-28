@@ -1814,8 +1814,7 @@
     document.getElementById('prev-btn').disabled = (index === 1);
     document.getElementById('next-btn').disabled = (index === totalSlides);
 
-    // Stop simulations if moving away
-    if (index !== 5) resetCompassSandbox();
+    // Stop wheel simulation when leaving slide 12
     if (index !== 12) resetWheelsSimulation();
 
     currentSlideIndex = index;
