@@ -5,30 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>北师大版六年级数学上册 · 第四课时《修复铜镜》全屏交互式课件</title>
   <style>
-    /* ==================== CORE CSS CONFIGURATION ==================== */
     :root {
-      --bg-dark: #0f0c20;      /* 深空考古紫 */
-      --text-main: #f1f0f6;
-      --text-muted: #94a3b8;
+      --bg-dark: #12100e;      /* 更深邃的古风背景 */
+      --text-main: #f3f0e8;
+      --text-muted: #a39c90;
       
       --accent-cyan: #38bdf8;
-      --accent-gold: #fbbf24;
-      --accent-red: #fb7185;
-      --accent-green: #34d399;
-      --accent-purple: #c084fc;
+      --accent-gold: #eab308;
+      --accent-red: #ef4444;
+      --accent-green: #10b981;
       
-      --border-soft: rgba(255, 255, 255, 0.1);
-      --glass-bg: rgba(255, 255, 255, 0.03);
+      --border-soft: rgba(234, 179, 8, 0.2);
+      --glass-bg: rgba(20, 18, 16, 0.7);
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body {
-      font-family: 'Outfit', 'Segoe UI', "Microsoft YaHei", sans-serif;
+      font-family: 'SimSun', 'STSong', 'Songti SC', '华文宋体', serif;
       background: var(--bg-dark);
       background-image: 
-        radial-gradient(ellipse at top right, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
-        radial-gradient(ellipse at bottom left, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+        radial-gradient(ellipse at top right, rgba(234, 179, 8, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom left, rgba(234, 179, 8, 0.03) 0%, transparent 50%);
       color: var(--text-main);
       overflow: hidden;
       height: 100vh;
@@ -36,135 +34,107 @@
       flex-direction: column;
     }
 
-    /* GLOBAL TOP BAR */
     .top-bar {
-      height: 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 30px;
-      background: rgba(0, 0, 0, 0.2);
-      border-bottom: 1px solid var(--border-soft);
-      backdrop-filter: blur(10px);
-      z-index: 100;
+      height: 50px; display: flex; justify-content: space-between; align-items: center; padding: 0 30px;
+      background: rgba(0, 0, 0, 0.4); border-bottom: 1px solid var(--border-soft); backdrop-filter: blur(10px); z-index: 100;
     }
-    .top-bar .logo-info { display: flex; align-items: center; gap: 15px; }
-    .tag-bnu { background: var(--accent-gold); color: #000; font-size: 0.75rem; font-weight: bold; padding: 2px 8px; border-radius: 4px; }
-    .title-text { font-size: 0.95rem; font-weight: 500; letter-spacing: 0.5px; opacity: 0.9; }
-    .help-tips { font-size: 0.8rem; color: var(--text-muted); }
+    .logo-info { display: flex; align-items: center; gap: 15px; }
+    .tag-bnu { background: var(--accent-gold); color: #12100e; font-size: 0.85rem; font-weight: bold; padding: 3px 10px; border-radius: 4px; }
+    .title-text { font-size: 1.1rem; font-weight: bold; letter-spacing: 1px; color: var(--accent-gold); }
+    .help-tips { font-size: 0.9rem; color: var(--text-muted); }
 
-    /* LAYOUT */
-    .app-container {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .slides-wrapper {
-      flex: 1;
-      position: relative;
-    }
-
+    .app-container { display: flex; flex: 1; overflow: hidden; position: relative; }
+    .slides-wrapper { flex: 1; position: relative; }
     .slide {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-      display: flex;
-      flex-direction: column;
-      padding: 40px 60px;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+      display: flex; flex-direction: column; padding: 40px 60px;
     }
-    .slide.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .slide.active { opacity: 1; pointer-events: auto; }
 
-    /* SLIDE COMPONENTS */
     .slide-header { margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
     .topic-badge {
-      background: rgba(251, 191, 36, 0.15);
-      color: var(--accent-gold);
-      border: 1px solid rgba(251, 191, 36, 0.4);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 1px;
+      background: rgba(234, 179, 8, 0.15); color: var(--accent-gold); border: 1px solid rgba(234, 179, 8, 0.4);
+      padding: 6px 14px; border-radius: 20px; font-size: 1rem; font-weight: bold; letter-spacing: 1px;
     }
-    .slide-title { font-size: 1.8rem; font-weight: bold; }
+    .slide-title { font-size: 2rem; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
     .page-index { margin-left: auto; font-size: 1.2rem; font-family: monospace; color: var(--text-muted); }
     
     .slide-body { flex: 1; overflow-y: auto; position: relative; }
     .slide-body.justify-center { display: flex; align-items: center; justify-content: center; flex-direction: column; }
 
-    /* COVER LAYOUT */
     .cover-layout {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: radial-gradient(circle at center, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+      height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
     }
-    .cover-layout .subtitle { font-size: 1.2rem; color: var(--accent-gold); margin-bottom: 10px; letter-spacing: 5px; text-transform: uppercase; }
-    .cover-layout h1 { font-size: 4.5rem; margin-bottom: 20px; letter-spacing: 2px; color: #fff; text-shadow: 0 0 30px rgba(139, 92, 246, 0.5); }
-    .cover-layout .desc { font-size: 1.4rem; color: var(--text-muted); max-width: 700px; line-height: 1.6; margin-bottom: 40px; }
+    .cover-layout .subtitle { font-size: 1.5rem; color: var(--accent-gold); margin-bottom: 10px; letter-spacing: 8px; }
+    .cover-layout h1 { font-size: 5.5rem; margin-bottom: 20px; letter-spacing: 4px; color: #fff; text-shadow: 0 0 30px rgba(234, 179, 8, 0.4); font-weight: bold; }
+    .cover-layout .desc { font-size: 1.6rem; color: var(--text-muted); max-width: 800px; line-height: 1.8; margin-bottom: 40px; }
     
     .start-btn {
-      background: linear-gradient(135deg, var(--accent-purple), #ec4899);
-      color: white; border: none; padding: 18px 45px; font-size: 1.3rem; font-weight: bold; border-radius: 30px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3);
+      background: linear-gradient(135deg, #a16207, #ca8a04); color: white; border: 2px solid #fef08a; padding: 15px 40px; font-size: 1.4rem; font-weight: bold; font-family: 'SimSun', serif; border-radius: 8px; cursor: pointer; transition: transform 0.2s; box-shadow: 0 10px 25px rgba(202, 138, 4, 0.3); letter-spacing: 2px;
     }
-    .start-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(236, 72, 153, 0.5); }
+    .start-btn:hover { transform: translateY(-3px) scale(1.02); }
 
-    /* CARDS */
-    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; width: 100%; }
-    .card { background: var(--glass-bg); border: 1px solid var(--border-soft); border-radius: 16px; padding: 30px; backdrop-filter: blur(10px); transition: transform 0.3s; }
-    .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
-    .card h3 { font-size: 1.4rem; color: var(--accent-cyan); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-    .card p { font-size: 1.15rem; color: #cbd5e1; line-height: 1.8; }
-
-    /* ARCHAEOLOGY STORY BOX */
-    .story-box {
-      background: rgba(251, 191, 36, 0.05);
-      border-left: 5px solid var(--accent-gold);
-      padding: 30px;
-      border-radius: 0 16px 16px 0;
-      margin-bottom: 30px;
-      width: 100%;
-      max-width: 900px;
+    /* Tomb Background for Slide 2 */
+    .tomb-bg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: url('assets/tomb.png') center/cover no-repeat;
+      z-index: -2; opacity: 0.6;
     }
-    .story-box p { font-size: 1.25rem; line-height: 1.8; color: #e2e8f0; }
-
-    /* SVG VISUAL BOX */
-    .svg-visual-box {
-      background: rgba(0,0,0,0.3); border: 1px solid var(--border-soft); border-radius: 16px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 30px;
-    }
-
-    /* SIDE NAV */
-    .side-nav {
-      width: 70px; background: rgba(0,0,0,0.2); border-left: 1px solid var(--border-soft); display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 30px 0; z-index: 50;
-    }
-    .nav-arrow-btn { background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; transition: color 0.2s, transform 0.2s; padding: 15px; }
-    .nav-arrow-btn:hover:not(:disabled) { color: var(--accent-cyan); transform: scale(1.2); }
-    .nav-arrow-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+    #tomb-particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
     
-    .highlight-gold { color: var(--accent-gold); font-weight: bold; }
-    .highlight-cyan { color: var(--accent-cyan); font-weight: bold; }
+    .mission-box {
+      background: rgba(0, 0, 0, 0.75); border: 2px solid var(--accent-gold); box-shadow: 0 0 30px rgba(234, 179, 8, 0.2);
+      padding: 40px; border-radius: 12px; max-width: 800px; text-align: center; backdrop-filter: blur(8px);
+    }
+    .mission-box h2 { font-size: 2.2rem; color: var(--accent-gold); margin-bottom: 25px; border-bottom: 1px dashed var(--accent-gold); padding-bottom: 15px; }
+    .mission-box p { font-size: 1.5rem; line-height: 1.8; color: #f3f0e8; text-align: left; }
+
+    /* Interactive Step Lists */
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 20px; font-size: 1.4rem; }
+    .step-item { opacity: 0.3; transition: all 0.5s; padding: 15px; border-left: 4px solid transparent; background: rgba(255,255,255,0.02); }
+    .step-item.active { opacity: 1; border-left-color: var(--accent-gold); background: rgba(234, 179, 8, 0.1); }
+    .step-control-btn { background: var(--accent-gold); color: #000; border: none; padding: 10px 25px; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 6px; margin-top: 25px; font-family: 'SimSun', serif; }
+
+    /* Student Tablet Presentation */
+    .tablet-frame {
+      width: 800px; height: 500px; border: 16px solid #222; border-radius: 24px; background: #000;
+      position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+    }
+    .tablet-inner {
+      width: 100%; height: 100%; background: #1a1a1a; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #333;
+    }
+
+    /* Cards & Reveals */
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; max-width: 1100px; }
+    .scene-card { background: var(--glass-bg); border: 1px solid var(--border-soft); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .scene-img { width: 100%; height: 250px; object-fit: cover; border-bottom: 1px solid #333; }
+    .scene-content { padding: 25px; position: relative; flex: 1; display: flex; flex-direction: column; }
+    .scene-content h3 { font-size: 1.6rem; color: var(--accent-gold); margin-bottom: 15px; }
+    .scene-content p { font-size: 1.3rem; line-height: 1.7; margin-bottom: 20px; }
+    
+    .answer-reveal {
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9); backdrop-filter: blur(5px);
+      display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.3s;
+    }
+    .answer-reveal span { font-size: 1.4rem; color: var(--accent-gold); border: 1px solid var(--accent-gold); padding: 10px 20px; border-radius: 8px; }
+    .answer-text { color: var(--accent-cyan); font-size: 1.25rem; font-style: italic; }
+
+    .side-nav { width: 70px; background: rgba(0,0,0,0.5); border-left: 1px solid var(--border-soft); display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 30px 0; z-index: 50; }
+    .nav-arrow-btn { background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; transition: color 0.2s, transform 0.2s; padding: 15px; }
+    .nav-arrow-btn:hover:not(:disabled) { color: var(--accent-gold); transform: scale(1.2); }
+    .nav-arrow-btn:disabled { opacity: 0.2; cursor: not-allowed; }
   </style>
 </head>
 <body>
 
-<!-- GLOBAL TOP BAR -->
 <div class="top-bar">
   <div class="logo-info">
     <span class="tag-bnu">北师大版</span>
-    <span class="title-text">六年级数学上册 · 第二单元《圆》第4课时</span>
+    <span class="title-text">六年级数学上册 · 项目式学习 · 第四课时《修复铜镜》</span>
   </div>
-  <div class="help-tips">💡 提示：按 ◀ / ▶ 键翻页 | 第7页附带虚拟考古交互</div>
+  <div class="help-tips">按 ◀ / ▶ 键翻页 | 本课件需老师与学生深度交互说理</div>
 </div>
 
 <div class="app-container">
@@ -173,273 +143,415 @@
     <!-- SLIDE 1: 封面 -->
     <div class="slide active" id="slide-1">
       <div class="cover-layout">
-        <p class="subtitle">项 目 式 学 习 课 · P B L</p>
+        <p class="subtitle">项 目 式 学 习 · 探 究 课</p>
         <h1 style="color: var(--accent-gold);">修复铜镜</h1>
-        <p class="desc">学习路线：考古情境引入 ➔ 探索纸上折叠法 ➔ 探索硬物画线法 ➔ 虚拟实验室挑战修复</p>
+        <p class="desc">学习路线：考古情境引入 ➔ 探索折纸找心法 ➔ 探索垂径作图法 ➔ 虚拟实验室挑战 ➔ 场景巩固</p>
         <button class="start-btn" onclick="nextSlide()">开启文物修复之旅</button>
       </div>
     </div>
 
-    <!-- SLIDE 2: 考古情境导入 -->
-    <div class="slide" id="slide-2">
-      <div class="slide-header">
-        <span class="topic-badge">情境导入</span>
-        <span class="slide-title">来自汉代的神秘碎片</span>
-        <span class="page-index">02 / 09</span>
-      </div>
-      <div class="slide-body justify-center">
-        <div class="story-box">
-          <p>
-            🏺 <b>考古日记：</b><br><br>
-            考古学家在汉代古墓中发掘出了一块精美的<span class="highlight-gold">青铜镜碎片</span>。从边缘的弧度可以看出，这曾经是一面完美的圆形铜镜。<br><br>
-            博物馆希望能够用 3D 打印技术复原这面铜镜。<br>
-            但是，在电脑中重建完整的圆，<b>第一步必须先找到它原来的“圆心”和“半径”！</b>
-          </p>
+    <!-- SLIDE 2: 考古情境导入 (带背景特效) -->
+    <div class="slide" id="slide-2" style="padding: 0;">
+      <div class="tomb-bg"></div>
+      <canvas id="tomb-particles"></canvas>
+      
+      <div style="position: absolute; top: 40px; left: 60px; right: 60px; bottom: 40px; display: flex; flex-direction: column;">
+        <div class="slide-header">
+          <span class="topic-badge">情境导入</span>
+          <span class="slide-title">来自汉代的神秘碎片</span>
+          <span class="page-index">02 / 10</span>
         </div>
-        
-        <!-- Broken mirror SVG -->
-        <svg viewBox="0 0 200 150" style="width: 200px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));">
-          <path d="M 30,100 A 70,70 0 0,1 150,40 L 140,70 L 110,60 L 90,90 Z" fill="#d97706" stroke="#b45309" stroke-width="2"/>
-          <path d="M 30,100 A 70,70 0 0,1 150,40" fill="none" stroke="#fef3c7" stroke-width="4" stroke-dasharray="4,4"/>
-          <text x="160" y="30" fill="var(--accent-gold)" font-size="12">残缺圆弧</text>
-        </svg>
+        <div class="slide-body justify-center">
+          <div class="mission-box">
+            <h2>📜 考古修复紧急任务</h2>
+            <div style="display: flex; gap: 30px; align-items: center;">
+              <svg viewBox="0 0 200 150" style="width: 250px; flex-shrink: 0; filter: drop-shadow(0 0 20px rgba(234,179,8,0.5));">
+                <path d="M 30,100 A 70,70 0 0,1 150,40 L 140,70 L 110,60 L 90,90 Z" fill="#b45309" stroke="#fef08a" stroke-width="2"/>
+                <path d="M 30,100 A 70,70 0 0,1 150,40" fill="none" stroke="#fef08a" stroke-width="4" stroke-dasharray="4,4"/>
+              </svg>
+              <p>
+                考古学家在深邃的汉代古墓中发掘出了一块精美的<span style="color: var(--accent-gold); font-weight: bold;">青铜镜残片</span>。<br><br>
+                博物馆需要利用 3D 打印技术将其复原成完整的圆形。<br><br>
+                <b>核心挑战：</b>在只剩下一段弧线的情况下，如何精准地找出它原本的<b>“圆心”</b>？
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- SLIDE 3: 第一关过渡 -->
     <div class="slide" id="slide-3">
       <div class="cover-layout">
-        <p class="subtitle">CHECKPOINT 1</p>
-        <h1 style="color: var(--accent-cyan);">第一关：折叠探寻法</h1>
-        <p class="desc">如果这个残片是被画在一张纸上，我们能用什么最简单的方法找到圆心？</p>
-        <button class="start-btn" onclick="nextSlide()" style="background: linear-gradient(135deg, var(--accent-cyan), #3b82f6);">进入探究</button>
+        <p class="subtitle">第一阶段探索</p>
+        <h1 style="color: var(--accent-cyan);">第一关：折纸探寻法</h1>
+        <p class="desc">如果这个残片印在一张纸上，我们能用什么最简单的方法找到圆心？</p>
+        <button class="start-btn" onclick="nextSlide()" style="background: linear-gradient(135deg, #0369a1, #0284c7);">开始折叠</button>
       </div>
     </div>
 
-    <!-- SLIDE 4: 方法一：折叠法 -->
+    <!-- SLIDE 4: 方法一：折纸法 (Step-by-step) -->
     <div class="slide" id="slide-4">
       <div class="slide-header">
         <span class="topic-badge">第一关</span>
-        <span class="slide-title">利用“轴对称”找圆心</span>
-        <span class="page-index">04 / 09</span>
+        <span class="slide-title">利用“轴对称”找圆心 (互动演示)</span>
+        <span class="page-index">04 / 10</span>
       </div>
       <div class="slide-body">
-        <div style="display: grid; grid-template-columns: 1fr 400px; gap: 30px; height: 100%;">
+        <div style="display: grid; grid-template-columns: 1fr 450px; gap: 40px; height: 100%;">
           <div style="display: flex; flex-direction: column; justify-content: center;">
-            <h3 style="font-size: 1.5rem; color: var(--accent-cyan); margin-bottom: 20px;">📜 方法一：折纸法</h3>
-            <p style="font-size: 1.25rem; line-height: 1.8; color: #cbd5e1; margin-bottom: 20px;">
-              圆是一个非常完美的<b>轴对称图形</b>。不仅整个圆是对称的，圆的任意一条<b>对称轴都一定会经过圆心！</b><br><br>
-              操作步骤：<br>
-              1. 将纸上的圆弧对折，使两段圆弧完全重合，折出第一条折痕。<br>
-              2. 换一个方向再对折一次，折出第二条折痕。<br>
-              3. <span class="highlight-gold">两条折痕的交点就是圆心！</span>
-            </p>
+            <ul class="step-list" id="s4-steps">
+              <li class="step-item active" id="s4-step-1">
+                <b>步骤 1：</b>将纸上的圆弧进行第一次对折，使得两段圆弧边缘<b>完全重合</b>。展开后得到第一条折痕（对称轴）。
+              </li>
+              <li class="step-item" id="s4-step-2">
+                <b>步骤 2：</b>换一个方向，再对折一次，使得圆弧再次重合。展开得到第二条折痕。
+              </li>
+              <li class="step-item" id="s4-step-3">
+                <b>步骤 3：</b>根据圆的轴对称性质，两条折痕的<span style="color: var(--accent-gold); font-weight: bold;">交点即为圆心 O</span>！
+              </li>
+            </ul>
+            <div>
+              <button class="step-control-btn" id="s4-btn" onclick="nextSlide4Step()">点击执行：下一步对折</button>
+              <button class="step-control-btn" onclick="resetSlide4()" style="background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); margin-left: 15px;">重置</button>
+            </div>
           </div>
           
-          <div class="svg-visual-box">
+          <div class="svg-visual-box" style="background: rgba(0,0,0,0.5); border: 2px solid #333; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
             <svg viewBox="0 0 200 200" width="100%">
-              <!-- Full circle dashed -->
-              <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" stroke-dasharray="5,5"/>
               <!-- Arc -->
-              <path d="M 20,100 A 80,80 0 0,1 180,100" fill="none" stroke="var(--accent-gold)" stroke-width="4"/>
+              <path d="M 20,100 A 80,80 0 0,1 180,100" fill="none" stroke="var(--accent-gold)" stroke-width="5"/>
               
               <!-- Fold line 1 -->
-              <line x1="100" y1="10" x2="100" y2="190" stroke="var(--accent-cyan)" stroke-width="2" stroke-dasharray="4,2">
-                <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.5;1" dur="4s" repeatCount="indefinite"/>
-              </line>
+              <line id="s4-l1" x1="100" y1="10" x2="100" y2="190" stroke="var(--accent-cyan)" stroke-width="2" stroke-dasharray="4,2" opacity="0" style="transition: opacity 1s;"/>
               
               <!-- Fold line 2 -->
-              <line x1="20" y1="40" x2="180" y2="160" stroke="var(--accent-cyan)" stroke-width="2" stroke-dasharray="4,2">
-                <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.5;1" dur="4s" repeatCount="indefinite"/>
-              </line>
+              <line id="s4-l2" x1="20" y1="40" x2="180" y2="160" stroke="var(--accent-cyan)" stroke-width="2" stroke-dasharray="4,2" opacity="0" style="transition: opacity 1s;"/>
               
               <!-- Center Point -->
-              <circle cx="100" cy="100" r="4" fill="var(--accent-red)">
-                <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.8;1" dur="4s" repeatCount="indefinite"/>
-              </circle>
-              <text x="110" y="115" fill="var(--accent-red)" font-weight="bold">
-                圆心 O
-                <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.8;1" dur="4s" repeatCount="indefinite"/>
-              </text>
+              <circle id="s4-pt" cx="100" cy="100" r="5" fill="var(--accent-red)" opacity="0" style="transition: opacity 1s;"/>
+              <text id="s4-txt" x="110" y="115" fill="var(--accent-red)" font-weight="bold" font-size="14" opacity="0" style="transition: opacity 1s;">圆心 O</text>
             </svg>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 5: 第二关过渡 -->
+    <!-- SLIDE 5: 学生投屏展示区 -->
     <div class="slide" id="slide-5">
-      <div class="cover-layout">
-        <p class="subtitle">CHECKPOINT 2</p>
-        <h1 style="color: var(--accent-green);">第二关：垂线构造法</h1>
-        <p class="desc">问题来了：如果是真实的青铜器残片，硬邦邦的，根本没法折叠！<br>数学家该如何在不折叠的情况下，画出对称轴？</p>
-        <button class="start-btn" onclick="nextSlide()" style="background: linear-gradient(135deg, var(--accent-green), #059669);">探索几何作图</button>
+      <div class="slide-header">
+        <span class="topic-badge">说理时刻</span>
+        <span class="slide-title">学生作品大屏幕展示区</span>
+        <span class="page-index">05 / 10</span>
+      </div>
+      <div class="slide-body justify-center">
+        <div class="tablet-frame">
+          <div class="tablet-inner">
+            <h2 style="color: var(--text-muted); font-size: 2rem; margin-bottom: 20px;">📡 正在等待投屏...</h2>
+            <p style="color: var(--accent-cyan); font-size: 1.5rem; max-width: 600px; text-align: center; line-height: 1.6;">
+              请完成折纸探索的同学将作品投屏，并大声向全班说明：<br>
+              <b style="color: var(--accent-gold);">为什么两次对折的交点，就一定是圆心？</b><br>
+              <span style="font-size: 1.1rem; color: #666;">（提示：回想一下圆的对称轴和圆心的关系）</span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- SLIDE 6: 方法二：画弦作垂线法 -->
+    <!-- SLIDE 6: 第二关过渡 -->
     <div class="slide" id="slide-6">
+      <div class="cover-layout">
+        <p class="subtitle">第二阶段探索</p>
+        <h1 style="color: var(--accent-green);">第二关：垂径作图法</h1>
+        <p class="desc">真实出土的青铜碎片坚硬无比，无法折叠。<br>数学家如何在硬物上，像折痕一样精准找出对称轴呢？</p>
+        <button class="start-btn" onclick="nextSlide()" style="background: linear-gradient(135deg, #047857, #10b981);">探索几何作图</button>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: 方法二：画弦作垂线 (Step-by-step) -->
+    <div class="slide" id="slide-7">
       <div class="slide-header">
         <span class="topic-badge">第二关</span>
         <span class="slide-title">利用“弦与垂直平分线”找圆心</span>
-        <span class="page-index">06 / 09</span>
+        <span class="page-index">07 / 10</span>
       </div>
       <div class="slide-body">
-        <div style="display: grid; grid-template-columns: 1fr 400px; gap: 30px; height: 100%;">
+        <div style="display: grid; grid-template-columns: 1fr 450px; gap: 40px; height: 100%;">
           <div style="display: flex; flex-direction: column; justify-content: center;">
-            <h3 style="font-size: 1.5rem; color: var(--accent-green); margin-bottom: 20px;">📐 方法二：画线法（垂径定理）</h3>
-            <p style="font-size: 1.25rem; line-height: 1.8; color: #cbd5e1; margin-bottom: 20px;">
-              由于圆的对称性，<b>任意一条弦的“垂直平分线”，都必然穿过圆心！</b><br><br>
-              操作步骤：<br>
-              1. 在圆弧上任选两点连成线段（画一条弦）。<br>
-              2. 找到这条弦的中点，用三角板画出它的<b>垂直平分线</b>。<br>
-              3. 再画一条不同的弦，同样作出垂直平分线。<br>
-              4. <span class="highlight-green" style="color: var(--accent-green);">两条垂直平分线的交点，即为圆心！</span>
-            </p>
+            <ul class="step-list" id="s7-steps">
+              <li class="step-item active" id="s7-step-1">
+                <b>步骤 1 (画弦)：</b>在圆弧上任选两点连成线段，数学上称为“弦”。
+              </li>
+              <li class="step-item" id="s7-step-2">
+                <b>步骤 2 (取中点)：</b>用直尺量出这条弦的长度，并标记出它的中点。
+              </li>
+              <li class="step-item" id="s7-step-3">
+                <b>步骤 3 (作垂线)：</b>用三角板过中点画出垂直于弦的直线（垂直平分线）。<b>这条线一定会穿过圆心！</b>
+              </li>
+              <li class="step-item" id="s7-step-4">
+                <b>步骤 4 (找交点)：</b>用同样的方法再画一条弦和它的垂直平分线。两条垂线的交点即为圆心！
+              </li>
+            </ul>
+            <div>
+              <button class="step-control-btn" id="s7-btn" onclick="nextSlide7Step()">点击执行：第一步 (画弦)</button>
+              <button class="step-control-btn" onclick="resetSlide7()" style="background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); margin-left: 15px;">重置</button>
+            </div>
           </div>
           
-          <div class="svg-visual-box">
+          <div class="svg-visual-box" style="background: rgba(0,0,0,0.5); border: 2px solid #333; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
             <svg viewBox="0 0 200 200" width="100%">
-              <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" stroke-dasharray="5,5"/>
-              <path d="M 20,100 A 80,80 0 0,1 180,100" fill="none" stroke="var(--accent-gold)" stroke-width="4"/>
+              <path d="M 20,100 A 80,80 0 0,1 180,100" fill="none" stroke="var(--accent-gold)" stroke-width="5"/>
               
               <!-- Chord 1 -->
-              <line x1="30" y1="62" x2="100" y2="20" stroke="#94a3b8" stroke-width="2"/>
-              <!-- Midpoint 1 (65, 41) -->
-              <circle cx="65" cy="41" r="2" fill="#fff"/>
-              <!-- Perpendicular Bisector 1 -->
-              <line x1="20" y1="116" x2="130" y2="-24" stroke="var(--accent-green)" stroke-width="2" stroke-dasharray="4,2">
-                <animate attributeName="stroke-dashoffset" values="20;0" dur="1s" repeatCount="indefinite"/>
-              </line>
+              <line id="s7-c1" x1="30" y1="62" x2="100" y2="20" stroke="#fff" stroke-width="2" opacity="0" style="transition: opacity 0.5s;"/>
+              <!-- Midpoint 1 -->
+              <circle id="s7-m1" cx="65" cy="41" r="3" fill="var(--accent-cyan)" opacity="0" style="transition: opacity 0.5s;"/>
+              <!-- Perp 1 -->
+              <line id="s7-p1" x1="20" y1="116" x2="130" y2="-24" stroke="var(--accent-green)" stroke-width="2" stroke-dasharray="4,2" opacity="0" style="transition: opacity 1s;"/>
+              <polyline id="s7-ra1" points="71,46 76,37 69,32" fill="none" stroke="var(--accent-green)" stroke-width="1.5" opacity="0" style="transition: opacity 1s;"/>
               
-              <!-- Chord 2 -->
-              <line x1="120" y1="22" x2="175" y2="72" stroke="#94a3b8" stroke-width="2"/>
-              <!-- Midpoint 2 (147.5, 47) -->
-              <circle cx="147.5" cy="47" r="2" fill="#fff"/>
-              <!-- Perpendicular Bisector 2 -->
-              <line x1="70" y1="130" x2="190" y2="-2" stroke="var(--accent-green)" stroke-width="2" stroke-dasharray="4,2">
-                <animate attributeName="stroke-dashoffset" values="20;0" dur="1s" repeatCount="indefinite"/>
-              </line>
-
-              <!-- Right angle symbols -->
-              <polyline points="71,46 76,37 69,32" fill="none" stroke="var(--accent-green)" stroke-width="1"/>
-              <polyline points="144,53 151,59 157,53" fill="none" stroke="var(--accent-green)" stroke-width="1"/>
+              <!-- Set 2 -->
+              <line id="s7-c2" x1="120" y1="22" x2="175" y2="72" stroke="#fff" stroke-width="2" opacity="0" style="transition: opacity 0.5s;"/>
+              <circle id="s7-m2" cx="147.5" cy="47" r="3" fill="var(--accent-cyan)" opacity="0" style="transition: opacity 0.5s;"/>
+              <line id="s7-p2" x1="70" y1="130" x2="190" y2="-2" stroke="var(--accent-green)" stroke-width="2" stroke-dasharray="4,2" opacity="0" style="transition: opacity 1s;"/>
+              <polyline id="s7-ra2" points="144,53 151,59 157,53" fill="none" stroke="var(--accent-green)" stroke-width="1.5" opacity="0" style="transition: opacity 1s;"/>
 
               <!-- Center Point -->
-              <circle cx="100" cy="100" r="4" fill="var(--accent-red)"/>
-              <text x="110" y="115" fill="var(--accent-red)" font-weight="bold">圆心 O</text>
+              <circle id="s7-pt" cx="100" cy="100" r="5" fill="var(--accent-red)" opacity="0" style="transition: opacity 1s;"/>
+              <text id="s7-txt" x="110" y="115" fill="var(--accent-red)" font-weight="bold" font-size="14" opacity="0" style="transition: opacity 1s;">圆心 O</text>
             </svg>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 7: GeoGebra 互动 -->
-    <div class="slide" id="slide-7">
+    <!-- SLIDE 8: GeoGebra 互动 -->
+    <div class="slide" id="slide-8">
       <div class="slide-header">
-        <span class="topic-badge" style="background: rgba(192, 132, 252, 0.2); color: var(--accent-purple); border-color: var(--accent-purple);">高能互动</span>
+        <span class="topic-badge" style="background: rgba(234, 179, 8, 0.2); color: var(--accent-gold);">高能互动</span>
         <span class="slide-title">虚拟考古实验室：亲手重铸铜镜</span>
-        <span class="page-index">07 / 09</span>
+        <span class="page-index">08 / 10</span>
       </div>
       <div class="slide-body" style="padding: 0; overflow: hidden; position: relative;">
-        <iframe src="geogebra-mirror.html" style="width: 100%; height: 100%; border: none; border-radius: 12px;"></iframe>
+        <!-- Reload mechanism for GGB -->
+        <iframe id="ggb-iframe" src="geogebra-mirror.html" style="width: 100%; height: 100%; border: none; border-radius: 12px; background: #000;"></iframe>
       </div>
     </div>
     
-    <!-- SLIDE 8: 知识迁移 -->
-    <div class="slide" id="slide-8">
+    <!-- SLIDE 9: 知识迁移 -->
+    <div class="slide" id="slide-9">
       <div class="slide-header">
         <span class="topic-badge">巩固与拓展</span>
-        <span class="slide-title">数学知识的生活迁移</span>
-        <span class="page-index">08 / 09</span>
+        <span class="slide-title">说题挑战：真实生活中的找心问题</span>
+        <span class="page-index">09 / 10</span>
       </div>
       <div class="slide-body justify-center">
-        <div class="card-grid" style="max-width: 1000px;">
-          <div class="card">
-            <h3>🥏 场景一：寻找破损飞盘的中心</h3>
-            <p>小明的一个圆形飞盘边缘破损了一大块。他想在飞盘的正中心贴一个炫酷的贴纸。他应该怎么做？<br><br>
-            <span style="color: var(--text-muted); font-size: 1rem;">
-            答案：可以在飞盘背面任意画两条弦，利用三角板和直尺分别作出这两条弦的垂直平分线，交点就是飞盘的中心。
-            </span></p>
+        <div class="card-grid">
+          <!-- Scenario 1 -->
+          <div class="scene-card">
+            <img class="scene-img" src="assets/frisbee.png" alt="破损的飞盘">
+            <div class="scene-content">
+              <h3>🥏 场景一：寻找破损飞盘的中心</h3>
+              <p>小明的一个圆形飞盘边缘破损了一大块。他想在飞盘的正中心贴一个炫酷的贴纸。他应该怎么做？请上台说理。</p>
+              <div class="answer-reveal" onclick="this.style.opacity='0'; setTimeout(()=>this.style.display='none',300);">
+                <span>点击揭晓参考答案</span>
+              </div>
+              <p class="answer-text" style="position: absolute; bottom: 20px; left: 25px; right: 25px; z-index: -1;">
+                参考思路：在飞盘背面画两条弦，用三角板分别作出这两条弦的垂直平分线，交点即为飞盘中心。
+              </p>
+            </div>
           </div>
-          <div class="card">
-            <h3>🪵 场景二：木工寻找圆桌圆心</h3>
-            <p>木匠师傅拿到了一块残缺的圆形木板，需要确定圆心来安装桌腿支架。<br><br>
-            <span style="color: var(--text-muted); font-size: 1rem;">
-            答案：同样利用画弦作垂线法。这也是实际工业制造、建筑装修中常用的“无圆心定位法”。
-            </span></p>
+          
+          <!-- Scenario 2 -->
+          <div class="scene-card">
+            <img class="scene-img" src="assets/table.png" alt="残缺的木桌">
+            <div class="scene-content">
+              <h3>🪵 场景二：木工定位圆桌底座</h3>
+              <p>木匠师傅拿到了一块残缺的圆形木板，需要在背面确定圆心，才能安装桌腿支架。这在工业制造中叫做“无圆心定位”。</p>
+              <div class="answer-reveal" onclick="this.style.opacity='0'; setTimeout(()=>this.style.display='none',300);">
+                <span>点击揭晓参考答案</span>
+              </div>
+              <p class="answer-text" style="position: absolute; bottom: 20px; left: 25px; right: 25px; z-index: -1;">
+                参考思路：实物木板无法折叠。同样利用画弦作垂线法（垂径定理的应用），两条中垂线交点即为圆心。
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 9: 结算 -->
-    <div class="slide" id="slide-9">
+    <!-- SLIDE 10: 结算与口诀总结 -->
+    <div class="slide" id="slide-10">
       <div class="cover-layout">
-        <div style="font-size: 5rem; margin-bottom: 20px;">🎖️</div>
-        <h1 style="color: var(--accent-gold); font-size: 3.5rem;">第四课时 通关！</h1>
-        <p class="desc" style="color: var(--accent-green); font-weight: bold;">你不仅学会了如何利用折叠和几何作图寻找圆心，还成功复原了珍贵的文物！</p>
-        <button class="start-btn" onclick="goToSlide(1)">重新回顾</button>
+        <h1 style="color: var(--accent-gold); font-size: 6rem; margin-bottom: 40px; letter-spacing: 15px; margin-left: 15px;">通关！</h1>
+        
+        <div style="background: rgba(0,0,0,0.6); border: 2px solid var(--accent-gold); padding: 30px 50px; border-radius: 16px; font-size: 1.8rem; line-height: 2; color: #f3f0e8; text-align: center; box-shadow: 0 0 40px rgba(234, 179, 8, 0.2);">
+          <p style="color: var(--accent-cyan); font-weight: bold; margin-bottom: 15px;">📜 本课记忆口诀</p>
+          <p>残缺圆弧找圆心，巧用对称有回音。</p>
+          <p>纸片可折交点现，硬物画弦作垂线。</p>
+          <p>两弦中垂必相交，定位圆心乐逍遥！</p>
+        </div>
+        
+        <button class="start-btn" onclick="goToSlide(1)" style="margin-top: 50px;">重新回顾</button>
       </div>
     </div>
 
   </div>
 
-  <!-- SLIM PROGRESS BAR -->
-  <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: rgba(255,255,255,0.05); z-index: 10;">
-    <div id="progress-indicator" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-gold) 100%); transition: width 0.3s ease;"></div>
-  </div>
-
-  <!-- SIDE NAV -->
   <div class="side-nav">
     <button class="nav-arrow-btn" id="prev-btn" onclick="prevSlide()" title="上一页">▲</button>
     <div style="display: flex; flex-direction: column; align-items: center;">
-      <span id="current-page-num" style="font-size: 1.15rem; font-weight: bold; color: var(--accent-gold);">1</span>
-      <span style="font-size: 0.75rem; color: var(--text-muted); margin: 2px 0;">/</span>
-      <span style="font-size: 0.85rem; color: var(--text-muted);">9</span>
+      <span id="current-page-num" style="font-size: 1.2rem; font-weight: bold; color: var(--accent-gold);">1</span>
+      <span style="font-size: 0.8rem; color: var(--text-muted); margin: 4px 0;">/</span>
+      <span style="font-size: 1rem; color: var(--text-muted);">10</span>
     </div>
     <button class="nav-arrow-btn" id="next-btn" onclick="nextSlide()" title="下一页">▼</button>
   </div>
 </div>
 
 <script>
+  /* ==================== SLIDE NAVIGATION ==================== */
   let currentSlideIndex = 1;
-  const totalSlides = 9;
+  const totalSlides = 10;
 
   function showSlide(index) {
     const slides = document.querySelectorAll('.slide');
     slides.forEach(s => s.classList.remove('active'));
-    
-    if (slides[index - 1]) {
-      slides[index - 1].classList.add('active');
-    }
+    if (slides[index - 1]) slides[index - 1].classList.add('active');
 
     document.getElementById('current-page-num').innerText = index;
-    const progressPercent = ((index - 1) / (totalSlides - 1)) * 100;
-    document.getElementById('progress-indicator').style.width = `${progressPercent}%`;
-
     document.getElementById('prev-btn').disabled = (index === 1);
     document.getElementById('next-btn').disabled = (index === totalSlides);
     
     currentSlideIndex = index;
   }
 
-  function nextSlide() {
-    if (currentSlideIndex < totalSlides) showSlide(currentSlideIndex + 1);
-  }
-
-  function prevSlide() {
-    if (currentSlideIndex > 1) showSlide(currentSlideIndex - 1);
-  }
-
-  function goToSlide(index) {
-    if (index >= 1 && index <= totalSlides) showSlide(index);
-  }
+  function nextSlide() { if (currentSlideIndex < totalSlides) showSlide(currentSlideIndex + 1); }
+  function prevSlide() { if (currentSlideIndex > 1) showSlide(currentSlideIndex - 1); }
+  function goToSlide(index) { if (index >= 1 && index <= totalSlides) showSlide(index); }
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
     else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
   });
+
+  /* ==================== SLIDE 4 LOGIC ==================== */
+  let s4State = 0;
+  function nextSlide4Step() {
+    s4State++;
+    const btn = document.getElementById('s4-btn');
+    if(s4State === 1) {
+      document.getElementById('s4-step-1').classList.add('active');
+      document.getElementById('s4-l1').style.opacity = "1";
+      btn.innerText = "点击执行：第二步 (换向对折)";
+    } else if(s4State === 2) {
+      document.getElementById('s4-step-1').classList.remove('active');
+      document.getElementById('s4-step-2').classList.add('active');
+      document.getElementById('s4-l2').style.opacity = "1";
+      btn.innerText = "点击执行：第三步 (找交点)";
+    } else if(s4State === 3) {
+      document.getElementById('s4-step-2').classList.remove('active');
+      document.getElementById('s4-step-3').classList.add('active');
+      document.getElementById('s4-pt').style.opacity = "1";
+      document.getElementById('s4-txt').style.opacity = "1";
+      btn.innerText = "演示完毕";
+      btn.disabled = true;
+    }
+  }
+  function resetSlide4() {
+    s4State = 0;
+    ['s4-step-1','s4-step-2','s4-step-3'].forEach(id => document.getElementById(id).classList.remove('active'));
+    document.getElementById('s4-step-1').classList.add('active');
+    document.getElementById('s4-l1').style.opacity = "0";
+    document.getElementById('s4-l2').style.opacity = "0";
+    document.getElementById('s4-pt').style.opacity = "0";
+    document.getElementById('s4-txt').style.opacity = "0";
+    const btn = document.getElementById('s4-btn');
+    btn.innerText = "点击执行：第一步对折";
+    btn.disabled = false;
+  }
+
+  /* ==================== SLIDE 7 LOGIC ==================== */
+  let s7State = 0;
+  function nextSlide7Step() {
+    s7State++;
+    const btn = document.getElementById('s7-btn');
+    if(s7State === 1) { // 画弦
+      document.getElementById('s7-step-1').classList.add('active');
+      document.getElementById('s7-c1').style.opacity = "1";
+      document.getElementById('s7-c2').style.opacity = "1";
+      btn.innerText = "点击执行：第二步 (取中点)";
+    } else if(s7State === 2) { // 取中点
+      document.getElementById('s7-step-1').classList.remove('active');
+      document.getElementById('s7-step-2').classList.add('active');
+      document.getElementById('s7-m1').style.opacity = "1";
+      document.getElementById('s7-m2').style.opacity = "1";
+      btn.innerText = "点击执行：第三步 (作垂直平分线)";
+    } else if(s7State === 3) { // 作垂线
+      document.getElementById('s7-step-2').classList.remove('active');
+      document.getElementById('s7-step-3').classList.add('active');
+      document.getElementById('s7-p1').style.opacity = "1";
+      document.getElementById('s7-ra1').style.opacity = "1";
+      document.getElementById('s7-p2').style.opacity = "1";
+      document.getElementById('s7-ra2').style.opacity = "1";
+      btn.innerText = "点击执行：第四步 (找圆心)";
+    } else if(s7State === 4) { // 找交点
+      document.getElementById('s7-step-3').classList.remove('active');
+      document.getElementById('s7-step-4').classList.add('active');
+      document.getElementById('s7-pt').style.opacity = "1";
+      document.getElementById('s7-txt').style.opacity = "1";
+      btn.innerText = "演示完毕";
+      btn.disabled = true;
+    }
+  }
+  function resetSlide7() {
+    s7State = 0;
+    ['s7-step-1','s7-step-2','s7-step-3','s7-step-4'].forEach(id => document.getElementById(id).classList.remove('active'));
+    document.getElementById('s7-step-1').classList.add('active');
+    ['s7-c1','s7-c2','s7-m1','s7-m2','s7-p1','s7-p2','s7-ra1','s7-ra2','s7-pt','s7-txt'].forEach(id => {
+      document.getElementById(id).style.opacity = "0";
+    });
+    const btn = document.getElementById('s7-btn');
+    btn.innerText = "点击执行：第一步 (画弦)";
+    btn.disabled = false;
+  }
+
+  /* ==================== TOMB PARTICLES ==================== */
+  const canvas = document.getElementById('tomb-particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  for(let i=0; i<80; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 3 + 1,
+      speedY: Math.random() * 1 + 0.2,
+      speedX: (Math.random() - 0.5) * 0.5,
+      opacity: Math.random() * 0.5 + 0.1
+    });
+  }
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#eab308'; // Gold dust
+    particles.forEach(p => {
+      ctx.globalAlpha = p.opacity;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+      ctx.fill();
+      p.y += p.speedY;
+      p.x += p.speedX;
+      if (p.y > canvas.height) {
+        p.y = -10;
+        p.x = Math.random() * canvas.width;
+      }
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
 
   // Init
   showSlide(1);

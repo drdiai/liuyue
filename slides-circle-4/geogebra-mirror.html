@@ -9,9 +9,9 @@
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Outfit', "Microsoft YaHei", sans-serif;
-            background: linear-gradient(135deg, #0f0c20 0%, #15102a 50%, #201a40 100%);
-            color: #f1f0f6;
+            font-family: 'SimSun', 'STSong', 'Songti SC', '华文宋体', serif;
+            background: linear-gradient(135deg, #12100e 0%, #1a1814 50%, #201a14 100%);
+            color: #f3f0e8;
             height: 100vh;
             display: flex;
             overflow: hidden;
@@ -20,10 +20,10 @@
         .container { display: flex; width: 100%; height: 100%; }
 
         .sidebar {
-            width: 380px;
-            background: rgba(255, 255, 255, 0.03);
+            width: 400px;
+            background: rgba(20, 18, 16, 0.7);
             backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            border-right: 1px solid rgba(234, 179, 8, 0.2);
             padding: 30px;
             display: flex;
             flex-direction: column;
@@ -32,125 +32,102 @@
         }
 
         .title {
-            font-size: 24px; font-weight: 600;
-            background: linear-gradient(45deg, #a78bfa, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 24px; font-weight: bold;
+            color: #eab308;
+            border-bottom: 2px dashed #eab308;
+            padding-bottom: 15px;
         }
 
-        .description { font-size: 14px; color: #94a3b8; line-height: 1.6; }
+        .description { font-size: 16px; color: #a39c90; line-height: 1.8; }
         
-        .step-list {
-            list-style-type: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .step-list { list-style-type: none; display: flex; flex-direction: column; gap: 15px; }
         
         .step-item {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 12px 15px;
-            border-radius: 8px;
-            font-size: 13.5px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            color: #cbd5e1;
-            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.5); border: 1px solid rgba(234, 179, 8, 0.2);
+            padding: 15px; border-radius: 8px; font-size: 15px; line-height: 1.6;
+            display: flex; flex-direction: column; gap: 8px; color: #a39c90;
+            transition: all 0.3s ease; opacity: 0.5;
         }
         
         .step-item.active {
-            border-color: #8b5cf6;
-            background: rgba(139, 92, 246, 0.15);
-            color: #fff;
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+            opacity: 1; border-color: #38bdf8; background: rgba(56, 189, 248, 0.1);
+            color: #fff; box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
         }
-        
-        .step-icon {
-            font-size: 18px;
-        }
+
+        .step-header { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 16px; color: #38bdf8; }
+        .step-tip { font-size: 14px; color: #fbbf24; background: rgba(251, 191, 36, 0.15); padding: 6px 10px; border-radius: 4px; border: 1px dashed #fbbf24; }
 
         .main-content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
+            flex: 1; display: flex; flex-direction: column; padding: 20px; position: relative;
         }
+        
+        .toolbar-top {
+            display: flex; justify-content: flex-end; padding-bottom: 15px;
+        }
+        .reset-btn {
+            background: #ef4444; color: white; border: none; padding: 10px 20px; font-size: 16px;
+            font-weight: bold; font-family: 'SimSun', serif; border-radius: 6px; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); transition: transform 0.2s;
+        }
+        .reset-btn:hover { transform: scale(1.05); }
 
         #ggb-container {
-            width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            overflow: hidden;
+            flex: 1; width: 100%; background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px; border: 2px solid rgba(234, 179, 8, 0.3); box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden;
         }
         
         .success-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 12, 32, 0.85);
-            backdrop-filter: blur(5px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-            z-index: 100;
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(18, 16, 14, 0.85); backdrop-filter: blur(8px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.5s ease; z-index: 100;
         }
-        .success-overlay.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .success-overlay h2 {
-            font-size: 3rem;
-            color: #fbbf24;
-            text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-            margin-bottom: 20px;
-        }
+        .success-overlay.show { opacity: 1; pointer-events: auto; }
+        .success-overlay h2 { font-size: 4rem; color: #fbbf24; text-shadow: 0 0 30px rgba(251, 191, 36, 0.6); margin-bottom: 20px; letter-spacing: 5px; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
-            <div class="title">考古修复任务：找回铜镜的圆心</div>
+            <div class="title">考古修复：保姆级教程</div>
             <div class="description">
-                我们在古墓中发掘出了一块残缺的青铜镜边缘（黄色圆弧）。为了能够重铸它，你需要利用顶部的工具栏，通过“画弦”和“作垂直平分线”来找到它的圆心。
+                右边是一段黄色的“青铜镜残片”。请大家轮流上台，按照下方点亮的提示步骤，亲手画出完整的圆！
             </div>
             
-            <h3 style="font-size: 16px; margin-top: 10px; color: #e2e8f0;">修复攻略：</h3>
             <ul class="step-list">
-                <li class="step-item" id="step-1">
-                    <span class="step-icon">1️⃣</span>
-                    <div>在残缺的弧上选取点，画出至少<strong>两条线段（弦）</strong>。（使用“线段”工具）</div>
+                <li class="step-item active" id="step-1">
+                    <div class="step-header"><span>第一步：画两条弦</span></div>
+                    <div>在黄色的残弧上随便点两下，连成一条线段。然后再换个位置点两下，画第二条线段。</div>
+                    <div class="step-tip">💡 提示：点击上方工具栏第2个图标【线段工具】。</div>
                 </li>
                 <li class="step-item" id="step-2">
-                    <span class="step-icon">2️⃣</span>
-                    <div>分别作出这两条弦的<strong>垂直平分线</strong>。（使用“中垂线”工具）</div>
+                    <div class="step-header"><span>第二步：作垂直平分线</span></div>
+                    <div>分别点击你刚才画好的两条“弦”，系统会自动帮你画出它们的中垂线。</div>
+                    <div class="step-tip">💡 提示：点击工具栏第3个图标【中垂线工具】。</div>
                 </li>
                 <li class="step-item" id="step-3">
-                    <span class="step-icon">3️⃣</span>
-                    <div>找到这两条垂直平分线的<strong>交点</strong>，这就是圆心！（使用“交点”工具）</div>
+                    <div class="step-header"><span>第三步：锁定圆心</span></div>
+                    <div>这两条虚线（中垂线）在空中相交了一个点，那个点就是神秘的圆心！点击那个交叉点。</div>
+                    <div class="step-tip">💡 提示：点击工具栏第4个图标【交点工具】，再点击两条虚线。</div>
                 </li>
                 <li class="step-item" id="step-4">
-                    <span class="step-icon">4️⃣</span>
-                    <div>以该交点为圆心，连接圆弧上的任意一点画出完整的圆。（使用“圆”工具）</div>
+                    <div class="step-header"><span>第四步：完美复原！</span></div>
+                    <div>先点击刚才找到的圆心，然后拉开鼠标，点击黄色圆弧上的任意一点。见证奇迹的时刻到了！</div>
+                    <div class="step-tip">💡 提示：点击工具栏第5个图标【圆(圆心和圆上一点)】。</div>
                 </li>
             </ul>
         </div>
         
         <div class="main-content">
+            <div class="toolbar-top">
+                <button class="reset-btn" onclick="resetApplet()">🔄 一键清空画板 (换人操作)</button>
+            </div>
             <div id="ggb-container"></div>
             
             <div class="success-overlay" id="success-overlay">
                 <h2>🎉 修复成功！</h2>
-                <p style="font-size: 1.2rem; color: #cbd5e1;">你利用垂径定理成功找到了古铜镜的圆心，重铸了完整铜镜！</p>
-                <button onclick="document.getElementById('success-overlay').classList.remove('show');" style="margin-top: 30px; padding: 10px 20px; background: #8b5cf6; color: white; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer;">继续探索</button>
+                <p style="font-size: 1.5rem; color: #f3f0e8; font-family: 'SimSun', serif;">太棒了！你利用垂径定理，成功重铸了完美的汉代青铜镜！</p>
+                <button onclick="resetApplet(); document.getElementById('success-overlay').classList.remove('show');" style="margin-top: 40px; padding: 15px 30px; background: #ca8a04; color: white; border: none; border-radius: 8px; font-size: 1.2rem; cursor: pointer; font-weight: bold;">再玩一次</button>
             </div>
         </div>
     </div>
@@ -161,7 +138,7 @@
             "width": 800,
             "height": 600,
             "showToolBar": true,
-            // Tools: Point(0), Segment(15), Perpendicular Bisector(8), Intersect(11), Circle with Center(2), Move(40)
+            // Point(0), Segment(15), Perpendicular Bisector(8), Intersect(11), Circle with Center(2), Move(40)
             "customToolBar": "0 | 15 | 8 | 11 | 2 || 40",
             "showAlgebraInput": false,
             "showMenuBar": false,
@@ -169,36 +146,13 @@
             "enableRightClick": false,
             "enableShiftDragZoom": true,
             "appletOnLoad": function(api) {
-                // Initialize the broken mirror arc
-                api.evalCommand("P1 = (-4, -2)");
-                api.evalCommand("P2 = (0, 4)");
-                api.evalCommand("P3 = (5, 2.5)");
-                
-                // Create arc
-                api.evalCommand("mirrorArc = CircumcircularArc(P1, P2, P3)");
-                api.evalCommand("SetColor(mirrorArc, 218, 165, 32)"); // Goldenrod
-                api.evalCommand("SetLineThickness(mirrorArc, 9)");
-                
-                // Hide helper points
-                api.evalCommand("SetVisibleInView(P1, 1, false)");
-                api.evalCommand("SetVisibleInView(P2, 1, false)");
-                api.evalCommand("SetVisibleInView(P3, 1, false)");
-                
-                // Adjust view
-                api.evalCommand("CenterView((0, 0))");
-                api.evalCommand("ZoomIn(0.8)");
-                
-                // Add listener to check if student successfully draws a circle that matches the mirror
+                initMirrorArc();
                 api.registerAddListener("objectAdded");
-                
-                // Highlight step 1
-                document.getElementById("step-1").classList.add("active");
             }
         };
 
         var applet = new GGBApplet(params, true);
         
-        // Resize observer to keep applet responsive
         const resizeApplet = () => {
             const container = document.getElementById('ggb-container');
             if (window.ggbApplet && container.clientWidth) {
@@ -212,28 +166,55 @@
             setTimeout(resizeApplet, 1000);
         };
         
-        // Listener function called by GeoGebra when an object is added
+        function initMirrorArc() {
+            if(!window.ggbApplet) return;
+            ggbApplet.setCoordSystem(-6, 6, -4, 6);
+            ggbApplet.evalCommand("P1 = (-4, -2)");
+            ggbApplet.evalCommand("P2 = (0, 4)");
+            ggbApplet.evalCommand("P3 = (5, 2.5)");
+            ggbApplet.evalCommand("mirrorArc = CircumcircularArc(P1, P2, P3)");
+            ggbApplet.evalCommand("SetColor(mirrorArc, 218, 165, 32)"); 
+            ggbApplet.evalCommand("SetLineThickness(mirrorArc, 10)");
+            ggbApplet.evalCommand("SetVisibleInView(P1, 1, false)");
+            ggbApplet.evalCommand("SetVisibleInView(P2, 1, false)");
+            ggbApplet.evalCommand("SetVisibleInView(P3, 1, false)");
+            
+            // UI Reset
+            ['step-1','step-2','step-3','step-4'].forEach(id => document.getElementById(id).classList.remove('active'));
+            document.getElementById('step-1').classList.add('active');
+            document.getElementById('success-overlay').classList.remove('show');
+        }
+
+        function resetApplet() {
+            ggbApplet.reset();
+            initMirrorArc();
+        }
+
         function objectAdded(objName) {
             var type = ggbApplet.getObjectType(objName);
             
-            // Step tracking logic (simplified heuristic)
-            if (type === "segment") {
+            // Set styles to make user drawn lines visible but not overriding the golden mirror
+            if(type === "segment") {
+                ggbApplet.evalCommand("SetColor(" + objName + ", 255, 255, 255)");
+                ggbApplet.evalCommand("SetLineThickness(" + objName + ", 3)");
                 document.getElementById("step-1").classList.remove("active");
                 document.getElementById("step-2").classList.add("active");
             }
-            if (type === "line") { // perpendicular bisector usually creates a line
+            if(type === "line") {
+                ggbApplet.evalCommand("SetColor(" + objName + ", 56, 189, 248)"); // Cyan
+                ggbApplet.evalCommand("SetLineStyle(" + objName + ", 1)"); // Dashed
                 document.getElementById("step-2").classList.remove("active");
                 document.getElementById("step-3").classList.add("active");
             }
-            if (type === "point") {
-                // Could be intersection
+            if(type === "point") {
+                ggbApplet.evalCommand("SetColor(" + objName + ", 239, 68, 68)"); // Red center
+                ggbApplet.evalCommand("SetPointSize(" + objName + ", 5)");
                 document.getElementById("step-3").classList.remove("active");
                 document.getElementById("step-4").classList.add("active");
             }
-            
-            if (type === "circle") {
-                // Check if the circle center is close to (0.5, -0.67) which is the real center of P1, P2, P3?
-                // Actually let's just check if a circle is drawn and we'll count it as success for gamification
+            if(type === "circle") {
+                ggbApplet.evalCommand("SetColor(" + objName + ", 218, 165, 32)"); // Golden
+                ggbApplet.evalCommand("SetLineThickness(" + objName + ", 8)");
                 setTimeout(function() {
                     document.getElementById("step-4").classList.remove("active");
                     document.getElementById("success-overlay").classList.add("show");
