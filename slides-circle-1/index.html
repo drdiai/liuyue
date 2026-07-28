@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>北师大版六年级数学上册 · 第二单元《圆的认识（一）》全屏交互式课件</title>
+  <style>
+    /* ==================== CORE CSS CONFIGURATION ==================== */
+    :root {
+      --bg-dark: #020f0e;
+      --card-dark: #042624;
+      --card-glass: rgba(8, 38, 36, 0.4);
+      --border-soft: rgba(6, 182, 212, 0.25);
+      --border-active: rgba(6, 182, 212, 0.6);
+      
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dark: #020f0e;
+
+      --accent-cyan: #06b6d4;     /* 电子青 */
+      --accent-gold: #f59e0b;     /* 晨曦金 */
+      --accent-red: #ef4444;      /* 朱砂红 */
+      --accent-green: #10b981;    /* 翡翠绿 */
+      --accent-blue: #3b82f6;
+
+      --font-family: "SimSun", "STSong", "Songti SC", "华文宋体", Georgia, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #010606;
+      color: var(--text-main);
+      font-family: var(--font-family);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 16:9 Viewport Scaling System */
+    .viewport-wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .deck-container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1280px;
+      height: 720px;
+      transform-origin: center center;
+      background: radial-gradient(circle at 50% 30%, #082d2a 0%, var(--bg-dark) 80%);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      border: 2.5px solid var(--border-soft);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ==================== GLOBAL TOP BAR ==================== */
+    .top-bar {
+      height: 50px;
+      border-bottom: 1.5px solid var(--border-soft);
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(2, 15, 14, 0.5);
+      backdrop-filter: blur(10px);
+      flex: 0 0 auto;
+      z-index: 10;
+    }
+
+    .logo-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tag-bnu {
+      font-size: 0.72rem;
+      font-weight: bold;
+      background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: white;
+      letter-spacing: 0.05em;
+    }
+
+    .title-text {
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: var(--text-main);
+      letter-spacing: 0.05em;
+    }
+
+    .help-tips {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== SLIDES WRAPPER ==================== */
+    .slides-wrapper {
+      flex: 1 1 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      padding: 30px 90px 35px 60px;
+      display: none;
+      flex-direction: column;
+      box-sizing: border-box;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* Vertical side nav bar */
+    .side-nav {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 54px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      background: rgba(4, 38, 36, 0.7);
+      border: 1px solid var(--border-soft);
+      border-radius: 28px;
+      padding: 18px 4px;
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .nav-arrow-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(6, 182, 212, 0.2);
+      border: 1.2px solid var(--border-soft);
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.25s;
+    }
+    .nav-arrow-btn:hover:not(:disabled) {
+      background: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+      color: var(--text-dark);
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+      transform: scale(1.1);
+    }
+    .nav-arrow-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+    .page-indicator-vertical {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: monospace;
+      margin: 4px 0;
+    }
+
+    /* ==================== COMMON HEADER ==================== */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 2px solid rgba(6, 182, 212, 0.2);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      flex: 0 0 auto;
+    }
+
+    .slide-header .topic-badge {
+      font-size: 0.8rem;
+      font-weight: bold;
+      background: rgba(6, 182, 212, 0.25);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      padding: 2px 10px;
+      border-radius: 20px;
+      color: #e0f7fa;
+      letter-spacing: 0.05em;
+    }
+
+    .slide-header .slide-title {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--text-main);
+      margin-left: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .slide-header .page-index {
+      font-size: 0.95rem;
+      font-family: monospace;
+      color: var(--text-muted);
+    }
+
+    .slide-body {
+      flex: 1 1 auto;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    .slide-body.justify-center {
+      justify-content: center;
+      font-size: 1.22rem;
+    }
+    .slide-body.justify-center p {
+      font-size: 1.22rem;
+      line-height: 1.8;
+    }
+    .slide-body.justify-center li {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .slide-body.justify-center h3 {
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+    }
+
+    /* ==================== REVEAL ACTION BUTTON ==================== */
+    .reveal-btn {
+      align-self: center;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(8, 145, 178, 0.3) 100%);
+      border: 1.5px solid var(--text-muted);
+      color: var(--text-main);
+      padding: 8px 24px;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: var(--font-family);
+      font-weight: bold;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(8, 145, 178, 0.2);
+      flex: 0 0 auto;
+    }
+
+    .reveal-btn:hover {
+      background: var(--accent-gold);
+      color: var(--text-dark);
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .reveal-panel {
+      max-height: 0;
+      opacity: 0;
+      overflow-y: auto;
+      transition: max-height 0.4s ease-out, opacity 0.3s ease-out, padding 0.3s, margin 0.3s;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed transparent;
+      border-radius: 12px;
+      padding: 0 20px;
+      margin-top: 0;
+      flex: 0 1 auto;
+      width: 100%;
+    }
+
+    .reveal-panel.active {
+      max-height: 380px;
+      opacity: 1;
+      padding: 12px 20px;
+      margin-top: 10px;
+      border-color: var(--border-soft);
+    }
+
+    .note-badge {
+      position: absolute;
+      top: -10px;
+      right: 0;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1.5px solid var(--accent-gold);
+      color: var(--accent-gold);
+      font-size: 0.82rem;
+      font-weight: bold;
+      padding: 3px 12px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      animation: pulse-glow 2s infinite;
+      z-index: 5;
+    }
+
+    @keyframes pulse-glow {
+      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    }
+
+    /* ==================== GENERAL LAYOUTS & CARDS ==================== */
+    .cover-layout {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(6, 182, 212, 0.1) 0%, transparent 60%);
+    }
+
+    .cover-layout .subtitle {
+      font-size: 1.25rem;
+      letter-spacing: 0.3em;
+      color: var(--accent-cyan);
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .cover-layout h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      letter-spacing: 0.1em;
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .cover-layout .desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 45px;
+    }
+
+    .start-btn {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, #0891b2 100%);
+      color: var(--text-dark);
+      border: none;
+      padding: 14px 44px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+      transition: all 0.3s;
+      font-family: var(--font-family);
+    }
+
+    .start-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(6, 182, 212, 0.6);
+      background: linear-gradient(135deg, #22d3ee 0%, var(--accent-cyan) 100%);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--card-glass);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      color: var(--accent-gold);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p, .card li {
+      font-size: 1rem;
+      color: var(--text-main);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .card ul, .card ol {
+      padding-left: 20px;
+    }
+
+    .highlight-gold {
+      color: var(--accent-gold);
+      font-weight: bold;
+    }
+    .highlight-cyan {
+      color: #cffafe;
+      font-weight: bold;
+    }
+
+    .thought-card {
+      background: rgba(6, 182, 212, 0.08);
+      border-left: 4.5px solid var(--accent-cyan);
+      padding: 12px 18px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 8px;
+    }
+    .thought-card p {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+    .thought-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ==================== DOUBLE-COLUMN SPLIT ==================== */
+    .explore-split {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 30px;
+      align-items: stretch;
+      flex: 1 1 auto;
+    }
+
+    .svg-visual-box {
+      background: rgba(5, 15, 14, 0.6);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .svg-interactive {
+      width: 100%;
+      height: 250px;
+      background: #020909;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-btn {
+      background: var(--card-dark);
+      border: 1px solid var(--border-soft);
+      color: var(--text-main);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: var(--font-family);
+      transition: all 0.3s;
+    }
+    .nav-btn:hover {
+      background: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+      color: var(--text-dark);
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+    }
+
+    .explore-desc {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .explore-desc h4 {
+      font-size: 1.15rem;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    /* ==================== INTERACTIVE QUIZ ==================== */
+    .quiz-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .quiz-card {
+      background: var(--card-glass);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .quiz-question {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .quiz-opt {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 10px 16px;
+      color: var(--text-main);
+      font-family: var(--font-family);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      text-align: left;
+    }
+
+    .quiz-opt:hover {
+      background: rgba(6, 182, 212, 0.1);
+      border-color: var(--accent-cyan);
+    }
+
+    .quiz-opt.correct {
+      background: rgba(16, 185, 129, 0.15) !important;
+      border-color: var(--accent-green) !important;
+      color: #34d399 !important;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+
+    .quiz-opt.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--accent-red) !important;
+      color: #f87171 !important;
+      font-weight: bold;
+    }
+
+    .quiz-feedback {
+      margin-top: 10px;
+      font-size: 0.92rem;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .quiz-feedback.show {
+      opacity: 1;
+    }
+
+    /* ==================== ROAD MAP STYLING ==================== */
+    .map-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+      height: 100%;
+      align-content: center;
+    }
+
+    .map-node {
+      background: var(--card-glass);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 190px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-node:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(6, 182, 212, 0.2);
+    }
+
+    .map-node::after {
+      content: "➔";
+      position: absolute;
+      bottom: 20px;
+      right: 24px;
+      font-size: 1.5rem;
+      color: var(--accent-cyan);
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    .map-node:hover::after {
+      opacity: 1;
+      transform: translateX(5px);
+    }
+
+    .map-tag {
+      font-size: 0.8rem;
+      font-weight: bold;
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid var(--border-soft);
+      padding: 3px 10px;
+      border-radius: 12px;
+      color: var(--accent-cyan);
+      align-self: flex-start;
+    }
+
+    .map-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--text-main);
+      margin: 10px 0;
+    }
+
+    .map-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ==================== SEC-5 COMPASS SLIDER STYLING ==================== */
+    .slider-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .slider-input {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .slider-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+      transition: transform 0.1s;
+    }
+
+    .slider-input::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+
+    /* ==================== SEC-12 ROLLING LANES STYLING ==================== */
+    .lane-box {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1.2px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .lane-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 5px;
+    }
+
+    .lane-svg {
+      width: 100%;
+      height: 110px;
+      background: #020807;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* ==================== SEC-15 FINDER BUTTONS ==================== */
+    .finder-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .finder-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1.2px dashed var(--border-soft);
+      color: var(--text-main);
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-family);
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-align: left;
+      transition: all 0.25s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .finder-btn:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.05);
+    }
+
+    .finder-btn.correct {
+      border-color: var(--accent-green) !important;
+      background: rgba(16, 185, 129, 0.15) !important;
+      color: #34d399 !important;
+    }
+
+    .finder-btn.wrong {
+      border-color: var(--accent-red) !important;
+      background: rgba(239, 68, 68, 0.15) !important;
+      color: #f87171 !important;
+    }
+
+    .finder-feedback {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-size: 0.92rem;
+      min-height: 52px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    /* ==================== MINDMAP DIAGRAM STYLING ==================== */
+    .mindmap-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+      height: 100%;
+      padding: 10px 0;
+    }
+
+    .mindmap-root {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+    }
+
+    .mindmap-core {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #d97706 100%);
+      color: var(--text-dark);
+      font-weight: bold;
+      font-size: 1.15rem;
+      padding: 15px 25px;
+      border-radius: 12px;
+      text-align: center;
+      border: 2px solid var(--accent-gold);
+      box-shadow: 0 5px 15px rgba(217, 119, 6, 0.4);
+      line-height: 1.4;
+    }
+
+    .mindmap-branches {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+      max-width: 680px;
+    }
+
+    .mindmap-branch-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed var(--border-soft);
+      border-radius: 10px;
+      padding: 10px 15px;
+    }
+
+    .mindmap-node {
+      font-weight: bold;
+      font-size: 0.95rem;
+      padding: 5px 12px;
+      border-radius: 6px;
+      color: var(--text-dark);
+      min-width: 110px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .mindmap-node.n1 {
+      background: var(--accent-blue);
+    }
+
+    .mindmap-node.n2 {
+      background: var(--accent-cyan);
+    }
+
+    .mindmap-node.n3 {
+      background: var(--accent-green);
+    }
+
+    .mindmap-leafs {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      flex: 1;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .mindmap-tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.82rem;
+      font-weight: bold;
+      color: var(--text-main);
+    }
+
+    /* ==================== GOLD MEDAL AWARD STYLING ==================== */
+    .medal-container {
+      position: relative;
+      width: 140px;
+      height: 180px;
+      margin: 10px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .gold-medal {
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fef08a 0%, #ca8a04 60%, #854d0e 100%);
+      border: 4px solid #fef08a;
+      box-shadow: 0 8px 25px rgba(202, 138, 4, 0.55), inset 0 0 10px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      position: relative;
+      animation: float-medal 3s ease-in-out infinite;
+    }
+    .medal-star {
+      font-size: 2.3rem;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+      line-height: 1;
+    }
+    .medal-text {
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      margin-top: -2px;
+    }
+    .medal-ribbon {
+      position: absolute;
+      top: 75px;
+      width: 25px;
+      height: 75px;
+      z-index: 2;
+      transform-origin: top center;
+    }
+    .medal-ribbon.left {
+      background: linear-gradient(to bottom, #ef4444 0%, #b91c1c 100%);
+      transform: rotate(20deg);
+      left: 45px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+    }
+    .medal-ribbon.right {
+      background: linear-gradient(to bottom, #ef4444 0%, #b91c1c 100%);
+      transform: rotate(-20deg);
+      right: 45px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+    }
+    @keyframes float-medal {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="viewport-wrapper">
+  <div class="deck-container">
+
+    <!-- GLOBAL TOP BAR -->
+    <div class="top-bar">
+      <div class="logo-info">
+        <span class="tag-bnu">北师大版</span>
+        <span class="title-text">六年级数学上册 · 第二单元《圆》第1课时</span>
+      </div>
+      <div class="help-tips">💡 提示：按 ◀ / ▶ 键翻页 | 第五和第十二页附带交互操作</div>
+    </div>
+
+    <!-- SLIDES WRAPPER -->
+    <div class="slides-wrapper">
+
+      <!-- SLIDE 1: 封面 -->
+      <div class="slide active" id="slide-1">
+        <div class="cover-layout">
+          <p class="subtitle">几 何 形 状 探 索 课 · 北 师 大 版</p>
+          <h1 style="font-size: 3.5rem; letter-spacing: 0.05em;">圆的认识（一）</h1>
+          <p class="desc">学习路线：圆规画圆探原理 ➔ 认识圆心半径与直径 ➔ 揭秘车轮为什么是圆的</p>
+          <button class="start-btn" onclick="nextSlide()">开始探索圆形世界</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: 大纲导航图 -->
+      <div class="slide" id="slide-2">
+        <div class="slide-header">
+          <span class="topic-badge">大纲路线</span>
+          <span class="slide-title">《圆的认识（一）》大纲地图</span>
+          <span class="page-index">02 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="map-grid">
+            <div class="map-node" onclick="goToSlide(3)">
+              <span class="map-tag">第一关</span>
+              <span class="map-title">画圆探特征</span>
+              <span class="map-desc">动用古人智慧与现代工具。利用“圆规画圆小助手”亲自转动圆规并观察半径不变的物理过程。</span>
+            </div>
+            <div class="map-node" onclick="goToSlide(6)">
+              <span class="map-tag">第二关</span>
+              <span class="map-title">概念大解析</span>
+              <span class="map-desc">核心要素提取：圆心 O、半径 r、直径 d。探索同一个圆内它们无限且相等的神秘特质。</span>
+            </div>
+            <div class="map-node" onclick="goToSlide(11)">
+              <span class="map-tag">第三关</span>
+              <span class="map-title">生活大发现</span>
+              <span class="map-desc">车轮为什么是圆的？使用“车轮滚动大作战”物理模拟，亲眼查看不同形状轮子的重心轨迹。</span>
+            </div>
+            <div class="map-node" onclick="goToSlide(14)">
+              <span class="map-tag">第四关</span>
+              <span class="map-title">母题大阅兵</span>
+              <span class="map-desc">在母题中挑战脑力！在圆规画图与半径/直径等量计算的经典考点里完成知识通关。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: 第一关过渡页 -->
+      <div class="slide" id="slide-3">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 1</p>
+          <h1 style="color: var(--accent-cyan);">第一关：画圆探特征</h1>
+          <p class="desc">复习重点：通过实际操作画圆，理解为什么圆是“一中同长”的图形</p>
+          <button class="start-btn" onclick="nextSlide()">进入关卡</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: 常见的画圆方法 -->
+      <div class="slide" id="slide-4">
+        <div class="slide-header">
+          <span class="topic-badge">第一关：画圆特征</span>
+          <span class="slide-title">生活中的各种画圆法</span>
+          <span class="page-index">04 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card-grid">
+            <div class="card">
+              <h3>🧶 定物与绳子画圆法</h3>
+              <p style="font-size: 1.1rem; line-height: 1.7; margin-top: 10px;">
+                🔴 <b>系绳法</b> —— 一端用图钉固定，另一端拉紧绳子系住铅笔，水平旋转一周。<br>
+                🔴 <b>定物法</b> —— 直接沿着杯子底面、硬币等圆形实物的边缘画一圈。<br>
+                <span class="highlight-gold" style="display:block; margin-top: 10px;">💡 核心思考：这些方法能画出圆的本质是什么？</span>
+              </p>
+            </div>
+            <div class="card">
+              <h3>📐 现代工具：圆规画圆</h3>
+              <p style="font-size: 1.1rem; line-height: 1.7; margin-top: 10px;">
+                1. <b>定长</b>：把圆规两脚分开，确定一定长度（即半径）。<br>
+                2. <b>定点</b>：把带有针尖的一脚固定在一点上（即圆心）。<br>
+                3. <b>旋转</b>：把装有铅笔芯的一脚旋转一周，画出圆。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: 交互式圆规画圆模拟 -->
+      <div class="slide" id="slide-5">
+        <div class="slide-header">
+          <span class="topic-badge">第一关：交互探究</span>
+          <span class="slide-title">交互小游戏：圆规画圆小助手</span>
+          <span class="page-index">05 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="explore-split">
+            <div class="svg-visual-box">
+              <svg class="svg-interactive" id="compassSvg" viewBox="0 0 260 200">
+                <!-- Center Point O -->
+                <circle cx="130" cy="115" r="3" fill="var(--accent-gold)"></circle>
+                <text x="130" y="132" fill="var(--accent-gold)" font-size="10" text-anchor="middle" font-weight="bold">O (圆心)</text>
+
+                <!-- Neon Traced Circle -->
+                <circle id="traceCircle" cx="130" cy="115" r="45" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-dasharray="282.7" stroke-dashoffset="282.7"></circle>
+                
+                <!-- Compass Group -->
+                <g id="compassGroup" transform="rotate(0, 130, 115)">
+                  <!-- Compass Head (needle joint) -->
+                  <circle cx="130" cy="40" r="4" fill="var(--text-muted)"></circle>
+                  <line x1="130" y1="40" x2="130" y2="25" stroke="var(--text-muted)" stroke-width="2.5"></line>
+
+                  <!-- Needle Leg (Fixed center) -->
+                  <line x1="130" y1="40" x2="130" y2="115" stroke="var(--text-main)" stroke-width="1.8"></line>
+                  
+                  <!-- Pencil Leg (Slider width) -->
+                  <line id="pencilJoint" x1="130" y1="40" x2="85" y2="115" stroke="var(--text-main)" stroke-width="1.8"></line>
+                  <!-- Pencil head -->
+                  <circle id="pencilTip" cx="85" cy="115" r="3" fill="var(--accent-gold)"></circle>
+                  
+                  <!-- Opening arc -->
+                  <path id="compassOpeningArc" d="M 130 65 Q 110 65 110 68" fill="none" stroke="var(--accent-gold)" stroke-width="1"></path>
+                </g>
+              </svg>
+              
+              <!-- Radius controls -->
+              <div class="slider-container">
+                <span style="font-size: 0.82rem; color: var(--accent-gold); font-weight: bold;">半径 r：</span>
+                <input class="slider-input" id="rSlider" type="range" min="30" max="60" value="45" oninput="updateCompassRadius(this.value)">
+                <span id="radiusLabel" style="font-family: monospace; font-size: 0.85rem; font-weight: bold; width: 45px;">4.5cm</span>
+              </div>
+            </div>
+            
+            <div class="explore-desc">
+              <div>
+                <h4>🎯 思考：圆规转动一周时，什么在变，什么没变？</h4>
+                <p style="font-size: 1rem; line-height: 1.6; margin-top: 10px; color: var(--text-main);">
+                  两脚开度即是<b>半径的长度</b>，针尖固定即是<b>圆心的位置</b>。<br>
+                  当旋转画圆时，针尖位置和两脚距离**绝对保持不变**，因此画出了完美的弧。
+                </p>
+                <div style="margin: 15px 0; display: flex; gap: 10px;">
+                  <button class="start-btn" style="padding: 8px 24px; font-size: 0.9rem;" id="drawCircleBtn" onclick="animateCompassDrawing()">自动旋转画圆</button>
+                  <button class="nav-btn" onclick="resetCompassSandbox()">重置</button>
+                </div>
+                <div class="thought-card" id="compassStatus" style="font-size: 0.95px; border-left-color: var(--accent-gold);">
+                  当前半径 <i>r</i> ＝ <span id="statR">4.5</span> cm，直径 <i>d</i> ＝ 2<i>r</i> ＝ <span id="statD">9.0</span> cm。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: 第二关过渡页 -->
+      <div class="slide" id="slide-6">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 2</p>
+          <h1 style="color: var(--accent-gold);">第二关：概念大解析</h1>
+          <p class="desc">复习重点：科学定义圆的各要素，探索在同一个圆中半径与直径的倍数转换</p>
+          <button class="start-btn" onclick="nextSlide()">进入关卡</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: 圆的三个基本要素 -->
+      <div class="slide" id="slide-7">
+        <div class="slide-header">
+          <span class="topic-badge">第二关：核心概念</span>
+          <span class="slide-title">圆的基本要素定义</span>
+          <span class="page-index">07 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card-grid">
+            <div class="card">
+              <h3>🎯 圆心与半径（位置与大小）</h3>
+              <p style="font-size: 1.05rem; line-height: 1.7; margin-top: 8px;">
+                🔴 <b>圆心 (O)</b>：画圆时针尖固定的点。它决定了圆的<b>“位置”</b>。<br>
+                🔴 <b>半径 (r)</b>：连接圆心和圆上任意一点的线段。它决定了圆的<b>“大小”</b>。<br>
+                <span class="highlight-gold" style="font-size:0.92rem; display:block; margin-top:10px;">⚠️ “圆上”是指圆形周边的曲线边缘，“圆内”是指里面的平面区域。</span>
+              </p>
+            </div>
+            <div class="card">
+              <h3>📏 直径 (d)</h3>
+              <p style="font-size: 1.05rem; line-height: 1.7; margin-top: 8px;">
+                🔴 <b>直径 (d)</b>：通过圆心且两端都在圆上的线段。<br>
+                直径是圆内**最长的一条线段**。<br>
+                直径的长度决定了圆的最大跨度。
+              </p>
+              <div class="thought-card" style="font-size: 0.9rem;">
+                <b>判断标准</b>：直径必须同时满足“通过圆心”和“两端都在圆上”这两个条件，缺一不可！
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 8: 同圆内半径与直径的性质 -->
+      <div class="slide" id="slide-8">
+        <div class="slide-header">
+          <span class="topic-badge">第二关：核心性质</span>
+          <span class="slide-title">同圆内半径与直径的性质特征</span>
+          <span class="page-index">08 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%;">
+            <h3 style="color: var(--accent-cyan);">💡 在同一个圆（或等圆）中：</h3>
+            <ul style="padding-left: 20px; line-height: 1.8; margin-top: 15px; font-size: 1.15rem;">
+              <li style="margin-bottom: 12px;">1. 半径有<b>无数条</b>，所有半径的长度都<b>相等</b>。</li>
+              <li style="margin-bottom: 12px;">2. 直径有<b>无数条</b>，所有直径的长度都<b>相等</b>。</li>
+              <li style="margin-bottom: 12px;">3. 所有的半径都相等，这一特性直接决定了圆是完美对称的。</li>
+            </ul>
+            <button class="reveal-btn" onclick="toggleReveal(this)">展示非同圆对比</button>
+            <div class="reveal-panel">
+              <div class="thought-card" style="font-size: 0.98rem; border-left-color: var(--accent-red);">
+                <b>⚠️ 警惕考试陷阱</b>：如果脱离了“在同一个圆（或等圆）内”的前提条件，所有的半径或直径就<b>不一定相等</b>！比如：大圆的半径一定大于小圆的半径。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: 半径与直径的倍数关系 -->
+      <div class="slide" id="slide-9">
+        <div class="slide-header">
+          <span class="topic-badge">第二关：数量关系</span>
+          <span class="slide-title">半径与直径的倍数转换</span>
+          <span class="page-index">09 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card-grid">
+            <div class="card">
+              <h3>⚖️ 核心公式 (在同圆或等圆中)</h3>
+              <p style="font-size: 1.1rem; line-height: 1.7; margin-top: 10px;">
+                直径是半径的 <b>2 倍</b>：<br>
+                <span class="highlight-gold" style="font-size: 1.45rem; display: block; text-align: center; margin: 10px 0;">d ＝ 2r</span>
+                半径是直径的 <b>一半</b>：<br>
+                <span class="highlight-cyan" style="font-size: 1.45rem; display: block; text-align: center; margin: 10px 0;">r ＝ <span class="frac"><span class="num">d</span><span class="den">2</span></span></span>
+              </p>
+            </div>
+            <div class="card">
+              <h3>🔍 算例与概念练习</h3>
+              <p style="font-size: 1.05rem; line-height: 1.6; margin-top: 8px;">
+                ① 若半径 <i>r</i> ＝ 3 cm，直径 <i>d</i> ＝ 3 &times; 2 ＝ 6 cm。<br>
+                ② 若直径 <i>d</i> ＝ 10 cm，半径 <i>r</i> ＝ 10 &divide; 2 ＝ 5 cm。<br>
+                ③ 如果用圆规画一个直径为 8cm 的圆，圆规两脚间的距离应当是 4cm。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 10: 墨子“一中同长也” -->
+      <div class="slide" id="slide-10">
+        <div class="slide-header">
+          <span class="topic-badge">第二关：古人智慧</span>
+          <span class="slide-title">墨子“一中同长”与圆的关系</span>
+          <span class="page-index">10 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card" style="max-width: 900px; margin: 0 auto; width: 100%; text-align: center;">
+            <div style="font-size: 1.6rem; font-weight: bold; color: var(--accent-gold); margin-bottom: 20px; font-family: var(--font-family);">
+              “圆，一中同长也。” —— 《墨经》
+            </div>
+            <div style="background: rgba(245, 158, 11, 0.08); border: 1.5px dashed var(--accent-gold); border-radius: 12px; padding: 25px 20px; text-align: left; line-height: 1.8; font-size: 1.12rem;">
+              📖 <b>典籍破译：</b><br>
+              🔴 <b>“一中”</b> —— 指圆只有一个中心，即<b>“圆心”</b>。<br>
+              🔴 <b>“同长”</b> —— 指圆心到圆上任意一点的距离都相等，即所有的<b>“半径都等长”</b>。<br>
+              我国早在两千多年前（比西方早了一千多年）就科学地概括了圆的几何性质。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 11: 第三关过渡页 -->
+      <div class="slide" id="slide-11">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 3</p>
+          <h1 style="color: var(--accent-cyan);">第三关：生活大发现</h1>
+          <p class="desc">复习重点：从生活常见事物出发，探究圆“一中同长”在车轮上的物理力学应用</p>
+          <button class="start-btn" onclick="nextSlide()">进入关卡</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 12: 车轮滚动物理模拟器 -->
+      <div class="slide" id="slide-12">
+        <div class="slide-header">
+          <span class="topic-badge">第三关：车轮滚动</span>
+          <span class="slide-title">物理模拟：车轮滚动大作战</span>
+          <span class="page-index">12 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div style="text-align: center; margin-bottom: 10px; position: relative;">
+            <div class="note-badge">🎮 滚动轨迹</div>
+            <p style="font-size: 1.02rem; color: var(--accent-gold); font-weight: bold;">点击“开始滚动”按钮，观察三种车轮中心（车轴）的平稳度：</p>
+          </div>
+
+          <div class="card-grid" style="grid-template-columns: 1fr; gap: 10px; flex: 1 1 auto; justify-content: center;">
+            <!-- Lane 1: Circle -->
+            <div class="lane-box">
+              <div class="lane-title">
+                <span style="color: var(--accent-green);">🟢 圆形车轮 (轴心高恒定)</span>
+                <span id="circleTraceLabel" style="font-family: monospace; font-size: 0.82rem;">平稳度: 100% (极佳)</span>
+              </div>
+              <svg class="lane-svg" id="circleLane">
+                <!-- Flat Ground -->
+                <line x1="10" y1="80" x2="250" y2="80" stroke="var(--text-muted)" stroke-width="1.5"></line>
+                <!-- Axis Center line -->
+                <line id="circleCenterLine" x1="40" y1="50" x2="40" y2="50" stroke="var(--accent-green)" stroke-dasharray="3 2" stroke-width="2"></line>
+                <!-- Rolling Wheel -->
+                <g id="circleWheel" transform="translate(40, 50)">
+                  <circle cx="0" cy="0" r="30" stroke="var(--accent-green)" stroke-width="2" fill="rgba(16, 185, 129, 0.15)"></circle>
+                  <circle cx="0" cy="0" r="3" fill="var(--accent-gold)"></circle>
+                  <line x1="0" y1="0" x2="0" y2="-30" stroke="var(--accent-green)" stroke-width="1.2"></line>
+                  <line x1="0" y1="0" x2="30" y2="0" stroke="var(--accent-green)" stroke-width="1.2"></line>
+                </g>
+              </svg>
+            </div>
+
+            <!-- Lane 2: Square -->
+            <div class="lane-box">
+              <div class="lane-title">
+                <span style="color: var(--accent-red);">🔴 方形车轮 (轴心上下颠簸)</span>
+                <span id="squareTraceLabel" style="font-family: monospace; font-size: 0.82rem;">平稳度: 20% (极差)</span>
+              </div>
+              <svg class="lane-svg" id="squareLane">
+                <!-- Flat Ground -->
+                <line x1="10" y1="80" x2="250" y2="80" stroke="var(--text-muted)" stroke-width="1.5"></line>
+                <!-- Axis Center line -->
+                <path id="squareCenterLine" d="M 40,50" fill="none" stroke="var(--accent-red)" stroke-dasharray="3 2" stroke-width="2"></path>
+                <!-- Rolling Wheel -->
+                <g id="squareWheel" transform="translate(40, 50)">
+                  <rect x="-24" y="-24" width="48" height="48" stroke="var(--accent-red)" stroke-width="2" fill="rgba(239, 68, 68, 0.15)"></rect>
+                  <circle cx="0" cy="0" r="3" fill="var(--accent-gold)"></circle>
+                  <line x1="0" y1="0" x2="0" y2="-24" stroke="var(--accent-red)" stroke-width="1.2"></line>
+                  <line x1="0" y1="0" x2="24" y2="0" stroke="var(--accent-red)" stroke-width="1.2"></line>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 10px; display: flex; justify-content: center; gap: 15px; flex: 0 0 auto;">
+            <button class="start-btn" style="padding: 8px 30px; font-size: 0.92rem;" id="rollWheelsBtn" onclick="animateWheelsRolling()">开始滚动车轮</button>
+            <button class="nav-btn" onclick="resetWheelsSimulation()">重置</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 13: 为什么车轮是圆的 -->
+      <div class="slide" id="slide-13">
+        <div class="slide-header">
+          <span class="topic-badge">第三关：原理解释</span>
+          <span class="slide-title">车轮为什么是圆的？</span>
+          <span class="page-index">13 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card-grid">
+            <div class="card">
+              <h3>🟢 半径等长原理（一中同长）</h3>
+              <p style="font-size: 1.15rem; line-height: 1.8; margin-top: 10px;">
+                因为圆上的<b>每一个点到圆心的距离（半径）都相等</b>。<br>
+                把车轴（轴心）安放在圆心上，车轴到地面的高度就<b>始终保持相等</b>。<br>
+                所以，当车轮在平地上滚动时，车辆能够平稳前行，不会上下颠簸。
+              </p>
+            </div>
+            <div class="card">
+              <h3>❌ 其它多边形轮的弊端</h3>
+              <p style="font-size: 1.15rem; line-height: 1.8; margin-top: 10px;">
+                如果是方形或三角形：<br>
+                图形边缘上的点到重心的距离<b>不相等</b>（顶角处长，平边处短）。<br>
+                滚动时，车轴的高度就会<b>忽高忽低</b>，产生强烈的颠簸震荡，无法正常行驶。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 14: 第四关过渡页 -->
+      <div class="slide" id="slide-14">
+        <div class="cover-layout">
+          <p class="subtitle">CHECKPOINT 4</p>
+          <h1 style="color: var(--accent-green);">第四关：母题大阅兵</h1>
+          <p class="desc">复习重点：通过几何分类测试与应用，夯实并内化圆的所有考点</p>
+          <button class="start-btn" onclick="nextSlide()">进入关卡</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 15: 半径与直径识别交互小游戏 -->
+      <div class="slide" id="slide-15">
+        <div class="slide-header">
+          <span class="topic-badge">第四关：交互分类</span>
+          <span class="slide-title">交互小游戏：寻找半径与直径</span>
+          <span class="page-index">15 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="explore-split">
+            <div class="svg-visual-box">
+              <svg class="svg-interactive" id="finderSvg" viewBox="0 0 220 200">
+                <!-- Base Circle -->
+                <circle cx="110" cy="100" r="75" stroke="var(--text-muted)" stroke-width="1.8" fill="none"></circle>
+                <!-- Center Point O -->
+                <circle cx="110" cy="100" r="3.5" fill="var(--accent-gold)"></circle>
+                <text x="110" y="115" fill="var(--accent-gold)" font-size="11" text-anchor="middle" font-weight="bold">O</text>
+
+                <!-- Line segments -->
+                <!-- OA (Radius) -->
+                <line id="line_OA" x1="110" y1="100" x2="57" y2="47" stroke="var(--text-main)" stroke-width="2.5" cursor="pointer" onclick="clickFinderSegment('OA', true, 'OA 是半径。因为它的一端在圆心，另一端在圆上。')"></line>
+                <text x="50" y="42" fill="var(--text-main)" font-size="11" font-weight="bold">A</text>
+
+                <!-- OB (Radius) -->
+                <line id="line_OB" x1="110" y1="100" x2="163" y2="47" stroke="var(--text-main)" stroke-width="2.5" cursor="pointer" onclick="clickFinderSegment('OB', true, 'OB 是半径。因为它的一端在圆心，另一端在圆上。')"></line>
+                <text x="168" y="42" fill="var(--text-main)" font-size="11" font-weight="bold">B</text>
+
+                <!-- CD (Diameter) -->
+                <line id="line_CD" x1="43" y1="135" x2="177" y2="65" stroke="var(--text-main)" stroke-width="2.5" cursor="pointer" onclick="clickFinderSegment('CD', true, 'CD 是直径。因为它不仅两端都在圆上，还通过了圆心 O。')"></line>
+                <text x="32" y="142" fill="var(--text-main)" font-size="11" font-weight="bold">C</text>
+                <text x="183" y="60" fill="var(--text-main)" font-size="11" font-weight="bold">D</text>
+
+                <!-- EF (Chord - not diameter) -->
+                <line id="line_EF" x1="110" y1="25" x2="185" y2="100" stroke="var(--text-main)" stroke-width="2" cursor="pointer" onclick="clickFinderSegment('EF', false, 'EF 不是直径。因为它虽然两端在圆上，但没有经过圆心 O！')"></line>
+                <text x="190" y="108" fill="var(--text-main)" font-size="11" font-weight="bold">F</text>
+                <text x="110" y="20" fill="var(--text-main)" font-size="11" font-weight="bold">E</text>
+
+                <!-- GH (Non-radius chord segment) -->
+                <line id="line_GH" x1="85" y1="100" x2="110" y2="175" stroke="var(--text-main)" stroke-width="2" cursor="pointer" onclick="clickFinderSegment('GH', false, 'GH 既不是半径也不是直径。因为它的起点 G 在圆内（不是圆心），两端也不在圆上。')"></line>
+                <text x="73" y="100" fill="var(--text-main)" font-size="11" font-weight="bold">G</text>
+                <text x="110" y="188" fill="var(--text-main)" font-size="11" font-weight="bold">H</text>
+              </svg>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">图示：请点击图中的各条字母线段进行判别</div>
+            </div>
+
+            <div class="explore-desc">
+              <div>
+                <h4 style="color: var(--accent-gold);">🔍 请找出图中的半径和直径（点击按钮或点击左图线段）：</h4>
+                <div class="finder-grid" style="margin: 10px 0;">
+                  <button class="finder-btn" id="btn_OA" onclick="clickFinderSegment('OA', true, 'OA 是半径。因为它的一端在圆心，另一端在圆上。')">线段 OA (半径？) <span>▶</span></button>
+                  <button class="finder-btn" id="btn_OB" onclick="clickFinderSegment('OB', true, 'OB 是半径。因为它的一端在圆心，另一端在圆上。')">线段 OB (半径？) <span>▶</span></button>
+                  <button class="finder-btn" id="btn_CD" onclick="clickFinderSegment('CD', true, 'CD 是直径。因为它不仅两端都在圆上，还通过了圆心 O。')">线段 CD (直径？) <span>▶</span></button>
+                  <button class="finder-btn" id="btn_EF" onclick="clickFinderSegment('EF', false, 'EF 不是直径。因为它虽然两端在圆上，但没有经过圆心 O！')">线段 EF (直径？) <span>▶</span></button>
+                  <button class="finder-btn" id="btn_GH" onclick="clickFinderSegment('GH', false, 'GH 既不是半径也不是直径。因为它的起点 G 在圆内（不是圆心），两端也不在圆上。')">线段 GH (半径？) <span>▶</span></button>
+                </div>
+                <div class="finder-feedback" id="finderFeedbackBox">
+                  点击选项，诊断小助手会在此为您说明原因。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 16: 概念计算题 -->
+      <div class="slide" id="slide-16">
+        <div class="slide-header">
+          <span class="topic-badge">第四关：母题演练</span>
+          <span class="slide-title">母题一：同圆半径与直径转换</span>
+          <span class="page-index">16 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="card" style="width: 100%; margin-bottom: 15px;">
+            <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
+              ✏️ <b>计算母题：</b> 如图，已知圆规画圆时两脚间的开度是 3.5 cm，那么用它画出的圆的直径是多少厘米？若在这个圆内画一条最长的线段，这条线段有多长？
+            </p>
+          </div>
+          
+          <button class="reveal-btn" onclick="toggleReveal(this)">展示解题思路与解答</button>
+          <div class="reveal-panel">
+            <div class="card-grid" style="margin-top: 5px;">
+              <div class="card" style="padding: 15px;">
+                <h3>🔍 剖析物理概念</h3>
+                <ul style="list-style-type: none; padding-left: 0; font-size: 0.95rem;">
+                  <li style="margin-bottom: 8px;">1. 圆规两脚间的开度，对应的就是圆的<b>半径</b>（<i>r</i> ＝ 3.5 cm）。</li>
+                  <li style="margin-bottom: 8px;">2. 在同一个圆内，<b>最长的线段就是圆的直径</b>（<i>d</i>）。</li>
+                </ul>
+              </div>
+              <div class="card" style="padding: 15px;">
+                <h3>📝 计算步骤与答案</h3>
+                <p>根据直径与半径的关系公式：</p>
+                <p class="formula" style="font-size: 1.15rem; margin: 5px 0; color: var(--accent-cyan);">
+                  d ＝ 2r ＝ 3.5 &times; 2 ＝ 7 （cm）
+                </p>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">答：画出的圆的直径是 7 cm。圆内最长线段（直径）的长度是 7 cm。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 17: 车轮滚动圈数应用题 -->
+      <div class="slide" id="slide-17">
+        <div class="slide-header">
+          <span class="topic-badge">第四关：母题演练</span>
+          <span class="slide-title">母题二：车轮高度计算与应用</span>
+          <span class="page-index">17 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="card" style="width: 100%; margin-bottom: 15px;">
+            <p style="font-size: 1.12rem; line-height: 1.6; margin-bottom: 0;">
+              🚲 <b>自行车情境：</b> 一辆自行车的车轮外直径为 60 厘米。当自行车停在平地上时，车轴（车轴心）距离地面的高度是多少厘米？
+            </p>
+          </div>
+          
+          <button class="reveal-btn" onclick="toggleReveal(this)">展示解题思路与解答</button>
+          <div class="reveal-panel">
+            <div class="card-grid" style="margin-top: 5px;">
+              <div class="card" style="padding: 15px;">
+                <h3>🔍 剖析几何物理量</h3>
+                <ul style="list-style-type: none; padding-left: 0; font-size: 0.95rem;">
+                  <li style="margin-bottom: 8px;">1. 车轮是圆的，车轴固定在<b>圆心</b>上。</li>
+                  <li style="margin-bottom: 8px;">2. 车轴距离地面的垂直高度，对应的就是车轮的<b>半径</b>。</li>
+                  <li style="margin-bottom: 8px;">3. 自行车车轮的外直径 <i>d</i> ＝ 60 厘米。</li>
+                </ul>
+              </div>
+              <div class="card" style="padding: 15px;">
+                <h3>📝 计算步骤与答案</h3>
+                <p>根据半径与直径的公式关系计算：</p>
+                <p class="formula" style="font-size: 1.15rem; margin: 5px 0; color: var(--accent-cyan);">
+                  r ＝ d &divide; 2 ＝ 60 &divide; 2 ＝ 30 （厘米）
+                </p>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">答：车轴距离地面的高度是 30 厘米。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 18: 概念记忆顺口溜 -->
+      <div class="slide" id="slide-18">
+        <div class="slide-header">
+          <span class="topic-badge">第四关：记忆口诀</span>
+          <span class="slide-title">概念巧记忆：圆之歌</span>
+          <span class="page-index">18 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="card" style="max-width: 800px; margin: 0 auto; width: 100%; text-align: center;">
+            <h3 style="color: var(--accent-gold); justify-content: center; margin-bottom: 15px;">🎵 圆的认识特征口诀歌 (ong/ing/ang 韵)</h3>
+            <div style="background: rgba(6, 182, 212, 0.1); padding: 25px 20px; border-radius: 12px; border: 1.5px dashed var(--accent-cyan); line-height: 1.8; font-size: 1.2rem; font-weight: bold; color: var(--accent-cyan);">
+              针尖固定是圆心，确定位置保平稳。（wen）<br>
+              两脚开度是半径，确定大小成弧形。（xing）<br>
+              通过圆心连两端，直径最长画成线。（xian）<br>
+              同圆半径都相等，一中同长万物成。（cheng）<br>
+              半径乘以二得直，数学奥秘记心中。（zhong）
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 19: 随堂小测试 -->
+      <div class="slide" id="slide-19">
+        <div class="slide-header">
+          <span class="topic-badge">💪 随堂小测</span>
+          <span class="slide-title">《圆的认识（一）》随堂自测题</span>
+          <span class="page-index">19 / 21</span>
+        </div>
+        <div class="slide-body">
+          <div class="quiz-container" style="gap: 10px; overflow-y: auto; max-height: 540px;">
+            <!-- Quiz 1 -->
+            <div class="quiz-card" style="padding: 10px 18px;">
+              <div class="quiz-question" style="font-size: 0.95rem; margin-bottom: 6px;">
+                <span>① 如果要画一个直径为 6 厘米的圆，圆规两脚之间的距离应该是（ ）厘米。</span>
+              </div>
+              <div class="quiz-options" style="gap: 8px;">
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="false" onclick="checkQuizAnswer(this)">A. 6 厘米</button>
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="true" onclick="checkQuizAnswer(this)">B. 3 厘米</button>
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="false" onclick="checkQuizAnswer(this)">C. 12 厘米</button>
+              </div>
+              <div class="quiz-feedback" style="font-size: 0.82rem; margin-top: 4px;" data-explainer="【解析】圆规两脚之间的开度等于半径。r ＝ d / 2 ＝ 6 / 2 ＝ 3 厘米。选择 B。"></div>
+            </div>
+
+            <!-- Quiz 2 -->
+            <div class="quiz-card" style="padding: 10px 18px;">
+              <div class="quiz-question" style="font-size: 0.95rem; margin-bottom: 6px;">
+                <span>② 下面关于圆的性质，说法正确的是（ ）。</span>
+              </div>
+              <div class="quiz-options" style="gap: 8px;">
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="false" onclick="checkQuizAnswer(this)">A. 所有的半径都相等</button>
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="true" onclick="checkQuizAnswer(this)">B. 在同一个圆内，直径是半径的2倍</button>
+                <button class="quiz-opt" style="padding: 5px 12px; font-size: 0.85rem;" data-correct="false" onclick="checkQuizAnswer(this)">C. 直径就是圆的对称轴</button>
+              </div>
+              <div class="quiz-feedback" style="font-size: 0.82rem; margin-top: 4px;" data-explainer="【解析】A选项缺了“在同圆或等圆内”的前提，大圆半径和小圆半径不相等；C选项直径是一条线段，而对称轴是直线（圆的对称轴是直径所在的直线）。选择 B。"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 20: 知识脑图结构化 -->
+      <div class="slide" id="slide-20">
+        <div class="slide-header">
+          <span class="topic-badge">💡 单元脑图</span>
+          <span class="slide-title">第一课时《圆的认识（一）》结构化思维脑图</span>
+          <span class="page-index">20 / 21</span>
+        </div>
+        <div class="slide-body justify-center">
+          <div class="mindmap-container">
+            <div class="mindmap-root">
+              <div class="mindmap-core">🌟 圆的认识<br>（一）</div>
+            </div>
+            
+            <div class="mindmap-branches">
+              <div class="mindmap-branch-item">
+                <div class="mindmap-node n1">🎨 基本概念</div>
+                <div class="mindmap-leafs">
+                  <div class="mindmap-tag">圆心 O (决定位置)</div>
+                  <div class="mindmap-tag">半径 r (决定大小)</div>
+                  <div class="mindmap-tag">直径 d (两端在圆上且过圆心)</div>
+                </div>
+              </div>
+              
+              <div class="mindmap-branch-item">
+                <div class="mindmap-node n2">🧮 几何特性</div>
+                <div class="mindmap-leafs">
+                  <div class="mindmap-tag">一中同长 ➔ 半径皆相等</div>
+                  <div class="mindmap-tag">d ＝ 2r</div>
+                  <div class="mindmap-tag">r ＝ d &divide; 2</div>
+                </div>
+              </div>
+
+              <div class="mindmap-branch-item">
+                <div class="mindmap-node n3">⚠️ 物理应用</div>
+                <div class="mindmap-leafs">
+                  <div class="mindmap-tag">车轮圆形 ➔ 滚动平稳</div>
+                  <div class="mindmap-tag">车轴安在圆心</div>
+                  <div class="mindmap-tag">最长线段 ➔ 直径</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 21: 通关勋章 -->
+      <div class="slide" id="slide-21">
+        <div class="cover-layout">
+          <p class="subtitle" style="margin-bottom: 10px;">二 单 元 · 第 1 课 时 · 北 师 大 版</p>
+          <h1 style="font-size: 2.8rem; margin-bottom: 10px;">《圆的认识（一）》大通关</h1>
+
+          <!-- Gold medal award container -->
+          <div class="medal-container">
+            <div class="gold-medal">
+              <div class="medal-shine"></div>
+              <div class="medal-star">★</div>
+              <div class="medal-text">通关奖章</div>
+            </div>
+            <div class="medal-ribbon left"></div>
+            <div class="medal-ribbon right"></div>
+          </div>
+
+          <p class="desc" style="font-size: 1.15rem; color: var(--accent-gold); font-weight: bold; margin-bottom: 25px;">
+            🎉 恭喜你！成功获得第二单元第一节课通关奖章！
+          </p>
+          <button class="start-btn" onclick="goToSlide(1)">重新开始回顾</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Slim progress bar at the very bottom -->
+    <div class="deck-progress-bar" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 3.5px; background: rgba(255,255,255,0.05); z-index: 10;">
+      <div class="progress-fill" id="progress-indicator" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-gold) 100%); transition: width 0.3s ease;"></div>
+    </div>
+
+    <!-- Vertical side nav bar -->
+    <div class="side-nav">
+      <button class="nav-arrow-btn" id="prev-btn" onclick="prevSlide()" title="上一页">▲</button>
+      <div class="page-indicator-vertical">
+        <span id="current-page-num" style="font-size: 1.15rem; font-weight: bold; color: var(--accent-gold);">1</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); margin: 2px 0;">/</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">21</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">页</span>
+      </div>
+      <button class="nav-arrow-btn" id="next-btn" onclick="nextSlide()" title="下一页">▼</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== JAVASCRIPT LOGIC ========== -->
+<script>
+  /* ==================== GLOBAL CONTROLLER ==================== */
+  let currentSlideIndex = 1;
+  const totalSlides = 21;
+
+  function showSlide(index) {
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach(slide => slide.classList.remove('active'));
+
+    const revealPanels = document.querySelectorAll('.reveal-panel');
+    revealPanels.forEach(panel => panel.classList.remove('active'));
+    
+    const revealButtons = document.querySelectorAll('.reveal-btn');
+    revealButtons.forEach(btn => {
+      btn.innerText = btn.innerText.includes('思路') ? '展示解题思路与解答' : (btn.innerText.includes('对照') ? '展示非同圆对比' : '展示解题思路与解答');
+    });
+
+    const targetSlide = document.getElementById(`slide-${index}`);
+    if (targetSlide) {
+      targetSlide.classList.add('active');
+    }
+
+    document.getElementById('current-page-num').innerText = index;
+    const progressPercent = ((index - 1) / (totalSlides - 1)) * 100;
+    document.getElementById('progress-indicator').style.width = `${progressPercent}%`;
+
+    document.getElementById('prev-btn').disabled = (index === 1);
+    document.getElementById('next-btn').disabled = (index === totalSlides);
+
+    // Stop simulations if moving away
+    if (index !== 5) resetCompassSandbox();
+    if (index !== 12) resetWheelsSimulation();
+
+    currentSlideIndex = index;
+  }
+
+  function nextSlide() {
+    if (currentSlideIndex < totalSlides) {
+      showSlide(currentSlideIndex + 1);
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlideIndex > 1) {
+      showSlide(currentSlideIndex - 1);
+    }
+  }
+
+  function goToSlide(index) {
+    if (index >= 1 && index <= totalSlides) {
+      showSlide(index);
+    }
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      prevSlide();
+    }
+  });
+
+  function adjustScale() {
+    const wrapper = document.querySelector('.deck-container');
+    const targetWidth = 1280;
+    const targetHeight = 720;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const scale = Math.min(w / targetWidth, h / targetHeight);
+    wrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+
+  window.addEventListener('resize', adjustScale);
+  window.addEventListener('DOMContentLoaded', () => {
+    adjustScale();
+    showSlide(1);
+  });
+
+  function toggleReveal(button) {
+    const container = button.closest('.card') || button.closest('.slide') || button.parentElement;
+    const panel = container.querySelector('.reveal-panel');
+    if (panel) {
+      panel.classList.toggle('active');
+      const textMap = {
+        '展示解题思路与解答': '隐藏解题思路与解答',
+        '隐藏解题思路与解答': '展示解题思路与解答',
+        '展示非同圆对比': '隐藏非同圆对比',
+        '隐藏非同圆对比': '展示非同圆对比'
+      };
+      button.innerText = textMap[button.innerText] || button.innerText;
+    }
+  }
+
+  /* ==================== COMPASS WIDGET LOGIC ==================== */
+  let compassInterval = null;
+  let isCompassDrawing = false;
+
+  function updateCompassRadius(val) {
+    if (isCompassDrawing) return; // Prevent adjustment during drawing
+    const radiusCm = (val / 10).toFixed(1);
+    document.getElementById('radiusLabel').innerText = `${radiusCm}cm`;
+    document.getElementById('statR').innerText = radiusCm;
+    document.getElementById('statD').innerText = (radiusCm * 2).toFixed(1);
+
+    // Adjust SVG elements
+    const trace = document.getElementById('traceCircle');
+    trace.setAttribute('r', val);
+    const strokeDash = (2 * Math.PI * val).toFixed(1);
+    trace.setAttribute('stroke-dasharray', strokeDash);
+    trace.setAttribute('stroke-dashoffset', strokeDash); // hide circle
+
+    // Relocate pencil joint/tip inside group
+    const offsetPx = val;
+    const angleRad = Math.asin(offsetPx / 75); // approx joint angle (hypotenuse 75px)
+    const angleDeg = (angleRad * 180 / Math.PI).toFixed(1);
+    
+    // Position of tip relative to O(0,0) inside group rot
+    const pencilTip = document.getElementById('pencilTip');
+    pencilTip.setAttribute('cx', -offsetPx);
+    
+    const pencilJoint = document.getElementById('pencilJoint');
+    pencilJoint.setAttribute('x2', -offsetPx);
+  }
+
+  function animateCompassDrawing() {
+    if (isCompassDrawing) return;
+    isCompassDrawing = true;
+    document.getElementById('drawCircleBtn').disabled = true;
+
+    const rSlider = document.getElementById('rSlider');
+    rSlider.disabled = true;
+
+    const radius = parseFloat(rSlider.value);
+    const circumference = 2 * Math.PI * radius;
+    const trace = document.getElementById('traceCircle');
+    const compassGroup = document.getElementById('compassGroup');
+
+    let angle = 0;
+    const duration = 2000; // 2 seconds
+    const intervalTime = 20;
+    const totalSteps = duration / intervalTime;
+    const angleStep = 360 / totalSteps;
+
+    compassInterval = setInterval(() => {
+      angle += angleStep;
+      if (angle >= 360) {
+        angle = 360;
+        clearInterval(compassInterval);
+        isCompassDrawing = false;
+        document.getElementById('drawCircleBtn').disabled = false;
+        rSlider.disabled = false;
+      }
+
+      // Rotate compass group around O(130, 115)
+      compassGroup.setAttribute('transform', `rotate(${angle}, 130, 115)`);
+
+      // Trace line offset
+      const offset = circumference * (1 - angle / 360);
+      trace.setAttribute('stroke-dashoffset', offset.toFixed(1));
+    }, intervalTime);
+  }
+
+  function resetCompassSandbox() {
+    clearInterval(compassInterval);
+    isCompassDrawing = false;
+    document.getElementById('drawCircleBtn').disabled = false;
+    document.getElementById('rSlider').disabled = false;
+    document.getElementById('compassGroup').setAttribute('transform', `rotate(0, 130, 115)`);
+    updateCompassRadius(document.getElementById('rSlider').value);
+  }
+
+  /* ==================== WHEELS ROLLING WIDGET LOGIC ==================== */
+  let wheelsInterval = null;
+  let isWheelsRolling = false;
+
+  function animateWheelsRolling() {
+    if (isWheelsRolling) return;
+    isWheelsRolling = true;
+    document.getElementById('rollWheelsBtn').disabled = true;
+
+    const circleWheel = document.getElementById('circleWheel');
+    const circleCenterLine = document.getElementById('circleCenterLine');
+    const squareWheel = document.getElementById('squareWheel');
+    const squareCenterLine = document.getElementById('squareCenterLine');
+
+    let posX = 40;
+    const endX = 230;
+    const stepX = 1.5;
+
+    let sqPath = "M 40,50";
+
+    wheelsInterval = setInterval(() => {
+      posX += stepX;
+      if (posX >= endX) {
+        posX = endX;
+        clearInterval(wheelsInterval);
+        isWheelsRolling = false;
+        document.getElementById('rollWheelsBtn').disabled = false;
+      }
+
+      // 1. Circle wheel math: rotation is direct proportion of movement
+      // Circumference = 2 * PI * 30 ≈ 188.4. Distance moved = posX - 40.
+      // angle = (distance / 188.4) * 360 = (posX - 40) * 1.91
+      const cAngle = (posX - 40) * 1.91;
+      circleWheel.setAttribute('transform', `translate(${posX}, 50) rotate(${cAngle})`);
+      circleCenterLine.setAttribute('x2', posX);
+
+      // 2. Square wheel math
+      // Side s = 48. Radius center to corner R = 24 * sqrt(2) ≈ 34.
+      // Min center height = 50. Max height = 50 + 10 = 60.
+      // High frequency fluctuation based on rotation (period is 90 degrees)
+      const sqAngle = (posX - 40) * 2.1; // scale factor
+      const rad = sqAngle * Math.PI / 180;
+      // Fluctuates between 50 and 60px (i.e. ground y fluctuates between 80 and 70)
+      const sqY = 50 - 5 * Math.abs(Math.sin(2 * rad));
+
+      squareWheel.setAttribute('transform', `translate(${posX}, ${sqY}) rotate(${sqAngle})`);
+      
+      sqPath += ` L ${posX.toFixed(1)},${sqY.toFixed(1)}`;
+      squareCenterLine.setAttribute('d', sqPath);
+
+    }, 20);
+  }
+
+  function resetWheelsSimulation() {
+    clearInterval(wheelsInterval);
+    isWheelsRolling = false;
+    document.getElementById('rollWheelsBtn').disabled = false;
+
+    // Reset circle
+    document.getElementById('circleWheel').setAttribute('transform', `translate(40, 50) rotate(0)`);
+    document.getElementById('circleCenterLine').setAttribute('x2', 40);
+
+    // Reset square
+    document.getElementById('squareWheel').setAttribute('transform', `translate(40, 50) rotate(0)`);
+    document.getElementById('squareCenterLine').setAttribute('d', "M 40,50");
+  }
+
+  /* ==================== GEOMETRY FINDER WIDGET LOGIC ==================== */
+  function clickFinderSegment(segmentName, isCorrect, reason) {
+    const line = document.getElementById(`line_${segmentName}`);
+    const btn = document.getElementById(`btn_${segmentName}`);
+    const feedback = document.getElementById('finderFeedbackBox');
+
+    // Reset all lines and buttons
+    const allLines = document.querySelectorAll('#finderSvg line');
+    allLines.forEach(l => l.setAttribute('stroke', 'var(--text-main)'));
+    const allBtns = document.querySelectorAll('.finder-btn');
+    allBtns.forEach(b => b.className = 'finder-btn');
+
+    if (isCorrect) {
+      line.setAttribute('stroke', 'var(--accent-green)');
+      btn.className = 'finder-btn correct';
+      feedback.innerHTML = `🎉 判定正确！<br>${reason}`;
+      feedback.style.color = '#34d399';
+    } else {
+      line.setAttribute('stroke', 'var(--accent-red)');
+      btn.className = 'finder-btn wrong';
+      feedback.innerHTML = `❌ 判定错误！<br>${reason}`;
+      feedback.style.color = '#f87171';
+    }
+  }
+
+  /* ==================== QUIZ ASSESSMENT LOGIC ==================== */
+  function checkQuizAnswer(button) {
+    const parentCard = button.closest('.quiz-card');
+    const options = parentCard.querySelectorAll('.quiz-opt');
+    const feedback = parentCard.querySelector('.quiz-feedback');
+    const isCorrect = button.getAttribute('data-correct') === 'true';
+    const explainer = feedback.getAttribute('data-explainer');
+
+    options.forEach(opt => {
+      opt.classList.remove('correct', 'wrong');
+      opt.disabled = true;
+    });
+
+    if (isCorrect) {
+      button.classList.add('correct');
+      feedback.innerHTML = `🎉 恭喜你，答对啦！<br>${explainer}`;
+      feedback.style.color = '#34d399';
+    } else {
+      button.classList.add('wrong');
+      options.forEach(opt => {
+        if (opt.getAttribute('data-correct') === 'true') {
+          opt.classList.add('correct');
+        }
+      });
+      feedback.innerHTML = `❌ 答错行，再仔细思考一下吧！<br>${explainer}`;
+      feedback.style.color = '#f87171';
+    }
+    feedback.classList.add('show');
+  }
+</script>
+
+</body>
+</html>
