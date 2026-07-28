@@ -180,58 +180,116 @@
     @media (prefers-color-scheme: dark) {
       footer { border-color: #21262d; }
     }
+
+    /* 两栏布局 */
+    .columns-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 28px;
+    }
+    @media (max-width: 768px) {
+      .columns-container {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+    .col-header {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      margin: 0 4px 18px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #eaeef2;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .col.slides-col .col-header {
+      color: #2563eb;
+      border-bottom-color: rgba(37, 99, 235, 0.2);
+    }
+    .col.onepage-col .col-header {
+      color: #16a34a;
+      border-bottom-color: rgba(22, 163, 74, 0.2);
+    }
+    @media (prefers-color-scheme: dark) {
+      .col-header {
+        border-color: #30363d;
+      }
+      .col.slides-col .col-header {
+        color: #3b82f6;
+      }
+      .col.onepage-col .col-header {
+        color: #3fb950;
+      }
+    }
   </style>
 </head>
 <body>
   <h1>小学数学 · liuyue</h1>
   <p class="lead">北师大版 5/6 年级数学 · 单元复习 / 期末复习 / 错题周周清 一页纸合集</p>
 
-  <div class="col">
-    <h2>小学数学<span class="en">Elementary School Math · onepage 集合</span></h2>
-
-    <div class="day-group">
-      <div class="day-header today">2026-07-28<span class="rel">今天</span></div>
-      <ul class="day-items">
-        <li><a href="slides-grade6-overview/">Slides · 北师大版六年级数学全册核心考点大盘点 <span class="new">NEW</span></a></li>
-        <li><a href="onepage-circle-1/">U1 · 圆的认识（一）核心考点一页清 (北师大 6 上)</a></li>
-      </ul>
+  <div class="columns-container">
+    <!-- Left Column: Slides -->
+    <div class="col slides-col">
+      <h2 class="col-header">📺 教学课件 · Slides</h2>
+      
+      <div class="day-group">
+        <div class="day-header today">2026-07-28<span class="rel">今天</span></div>
+        <ul class="day-items">
+          <li><a href="slides-grade6-overview/">Slides · 北师大版六年级数学全册核心考点大盘点 <span class="new">NEW</span></a></li>
+        </ul>
+      </div>
     </div>
 
-    <div class="day-group">
-      <div class="day-header">2026-07-01<span class="rel">27 天前</span></div>
-      <ul class="day-items">
-        <li><a href="onepage-final-exam-g5-2026spring/">龙岗区期末考 5 年级 · 5 大模块全复盘</a></li>
-        <li><a href="onepage-final-keypoints-glass-g5-2026spring/">5 年级数学期末通关一页纸 (玻璃拟态 · 龙岗期末真题 · 4 模块)</a></li>
-      </ul>
-    </div>
+    <!-- Right Column: One Page -->
+    <div class="col onepage-col">
+      <h2 class="col-header">📄 核心考点 · One Page</h2>
 
-    <div class="day-group">
-      <div class="day-header">2026-06-27<span class="rel">4 天前</span></div>
-      <ul class="day-items">
-        <li><a href="onepage-equation-u7/">U7 · 用方程解决问题 (北师大 5 下)</a></li>
-        <li><a href="onepage-statistical-charts/">U8 · 统计图三剑客 (北师大 5 下)</a></li>
-        <li><a href="onepage-position-u6/">U6 · 确定位置 (北师大 5 下)</a></li>
-      </ul>
-    </div>
+      <div class="day-group">
+        <div class="day-header today">2026-07-28<span class="rel">今天</span></div>
+        <ul class="day-items">
+          <li><a href="onepage-circle-1/">U1 · 圆的认识（一）核心考点一页清 (北师大 6 上) <span class="new">NEW</span></a></li>
+        </ul>
+      </div>
 
-    <div class="day-group">
-      <div class="day-header">2026-06-26<span class="rel">5 天前</span></div>
-      <ul class="day-items">
-        <li><a href="onepage-longfangti-1/">U2 · 长方体(一) 的所有考点 (北师大 5 下)</a></li>
-        <li><a href="onepage-changfangti-2/">U4 · 长方体(二) 的所有考点 (北师大 5 下)</a></li>
-      </ul>
-    </div>
+      <div class="day-group">
+        <div class="day-header">2026-07-01<span class="rel">27 天前</span></div>
+        <ul class="day-items">
+          <li><a href="onepage-final-exam-g5-2026spring/">龙岗区期末考 5 年级 · 5 大模块全复盘</a></li>
+          <li><a href="onepage-final-keypoints-glass-g5-2026spring/">5 年级数学期末通关一页纸 (玻璃拟态 · 龙岗期末真题 · 4 模块)</a></li>
+        </ul>
+      </div>
 
-    <div class="day-group">
-      <div class="day-header">2026-06-25<span class="rel">6 天前</span></div>
-      <ul class="day-items">
-        <li><a href="onepage-grade5-class5-error-test/">5 班错题周周清 (36 题)</a></li>
-        <li><a href="onepage-longgao-final-exam/">龙高期末·核心知识点 (33 题)</a></li>
-        <li><a href="onepage-grade5-error-test/">6 班错题周周清 (18 题)</a></li>
-        <li><a href="onepage-fraction-division/">U5 · 分数除法的所有考点 (北师大 5 下)</a></li>
-        <li><a href="onepage-fraction-multiplication/">U3 · 分数乘法的所有考点 (北师大 5 下)</a></li>
-        <li><a href="onepage-fractions/">U1 · 分数加减法的所有考点 (北师大 5 下)</a></li>
-      </ul>
+      <div class="day-group">
+        <div class="day-header">2026-06-27<span class="rel">4 天前</span></div>
+        <ul class="day-items">
+          <li><a href="onepage-equation-u7/">U7 · 用方程解决问题 (北师大 5 下)</a></li>
+          <li><a href="onepage-statistical-charts/">U8 · 统计图三剑客 (北师大 5 下)</a></li>
+          <li><a href="onepage-position-u6/">U6 · 确定位置 (北师大 5 下)</a></li>
+        </ul>
+      </div>
+
+      <div class="day-group">
+        <div class="day-header">2026-06-26<span class="rel">5 天前</span></div>
+        <ul class="day-items">
+          <li><a href="onepage-longfangti-1/">U2 · 长方体(一) 的所有考点 (北师大 5 下)</a></li>
+          <li><a href="onepage-changfangti-2/">U4 · 长方体(二) 的所有考点 (北师大 5 下)</a></li>
+        </ul>
+      </div>
+
+      <div class="day-group">
+        <div class="day-header">2026-06-25<span class="rel">6 天前</span></div>
+        <ul class="day-items">
+          <li><a href="onepage-grade5-class5-error-test/">5 班错题周周清 (36 题)</a></li>
+          <li><a href="onepage-longgao-final-exam/">龙高期末·核心知识点 (33 题)</a></li>
+          <li><a href="onepage-grade5-error-test/">6 班错题周周清 (18 题)</a></li>
+          <li><a href="onepage-fraction-division/">U5 · 分数除法的所有考点 (北师大 5 下)</a></li>
+          <li><a href="onepage-fraction-multiplication/">U3 · 分数乘法的所有考点 (北师大 5 下)</a></li>
+          <li><a href="onepage-fractions/">U1 · 分数加减法的所有考点 (北师大 5 下)</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
