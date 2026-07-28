@@ -830,96 +830,144 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      padding: 5px 0;
+      padding: 10px 0;
     }
 
     .tree {
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: 25px;
+      gap: 35px;
     }
 
     .tree-root {
-      background: linear-gradient(135deg, var(--accent-gold) 0%, #d97706 100%);
-      color: var(--text-dark);
-      padding: 12px 22px;
-      border-radius: 10px;
+      background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+      color: #1e1b4b;
+      padding: 14px 24px;
+      border-radius: 14px;
       font-weight: bold;
-      font-size: 1.1rem;
-      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+      font-size: 1.2rem;
+      box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4), inset 0 0 15px rgba(255,255,255,0.3);
       text-align: center;
       border: 2px solid #fbbf24;
       white-space: nowrap;
+      position: relative;
+    }
+
+    .tree-root::after {
+      content: "";
+      position: absolute;
+      right: -35px;
+      top: 50%;
+      width: 35px;
+      height: 2px;
+      background: rgba(167, 139, 250, 0.4);
     }
 
     .tree-branches {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 20px;
       position: relative;
+    }
+
+    .tree-branches::before {
+      content: "";
+      position: absolute;
+      left: -25px;
+      top: 18px;
+      bottom: 18px;
+      width: 2px;
+      background: rgba(167, 139, 250, 0.4);
     }
 
     .tree-branch {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 25px;
       position: relative;
+    }
+
+    .tree-branch::before {
+      content: "";
+      position: absolute;
+      left: -25px;
+      top: 50%;
+      width: 25px;
+      height: 2px;
+      background: rgba(167, 139, 250, 0.4);
     }
 
     .branch-node {
-      background: rgba(139, 92, 246, 0.2);
-      border: 2px solid var(--text-muted);
-      color: var(--text-main);
-      padding: 8px 16px;
-      border-radius: 8px;
+      padding: 10px 18px;
+      border-radius: 12px;
       font-weight: bold;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       text-align: center;
-      min-width: 120px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      min-width: 170px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
       position: relative;
+      z-index: 2;
+      border: 2px solid transparent;
     }
 
-    .branch-node::before {
+    .branch-node::after {
       content: "";
       position: absolute;
-      left: -20px;
+      right: -25px;
       top: 50%;
-      width: 20px;
+      width: 25px;
       height: 2px;
-      background: var(--border-soft);
+      background: rgba(167, 139, 250, 0.3);
     }
 
     .tree-leaves {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
+      position: relative;
+    }
+
+    .tree-leaves::before {
+      content: "";
+      position: absolute;
+      left: -25px;
+      top: 15px;
+      bottom: 15px;
+      width: 2px;
+      background: rgba(167, 139, 250, 0.3);
     }
 
     .leaf-node {
-      background: var(--glass-bg);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-soft);
       padding: 8px 14px;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 0.88rem;
       color: #ddd6fe;
-      min-width: 240px;
-      max-width: 300px;
+      min-width: 260px;
+      max-width: 320px;
       position: relative;
       display: flex;
       align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+
+    .leaf-node:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--accent-gold);
+      transform: translateX(4px);
     }
 
     .leaf-node::before {
       content: "";
       position: absolute;
-      left: -20px;
+      left: -25px;
       top: 50%;
-      width: 20px;
+      width: 25px;
       height: 2px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(167, 139, 250, 0.3);
     }
 
     /* Common elements */
@@ -1903,35 +1951,35 @@
             
             <div class="tree">
               <!-- Root -->
-              <div class="tree-root">分数除法（一）</div>
+              <div class="tree-root">🌟 分数除法（一）</div>
               
               <!-- Branches -->
               <div class="tree-branches">
                 
                 <!-- Branch 1 -->
                 <div class="tree-branch">
-                  <div class="branch-node" style="border-color: #f59e0b;">直观物理意义</div>
+                  <div class="branch-node" style="background: rgba(245, 158, 11, 0.15); border-color: #f59e0b; color: #fef3c7;">🎨 折纸与画图直观图解</div>
                   <div class="tree-leaves">
-                    <div class="leaf-node">把一个分数平均分成几份，求每份是多少</div>
-                    <div class="leaf-node">图形表达：通过折纸、画图网格进行等分</div>
+                    <div class="leaf-node">📝 实际含义：把一个分数平均分成几份，求每份是多少。</div>
+                    <div class="leaf-node">🖼️ 直观图示：通过折纸均分、涂色网格直观展示计算过程。</div>
                   </div>
                 </div>
 
                 <!-- Branch 2 -->
                 <div class="tree-branch">
-                  <div class="branch-node" style="border-color: #8b5cf6;">核心算法</div>
+                  <div class="branch-node" style="background: rgba(139, 92, 246, 0.15); border-color: #a78bfa; color: #ede9fe;">🧮 核心计算法则</div>
                   <div class="tree-leaves">
-                    <div class="leaf-node">分子整除法：分子相除作分子，分母不变</div>
-                    <div class="leaf-node">乘倒数法（通用）：乘整数的倒数（0除外）</div>
+                    <div class="leaf-node">⚡ 分子整除法：分母不变，分子直接相除（分子能整除时）。</div>
+                    <div class="leaf-node">💎 乘倒数法（万能）：乘以除数的倒数（除数 0 除外）。</div>
                   </div>
                 </div>
 
                 <!-- Branch 3 -->
                 <div class="tree-branch">
-                  <div class="branch-node" style="border-color: #ef4444;">常见陷阱</div>
+                  <div class="branch-node" style="background: rgba(239, 68, 68, 0.15); border-color: #f87171; color: #fee2e2;">⚠️ 易错避坑指南</div>
                   <div class="tree-leaves">
-                    <div class="leaf-node">忘变倒数（除号变了，除数忘变）</div>
-                    <div class="leaf-node">被除数（前面的分数）也随之颠倒</div>
+                    <div class="leaf-node">❌ 忘记变倒数：改了乘号，但右边除数忘记变成倒数。</div>
+                    <div class="leaf-node">❌ 被除数也变倒：把算式左侧的被除数也跟着颠倒位置。</div>
                   </div>
                 </div>
 
