@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>圆的轴对称性 & 折纸找圆心 & 修复铜镜《圆的认识（二）》核心考点 · 一页讲清楚</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --ink: #1f2937;
+    --ink-2: #4b5563;
+    --ink-3: #9ca3af;
+    --line: #e5e7eb;
+    --line-2: #f3f4f6;
+
+    /* 5 大模块配色 */
+    --m1:    #06b6d4;             /* 01 圆的轴对称性 : 青色 */
+    --m1-soft: #ecfeff;
+    --m1-deep: #0e7490;
+
+    --m2:    #3b82f6;             /* 02 折纸找圆心 : 宝蓝 */
+    --m2-soft: #eff6ff;
+    --m2-deep: #1d4ed8;
+
+    --m3:    #8b5cf6;             /* 03 图形对称轴 : 紫罗兰 */
+    --m3-soft: #f5f3ff;
+    --m3-deep: #6d28d9;
+
+    --m4:    #d97706;             /* 04 PBL修复铜镜 : 琥珀金 */
+    --m4-soft: #fffbeb;
+    --m4-deep: #b45309;
+
+    --m5:    #ef4444;             /* 05 避坑指南 : 朱红 */
+    --m5-soft: #fef2f2;
+    --m5-deep: #b91c1c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: "Songti SC", "Noto Serif SC", "STSong", "华文宋体", "SimSun", Georgia, serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--card);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 36px 44px 28px;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 600px 200px at top right, var(--m1-soft) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 200px at bottom left, var(--m4-soft) 0%, transparent 70%);
+  }
+  header .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--m1-deep);
+    background: var(--m1-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    border: 1px solid #a5f3fc;
+  }
+  header h1 {
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  header h1 .q { color: var(--m1-deep); }
+  header .subtitle {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+  }
+  header .meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  header .chip {
+    font-size: 12px;
+    color: var(--ink-2);
+    background: white;
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  header .chip b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Section base ---------- */
+  section { padding: 26px 44px; border-bottom: 1px solid var(--line-2); }
+  section:last-of-type { border-bottom: none; }
+
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .sec-num {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 6px;
+    color: white;
+  }
+  .sec-head h2 { font-size: 20px; font-weight: 800; color: var(--ink); }
+  .sec-head .en { font-size: 12px; color: var(--ink-3); font-weight: 500; margin-left: auto; }
+
+  /* 模块专属主题色 */
+  .c1 .sec-num { background: var(--m1); }
+  .c2 .sec-num { background: var(--m2); }
+  .c3 .sec-num { background: var(--m3); }
+  .c4 .sec-num { background: var(--m4); }
+  .c5 .sec-num { background: var(--m5); }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .card:last-child { margin-bottom: 0; }
+  .card .head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .card .pill {
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+  }
+
+  /* Grid layout */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+  /* Overview nav */
+  .overview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .ov {
+    background: var(--line-2);
+    border-radius: 8px;
+    padding: 10px 8px;
+    text-align: center;
+    border: 1px solid transparent;
+  }
+  .ov .ico { font-size: 18px; display: block; margin-bottom: 2px; }
+  .ov .name { font-size: 12.5px; font-weight: 700; color: var(--ink); }
+  .ov .en { font-size: 10px; color: var(--ink-3); }
+
+  .ov.a { background: var(--m1-soft); border-color: #a5f3fc; }
+  .ov.b { background: var(--m2-soft); border-color: #bfdbfe; }
+  .ov.c { background: var(--m3-soft); border-color: #ddd6fe; }
+  .ov.d { background: var(--m4-soft); border-color: #fef3c7; }
+  .ov.e { background: var(--m5-soft); border-color: #fecaca; }
+
+  /* Table styling */
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 13.5px;
+  }
+  .custom-table th, .custom-table td {
+    border: 1px solid var(--line);
+    padding: 8px 12px;
+    text-align: center;
+  }
+  .custom-table th {
+    background: var(--line-2);
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Interactive Simulator Container */
+  .sim-box {
+    background: var(--m4-soft);
+    border: 1px solid #fde68a;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 14px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 24px 44px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-3);
+    border-top: 1px solid var(--line);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .page { max-width: 100%; }
+    header, section { padding-left: 20px; padding-right: 20px; }
+    .overview { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+<header>
+  <span class="tag">小学数学 · 第二单元 · 圆</span>
+  <h1>对称之美与残镜修复<br><span class="q">《圆的认识（二）》核心考点</span></h1>
+  <p class="subtitle">
+    从 <span style="color:var(--m1-deep); font-weight:700;">圆的无数条对称轴</span> 到
+    <span style="color:var(--m2-deep); font-weight:700;">折纸找圆心</span>，再到
+    <span style="color:var(--m4-deep); font-weight:700;">考古修复残缺铜镜</span> 的几何魔法！
+  </p>
+  <div class="meta">
+    <span class="chip">📚 适用 <b>六年级上册 (北师大版)</b></span>
+    <span class="chip">⏱ 阅读 <b>~3 分钟</b></span>
+    <span class="chip">🎯 核心考点 <b>10 个</b></span>
+    <span class="chip">📐 课时 <b>第二课时 · 圆的认识(二)</b></span>
+  </div>
+</header>
+
+<!-- =========================================================
+     OVERVIEW · 导览
+     ========================================================= -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num" style="background:var(--ink)">🗺</span>
+    <h2>知识导览</h2>
+    <span class="en">5 modules · Key concepts</span>
+  </div>
+  <div class="overview">
+    <div class="ov a">
+      <span class="ico">①</span>
+      <div class="name">轴对称性</div>
+      <div class="en">Symmetry</div>
+    </div>
+    <div class="ov b">
+      <span class="ico">②</span>
+      <div class="name">折纸找圆心</div>
+      <div class="en">Paper Folding</div>
+    </div>
+    <div class="ov c">
+      <span class="ico">③</span>
+      <div class="name">组合对称轴</div>
+      <div class="en">Axes Count</div>
+    </div>
+    <div class="ov d">
+      <span class="ico">④</span>
+      <div class="name">修复古铜镜</div>
+      <div class="en">PBL Mirror</div>
+    </div>
+    <div class="ov e">
+      <span class="ico">⑤</span>
+      <div class="name">避坑指南</div>
+      <div class="en">Pitfalls</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 01 · 圆的轴对称性
+     ========================================================= -->
+<section class="c1">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2>圆的轴对称性</h2>
+    <span class="en">Axis of Symmetry</span>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m1);">
+    <div class="head" style="color:var(--m1-deep)">
+      <span class="pill" style="background:var(--m1)">核心定理</span>
+      圆是轴对称图形，且有无数条对称轴！
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); line-height: 1.6;">
+      • <b>定义：</b>将一个圆沿任意一条直径对折，两侧的半圆都能完全重合。<br>
+      • <b>精确表述：</b><b>任意一条直径所在的直线</b>都是圆的对称轴。<br>
+      • <b>关键区别：</b>对称轴是一条<b>直线</b>（无限延伸），而直径是一条<b>线段</b>（有固定长度）。
+    </p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">图解 1</span>
+        沿直径对折完全重合
+      </div>
+      <svg viewBox="0 0 160 100" style="width:100%; height:auto;">
+        <circle cx="80" cy="50" r="35" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"/>
+        <line x1="80" y1="5" x2="80" y2="95" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="4,3"/>
+        <circle cx="80" cy="50" r="3" fill="#1f2937"/>
+        <text x="85" y="47" font-size="8" fill="#1f2937" font-weight="bold">O</text>
+        <text x="85" y="20" font-size="8" fill="#ef4444" font-weight="bold">对称轴(直线)</text>
+      </svg>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">图解 2</span>
+        无数条对称轴交于圆心
+      </div>
+      <svg viewBox="0 0 160 100" style="width:100%; height:auto;">
+        <circle cx="80" cy="50" r="35" fill="#ecfeff" stroke="#06b6d4" stroke-width="2"/>
+        <line x1="80" y1="10" x2="80" y2="90" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <line x1="40" y1="50" x2="120" y2="50" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <line x1="52" y1="22" x2="108" y2="78" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <line x1="108" y1="22" x2="52" y2="78" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <circle cx="80" cy="50" r="3.5" fill="#ef4444"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 02 · 折纸找圆心
+     ========================================================= -->
+<section class="c2">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2>折纸找圆心（对称轴交点法）</h2>
+    <span class="en">Paper Folding to Find Center</span>
+  </div>
+
+  <p style="font-size:13.5px; color:var(--ink-2); margin-bottom:12px;">
+    如果给你一个没有标出圆心的圆形纸片，如何快速准确找到它的圆心 O？
+  </p>
+
+  <div class="grid-3">
+    <div class="card" style="text-align:center;">
+      <div class="pill" style="background:var(--m2); margin-bottom:6px;">步骤 1</div>
+      <div style="font-weight:700; font-size:14px; margin-bottom:4px;">对折一次</div>
+      <p style="font-size:12px; color:var(--ink-2);">得到第 1 条折痕（直径所在直线 l₁）</p>
+      <svg viewBox="0 0 100 70" style="width:70px; margin-top:8px;">
+        <path d="M 50,10 A 25,25 0 0 1 50,60 Z" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+        <line x1="50" y1="5" x2="50" y2="65" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+      </svg>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="pill" style="background:var(--m2); margin-bottom:6px;">步骤 2</div>
+      <div style="font-weight:700; font-size:14px; margin-bottom:4px;">换方向再对折</div>
+      <p style="font-size:12px; color:var(--ink-2);">得到第 2 条折痕（直径所在直线 l₂）</p>
+      <svg viewBox="0 0 100 70" style="width:70px; margin-top:8px;">
+        <circle cx="50" cy="35" r="25" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+        <line x1="50" y1="5" x2="50" y2="65" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <line x1="20" y1="35" x2="80" y2="35" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+      </svg>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="pill" style="background:var(--m2); margin-bottom:6px;">结论</div>
+      <div style="font-weight:700; font-size:14px; margin-bottom:4px;">折痕交点即圆心</div>
+      <p style="font-size:12px; color:var(--ink-2);">两条对称轴的交点就是圆心 O！</p>
+      <svg viewBox="0 0 100 70" style="width:70px; margin-top:8px;">
+        <circle cx="50" cy="35" r="25" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+        <line x1="50" y1="5" x2="50" y2="65" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <line x1="20" y1="35" x2="80" y2="35" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <circle cx="50" cy="35" r="3.5" fill="#ef4444"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 03 · 常见图形对称轴数量全比拼
+     ========================================================= -->
+<section class="c3">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2>常见平面图形对称轴数量比拼</h2>
+    <span class="en">Axes of Symmetry Comparison</span>
+  </div>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>图形名称</th>
+        <th>示意图</th>
+        <th>对称轴条数</th>
+        <th>关键特点</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>圆</b></td>
+        <td><span style="color:#06b6d4;">⚪</span></td>
+        <td><b style="color:#ef4444;">无数条</b></td>
+        <td>任意一条直径所在的直线</td>
+      </tr>
+      <tr>
+        <td><b>正方形</b></td>
+        <td><span style="color:#8b5cf6;">⏹</span></td>
+        <td><b>4 条</b></td>
+        <td>2条对角线 + 2条对边中点连线</td>
+      </tr>
+      <tr>
+        <td><b>等边三角形</b></td>
+        <td><span style="color:#3b82f6;">🔺</span></td>
+        <td><b>3 条</b></td>
+        <td>3条高（中线/角平分线）所在直线</td>
+      </tr>
+      <tr>
+        <td><b>长方形</b></td>
+        <td><span style="color:#d97706;">▭</span></td>
+        <td><b>2 条</b></td>
+        <td>2条对边中点的连线所在直线</td>
+      </tr>
+      <tr>
+        <td><b>等腰梯形 / 等腰三角形</b></td>
+        <td><span style="color:#059669;">⏏</span></td>
+        <td><b>1 条</b></td>
+        <td>底边垂直平分线 / 顶角平分线</td>
+      </tr>
+      <tr>
+        <td><b>半圆</b></td>
+        <td><span style="color:#e11d48;">🌗</span></td>
+        <td><b>1 条</b></td>
+        <td>垂直于直径的半径所在的直线</td>
+      </tr>
+      <tr>
+        <td><b>平行四边形(一般)</b></td>
+        <td><span style="color:#6b7280;">▱</span></td>
+        <td><b style="color:#ef4444;">0 条</b></td>
+        <td>中心对称，不是轴对称图形！</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- =========================================================
+     MODULE 04 · PBL探究：修复古铜镜
+     ========================================================= -->
+<section class="c4">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2>PBL 探究：考古修复残缺古铜镜</h2>
+    <span class="en">Restoring Broken Bronze Mirror</span>
+  </div>
+
+  <p style="font-size:13.5px; color:var(--ink-2); line-height: 1.6;">
+    考古队出土了一块汉代残缺铜镜（圆弧边缘完整，但圆心与大半部分遗失）。如何利用数学几何方法精准找回圆心，复原整块铜镜？
+  </p>
+
+  <div class="card" style="border-left: 4px solid var(--m4); margin-top:10px;">
+    <div class="head" style="color:var(--m4-deep)">
+      💡 几何原理解析：垂直平分线交点定理
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); line-height:1.6;">
+      1. 在残缺圆弧上任取三个点 <b>A、B、C</b>。<br>
+      2. 连接线段 <b>AB</b> 和 <b>BC</b>（即圆的两条弦）。<br>
+      3. 分别作弦 <b>AB</b> 和 <b>BC</b> 的<b>垂直平分线</b>。<br>
+      4. 两条垂直平分线的交点，就是残缺铜镜的<b>圆心 O</b>！
+    </p>
+  </div>
+
+  <!-- 动态修复演示模拟器 -->
+  <div class="sim-box">
+    <div style="font-size:14px; font-weight:700; color:var(--m4-deep); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+      <span>🔍 交互体验：残缺铜镜圆心定位模拟器</span>
+      <button id="btn-fix-mirror" style="background:var(--m4); color:white; border:none; padding:4px 12px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer;">
+        ✨ 一键作垂直平分线修复
+      </button>
+    </div>
+
+    <svg id="mirror-svg" viewBox="0 0 500 220" style="width:100%; height:auto; background:white; border-radius:8px; border:1px solid var(--line);">
+      <!-- Background Bronze Mirror Arc -->
+      <path id="mirror-arc" d="M 120 180 A 100 100 0 0 1 380 180" fill="none" stroke="#d97706" stroke-width="12" stroke-linecap="round" opacity="0.8"/>
+      <!-- Restored Full Circle Ghost -->
+      <circle id="ghost-circle" cx="250" cy="110" r="100" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.3"/>
+
+      <!-- Chords AB and BC -->
+      <line id="chord-ab" x1="150" y1="130" x2="250" y2="10" stroke="#3b82f6" stroke-width="2"/>
+      <line id="chord-bc" x1="250" y1="10" x2="350" y2="130" stroke="#3b82f6" stroke-width="2"/>
+
+      <!-- Perpendicular Bisectors (Animated) -->
+      <line id="bisector-ab" x1="120" y1="-10" x2="280" y2="210" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,3" opacity="0"/>
+      <line id="bisector-bc" x1="380" y1="-10" x2="220" y2="210" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,3" opacity="0"/>
+
+      <!-- Points A, B, C -->
+      <circle cx="150" cy="130" r="5" fill="#3b82f6"/>
+      <text x="135" y="145" font-size="11" font-weight="bold" fill="#3b82f6">A</text>
+
+      <circle cx="250" cy="10" r="5" fill="#3b82f6"/>
+      <text x="245" y="-2" font-size="11" font-weight="bold" fill="#3b82f6">B</text>
+
+      <circle cx="350" cy="130" r="5" fill="#3b82f6"/>
+      <text x="360" y="145" font-size="11" font-weight="bold" fill="#3b82f6">C</text>
+
+      <!-- Found Center O -->
+      <g id="center-o-group" opacity="0">
+        <circle cx="250" cy="110" r="6" fill="#ef4444" stroke="#ffffff" stroke-width="2"/>
+        <text x="260" y="115" font-size="12" font-weight="bold" fill="#ef4444">圆心 O (铜镜中心)</text>
+      </g>
+    </svg>
+    <div id="sim-status" style="font-size:12px; color:var(--ink-2); margin-top:8px; text-anchor:middle; text-align:center;">
+      💡 点击右上角按钮，查看两条弦的垂直平分线如何精确相交于圆心 O！
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("btn-fix-mirror");
+      const bisectorAB = document.getElementById("bisector-ab");
+      const bisectorBC = document.getElementById("bisector-bc");
+      const centerO = document.getElementById("center-o-group");
+      const ghostCircle = document.getElementById("ghost-circle");
+      const status = document.getElementById("sim-status");
+      let isFixed = false;
+
+      btn.addEventListener("click", () => {
+        isFixed = !isFixed;
+        if (isFixed) {
+          bisectorAB.style.transition = "opacity 0.6s ease";
+          bisectorBC.style.transition = "opacity 0.6s ease 0.3s";
+          centerO.style.transition = "opacity 0.6s ease 0.6s";
+          ghostCircle.style.transition = "opacity 0.6s ease 0.9s";
+
+          bisectorAB.style.opacity = "1";
+          bisectorBC.style.opacity = "1";
+          centerO.style.opacity = "1";
+          ghostCircle.style.opacity = "0.8";
+
+          btn.textContent = "🔄 重置图形";
+          status.innerHTML = "<b style='color:#ef4444;'>成功定位！</b> 弦 AB 与 BC 的垂直平分线交点即为圆心 O，铜镜完美复原！";
+        } else {
+          bisectorAB.style.opacity = "0";
+          bisectorBC.style.opacity = "0";
+          centerO.style.opacity = "0";
+          ghostCircle.style.opacity = "0.3";
+
+          btn.textContent = "✨ 一键作垂直平分线修复";
+          status.textContent = "💡 点击右上角按钮，查看两条弦的垂直平分线如何精确相交于圆心 O！";
+        }
+      });
+    });
+  </script>
+</section>
+
+<!-- =========================================================
+     MODULE 05 · 避坑指南
+     ========================================================= -->
+<section class="c5">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2>易错避坑指南</h2>
+    <span class="en">Common Mistakes</span>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m5);">
+    <div class="head" style="color:var(--m5-deep)">
+      ❌ 易错点 1：把“直径”当成了对称轴
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+      <b>错误说法：</b>“圆的直径是圆的对称轴。”<br>
+      <b>正确诊断：</b>对称轴必须是一条<b>直线</b>（无限长），而直径是一条<b>线段</b>（有限长）。<br>
+      <b>满分规范：</b>“圆的<b>直径所在的直线</b>是圆的对称轴。”
+    </p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m5);">
+    <div class="head" style="color:var(--m5-deep)">
+      ❌ 易错点 2：混淆半圆与圆的对称轴数量
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+      <b>错误说法：</b>“半圆也有无数条对称轴。”<br>
+      <b>正确诊断：</b>圆有无数条对称轴，但半圆折叠时只有沿着垂直于直径的中线折叠才能重合。<br>
+      <b>满分规范：</b>半圆只有 <b>1 条</b> 对称轴！
+    </p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m5);">
+    <div class="head" style="color:var(--m5-deep)">
+      ❌ 易错点 3：以为所有四边形都有对称轴
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); margin:0">
+      <b>错误说法：</b>“平行四边形是轴对称图形，有 2 条对称轴。”<br>
+      <b>正确诊断：</b>普通的平行四边形沿任何直线对折都无法重合（它是中心对称图形）。<br>
+      <b>满分规范：</b>普通平行四边形有 <b>0 条</b> 对称轴！（只有特殊的平行四边形如长方形、正方形、菱形才是轴对称图形）。
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer>
+  <div>北师大版六年级数学上册 · 第二单元《圆的认识（二）》核心考点全梳理</div>
+  <div style="margin-top:4px;">© 2026 WANG DI · 一页纸极简复习系列</div>
+</footer>
+
+</div>
+</body>
+</html>

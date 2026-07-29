@@ -10,7 +10,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'SimSun', 'STSong', 'Songti SC', '华文宋体', serif;
-            background: linear-gradient(135deg, #12100e 0%, #1a1814 50%, #201a14 100%);
+            background: linear-gradient(135deg, #0f0c0a 0%, #171412 50%, #201a14 100%);
             color: #f3f0e8;
             height: 100vh;
             display: flex;
@@ -20,114 +20,133 @@
         .container { display: flex; width: 100%; height: 100%; }
 
         .sidebar {
-            width: 400px;
-            background: rgba(20, 18, 16, 0.7);
+            width: 440px;
+            background: rgba(20, 18, 16, 0.85);
             backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(234, 179, 8, 0.2);
-            padding: 30px;
+            border-right: 2px solid rgba(234, 179, 8, 0.3);
+            padding: 25px;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
-            gap: 20px;
+            gap: 15px;
         }
 
         .title {
             font-size: 24px; font-weight: bold;
             color: #eab308;
             border-bottom: 2px dashed #eab308;
-            padding-bottom: 15px;
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .description { font-size: 16px; color: #a39c90; line-height: 1.8; }
+        .description { font-size: 15px; color: #d4cebe; line-height: 1.7; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
         
-        .step-list { list-style-type: none; display: flex; flex-direction: column; gap: 15px; }
+        .step-list { list-style-type: none; display: flex; flex-direction: column; gap: 12px; }
         
         .step-item {
-            background: rgba(0,0,0,0.5); border: 1px solid rgba(234, 179, 8, 0.2);
-            padding: 15px; border-radius: 8px; font-size: 15px; line-height: 1.6;
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(234, 179, 8, 0.2);
+            padding: 14px; border-radius: 8px; font-size: 14px; line-height: 1.6;
             display: flex; flex-direction: column; gap: 8px; color: #a39c90;
-            transition: all 0.3s ease; opacity: 0.5;
+            transition: all 0.3s ease; opacity: 0.6;
         }
         
         .step-item.active {
-            opacity: 1; border-color: #38bdf8; background: rgba(56, 189, 248, 0.1);
-            color: #fff; box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+            opacity: 1; border-color: #38bdf8; background: rgba(56, 189, 248, 0.12);
+            color: #fff; box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
         }
 
-        .step-header { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 16px; color: #38bdf8; }
-        .step-tip { font-size: 14px; color: #fbbf24; background: rgba(251, 191, 36, 0.15); padding: 6px 10px; border-radius: 4px; border: 1px dashed #fbbf24; }
+        .step-header { display: flex; align-items: center; justify-content: space-between; font-weight: bold; font-size: 16px; color: #38bdf8; }
+        .step-tip { font-size: 13px; color: #fbbf24; background: rgba(251, 191, 36, 0.15); padding: 6px 10px; border-radius: 4px; border: 1px dashed #fbbf24; font-family: monospace; }
 
         .main-content {
-            flex: 1; display: flex; flex-direction: column; padding: 20px; position: relative;
+            flex: 1; display: flex; flex-direction: column; padding: 15px; position: relative;
         }
         
         .toolbar-top {
-            display: flex; justify-content: flex-end; padding-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px;
         }
+        .lab-status { font-size: 18px; font-weight: bold; color: #eab308; display: flex; align-items: center; gap: 8px; }
+        
         .reset-btn {
-            background: #ef4444; color: white; border: none; padding: 10px 20px; font-size: 16px;
-            font-weight: bold; font-family: 'SimSun', serif; border-radius: 6px; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); transition: transform 0.2s;
+            background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; border: 1px solid #fca5a5; padding: 10px 22px; font-size: 16px;
+            font-weight: bold; font-family: 'SimSun', serif; border-radius: 8px; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4); transition: all 0.2s;
         }
-        .reset-btn:hover { transform: scale(1.05); }
+        .reset-btn:hover { transform: scale(1.05); background: #ef4444; }
 
         #ggb-container {
-            flex: 1; width: 100%; background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px; border: 2px solid rgba(234, 179, 8, 0.3); box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden;
+            flex: 1; width: 100%; background: #080706;
+            border-radius: 12px; border: 2px solid rgba(234, 179, 8, 0.4); box-shadow: 0 10px 40px rgba(0,0,0,0.8); overflow: hidden;
         }
         
         .success-overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(18, 16, 14, 0.85); backdrop-filter: blur(8px);
+            background: rgba(15, 12, 10, 0.92); backdrop-filter: blur(10px);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             opacity: 0; pointer-events: none; transition: opacity 0.5s ease; z-index: 100;
         }
         .success-overlay.show { opacity: 1; pointer-events: auto; }
-        .success-overlay h2 { font-size: 4rem; color: #fbbf24; text-shadow: 0 0 30px rgba(251, 191, 36, 0.6); margin-bottom: 20px; letter-spacing: 5px; }
+        .success-overlay h2 { font-size: 4.2rem; color: #fbbf24; text-shadow: 0 0 35px rgba(251, 191, 36, 0.7); margin-bottom: 20px; letter-spacing: 6px; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
-            <div class="title">考古修复：保姆级教程</div>
+            <div class="title">
+                <span>🔍 修复指南 (手把手)</span>
+            </div>
             <div class="description">
-                右边是一段黄色的“青铜镜残片”。请大家轮流上台，按照下方点亮的提示步骤，亲手画出完整的圆！
+                右侧画板中显示的是一段金黄色的<b>古铜钱/青铜镜残弧</b>。请跟从下方1-4步提示，一步步点击顶部工具栏来重铸铜镜：
             </div>
             
             <ul class="step-list">
                 <li class="step-item active" id="step-1">
-                    <div class="step-header"><span>第一步：画两条弦</span></div>
-                    <div>在黄色的残弧上随便点两下，连成一条线段。然后再换个位置点两下，画第二条线段。</div>
-                    <div class="step-tip">💡 提示：点击上方工具栏第2个图标【线段工具】。</div>
+                    <div class="step-header">
+                        <span>第 1 步：画两条弦</span>
+                        <span style="color:#fbbf24">①</span>
+                    </div>
+                    <div>点击顶部工具栏【<b>线段</b>】图标，在黄弧上任意选两点画一条线段；再选两点画第二条线段。</div>
+                    <div class="step-tip">🛠️ 工具：第 2 个图标（线段）</div>
                 </li>
                 <li class="step-item" id="step-2">
-                    <div class="step-header"><span>第二步：作垂直平分线</span></div>
-                    <div>分别点击你刚才画好的两条“弦”，系统会自动帮你画出它们的中垂线。</div>
-                    <div class="step-tip">💡 提示：点击工具栏第3个图标【中垂线工具】。</div>
+                    <div class="step-header">
+                        <span>第 2 步：作中垂线</span>
+                        <span style="color:#fbbf24">②</span>
+                    </div>
+                    <div>点击顶部工具栏【<b>垂直平分线</b>】图标，分别点击你刚才画好的两条白色线段。</div>
+                    <div class="step-tip">🛠️ 工具：第 3 个图标（垂直平分线）</div>
                 </li>
                 <li class="step-item" id="step-3">
-                    <div class="step-header"><span>第三步：锁定圆心</span></div>
-                    <div>这两条虚线（中垂线）在空中相交了一个点，那个点就是神秘的圆心！点击那个交叉点。</div>
-                    <div class="step-tip">💡 提示：点击工具栏第4个图标【交点工具】，再点击两条虚线。</div>
+                    <div class="step-header">
+                        <span>第 3 步：锁定圆心</span>
+                        <span style="color:#fbbf24">③</span>
+                    </div>
+                    <div>点击顶部工具栏【<b>交点</b>】图标，再依次点击两条相交的蓝色中垂线，确定圆心。</div>
+                    <div class="step-tip">🛠️ 工具：第 4 个图标（交点）</div>
                 </li>
                 <li class="step-item" id="step-4">
-                    <div class="step-header"><span>第四步：完美复原！</span></div>
-                    <div>先点击刚才找到的圆心，然后拉开鼠标，点击黄色圆弧上的任意一点。见证奇迹的时刻到了！</div>
-                    <div class="step-tip">💡 提示：点击工具栏第5个图标【圆(圆心和圆上一点)】。</div>
+                    <div class="step-header"><span>第 4 步：完美重铸</span><span style="color:#fbbf24">④</span></div>
+                    <div>点击顶部工具栏【<b>圆</b>】图标，先点击刚找出的红点圆心，再点击黄弧上任意一点！</div>
+                    <div class="step-tip">🛠️ 工具：第 5 个图标（圆心和圆上一点）</div>
                 </li>
             </ul>
         </div>
         
         <div class="main-content">
             <div class="toolbar-top">
-                <button class="reset-btn" onclick="resetApplet()">🔄 一键清空画板 (换人操作)</button>
+                <div class="lab-status">🏛️ 汉代青铜镜 3D 数字复原工作台</div>
+                <button class="reset-btn" onclick="resetApplet()">🔄 清空画板 (重新作图)</button>
             </div>
             <div id="ggb-container"></div>
             
             <div class="success-overlay" id="success-overlay">
                 <h2>🎉 修复成功！</h2>
-                <p style="font-size: 1.5rem; color: #f3f0e8; font-family: 'SimSun', serif;">太棒了！你利用垂径定理，成功重铸了完美的汉代青铜镜！</p>
-                <button onclick="resetApplet(); document.getElementById('success-overlay').classList.remove('show');" style="margin-top: 40px; padding: 15px 30px; background: #ca8a04; color: white; border: none; border-radius: 8px; font-size: 1.2rem; cursor: pointer; font-weight: bold;">再玩一次</button>
+                <p style="font-size: 1.6rem; color: #f3f0e8; font-family: 'SimSun', serif; margin-bottom: 30px;">
+                    太棒了！你利用垂径定理作垂直平分线，成功重铸了完美的汉代青铜镜！
+                </p>
+                <button onclick="resetApplet(); document.getElementById('success-overlay').classList.remove('show');" style="padding: 16px 36px; background: linear-gradient(135deg, #eab308, #ca8a04); color: #12100e; border: none; border-radius: 8px; font-size: 1.3rem; cursor: pointer; font-weight: bold;">再练一次</button>
             </div>
         </div>
     </div>
@@ -135,10 +154,9 @@
     <script>
         var params = {
             "id": "ggbApplet",
-            "width": 800,
-            "height": 600,
+            "width": 900,
+            "height": 650,
             "showToolBar": true,
-            // Point(0), Segment(15), Perpendicular Bisector(8), Intersect(11), Circle with Center(2), Move(40)
             "customToolBar": "0 | 15 | 8 | 11 | 2 || 40",
             "showAlgebraInput": false,
             "showMenuBar": false,
@@ -163,18 +181,20 @@
         
         window.onload = function() {
             applet.inject('ggb-container');
-            setTimeout(resizeApplet, 1000);
+            setTimeout(resizeApplet, 800);
         };
         
         function initMirrorArc() {
             if(!window.ggbApplet) return;
-            ggbApplet.setCoordSystem(-6, 6, -4, 6);
+            ggbApplet.setCoordSystem(-7, 7, -5, 7);
+            
+            // Clean board
             ggbApplet.evalCommand("P1 = (-4, -2)");
             ggbApplet.evalCommand("P2 = (0, 4)");
             ggbApplet.evalCommand("P3 = (5, 2.5)");
             ggbApplet.evalCommand("mirrorArc = CircumcircularArc(P1, P2, P3)");
-            ggbApplet.evalCommand("SetColor(mirrorArc, 218, 165, 32)"); 
-            ggbApplet.evalCommand("SetLineThickness(mirrorArc, 10)");
+            ggbApplet.evalCommand("SetColor(mirrorArc, 234, 179, 8)"); // Vibrant gold
+            ggbApplet.evalCommand("SetLineThickness(mirrorArc, 12)");
             ggbApplet.evalCommand("SetVisibleInView(P1, 1, false)");
             ggbApplet.evalCommand("SetVisibleInView(P2, 1, false)");
             ggbApplet.evalCommand("SetVisibleInView(P3, 1, false)");
@@ -186,6 +206,7 @@
         }
 
         function resetApplet() {
+            if(!window.ggbApplet) return;
             ggbApplet.reset();
             initMirrorArc();
         }
@@ -193,27 +214,27 @@
         function objectAdded(objName) {
             var type = ggbApplet.getObjectType(objName);
             
-            // Set styles to make user drawn lines visible but not overriding the golden mirror
             if(type === "segment") {
                 ggbApplet.evalCommand("SetColor(" + objName + ", 255, 255, 255)");
-                ggbApplet.evalCommand("SetLineThickness(" + objName + ", 3)");
+                ggbApplet.evalCommand("SetLineThickness(" + objName + ", 4)");
                 document.getElementById("step-1").classList.remove("active");
                 document.getElementById("step-2").classList.add("active");
             }
             if(type === "line") {
-                ggbApplet.evalCommand("SetColor(" + objName + ", 56, 189, 248)"); // Cyan
+                ggbApplet.evalCommand("SetColor(" + objName + ", 56, 189, 248)"); // Blue
                 ggbApplet.evalCommand("SetLineStyle(" + objName + ", 1)"); // Dashed
+                ggbApplet.evalCommand("SetLineThickness(" + objName + ", 3)");
                 document.getElementById("step-2").classList.remove("active");
                 document.getElementById("step-3").classList.add("active");
             }
             if(type === "point") {
-                ggbApplet.evalCommand("SetColor(" + objName + ", 239, 68, 68)"); // Red center
-                ggbApplet.evalCommand("SetPointSize(" + objName + ", 5)");
+                ggbApplet.evalCommand("SetColor(" + objName + ", 239, 68, 68)"); // Red
+                ggbApplet.evalCommand("SetPointSize(" + objName + ", 6)");
                 document.getElementById("step-3").classList.remove("active");
                 document.getElementById("step-4").classList.add("active");
             }
             if(type === "circle") {
-                ggbApplet.evalCommand("SetColor(" + objName + ", 218, 165, 32)"); // Golden
+                ggbApplet.evalCommand("SetColor(" + objName + ", 234, 179, 8)"); 
                 ggbApplet.evalCommand("SetLineThickness(" + objName + ", 8)");
                 setTimeout(function() {
                     document.getElementById("step-4").classList.remove("active");
