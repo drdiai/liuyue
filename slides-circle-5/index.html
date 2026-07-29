@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>北师大版六年级数学上册 · 第五课时《欣赏与设计》全屏交互式课件</title>
+  <style>
+    :root {
+      --bg-dark: #0e0c1a;
+      --text-main: #f3f0e8;
+      --text-muted: #a39c90;
+      
+      --accent-cyan: #38bdf8;
+      --accent-gold: #eab308;
+      --accent-red: #ef4444;
+      --accent-green: #10b981;
+      --accent-purple: #c084fc;
+      
+      --border-soft: rgba(192, 132, 252, 0.25);
+      --glass-bg: rgba(20, 18, 36, 0.75);
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'SimSun', 'STSong', 'Songti SC', '华文宋体', serif;
+      background: var(--bg-dark);
+      background-image: 
+        radial-gradient(ellipse at top right, rgba(192, 132, 252, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom left, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+      color: var(--text-main);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-bar {
+      height: 50px; display: flex; justify-content: space-between; align-items: center; padding: 0 30px;
+      background: rgba(0, 0, 0, 0.4); border-bottom: 1px solid var(--border-soft); backdrop-filter: blur(10px); z-index: 100;
+    }
+    .logo-info { display: flex; align-items: center; gap: 15px; }
+    .tag-bnu { background: var(--accent-purple); color: #0e0c1a; font-size: 0.85rem; font-weight: bold; padding: 3px 10px; border-radius: 4px; }
+    .title-text { font-size: 1.1rem; font-weight: bold; letter-spacing: 1px; color: var(--accent-purple); }
+    .help-tips { font-size: 0.9rem; color: var(--text-muted); }
+
+    .app-container { display: flex; flex: 1; overflow: hidden; position: relative; }
+    .slides-wrapper { flex: 1; position: relative; }
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+      display: flex; flex-direction: column; padding: 35px 55px;
+    }
+    .slide.active { opacity: 1; pointer-events: auto; }
+
+    .slide-header { margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+    .topic-badge {
+      background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); border: 1px solid rgba(192, 132, 252, 0.4);
+      padding: 6px 14px; border-radius: 20px; font-size: 1rem; font-weight: bold; letter-spacing: 1px;
+    }
+    .slide-title { font-size: 2rem; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+    .page-index { margin-left: auto; font-size: 1.2rem; font-family: monospace; color: var(--text-muted); }
+    
+    .slide-body { flex: 1; overflow-y: auto; position: relative; }
+    .slide-body.justify-center { display: flex; align-items: center; justify-content: center; flex-direction: column; }
+
+    .cover-layout {
+      height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    }
+    .cover-layout .subtitle { font-size: 1.5rem; color: var(--accent-purple); margin-bottom: 10px; letter-spacing: 8px; }
+    .cover-layout h1 { font-size: 5.5rem; margin-bottom: 20px; letter-spacing: 4px; color: #fff; text-shadow: 0 0 30px rgba(192, 132, 252, 0.4); font-weight: bold; }
+    .cover-layout .desc { font-size: 1.6rem; color: var(--text-muted); max-width: 800px; line-height: 1.8; margin-bottom: 40px; }
+    
+    .start-btn {
+      background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; border: 2px solid #e9d5ff; padding: 15px 40px; font-size: 1.4rem; font-weight: bold; font-family: 'SimSun', serif; border-radius: 8px; cursor: pointer; transition: transform 0.2s; box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3); letter-spacing: 2px;
+    }
+    .start-btn:hover { transform: translateY(-3px) scale(1.02); }
+
+    /* Interactive Step Lists */
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 18px; font-size: 1.35rem; }
+    .step-item { opacity: 0.35; transition: all 0.5s; padding: 14px 18px; border-left: 5px solid transparent; background: rgba(255,255,255,0.02); border-radius: 4px; }
+    .step-item.active { opacity: 1; border-left-color: var(--accent-purple); background: rgba(192, 132, 252, 0.12); }
+    .step-control-btn { background: linear-gradient(135deg, #c084fc, #a855f7); color: #000; border: none; padding: 12px 28px; font-size: 1.25rem; font-weight: bold; cursor: pointer; border-radius: 6px; margin-top: 20px; font-family: 'SimSun', serif; }
+
+    /* Student Tablet Presentation */
+    .tablet-frame {
+      width: 850px; height: 500px; border: 16px solid #1a1a1a; border-radius: 28px; background: #000;
+      position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center;
+    }
+    .tablet-inner {
+      width: 100%; height: 100%; background: #141220; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #333; padding: 30px;
+    }
+
+    /* Scenario Card Layout */
+    .scenario-container { display: grid; grid-template-columns: 420px 1fr; gap: 35px; height: 100%; align-items: center; }
+    .scenario-img-box { width: 100%; height: 420px; border-radius: 12px; overflow: hidden; border: 2px solid var(--border-soft); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .scenario-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .scenario-info-box { background: var(--glass-bg); border: 1px solid var(--border-soft); border-radius: 12px; padding: 30px; display: flex; flex-direction: column; gap: 20px; position: relative; }
+    .scenario-title { font-size: 1.8rem; color: var(--accent-purple); border-bottom: 1px dashed var(--accent-purple); padding-bottom: 10px; }
+    .scenario-desc { font-size: 1.35rem; line-height: 1.7; color: #f3f0e8; }
+    
+    .dimension-box { background: rgba(192, 132, 252, 0.08); border: 1px stroke var(--accent-purple); padding: 15px; border-radius: 8px; border-left: 4px solid var(--accent-purple); }
+    .dimension-title { color: var(--accent-purple); font-weight: bold; font-size: 1.2rem; margin-bottom: 8px; }
+    .dimension-list { font-size: 1.1rem; color: #d4cebe; line-height: 1.6; padding-left: 20px; }
+
+    .answer-reveal {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(14, 12, 26, 0.95); backdrop-filter: blur(6px); border-radius: 12px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.4s; z-index: 10;
+    }
+    .answer-reveal button { font-size: 1.3rem; color: var(--accent-purple); border: 2px solid var(--accent-purple); background: rgba(192,132,252,0.1); padding: 12px 28px; border-radius: 8px; font-family: 'SimSun', serif; font-weight: bold; cursor: pointer; }
+    .answer-text { color: var(--accent-green); font-size: 1.25rem; line-height: 1.7; }
+
+    .side-nav { width: 70px; background: rgba(0,0,0,0.5); border-left: 1px solid var(--border-soft); display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 30px 0; z-index: 50; }
+    .nav-arrow-btn { background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; transition: color 0.2s, transform 0.2s; padding: 15px; }
+    .nav-arrow-btn:hover:not(:disabled) { color: var(--accent-purple); transform: scale(1.2); }
+    .nav-arrow-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="logo-info">
+    <span class="tag-bnu">北师大版</span>
+    <span class="title-text">六年级数学上册 · 项目式学习 · 第五课时《欣赏与设计》</span>
+  </div>
+  <div class="help-tips">按 ◀ / ▶ 键翻页 | 探索圆弧艺术与几何设计</div>
+</div>
+
+<div class="app-container">
+  <div class="slides-wrapper">
+
+    <!-- SLIDE 1: 封面 -->
+    <div class="slide active" id="slide-1">
+      <div class="cover-layout">
+        <p class="subtitle">数 学 艺 术 · 探 究 课</p>
+        <h1 style="color: var(--accent-purple);">欣赏与设计</h1>
+        <p class="desc">学习路线：圆弧图案大赏 ➔ 名画步骤解密 ➔ 投屏说理展示 ➔ 几何艺术画板 ➔ 场景应用 ➔ 终极通关</p>
+        <button class="start-btn" onclick="nextSlide()">开启几何艺术之旅</button>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: 赏图导入 -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <span class="topic-badge">图形大赏</span>
+        <span class="slide-title">用“圆”构筑的几何艺术世界</span>
+        <span class="page-index">02 / 12</span>
+      </div>
+      <div class="slide-body justify-center">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; max-width: 1000px;">
+          <div style="background: rgba(0,0,0,0.5); border: 2px solid var(--border-soft); border-radius: 12px; padding: 15px; text-align: center;">
+            <img src="assets/taiji.jpg" alt="太极图" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
+            <h3 style="color: var(--accent-gold); font-size:1.3rem;">☯ 双圆太极图</h3>
+            <p style="font-size:1rem; color:var(--text-muted); margin-top:5px;">由大圆与两个等半径半圆组合而成</p>
+          </div>
+
+          <div style="background: rgba(0,0,0,0.5); border: 2px solid var(--border-soft); border-radius: 12px; padding: 15px; text-align: center;">
+            <img src="assets/flower.jpg" alt="四叶花瓣" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
+            <h3 style="color: var(--accent-purple); font-size:1.3rem;">🌸 四叶玫瑰花瓣</h3>
+            <p style="font-size:1rem; color:var(--text-muted); margin-top:5px;">由正方形顶点作为圆心画出的 1/4 圆弧</p>
+          </div>
+
+          <div style="background: rgba(0,0,0,0.5); border: 2px solid var(--border-soft); border-radius: 12px; padding: 15px; text-align: center;">
+            <img src="assets/carpet.jpg" alt="同心圆轮饰" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
+            <h3 style="color: var(--accent-cyan); font-size:1.3rem;">🌀 同心圆轮饰</h3>
+            <p style="font-size:1rem; color:var(--text-muted); margin-top:5px;">由不同半径的同心圆与等分射线构建</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: 第一关过渡 -->
+    <div class="slide" id="slide-3">
+      <div class="cover-layout">
+        <p class="subtitle">第一阶段探究</p>
+        <h1 style="color: var(--accent-purple);">第一关：解密图案生成</h1>
+        <p class="desc">看似复杂的几何花纹，究竟是用哪些基本图形（圆、半圆、圆弧）画出来的？</p>
+        <button class="start-btn" onclick="nextSlide()">开始拆解探究</button>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: 拆解探究 1（太极图 Step-by-step） -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <span class="topic-badge">第一关</span>
+        <span class="slide-title">解密太极图绘制步骤 (一步一动)</span>
+        <span class="page-index">04 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div style="display: grid; grid-template-columns: 1fr 450px; gap: 40px; height: 100%;">
+          <div style="display: flex; flex-direction: column; justify-content: center;">
+            <ul class="step-list" id="s4-steps">
+              <li class="step-item active" id="s4-step-1">
+                <b>步骤 1 (画外圆)：</b>以点 O 为圆心，画一个大圆，并画出它的一条直径 AB。
+              </li>
+              <li class="step-item" id="s4-step-2">
+                <b>步骤 2 (画半圆)：</b>分别以 OA 和 OB 为直径，在直径两侧画出两个半圆。
+              </li>
+              <li class="step-item" id="s4-step-3">
+                <b>步骤 3 (涂色填阴阳)：</b>将其中一个半圆区域与大圆一侧涂色，即可得到完美的双弧太极图！
+              </li>
+            </ul>
+            <div>
+              <button class="step-control-btn" id="s4-btn" onclick="nextSlide4Step()">点击执行：下一步 (画半圆)</button>
+              <button class="step-control-btn" onclick="resetSlide4()" style="background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); margin-left: 15px;">重置</button>
+            </div>
+          </div>
+          
+          <div style="background: rgba(0,0,0,0.6); border: 2px solid var(--border-soft); border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 20px;">
+            <svg viewBox="0 0 220 220" width="100%">
+              <!-- Outer Circle -->
+              <circle id="s4-outer" cx="110" cy="110" r="90" fill="none" stroke="var(--accent-purple)" stroke-width="3" opacity="1"/>
+              <!-- Diameter AB -->
+              <line id="s4-diam" x1="110" y1="20" x2="110" y2="200" stroke="#fff" stroke-width="2" opacity="1"/>
+              
+              <!-- S-curves -->
+              <path id="s4-sc1" d="M 110 20 A 45 45 0 0 1 110 110" fill="none" stroke="var(--accent-gold)" stroke-width="3" opacity="0" style="transition: opacity 0.8s;"/>
+              <path id="s4-sc2" d="M 110 110 A 45 45 0 0 0 110 200" fill="none" stroke="var(--accent-gold)" stroke-width="3" opacity="0" style="transition: opacity 0.8s;"/>
+              
+              <!-- Shading -->
+              <path id="s4-fill" d="M 110 20 A 90 90 0 0 1 110 200 A 45 45 0 0 1 110 110 A 45 45 0 0 0 110 20 Z" fill="rgba(192, 132, 252, 0.4)" stroke="none" opacity="0" style="transition: opacity 0.8s;"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: 拆解探究 2（四叶花瓣 Step-by-step） -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <span class="topic-badge">第一关</span>
+        <span class="slide-title">解密四叶花瓣绘制步骤 (一步一动)</span>
+        <span class="page-index">05 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div style="display: grid; grid-template-columns: 1fr 450px; gap: 40px; height: 100%;">
+          <div style="display: flex; flex-direction: column; justify-content: center;">
+            <ul class="step-list" id="s5-steps">
+              <li class="step-item active" id="s5-step-1">
+                <b>步骤 1 (画网格)：</b>先画一个正方形网格。
+              </li>
+              <li class="step-item" id="s5-step-2">
+                <b>步骤 2 (选圆心画弧)：</b>以正方形各顶点为圆心，边长为半径画 1/4 圆弧。
+              </li>
+              <li class="step-item" id="s5-step-3">
+                <b>步骤 3 (旋转组合)：</b>4 条圆弧交织在一起，形成美丽的四叶花瓣！
+              </li>
+            </ul>
+            <div>
+              <button class="step-control-btn" id="s5-btn" onclick="nextSlide5Step()">点击执行：下一步 (画圆弧)</button>
+              <button class="step-control-btn" onclick="resetSlide5()" style="background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); margin-left: 15px;">重置</button>
+            </div>
+          </div>
+          
+          <div style="background: rgba(0,0,0,0.6); border: 2px solid var(--border-soft); border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 20px;">
+            <svg viewBox="0 0 220 220" width="100%">
+              <!-- Square Grid -->
+              <rect id="s5-rect" x="30" y="30" width="160" height="160" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+              
+              <!-- Arcs -->
+              <path id="s5-a1" d="M 30 190 A 160 160 0 0 1 190 30" fill="none" stroke="var(--accent-cyan)" stroke-width="3" opacity="0" style="transition: opacity 0.8s;"/>
+              <path id="s5-a2" d="M 30 30 A 160 160 0 0 1 190 190" fill="none" stroke="var(--accent-purple)" stroke-width="3" opacity="0" style="transition: opacity 0.8s;"/>
+              <path id="s5-a3" d="M 190 30 A 160 160 0 0 1 30 190" fill="none" stroke="var(--accent-gold)" stroke-width="3" opacity="0" style="transition: opacity 0.8s;"/>
+              <path id="s5-a4" d="M 190 190 A 160 160 0 0 1 30 30" fill="none" stroke="var(--accent-green)" stroke-width="3" opacity="0" style="transition: opacity 0.8s;"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: 学生展示说理区 -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <span class="topic-badge">说理时刻</span>
+        <span class="slide-title">图形设计说理 · 投屏展示区</span>
+        <span class="page-index">06 / 12</span>
+      </div>
+      <div class="slide-body justify-center">
+        <div class="tablet-frame">
+          <div class="tablet-inner">
+            <h2 style="color: var(--accent-purple); font-size: 2.2rem; margin-bottom: 25px;">📡 设计构思投屏中</h2>
+            <div style="background: rgba(192, 132, 252, 0.1); border: 1px dashed var(--accent-purple); padding: 25px 40px; border-radius: 12px; text-align: left; max-width: 700px;">
+              <p style="color: var(--accent-purple); font-size: 1.4rem; font-weight: bold; margin-bottom: 15px;">🎤 邀请学生上台，从以下 3 个维度说明：</p>
+              <ol style="font-size: 1.25rem; line-height: 2; color: #f3f0e8; padding-left: 25px;">
+                <li><b>基本图形：</b>你的设计包含了哪些基本图形（圆/半圆/圆弧）？</li>
+                <li><b>圆心半径：</b>你在画圆弧时，圆心选在何处？半径设多大？</li>
+                <li><b>运动变换：</b>图案运用了旋转、平移还是轴对称？</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: 第二关过渡 -->
+    <div class="slide" id="slide-7">
+      <div class="cover-layout">
+        <p class="subtitle">第二阶段创作</p>
+        <h1 style="color: var(--accent-cyan);">第二关：几何艺术创作</h1>
+        <p class="desc">化身为几何艺术家！在画板上自由调节花瓣数、半径与旋转角度，设计属于你的艺术图案。</p>
+        <button class="start-btn" onclick="nextSlide()" style="background: linear-gradient(135deg, #0284c7, #38bdf8);">进入艺术实验室</button>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: 核心交互画板 -->
+    <div class="slide" id="slide-8">
+      <div class="slide-header">
+        <span class="topic-badge" style="background: rgba(192, 132, 252, 0.2); color: var(--accent-purple);">高能互动</span>
+        <span class="slide-title">几何艺术画板实验室 (自由创作)</span>
+        <span class="page-index">08 / 12</span>
+      </div>
+      <div class="slide-body" style="padding: 0; overflow: hidden; position: relative;">
+        <iframe id="design-iframe" src="geogebra-design.html" style="width: 100%; height: 100%; border: none; border-radius: 12px; background: #000;"></iframe>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: 场景一校徽设计 (独立一页) -->
+    <div class="slide" id="slide-9">
+      <div class="slide-header">
+        <span class="topic-badge">说题说理挑战</span>
+        <span class="slide-title">场景一：设计学校“艺术节”标志</span>
+        <span class="page-index">09 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div class="scenario-container">
+          <div class="scenario-img-box">
+            <img src="assets/flower.jpg" alt="花瓣标志">
+          </div>
+          
+          <div class="scenario-info-box">
+            <div class="scenario-title">🌸 情境问题</div>
+            <div class="scenario-desc">
+              学校举办校园艺术节，要求用圆规设计一个由 4 条圆弧交织而成的“四叶花瓣”标志。你将如何准确画出它？
+            </div>
+            
+            <div class="dimension-box">
+              <div class="dimension-title">🎤 邀请学生上台说理（引导维度）：</div>
+              <ul class="dimension-list">
+                <li><b>维度 1：</b>画这个图案的第一步是什么？（画正方形或中心线）</li>
+                <li><b>维度 2：</b>圆规针尖（圆心）应该定在哪里？开度（半径）定多大？</li>
+                <li><b>维度 3：</b>怎样保证 4 个花瓣完全对称相等？</li>
+              </ul>
+            </div>
+            
+            <div class="answer-reveal" onclick="this.style.opacity='0'; setTimeout(()=>this.style.display='none',400);">
+              <button>点击揭晓参考答案</button>
+            </div>
+            <div class="answer-text">
+              <b>参考思路：</b>先画正方形网格；分别以正方形的 4 个顶点为圆心，以正方形边长为半径画圆弧；利用旋转与对称性即可构成花瓣。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: 场景二地毯设计 (独立一页) -->
+    <div class="slide" id="slide-10">
+      <div class="slide-header">
+        <span class="topic-badge">说题说理挑战</span>
+        <span class="slide-title">场景二：圆形地毯与花坛铺设</span>
+        <span class="page-index">10 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div class="scenario-container">
+          <div class="scenario-img-box">
+            <img src="assets/carpet.jpg" alt="同心圆地毯">
+          </div>
+          
+          <div class="scenario-info-box">
+            <div class="scenario-title">🌀 情境问题</div>
+            <div class="scenario-desc">
+              设计师准备在广场中央铺设圆形花坛，内部由多个同心圆和放射状弧线交织而成。如何用几何知识指导施工？
+            </div>
+            
+            <div class="dimension-box">
+              <div class="dimension-title">🎤 邀请学生上台说理（引导维度）：</div>
+              <ul class="dimension-list">
+                <li><b>维度 1：</b>同心圆的核心特征是什么？（圆心相同，半径不同）</li>
+                <li><b>维度 2：</b>如何将圆周均匀等分？</li>
+                <li><b>维度 3：</b>圆在建筑艺术中体现了怎样的美感？</li>
+              </ul>
+            </div>
+            
+            <div class="answer-reveal" onclick="this.style.opacity='0'; setTimeout(()=>this.style.display='none',400);">
+              <button>点击揭晓参考答案</button>
+            </div>
+            <div class="answer-text">
+              <b>参考思路：</b>固定中央圆心点，改变绳子长度（半径）画出不同层次的同心圆；通过圆心角等分画出放射射线，美观且施工精准。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: 总结口诀页 -->
+    <div class="slide" id="slide-11">
+      <div class="slide-header">
+        <span class="topic-badge">归纳总结</span>
+        <span class="slide-title">欣赏与设计 · 核心口诀</span>
+        <span class="page-index">11 / 12</span>
+      </div>
+      <div class="slide-body justify-center">
+        <div style="background: rgba(0,0,0,0.7); border: 2px solid var(--accent-purple); padding: 35px 60px; border-radius: 16px; font-size: 1.9rem; line-height: 2.2; color: #f3f0e8; text-align: center; box-shadow: 0 0 50px rgba(192, 132, 252, 0.25); max-width: 900px;">
+          <p style="color: var(--accent-purple); font-weight: bold; margin-bottom: 20px; font-size: 2.2rem;">📜 几何设计口诀</p>
+          <p>复杂图案莫惊慌，拆成圆弧看端详。</p>
+          <p>定点画弧找圆心，平移旋转花样新。</p>
+          <p>巧用对称构奇妙，几何艺术领风骚！</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: 终极通关 VICTORY 页 -->
+    <div class="slide" id="slide-12">
+      <div class="cover-layout">
+        <img src="assets/victory.png" alt="VICTORY 胜利通关" style="width: 550px; max-height: 280px; object-fit: contain; filter: drop-shadow(0 0 40px rgba(192, 132, 252, 0.7)); margin-bottom: 20px;">
+        
+        <h1 style="color: var(--accent-purple); font-size: 4.5rem; margin-bottom: 20px; letter-spacing: 10px;">胜利通关！</h1>
+        <p class="desc" style="color: var(--accent-green); font-weight: bold; font-size: 1.7rem;">恭喜你！成功掌握图形拆解与圆弧几何艺术设计的精髓！</p>
+        <button class="start-btn" onclick="playVictorySound(); goToSlide(1);" style="margin-top: 20px;">重新回顾</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="side-nav">
+    <button class="nav-arrow-btn" id="prev-btn" onclick="prevSlide()" title="上一页">▲</button>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <span id="current-page-num" style="font-size: 1.2rem; font-weight: bold; color: var(--accent-purple);">1</span>
+      <span style="font-size: 0.8rem; color: var(--text-muted); margin: 4px 0;">/</span>
+      <span style="font-size: 1rem; color: var(--text-muted);">12</span>
+    </div>
+    <button class="nav-arrow-btn" id="next-btn" onclick="nextSlide()" title="下一页">▼</button>
+  </div>
+</div>
+
+<script>
+  /* ==================== SLIDE NAVIGATION ==================== */
+  let currentSlideIndex = 1;
+  const totalSlides = 12;
+
+  function showSlide(index) {
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach(s => s.classList.remove('active'));
+    if (slides[index - 1]) slides[index - 1].classList.add('active');
+
+    document.getElementById('current-page-num').innerText = index;
+    document.getElementById('prev-btn').disabled = (index === 1);
+    document.getElementById('next-btn').disabled = (index === totalSlides);
+    
+    currentSlideIndex = index;
+
+    if(index === 12) {
+      playVictorySound();
+    }
+  }
+
+  function nextSlide() { if (currentSlideIndex < totalSlides) showSlide(currentSlideIndex + 1); }
+  function prevSlide() { if (currentSlideIndex > 1) showSlide(currentSlideIndex - 1); }
+  function goToSlide(index) { if (index >= 1 && index <= totalSlides) showSlide(index); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  });
+
+  /* ==================== SLIDE 4 LOGIC ==================== */
+  let s4State = 0;
+  function nextSlide4Step() {
+    s4State++;
+    const btn = document.getElementById('s4-btn');
+    if(s4State === 1) {
+      document.getElementById('s4-step-1').classList.remove('active');
+      document.getElementById('s4-step-2').classList.add('active');
+      document.getElementById('s4-sc1').style.opacity = "1";
+      document.getElementById('s4-sc2').style.opacity = "1";
+      btn.innerText = "点击执行：第三步 (涂色填阴阳)";
+    } else if(s4State === 2) {
+      document.getElementById('s4-step-2').classList.remove('active');
+      document.getElementById('s4-step-3').classList.add('active');
+      document.getElementById('s4-fill').style.opacity = "1";
+      btn.innerText = "演示完毕";
+      btn.disabled = true;
+    }
+  }
+  function resetSlide4() {
+    s4State = 0;
+    ['s4-step-1','s4-step-2','s4-step-3'].forEach(id => document.getElementById(id).classList.remove('active'));
+    document.getElementById('s4-step-1').classList.add('active');
+    document.getElementById('s4-sc1').style.opacity = "0";
+    document.getElementById('s4-sc2').style.opacity = "0";
+    document.getElementById('s4-fill').style.opacity = "0";
+    const btn = document.getElementById('s4-btn');
+    btn.innerText = "点击执行：下一步 (画半圆)";
+    btn.disabled = false;
+  }
+
+  /* ==================== SLIDE 5 LOGIC ==================== */
+  let s5State = 0;
+  function nextSlide5Step() {
+    s5State++;
+    const btn = document.getElementById('s5-btn');
+    if(s5State === 1) {
+      document.getElementById('s5-step-1').classList.remove('active');
+      document.getElementById('s5-step-2').classList.add('active');
+      document.getElementById('s5-a1').style.opacity = "1";
+      document.getElementById('s5-a2').style.opacity = "1";
+      btn.innerText = "点击执行：第三步 (旋转组合)";
+    } else if(s5State === 2) {
+      document.getElementById('s5-step-2').classList.remove('active');
+      document.getElementById('s5-step-3').classList.add('active');
+      document.getElementById('s5-a3').style.opacity = "1";
+      document.getElementById('s5-a4').style.opacity = "1";
+      btn.innerText = "演示完毕";
+      btn.disabled = true;
+    }
+  }
+  function resetSlide5() {
+    s5State = 0;
+    ['s5-step-1','s5-step-2','s5-step-3'].forEach(id => document.getElementById(id).classList.remove('active'));
+    document.getElementById('s5-step-1').classList.add('active');
+    ['s5-a1','s5-a2','s5-a3','s5-a4'].forEach(id => document.getElementById(id).style.opacity = "0");
+    const btn = document.getElementById('s5-btn');
+    btn.innerText = "点击执行：下一步 (画圆弧)";
+    btn.disabled = false;
+  }
+
+  /* ==================== WEB AUDIO VICTORY SOUND ==================== */
+  function playVictorySound() {
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      const ctx = new AudioContext();
+      
+      const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+      const times = [0, 0.15, 0.30, 0.45];
+      
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        
+        gain.gain.setValueAtTime(0.3, ctx.currentTime + times[i]);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + times[i] + 0.4);
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.start(ctx.currentTime + times[i]);
+        osc.stop(ctx.currentTime + times[i] + 0.4);
+      });
+    } catch(e) {
+      console.log("Audio playback blocked", e);
+    }
+  }
+
+  // Init
+  showSlide(1);
+</script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>几何艺术创作实验室 · 欣赏与设计</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'SimSun', 'STSong', 'Songti SC', '华文宋体', serif;
+            background: linear-gradient(135deg, #0a0914 0%, #121024 50%, #1c1836 100%);
+            color: #f3f0e8;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .container { display: flex; width: 100%; height: 100%; }
+
+        .sidebar {
+            width: 400px;
+            background: rgba(18, 16, 36, 0.85);
+            backdrop-filter: blur(20px);
+            border-right: 2px solid rgba(192, 132, 252, 0.3);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            gap: 15px;
+        }
+
+        .title {
+            font-size: 24px; font-weight: bold;
+            color: #c084fc;
+            border-bottom: 2px dashed #c084fc;
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .description { font-size: 15px; color: #cbd5e1; line-height: 1.7; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; }
+        
+        .control-group {
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(192, 132, 252, 0.2);
+            padding: 15px; border-radius: 8px; display: flex; flex-direction: column; gap: 10px;
+        }
+        .control-group label { font-size: 14px; font-weight: bold; color: #e9d5ff; display: flex; justify-content: space-between; }
+        .control-group input[type="range"] { width: 100%; accent-color: #c084fc; cursor: pointer; }
+        .control-group select { background: #121024; color: #fff; border: 1px solid #c084fc; padding: 6px; border-radius: 4px; font-family: inherit; font-size: 14px; }
+
+        .main-content {
+            flex: 1; display: flex; flex-direction: column; padding: 15px; position: relative;
+            align-items: center; justify-content: center;
+        }
+        
+        .toolbar-top {
+            width: 100%; display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px;
+        }
+        .lab-status { font-size: 18px; font-weight: bold; color: #c084fc; }
+        
+        .action-btn {
+            background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; border: 1px solid #e9d5ff; padding: 8px 18px; font-size: 14px;
+            font-weight: bold; font-family: 'SimSun', serif; border-radius: 6px; cursor: pointer; transition: all 0.2s;
+        }
+        .action-btn:hover { transform: scale(1.05); }
+
+        #canvas-box {
+            position: relative; border-radius: 16px; border: 2px solid rgba(192, 132, 252, 0.4);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8); background: #080612; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="title">
+                <span>🎨 几何艺术画板</span>
+            </div>
+            <div class="description">
+                利用圆的旋转、平移与对称性，设计属于你独一无二的数学花纹！上台调整参数展示你的创意：
+            </div>
+            
+            <div class="control-group">
+                <label for="pattern-select">选择基本图案样式：</label>
+                <select id="pattern-select" onchange="drawArt()">
+                    <option value="rosette">旋转多叶花瓣 (Rosette)</option>
+                    <option value="taiji">双半圆太极阵 (Taiji Pattern)</option>
+                    <option value="rings">同心圆与圆环饰 (Concentric Rings)</option>
+                    <option value="grid">正方形四角切弧 (Square Grid Arc)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>花瓣/圆弧数量 (N): <span id="val-count">6</span></label>
+                <input type="range" id="param-count" min="2" max="16" value="6" oninput="drawArt()">
+            </div>
+
+            <div class="control-group">
+                <label>基本半径大小 (R): <span id="val-radius">120</span> px</label>
+                <input type="range" id="param-radius" min="40" max="180" value="120" oninput="drawArt()">
+            </div>
+
+            <div class="control-group">
+                <label>旋转偏移角度 (Deg): <span id="val-angle">0</span>°</label>
+                <input type="range" id="param-angle" min="0" max="360" value="0" oninput="drawArt()">
+            </div>
+
+            <div class="control-group">
+                <label>线条色彩主题：</label>
+                <select id="color-select" onchange="drawArt()">
+                    <option value="gold">绚丽金紫 (Gold & Purple)</option>
+                    <option value="cyan">冰蓝翡翠 (Cyan & Emerald)</option>
+                    <option value="rainbow">彩虹渐变 (Rainbow Glow)</option>
+                </select>
+            </div>
+
+            <button class="action-btn" onclick="saveImage()" style="margin-top: 10px; background: linear-gradient(135deg, #10b981, #047857);">💾 导出保存作品图片</button>
+        </div>
+        
+        <div class="main-content">
+            <div class="toolbar-top">
+                <div class="lab-status">✨ 圆的《欣赏与设计》几何艺术工作室</div>
+                <button class="action-btn" onclick="resetControls()" style="background:#ef4444;">🔄 恢复默认参数</button>
+            </div>
+            <div id="canvas-box">
+                <canvas id="art-canvas" width="650" height="550"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("art-canvas");
+        const ctx = canvas.getContext("2d");
+
+        function drawArt() {
+            const pattern = document.getElementById("pattern-select").value;
+            const count = parseInt(document.getElementById("param-count").value);
+            const radius = parseInt(document.getElementById("param-radius").value);
+            const angleDeg = parseInt(document.getElementById("param-angle").value);
+            const colorTheme = document.getElementById("color-select").value;
+
+            document.getElementById("val-count").innerText = count;
+            document.getElementById("val-radius").innerText = radius;
+            document.getElementById("val-angle").innerText = angleDeg;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+            const rotRad = (angleDeg * Math.PI) / 180;
+
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(rotRad);
+
+            if (pattern === "rosette") {
+                // Multi-leaf circle rosette
+                for (let i = 0; i < count; i++) {
+                    const ang = (i * 2 * Math.PI) / count;
+                    const x = radius * 0.6 * Math.cos(ang);
+                    const y = radius * 0.6 * Math.sin(ang);
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, radius, 0, Math.PI * 2);
+                    ctx.lineWidth = 2.5;
+                    ctx.strokeStyle = getColor(i, count, colorTheme);
+                    ctx.stroke();
+                }
+                // Center circle
+                ctx.beginPath();
+                ctx.arc(0, 0, radius * 0.6, 0, Math.PI * 2);
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+
+            } else if (pattern === "taiji") {
+                // Taiji pattern repeated
+                for (let i = 0; i < count; i++) {
+                    ctx.save();
+                    ctx.rotate((i * 2 * Math.PI) / count);
+                    
+                    // Main outer circle
+                    ctx.beginPath();
+                    ctx.arc(0, 0, radius, 0, Math.PI * 2);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = getColor(i, count, colorTheme);
+                    ctx.stroke();
+
+                    // S-curve halves
+                    ctx.beginPath();
+                    ctx.arc(0, -radius / 2, radius / 2, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.arc(0, radius / 2, radius / 2, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    // Small eye dots
+                    ctx.beginPath();
+                    ctx.arc(0, -radius / 2, radius / 8, 0, Math.PI * 2);
+                    ctx.fillStyle = getColor(i, count, colorTheme);
+                    ctx.fill();
+
+                    ctx.restore();
+                }
+            } else if (pattern === "rings") {
+                // Concentric Rings with petal ticks
+                for (let r = 1; r <= count; r++) {
+                    const currentR = (radius / count) * r * 1.4;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, currentR, 0, Math.PI * 2);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = getColor(r, count, colorTheme);
+                    ctx.stroke();
+
+                    // Radial spokes
+                    for (let s = 0; s < 8; s++) {
+                        const sang = (s * Math.PI) / 4;
+                        ctx.beginPath();
+                        ctx.moveTo(0, 0);
+                        ctx.lineTo(currentR * Math.cos(sang), currentR * Math.sin(sang));
+                        ctx.lineWidth = 1;
+                        ctx.strokeStyle = "rgba(255,255,255,0.15)";
+                        ctx.stroke();
+                    }
+                }
+            } else if (pattern === "grid") {
+                // Square grid arcs
+                const size = radius * 1.5;
+                ctx.strokeRect(-size / 2, -size / 2, size, size);
+                ctx.strokeStyle = "#ffffff";
+                ctx.lineWidth = 2;
+
+                const corners = [
+                    { x: -size / 2, y: -size / 2 },
+                    { x: size / 2, y: -size / 2 },
+                    { x: size / 2, y: size / 2 },
+                    { x: -size / 2, y: size / 2 }
+                ];
+
+                corners.forEach((c, idx) => {
+                    for (let k = 1; k <= count; k++) {
+                        ctx.beginPath();
+                        ctx.arc(c.x, c.y, (size / count) * k, 0, Math.PI * 2);
+                        ctx.lineWidth = 1.8;
+                        ctx.strokeStyle = getColor(idx + k, count + 4, colorTheme);
+                        ctx.stroke();
+                    }
+                });
+            }
+
+            ctx.restore();
+        }
+
+        function getColor(index, total, theme) {
+            if (theme === "gold") {
+                return index % 2 === 0 ? "#eab308" : "#c084fc";
+            } else if (theme === "cyan") {
+                return index % 2 === 0 ? "#38bdf8" : "#10b981";
+            } else {
+                const hue = (index / total) * 360;
+                return `hsl(${hue}, 85%, 65%)`;
+            }
+        }
+
+        function resetControls() {
+            document.getElementById("pattern-select").value = "rosette";
+            document.getElementById("param-count").value = 6;
+            document.getElementById("param-radius").value = 120;
+            document.getElementById("param-angle").value = 0;
+            document.getElementById("color-select").value = "gold";
+            drawArt();
+        }
+
+        function saveImage() {
+            const link = document.createElement('a');
+            link.download = 'my-circle-art-design.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Init
+        drawArt();
+    </script>
+</body>
+</html>

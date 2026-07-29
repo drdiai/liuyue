@@ -525,19 +525,22 @@
         <text x="265" y="115" font-size="13" font-weight="bold" fill="#ef4444">圆心 O (铜镜中心)</text>
       </g>
 
-      <!-- Draggable Points A, B, C (Large hit areas) -->
+      <!-- Draggable Points A, B, C (With 24px invisible hit area for easy touch/click) -->
       <g id="pt-a-group" style="cursor:grab;">
-        <circle id="pt-a" r="7" fill="#3b82f6" stroke="#ffffff" stroke-width="2"/>
+        <circle r="22" fill="transparent" id="hit-a" cx="0" cy="0"/>
+        <circle id="pt-a" r="8" fill="#3b82f6" stroke="#ffffff" stroke-width="2.5"/>
         <text id="txt-a" font-size="13" font-weight="bold" fill="#1e40af">A (按住拖动)</text>
       </g>
       
       <g id="pt-b-group" style="cursor:grab;">
-        <circle id="pt-b" r="7" fill="#3b82f6" stroke="#ffffff" stroke-width="2"/>
+        <circle r="22" fill="transparent" id="hit-b" cx="0" cy="0"/>
+        <circle id="pt-b" r="8" fill="#3b82f6" stroke="#ffffff" stroke-width="2.5"/>
         <text id="txt-b" font-size="13" font-weight="bold" fill="#1e40af">B (按住拖动)</text>
       </g>
       
       <g id="pt-c-group" style="cursor:grab;">
-        <circle id="pt-c" r="7" fill="#3b82f6" stroke="#ffffff" stroke-width="2"/>
+        <circle r="22" fill="transparent" id="hit-c" cx="0" cy="0"/>
+        <circle id="pt-c" r="8" fill="#3b82f6" stroke="#ffffff" stroke-width="2.5"/>
         <text id="txt-c" font-size="13" font-weight="bold" fill="#1e40af">C (按住拖动)</text>
       </g>
     </svg>
@@ -558,6 +561,9 @@
       const ptA = document.getElementById("pt-a");
       const ptB = document.getElementById("pt-b");
       const ptC = document.getElementById("pt-c");
+      const hitA = document.getElementById("hit-a");
+      const hitB = document.getElementById("hit-b");
+      const hitC = document.getElementById("hit-c");
       const txtA = document.getElementById("txt-a");
       const txtB = document.getElementById("txt-b");
       const txtC = document.getElementById("txt-c");
@@ -588,9 +594,13 @@
         ptB.setAttribute("cx", B.x); ptB.setAttribute("cy", B.y);
         ptC.setAttribute("cx", C.x); ptC.setAttribute("cy", C.y);
 
-        txtA.setAttribute("x", A.x - 22); txtA.setAttribute("y", A.y + 18);
+        hitA.setAttribute("cx", A.x); hitA.setAttribute("cy", A.y);
+        hitB.setAttribute("cx", B.x); hitB.setAttribute("cy", B.y);
+        hitC.setAttribute("cx", C.x); hitC.setAttribute("cy", C.y);
+
+        txtA.setAttribute("x", A.x - 22); txtA.setAttribute("y", A.y + 22);
         txtB.setAttribute("x", B.x - 30); txtB.setAttribute("y", B.y - 12);
-        txtC.setAttribute("x", C.x + 10); txtC.setAttribute("y", C.y + 18);
+        txtC.setAttribute("x", C.x + 10); txtC.setAttribute("y", C.y + 22);
 
         chordAB.setAttribute("x1", A.x); chordAB.setAttribute("y1", A.y);
         chordAB.setAttribute("x2", B.x); chordAB.setAttribute("y2", B.y);
@@ -622,9 +632,6 @@
         bisectorBC.setAttribute("x2", O.x + normBC.x * 180);
         bisectorBC.setAttribute("y2", O.y + normBC.y * 180);
       }
-
-      // Initial view state: Show all fully
-      showStep(4);
 
       function showStep(step) {
         if (step === 1) {
@@ -666,18 +673,23 @@
         showStep(4);
       };
 
-      // Dragging logic along circular arc
+      // Dragging logic
       let activePoint = null;
 
-      function getAngleFromMouse(evt) {
+      function getAngleFromEvent(evt) {
         const rect = svg.getBoundingClientRect();
-        const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
-        const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+        let clientX = evt.clientX;
+        let clientY = evt.clientY;
+
+        if (evt.touches && evt.touches.length > 0) {
+          clientX = evt.touches[0].clientX;
+          clientY = evt.touches[0].clientY;
+        }
+
         const mouseX = (clientX - rect.left) * (500 / rect.width);
         const mouseY = (clientY - rect.top) * (230 / rect.height);
 
         let rad = Math.atan2(-(mouseY - O.y), mouseX - O.x);
-        // Constrain to arc range [-35 deg, 215 deg]
         const minAng = (-35 * Math.PI) / 180;
         const maxAng = (215 * Math.PI) / 180;
         if (rad < minAng && rad > -Math.PI / 2) rad = minAng;
@@ -687,31 +699,41 @@
 
       function startDrag(pt, evt) {
         activePoint = pt;
-        evt.preventDefault();
+        if (evt.cancelable) evt.preventDefault();
       }
 
-      document.getElementById("pt-a-group").onmousedown = (e) => startDrag("A", e);
-      document.getElementById("pt-b-group").onmousedown = (e) => startDrag("B", e);
-      document.getElementById("pt-c-group").onmousedown = (e) => startDrag("C", e);
+      const groupA = document.getElementById("pt-a-group");
+      const groupB = document.getElementById("pt-b-group");
+      const groupC = document.getElementById("pt-c-group");
 
-      document.getElementById("pt-a-group").ontouchstart = (e) => startDrag("A", e);
-      document.getElementById("pt-b-group").ontouchstart = (e) => startDrag("B", e);
-      document.getElementById("pt-c-group").ontouchstart = (e) => startDrag("C", e);
+      groupA.addEventListener("mousedown", (e) => startDrag("A", e));
+      groupB.addEventListener("mousedown", (e) => startDrag("B", e));
+      groupC.addEventListener("mousedown", (e) => startDrag("C", e));
 
-      window.onmousemove = window.ontouchmove = (e) => {
+      groupA.addEventListener("touchstart", (e) => startDrag("A", e), { passive: false });
+      groupB.addEventListener("touchstart", (e) => startDrag("B", e), { passive: false });
+      groupC.addEventListener("touchstart", (e) => startDrag("C", e), { passive: false });
+
+      function onMove(e) {
         if (!activePoint) return;
-        const ang = getAngleFromMouse(e);
+        if (e.cancelable) e.preventDefault();
+        const ang = getAngleFromEvent(e);
         if (activePoint === "A") angleA = ang;
         if (activePoint === "B") angleB = ang;
         if (activePoint === "C") angleC = ang;
         updateDiagram();
-      };
+      }
 
-      window.onmouseup = window.ontouchend = () => {
+      function onEnd() {
         activePoint = null;
-      };
+      }
 
-      updateDiagram();
+      window.addEventListener("mousemove", onMove);
+      window.addEventListener("touchmove", onMove, { passive: false });
+      window.addEventListener("mouseup", onEnd);
+      window.addEventListener("touchend", onEnd);
+
+      showStep(4);
     });
   </script>
 </section>
