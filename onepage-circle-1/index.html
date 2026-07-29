@@ -598,130 +598,124 @@
 
   <!-- 火柴人故事四格漫画 (精致可爱的火柴人画风) -->
   <div class="comic-grid">
-    <!-- Panel 1: Square -->
+    <!-- Panel 1: Square Wheel -->
     <div class="comic-panel">
       <div class="comic-title"><span>1</span>方轮车：颠得散架！</div>
-      <svg viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
-        <!-- Background ground & shadow -->
-        <line x1="10" y1="120" x2="210" y2="120" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
-        <!-- Trajectory curve -->
-        <path d="M 30,95 Q 50,75 70,95 Q 90,75 110,95 Q 130,75 150,95 Q 170,75 190,95" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="4,3" fill="none"/>
-        <text x="35" y="70" font-size="9" fill="#dc2626" font-weight="bold">车轴轨迹 (剧烈颠簸)</text>
+      <svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+        <!-- Speech Bubble at Top -->
+        <rect x="25" y="6" width="170" height="26" rx="13" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5" filter="drop-shadow(0px 2px 3px rgba(0,0,0,0.06))"/>
+        <polygon points="90,32 96,32 93,38" fill="#ef4444"/>
+        <text x="110" y="23" font-size="11" font-weight="bold" fill="#dc2626" text-anchor="middle">颠得骨头要散架啦！</text>
+
+        <!-- Trajectory Label & Line -->
+        <text x="15" y="52" font-size="10" fill="#dc2626" font-weight="bold">车轴轨迹 (剧烈颠簸)</text>
+        <path d="M 15,90 Q 40,68 65,90 Q 90,68 115,90 Q 140,68 165,90 Q 190,68 215,90" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="4,3" fill="none"/>
+        <line x1="10" y1="130" x2="210" y2="130" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
         
         <!-- Square Wheel -->
-        <g transform="translate(120, 98) rotate(22)">
-          <rect x="-20" y="-20" width="40" height="40" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2.5" />
-          <line x1="-20" y1="-20" x2="20" y2="20" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" />
-          <line x1="20" y1="-20" x2="-20" y2="20" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" />
+        <g transform="translate(130, 108) rotate(22)">
+          <rect x="-22" y="-22" width="44" height="44" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2.5" />
+          <line x1="-22" y1="-22" x2="22" y2="22" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" />
+          <line x1="22" y1="-22" x2="-22" y2="22" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" />
           <circle cx="0" cy="0" r="4" fill="#ef4444" stroke="#ffffff" stroke-width="1.5"/>
         </g>
         
         <!-- Bicycle Frame -->
-        <path d="M 80,75 L 120,98 M 80,75 L 105,75 M 105,75 L 120,98" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="80" cy="75" r="3" fill="#1f2937"/>
+        <path d="M 85,85 L 130,108 M 85,85 L 110,85 M 110,85 L 130,108" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 
         <!-- Cute Stickman -->
-        <!-- Head with helmet -->
-        <circle cx="95" cy="45" r="10" fill="#ffe4e6" stroke="#1f2937" stroke-width="2"/>
-        <path d="M 87,42 C 87,32 103,32 103,42 Z" fill="#ef4444"/> <!-- Red helmet -->
-        <!-- Dizzy Eyes @ @ -->
-        <text x="91" y="47" font-size="7" font-weight="bold" fill="#1f2937">x x</text>
-        <!-- Body & Limbs -->
-        <path d="M 95,55 L 98,78" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
-        <!-- Arms shaking -->
-        <path d="M 96,62 L 107,68 M 96,62 L 85,68" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
-        <!-- Legs riding -->
-        <path d="M 98,78 L 110,90 M 98,78 L 88,88" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
-
-        <!-- Vibration lines -->
-        <path d="M 75,40 Q 72,45 75,50 M 115,40 Q 118,45 115,50" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
-        <!-- Cute Speech Bubble -->
-        <path d="M 25,12 H 125 A 8,8 0 0 1 133,20 V 36 A 8,8 0 0 1 125,44 H 95 L 90,52 L 87,44 H 25 A 8,8 0 0 1 17,36 V 20 A 8,8 0 0 1 25,12 Z" fill="#ffffff" stroke="#ef4444" stroke-width="1.5" filter="drop-shadow(0px 2px 3px rgba(0,0,0,0.06))"/>
-        <text x="75" y="32" font-size="10" font-weight="bold" fill="#dc2626" text-anchor="middle">呜哇！颠得骨头要散架啦！</text>
+        <circle cx="95" cy="54" r="10" fill="#ffe4e6" stroke="#1f2937" stroke-width="2"/>
+        <path d="M 87,51 C 87,41 103,41 103,51 Z" fill="#ef4444"/> <!-- Red helmet -->
+        <text x="91" y="56" font-size="7" font-weight="bold" fill="#1f2937">x x</text>
+        <path d="M 95,64 L 98,87" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 96,71 L 107,77 M 96,71 L 85,77" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 98,87 L 110,99 M 98,87 L 88,97" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 75,48 Q 72,53 75,58 M 115,48 Q 118,53 115,58" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-linecap="round"/>
       </svg>
     </div>
 
-    <!-- Panel 2: Triangle -->
+    <!-- Panel 2: Triangle Wheel -->
     <div class="comic-panel">
       <div class="comic-title"><span>2</span>三角轮：卡住动不了！</div>
-      <svg viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
-        <line x1="10" y1="120" x2="210" y2="120" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
-        <!-- Trajectory curve -->
-        <path d="M 20,105 L 45,75 L 70,105 L 95,75 L 120,105 L 145,75 L 170,105" stroke="#f43f5e" stroke-width="1.8" stroke-dasharray="4,3" fill="none"/>
-        <text x="25" y="65" font-size="9" fill="#be123c" font-weight="bold">车轴轨迹 (极大起伏)</text>
+      <svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+        <!-- Speech Bubble at Top -->
+        <rect x="25" y="6" width="170" height="26" rx="13" fill="#fff1f2" stroke="#e11d48" stroke-width="1.5" filter="drop-shadow(0px 2px 3px rgba(0,0,0,0.06))"/>
+        <polygon points="90,32 96,32 93,38" fill="#e11d48"/>
+        <text x="110" y="23" font-size="11" font-weight="bold" fill="#be123c" text-anchor="middle">太吃力了，根本蹬不动！</text>
+
+        <!-- Trajectory Label & Line -->
+        <text x="15" y="52" font-size="10" fill="#be123c" font-weight="bold">车轴轨迹 (极大起伏)</text>
+        <path d="M 15,100 L 45,68 L 75,100 L 105,68 L 135,100 L 165,68 L 195,100" stroke="#f43f5e" stroke-width="1.8" stroke-dasharray="4,3" fill="none"/>
+        <line x1="10" y1="130" x2="210" y2="130" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
         
         <!-- Triangle Wheel -->
-        <g transform="translate(120, 100) rotate(15)">
-          <polygon points="0,-26 -22,13 22,13" fill="#ffe4e6" stroke="#e11d48" stroke-width="2.5" stroke-linejoin="round"/>
+        <g transform="translate(130, 108) rotate(15)">
+          <polygon points="0,-26 -22,14 22,14" fill="#ffe4e6" stroke="#e11d48" stroke-width="2.5" stroke-linejoin="round"/>
           <line x1="0" y1="0" x2="0" y2="-26" stroke="#f43f5e" stroke-width="1" stroke-dasharray="2,2"/>
-          <line x1="0" y1="0" x2="-22" y2="13" stroke="#f43f5e" stroke-width="1" stroke-dasharray="2,2"/>
-          <line x1="0" y1="0" x2="22" y2="13" stroke="#f43f5e" stroke-width="1" stroke-dasharray="2,2"/>
+          <line x1="0" y1="0" x2="-22" y2="14" stroke="#f43f5e" stroke-width="1" stroke-dasharray="2,2"/>
+          <line x1="0" y1="0" x2="22" y2="14" stroke="#f43f5e" stroke-width="1" stroke-dasharray="2,2"/>
           <circle cx="0" cy="0" r="4" fill="#be123c" stroke="#ffffff" stroke-width="1.5"/>
         </g>
         
         <!-- Frame -->
-        <path d="M 80,72 L 120,100 M 80,72 L 105,72" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 85,82 L 130,108 M 85,82 L 110,82" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
 
         <!-- Cute Stickman Sweat/Straining -->
-        <circle cx="95" cy="42" r="10" fill="#ffe4e6" stroke="#1f2937" stroke-width="2"/>
-        <path d="M 87,39 C 87,29 103,29 103,39 Z" fill="#3b82f6"/> <!-- Blue helmet -->
-        <!-- Straining eyes & sweat -->
-        <text x="91" y="45" font-size="7" font-weight="bold" fill="#1f2937">> &lt;</text>
-        <path d="M 107,40 Q 110,43 107,46" stroke="#3b82f6" stroke-width="1.5" fill="#93c5fd"/> <!-- Sweat drop -->
-        <!-- Body & Straining Arms -->
-        <path d="M 95,52 L 97,75 M 95,58 L 105,65 M 95,58 L 84,65" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M 97,75 L 110,88 M 97,75 L 86,86" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
-
-        <!-- Speech Bubble -->
-        <path d="M 25,10 H 135 A 8,8 0 0 1 143,18 V 34 A 8,8 0 0 1 135,42 H 95 L 90,50 L 87,42 H 25 A 8,8 0 0 1 17,34 V 18 A 8,8 0 0 1 25,10 Z" fill="#ffffff" stroke="#e11d48" stroke-width="1.5" filter="drop-shadow(0px 2px 3px rgba(0,0,0,0.06))"/>
-        <text x="80" y="30" font-size="10" font-weight="bold" fill="#be123c" text-anchor="middle">太吃力了，根本蹬不动！</text>
+        <circle cx="95" cy="52" r="10" fill="#ffe4e6" stroke="#1f2937" stroke-width="2"/>
+        <path d="M 87,49 C 87,39 103,39 103,49 Z" fill="#3b82f6"/> <!-- Blue helmet -->
+        <text x="91" y="55" font-size="7" font-weight="bold" fill="#1f2937">&gt; &lt;</text>
+        <path d="M 107,50 Q 110,53 107,56" stroke="#3b82f6" stroke-width="1.5" fill="#93c5fd"/>
+        <path d="M 95,62 L 97,85 M 95,68 L 105,75 M 95,68 L 84,75" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 97,85 L 110,98 M 97,85 L 86,96" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </div>
 
-    <!-- Panel 3: Compass -->
+    <!-- Panel 3: Compass Theory -->
     <div class="comic-panel">
       <div class="comic-title"><span>3</span>探寻几何奥秘：一中同长</div>
-      <svg viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+      <svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+        <!-- Speech Bubble at Top -->
+        <rect x="20" y="6" width="180" height="26" rx="13" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5" filter="drop-shadow(0px 2px 3px rgba(0,0,0,0.06))"/>
+        <polygon points="75,32 81,32 78,38" fill="#10b981"/>
+        <text x="110" y="23" font-size="11" font-weight="bold" fill="#047857" text-anchor="middle">圆心到圆上，处处都等长！</text>
+
         <!-- Circle & Radius diagram -->
-        <g transform="translate(135, 78)">
+        <g transform="translate(145, 88)">
           <circle cx="0" cy="0" r="32" fill="#ecfdf5" stroke="#10b981" stroke-width="2" stroke-dasharray="160" stroke-dashoffset="20"/>
-          <line x1="0" y1="0" x2="32" y2="0" stroke="#2563eb" stroke-width="1.8"/>
+          <line x1="0" y1="0" x2="32" y2="0" stroke="#2563eb" stroke-width="2"/>
           <line x1="0" y1="0" x2="-22" y2="-22" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="3,2"/>
           <line x1="0" y1="0" x2="0" y2="32" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="3,2"/>
           <circle cx="0" cy="0" r="3.5" fill="#1f2937"/>
-          <text x="0" y="-7" font-size="9" fill="#1f2937" font-weight="bold" text-anchor="middle">圆心 O</text>
-          <text x="14" y="12" font-size="9" fill="#2563eb" font-weight="bold">半径 r</text>
+          <text x="0" y="-7" font-size="9" fill="#1f2937" font-weight="bold" text-anchor="middle">O (圆心)</text>
+          <text x="14" y="13" font-size="9" fill="#2563eb" font-weight="bold">r (半径)</text>
         </g>
 
         <!-- Cute Stickman Scientist -->
-        <circle cx="60" cy="55" r="10" fill="#ffe4e6" stroke="#1f2937" stroke-width="2"/>
-        <path d="M 52,52 C 52,42 68,42 68,52 Z" fill="#10b981"/> <!-- Green helmet -->
-        <!-- Smart happy eyes -->
-        <text x="56" y="58" font-size="8" font-weight="bold" fill="#1f2937">^ ^</text>
-        <path d="M 60,65 L 60,92 M 60,72 L 85,55 M 60,72 L 48,82 M 60,92 L 48,112 M 60,92 L 72,112" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
-
-        <!-- Compass in hand -->
-        <path d="M 85,55 L 115,50 M 85,55 L 135,78" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="85" cy="55" r="3" fill="#d97706"/>
-
-        <!-- Speech Bubble -->
-        <path d="M 15,10 H 135 A 8,8 0 0 1 143,18 V 34 A 8,8 0 0 1 135,42 H 65 L 60,50 L 57,42 H 15 A 8,8 0 0 1 7,34 V 18 A 8,8 0 0 1 15,10 Z" fill="#ffffff" stroke="#10b981" stroke-width="1.5" filter="drop-shadow(0px 2px 3px rgba(0,0,0,0.06))"/>
-        <text x="75" y="30" font-size="10" font-weight="bold" fill="#047857" text-anchor="middle">明白了！车轴到边缘必须处处等长！</text>
+        <circle cx="50" cy="62" r="10" fill="#ffe4e6" stroke="#1f2937" stroke-width="2"/>
+        <path d="M 42,59 C 42,49 58,49 58,59 Z" fill="#10b981"/> <!-- Green helmet -->
+        <text x="46" y="65" font-size="8" font-weight="bold" fill="#1f2937">^ ^</text>
+        <path d="M 50,72 L 50,98 M 50,78 L 75,62 M 50,78 L 38,88 M 50,98 L 38,118 M 50,98 L 62,118" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 75,62 L 108,58 M 75,62 L 145,88" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="75" cy="62" r="3" fill="#d97706"/>
       </svg>
     </div>
 
-    <!-- Panel 4: Circle -->
+    <!-- Panel 4: Round Wheel -->
     <div class="comic-panel">
       <div class="comic-title"><span>4</span>圆轮车：平稳顺滑飞驰！</div>
-      <svg viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
-        <line x1="10" y1="120" x2="210" y2="120" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
-        <!-- Trajectory curve - FLAT LINE -->
-        <line x1="20" y1="96" x2="200" y2="96" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3"/>
-        <text x="25" y="86" font-size="9" fill="#047857" font-weight="bold">车轴轨迹 (平直稳定直线！)</text>
+      <svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+        <!-- Speech Bubble at Top -->
+        <rect x="25" y="6" width="170" height="26" rx="13" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5" filter="drop-shadow(0px 2px 3px rgba(0,0,0,0.06))"/>
+        <polygon points="90,32 96,32 93,38" fill="#10b981"/>
+        <text x="110" y="23" font-size="11" font-weight="bold" fill="#047857" text-anchor="middle">平稳流畅，快如闪电！</text>
+
+        <!-- Trajectory Label & Flat Line -->
+        <text x="15" y="52" font-size="10" fill="#047857" font-weight="bold">车轴轨迹 (平直稳定直线！)</text>
+        <line x1="15" y1="84" x2="205" y2="84" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3"/>
+        <line x1="10" y1="130" x2="210" y2="130" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
 
         <!-- Round Wheel -->
-        <g transform="translate(120, 96)">
+        <g transform="translate(130, 106)">
           <circle cx="0" cy="0" r="24" fill="#ecfdf5" stroke="#10b981" stroke-width="2.8" />
           <line x1="-24" y1="0" x2="24" y2="0" stroke="#059669" stroke-width="1.2"/>
           <line x1="0" y1="-24" x2="0" y2="24" stroke="#059669" stroke-width="1.2"/>
@@ -729,27 +723,21 @@
         </g>
         
         <!-- Bicycle Frame -->
-        <path d="M 80,72 L 120,96 M 80,72 L 105,72 M 105,72 L 120,96" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 85,82 L 130,106 M 85,82 L 110,82 M 110,82 L 130,106" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
 
         <!-- Cute Happy Stickman -->
-        <circle cx="95" cy="44" r="10" fill="#ffe4e6" stroke="#1f2937" stroke-width="2"/>
-        <path d="M 87,41 C 87,31 103,31 103,41 Z" fill="#f59e0b"/> <!-- Yellow helmet -->
-        <!-- Joyful smiling eyes -->
-        <text x="91" y="47" font-size="8" font-weight="bold" fill="#1f2937">^ v ^</text>
+        <circle cx="95" cy="54" r="10" fill="#ffe4e6" stroke="#1f2937" stroke-width="2"/>
+        <path d="M 87,51 C 87,41 103,41 103,51 Z" fill="#f59e0b"/> <!-- Yellow helmet -->
+        <text x="91" y="57" font-size="8" font-weight="bold" fill="#1f2937">^ v ^</text>
         
-        <!-- Body & Smooth Legs -->
-        <path d="M 95,54 L 97,76" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M 96,60 L 106,66 M 96,60 L 85,65" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 97,76 L 108,88 M 97,76 L 86,86" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 95,64 L 97,86" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 96,70 L 106,76 M 96,70 L 85,75" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 97,86 L 108,98 M 97,86 L 86,96" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
 
         <!-- Speed wind lines -->
-        <line x1="30" y1="45" x2="50" y2="45" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="25" y1="58" x2="42" y2="58" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="35" y1="70" x2="52" y2="70" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
-
-        <!-- Speech Bubble -->
-        <path d="M 25,10 H 135 A 8,8 0 0 1 143,18 V 34 A 8,8 0 0 1 135,42 H 95 L 90,50 L 87,42 H 25 A 8,8 0 0 1 17,34 V 18 A 8,8 0 0 1 25,10 Z" fill="#ffffff" stroke="#10b981" stroke-width="1.5" filter="drop-shadow(0px 2px 3px rgba(0,0,0,0.06))"/>
-        <text x="80" y="30" font-size="10" font-weight="bold" fill="#047857" text-anchor="middle">丝滑平稳，快如闪电！风一样的自由！</text>
+        <line x1="30" y1="55" x2="50" y2="55" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="25" y1="68" x2="42" y2="68" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="35" y1="80" x2="52" y2="80" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
     </div>
   </div>
