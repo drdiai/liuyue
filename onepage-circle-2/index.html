@@ -487,92 +487,231 @@
     </p>
   </div>
 
-  <!-- 动态修复演示模拟器 -->
+  <!-- 动态修复演示模拟器 (支持按住A/B/C实时拖动 + 分步探究) -->
   <div class="sim-box">
-    <div style="font-size:14px; font-weight:700; color:var(--m4-deep); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
-      <span>🔍 交互体验：残缺铜镜圆心定位模拟器</span>
-      <button id="btn-fix-mirror" style="background:var(--m4); color:white; border:none; padding:4px 12px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer;">
-        ✨ 一键作垂直平分线修复
-      </button>
+    <div style="font-size:14px; font-weight:700; color:var(--m4-deep); margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+      <span>🔍 交互探究：残缺铜镜圆心定位模拟器 <span style="font-size:12px; font-weight:normal; color:var(--m4);">(支持鼠标/手指拖动蓝点 A、B、C)</span></span>
+      <div style="display:flex; gap:6px;">
+        <button id="btn-step-1" class="sim-btn" style="background:var(--m2); color:white; border:none; padding:4px 10px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer;">① 选点</button>
+        <button id="btn-step-2" class="sim-btn" style="background:var(--m2); color:white; border:none; padding:4px 10px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer;">② 连弦</button>
+        <button id="btn-step-3" class="sim-btn" style="background:var(--m2); color:white; border:none; padding:4px 10px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer;">③ 中垂线</button>
+        <button id="btn-step-4" class="sim-btn" style="background:var(--m4); color:white; border:none; padding:4px 10px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer;">④ 复原圆心</button>
+        <button id="btn-reset-sim" style="background:var(--ink-3); color:white; border:none; padding:4px 10px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer;">🔄 重置</button>
+      </div>
     </div>
 
-    <svg id="mirror-svg" viewBox="0 0 500 220" style="width:100%; height:auto; background:white; border-radius:8px; border:1px solid var(--line);">
+    <svg id="mirror-svg" viewBox="0 0 500 230" style="width:100%; height:auto; background:#ffffff; border-radius:8px; border:1px solid var(--line); touch-action:none; user-select:none;">
       <!-- Restored Full Circle Ghost (Center: 250, 110 | Radius: 100) -->
-      <circle id="ghost-circle" cx="250" cy="110" r="100" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,4" opacity="0.35"/>
+      <circle id="ghost-circle" cx="250" cy="110" r="100" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,4" opacity="0.25"/>
 
-      <!-- Background Bronze Mirror Arc (Starts at A(170,170), passes through B(250,10), ends at C(330,170)) -->
-      <path id="mirror-arc" d="M 170 170 A 100 100 0 0 1 330 170" fill="none" stroke="#d97706" stroke-width="10" stroke-linecap="round" opacity="0.95"/>
+      <!-- Background Bronze Mirror Arc (Starts at 210 deg to -30 deg) -->
+      <path id="mirror-arc" d="M 163.4 160 A 100 100 0 0 1 336.6 160" fill="none" stroke="#d97706" stroke-width="12" stroke-linecap="round" opacity="0.9"/>
 
       <!-- Chords AB and BC -->
-      <line id="chord-ab" x1="170" y1="170" x2="250" y2="10" stroke="#3b82f6" stroke-width="2.5"/>
-      <line id="chord-bc" x1="250" y1="10" x2="330" y2="170" stroke="#3b82f6" stroke-width="2.5"/>
+      <line id="chord-ab" stroke="#3b82f6" stroke-width="2.5" opacity="0.4"/>
+      <line id="chord-bc" stroke="#3b82f6" stroke-width="2.5" opacity="0.4"/>
 
-      <!-- Midpoints M_AB(210, 90) and M_BC(290, 90) -->
-      <circle id="mid-ab" cx="210" cy="90" r="3.5" fill="#06b6d4" opacity="0.8"/>
-      <circle id="mid-bc" cx="290" cy="90" r="3.5" fill="#06b6d4" opacity="0.8"/>
+      <!-- Midpoints M_AB and M_BC -->
+      <circle id="mid-ab" r="3.5" fill="#06b6d4" opacity="0"/>
+      <circle id="mid-bc" r="3.5" fill="#06b6d4" opacity="0"/>
 
       <!-- Perpendicular Bisectors (Pass strictly through (250,110) Center O) -->
-      <!-- Bisector 1 (Line: x - 2y - 30 = 0) -->
-      <line id="bisector-ab" x1="10" y1="-10" x2="490" y2="230" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="5,3" opacity="0"/>
-      <!-- Bisector 2 (Line: x + 2y - 470 = 0) -->
-      <line id="bisector-bc" x1="490" y1="-10" x2="10" y2="230" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="5,3" opacity="0"/>
-
-      <!-- Points A, B, C -->
-      <circle cx="170" cy="170" r="5" fill="#3b82f6"/>
-      <text x="150" y="185" font-size="12" font-weight="bold" fill="#3b82f6">A</text>
-
-      <circle cx="250" cy="10" r="5" fill="#3b82f6"/>
-      <text x="245" y="-3" font-size="12" font-weight="bold" fill="#3b82f6">B</text>
-
-      <circle cx="330" cy="170" r="5" fill="#3b82f6"/>
-      <text x="340" y="185" font-size="12" font-weight="bold" fill="#3b82f6">C</text>
+      <line id="bisector-ab" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="5,3" opacity="0"/>
+      <line id="bisector-bc" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="5,3" opacity="0"/>
 
       <!-- Found Center O -->
       <g id="center-o-group" opacity="0">
         <circle cx="250" cy="110" r="6.5" fill="#ef4444" stroke="#ffffff" stroke-width="2"/>
         <text x="265" y="115" font-size="13" font-weight="bold" fill="#ef4444">圆心 O (铜镜中心)</text>
       </g>
+
+      <!-- Draggable Points A, B, C (Large hit areas) -->
+      <g id="pt-a-group" style="cursor:grab;">
+        <circle id="pt-a" r="7" fill="#3b82f6" stroke="#ffffff" stroke-width="2"/>
+        <text id="txt-a" font-size="13" font-weight="bold" fill="#1e40af">A (按住拖动)</text>
+      </g>
+      
+      <g id="pt-b-group" style="cursor:grab;">
+        <circle id="pt-b" r="7" fill="#3b82f6" stroke="#ffffff" stroke-width="2"/>
+        <text id="txt-b" font-size="13" font-weight="bold" fill="#1e40af">B (按住拖动)</text>
+      </g>
+      
+      <g id="pt-c-group" style="cursor:grab;">
+        <circle id="pt-c" r="7" fill="#3b82f6" stroke="#ffffff" stroke-width="2"/>
+        <text id="txt-c" font-size="13" font-weight="bold" fill="#1e40af">C (按住拖动)</text>
+      </g>
     </svg>
-    <div id="sim-status" style="font-size:12px; color:var(--ink-2); margin-top:8px; text-anchor:middle; text-align:center;">
-      💡 点击右上角按钮，查看两条弦的垂直平分线如何精确相交于圆心 O！
+
+    <div id="sim-status" style="font-size:13px; color:var(--ink-2); margin-top:10px; text-align:center; background:white; padding:8px 12px; border-radius:6px; border:1px solid var(--line);">
+      💡 提示：试着用鼠标/手指<b>按住蓝色点 A、B 或 C 沿弧线任意拖动</b>！观察两条中垂线如何时刻交于圆心 O！
     </div>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const btn = document.getElementById("btn-fix-mirror");
+      const O = { x: 250, y: 110, r: 100 };
+      let angleA = (205 * Math.PI) / 180;
+      let angleB = (95 * Math.PI) / 180;
+      let angleC = (-25 * Math.PI) / 180;
+
+      const svg = document.getElementById("mirror-svg");
+      const ptA = document.getElementById("pt-a");
+      const ptB = document.getElementById("pt-b");
+      const ptC = document.getElementById("pt-c");
+      const txtA = document.getElementById("txt-a");
+      const txtB = document.getElementById("txt-b");
+      const txtC = document.getElementById("txt-c");
+
+      const chordAB = document.getElementById("chord-ab");
+      const chordBC = document.getElementById("chord-bc");
+      const midAB = document.getElementById("mid-ab");
+      const midBC = document.getElementById("mid-bc");
       const bisectorAB = document.getElementById("bisector-ab");
       const bisectorBC = document.getElementById("bisector-bc");
       const centerO = document.getElementById("center-o-group");
       const ghostCircle = document.getElementById("ghost-circle");
       const status = document.getElementById("sim-status");
-      let isFixed = false;
 
-      btn.addEventListener("click", () => {
-        isFixed = !isFixed;
-        if (isFixed) {
-          bisectorAB.style.transition = "opacity 0.6s ease";
-          bisectorBC.style.transition = "opacity 0.6s ease 0.3s";
-          centerO.style.transition = "opacity 0.6s ease 0.6s";
-          ghostCircle.style.transition = "opacity 0.6s ease 0.9s";
+      function getPos(angle) {
+        return {
+          x: O.x + O.r * Math.cos(angle),
+          y: O.y - O.r * Math.sin(angle)
+        };
+      }
 
-          bisectorAB.style.opacity = "1";
-          bisectorBC.style.opacity = "1";
-          centerO.style.opacity = "1";
-          ghostCircle.style.opacity = "0.8";
+      function updateDiagram() {
+        const A = getPos(angleA);
+        const B = getPos(angleB);
+        const C = getPos(angleC);
 
-          btn.textContent = "🔄 重置图形";
-          status.innerHTML = "<b style='color:#ef4444;'>成功定位！</b> 弦 AB 与 BC 的垂直平分线交点即为圆心 O，铜镜完美复原！";
-        } else {
-          bisectorAB.style.opacity = "0";
-          bisectorBC.style.opacity = "0";
-          centerO.style.opacity = "0";
-          ghostCircle.style.opacity = "0.3";
+        ptA.setAttribute("cx", A.x); ptA.setAttribute("cy", A.y);
+        ptB.setAttribute("cx", B.x); ptB.setAttribute("cy", B.y);
+        ptC.setAttribute("cx", C.x); ptC.setAttribute("cy", C.y);
 
-          btn.textContent = "✨ 一键作垂直平分线修复";
-          status.textContent = "💡 点击右上角按钮，查看两条弦的垂直平分线如何精确相交于圆心 O！";
+        txtA.setAttribute("x", A.x - 22); txtA.setAttribute("y", A.y + 18);
+        txtB.setAttribute("x", B.x - 30); txtB.setAttribute("y", B.y - 12);
+        txtC.setAttribute("x", C.x + 10); txtC.setAttribute("y", C.y + 18);
+
+        chordAB.setAttribute("x1", A.x); chordAB.setAttribute("y1", A.y);
+        chordAB.setAttribute("x2", B.x); chordAB.setAttribute("y2", B.y);
+
+        chordBC.setAttribute("x1", B.x); chordBC.setAttribute("y1", B.y);
+        chordBC.setAttribute("x2", C.x); chordBC.setAttribute("y2", C.y);
+
+        const MAB = { x: (A.x + B.x) / 2, y: (A.y + B.y) / 2 };
+        const MBC = { x: (B.x + C.x) / 2, y: (B.y + C.y) / 2 };
+
+        midAB.setAttribute("cx", MAB.x); midAB.setAttribute("cy", MAB.y);
+        midBC.setAttribute("cx", MBC.x); midBC.setAttribute("cy", MBC.y);
+
+        // Vector from O to MAB
+        const dAB = { x: MAB.x - O.x, y: MAB.y - O.y };
+        const lenAB = Math.hypot(dAB.x, dAB.y) || 1;
+        const normAB = { x: dAB.x / lenAB, y: dAB.y / lenAB };
+        bisectorAB.setAttribute("x1", O.x - normAB.x * 120);
+        bisectorAB.setAttribute("y1", O.y - normAB.y * 120);
+        bisectorAB.setAttribute("x2", O.x + normAB.x * 180);
+        bisectorAB.setAttribute("y2", O.y + normAB.y * 180);
+
+        // Vector from O to MBC
+        const dBC = { x: MBC.x - O.x, y: MBC.y - O.y };
+        const lenBC = Math.hypot(dBC.x, dBC.y) || 1;
+        const normBC = { x: dBC.x / lenBC, y: dBC.y / lenBC };
+        bisectorBC.setAttribute("x1", O.x - normBC.x * 120);
+        bisectorBC.setAttribute("y1", O.y - normBC.y * 120);
+        bisectorBC.setAttribute("x2", O.x + normBC.x * 180);
+        bisectorBC.setAttribute("y2", O.y + normBC.y * 180);
+      }
+
+      // Initial view state: Show all fully
+      showStep(4);
+
+      function showStep(step) {
+        if (step === 1) {
+          chordAB.style.opacity = "0"; chordBC.style.opacity = "0";
+          midAB.style.opacity = "0"; midBC.style.opacity = "0";
+          bisectorAB.style.opacity = "0"; bisectorBC.style.opacity = "0";
+          centerO.style.opacity = "0"; ghostCircle.style.opacity = "0.2";
+          status.innerHTML = "<b>① 选点完成：</b>在残缺圆弧上确定 A、B、C 三个测试点。";
+        } else if (step === 2) {
+          chordAB.style.opacity = "1"; chordBC.style.opacity = "1";
+          midAB.style.opacity = "0"; midBC.style.opacity = "0";
+          bisectorAB.style.opacity = "0"; bisectorBC.style.opacity = "0";
+          centerO.style.opacity = "0"; ghostCircle.style.opacity = "0.3";
+          status.innerHTML = "<b>② 连线段完成：</b>连接弦 AB 和弦 BC。";
+        } else if (step === 3) {
+          chordAB.style.opacity = "1"; chordBC.style.opacity = "1";
+          midAB.style.opacity = "1"; midBC.style.opacity = "1";
+          bisectorAB.style.opacity = "1"; bisectorBC.style.opacity = "1";
+          centerO.style.opacity = "0"; ghostCircle.style.opacity = "0.4";
+          status.innerHTML = "<b>③ 作中垂线完成：</b>画出弦 AB、BC 的垂直平分线（红虚线）。";
+        } else if (step === 4) {
+          chordAB.style.opacity = "1"; chordBC.style.opacity = "1";
+          midAB.style.opacity = "1"; midBC.style.opacity = "1";
+          bisectorAB.style.opacity = "1"; bisectorBC.style.opacity = "1";
+          centerO.style.opacity = "1"; ghostCircle.style.opacity = "0.85";
+          status.innerHTML = "<b style='color:#ef4444;'>🎉 成功复原！</b> 无论怎么拖动 A/B/C，两条中垂线始终死死交于圆心 O！";
         }
-      });
+        updateDiagram();
+      }
+
+      document.getElementById("btn-step-1").onclick = () => showStep(1);
+      document.getElementById("btn-step-2").onclick = () => showStep(2);
+      document.getElementById("btn-step-3").onclick = () => showStep(3);
+      document.getElementById("btn-step-4").onclick = () => showStep(4);
+      document.getElementById("btn-reset-sim").onclick = () => {
+        angleA = (205 * Math.PI) / 180;
+        angleB = (95 * Math.PI) / 180;
+        angleC = (-25 * Math.PI) / 180;
+        showStep(4);
+      };
+
+      // Dragging logic along circular arc
+      let activePoint = null;
+
+      function getAngleFromMouse(evt) {
+        const rect = svg.getBoundingClientRect();
+        const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+        const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+        const mouseX = (clientX - rect.left) * (500 / rect.width);
+        const mouseY = (clientY - rect.top) * (230 / rect.height);
+
+        let rad = Math.atan2(-(mouseY - O.y), mouseX - O.x);
+        // Constrain to arc range [-35 deg, 215 deg]
+        const minAng = (-35 * Math.PI) / 180;
+        const maxAng = (215 * Math.PI) / 180;
+        if (rad < minAng && rad > -Math.PI / 2) rad = minAng;
+        if (rad > maxAng || rad < -Math.PI / 2) rad = maxAng;
+        return rad;
+      }
+
+      function startDrag(pt, evt) {
+        activePoint = pt;
+        evt.preventDefault();
+      }
+
+      document.getElementById("pt-a-group").onmousedown = (e) => startDrag("A", e);
+      document.getElementById("pt-b-group").onmousedown = (e) => startDrag("B", e);
+      document.getElementById("pt-c-group").onmousedown = (e) => startDrag("C", e);
+
+      document.getElementById("pt-a-group").ontouchstart = (e) => startDrag("A", e);
+      document.getElementById("pt-b-group").ontouchstart = (e) => startDrag("B", e);
+      document.getElementById("pt-c-group").ontouchstart = (e) => startDrag("C", e);
+
+      window.onmousemove = window.ontouchmove = (e) => {
+        if (!activePoint) return;
+        const ang = getAngleFromMouse(e);
+        if (activePoint === "A") angleA = ang;
+        if (activePoint === "B") angleB = ang;
+        if (activePoint === "C") angleC = ang;
+        updateDiagram();
+      };
+
+      window.onmouseup = window.ontouchend = () => {
+        activePoint = null;
+      };
+
+      updateDiagram();
     });
   </script>
 </section>
