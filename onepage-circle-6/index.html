@@ -285,10 +285,10 @@
         同心大圆挖去小圆得圆环
       </div>
       <p style="font-size:14px; color:var(--ink-2); line-height: 1.6;">
-        设大圆半径为 <b>R</b>，小圆半径为 <b>r</b>，环宽 $w = R - r$：<br>
-        • 基本公式：<b>$S_{\text{环}} = \pi R^2 - \pi r^2$</b><br>
-        • <b>简便公式：$S_{\text{环}} = \pi (R^2 - r^2)$</b><br>
-        <i>速算技巧：先算半径的平方差 $(R^2 - r^2)$，再乘以 3.14！</i>
+        设大圆半径为 <b>R</b>，小圆半径为 <b>r</b>，环宽 <b>w = R - r</b>：<br>
+        • 基本公式：<b>S<sub>环</sub> = πR² - πr²</b><br>
+        • <b>简便公式：S<sub>环</sub> = π(R² - r²)</b><br>
+        <i>速算技巧：先算半径的平方差 (R² - r²)，再乘以 3.14！</i>
       </p>
     </div>
 
@@ -321,7 +321,7 @@
   </div>
 
   <p style="font-size:14px; color:var(--ink-2); margin-bottom:12px;">
-    假设圆的半径均为 <b>r</b>（直径 $d = 2r$），记下秒杀公式可以直接口算阴影面积：
+    假设圆的半径均为 <b>r</b>（直径 <b>d = 2r</b>），记下秒杀公式可以直接口算阴影面积：
   </p>
 
   <div class="grid-2">
@@ -338,9 +338,9 @@
         </svg>
       </div>
       <p style="font-size:13.5px; color:var(--ink-2); line-height:1.6;">
-        • 正方形边长 $= 2r$，正方形面积 $= 4r^2$<br>
-        • 圆面积 $= \pi r^2 \approx 3.14 r^2$<br>
-        • <b>四周角阴影面积 $= (4 - \pi) r^2 \approx 0.86 r^2$</b>
+        • 正方形边长 <b>= 2r</b>，正方形面积 <b>= 4r²</b><br>
+        • 圆面积 <b>= πr² ≈ 3.14r²</b><br>
+        • <b>四周角阴影面积 = (4 - π)r² ≈ 0.86r²</b>
       </p>
     </div>
 
@@ -357,9 +357,9 @@
         </svg>
       </div>
       <p style="font-size:13.5px; color:var(--ink-2); line-height:1.6;">
-        • 圆面积 $= \pi r^2 \approx 3.14 r^2$<br>
-        • 内接正方形面积 $= 2 \times (\text{底}2r \times \text{高}r / 2) = 2r^2$<br>
-        • <b>四弓形阴影面积 $= (\pi - 2) r^2 \approx 1.14 r^2$</b>
+        • 圆面积 <b>= πr² ≈ 3.14r²</b><br>
+        • 内接正方形面积 <b>= 2 × (2r × r ÷ 2) = 2r²</b><br>
+        • <b>四弓形阴影面积 = (π - 2)r² ≈ 1.14r²</b>
       </p>
     </div>
   </div>
@@ -383,7 +383,7 @@
       </div>
       <p style="font-size:13px; color:var(--ink-2);">
         <b>思路：</b>阴影面积无法直接计算时，用包含它的<b>规则大图形面积</b>减去<b>空白规则图形面积</b>。<br>
-        <i>公式：$S_{\text{阴影}} = S_{\text{总}} - S_{\text{空白}}$</i>
+        <i>公式：<b>S<sub>阴影</sub> = S<sub>总</sub> - S<sub>空白</sub></b></i>
       </p>
     </div>
 
@@ -435,11 +435,11 @@
       扇形是圆的一部分，面积取决于圆心角 n°
     </div>
     <p style="font-size:14px; color:var(--ink-2); line-height:1.6;">
-      • 通用公式：<b>$S_{\text{扇形}} = \pi r^2 \times \frac{n^\circ}{360^\circ}$</b><br>
+      • 通用公式：<b>S<sub>扇形</sub> = πr² × (n° / 360°)</b><br>
       • <b>特殊扇形速算：</b><br>
-      &nbsp;&nbsp;1. <b>半圆（圆心角 180°）：</b>$S = \frac{1}{2} \pi r^2$<br>
-      &nbsp;&nbsp;2. <b>直角扇形（圆心角 90°）：</b>$S = \frac{1}{4} \pi r^2$<br>
-      &nbsp;&nbsp;3. <b>60° 扇形（圆心角 60°）：</b>$S = \frac{1}{6} \pi r^2$
+      &nbsp;&nbsp;1. <b>半圆（圆心角 180°）：</b>S = ½πr²<br>
+      &nbsp;&nbsp;2. <b>直角扇形（圆心角 90°）：</b>S = ¼πr²<br>
+      &nbsp;&nbsp;3. <b>60° 扇形（圆心角 60°）：</b>S = ⅙πr²
     </p>
   </div>
 </section>
@@ -459,9 +459,9 @@
       ❌ 易错点 1：圆环面积错用 π(R - r)²
     </div>
     <p style="font-size:14px; color:var(--ink-2); margin:0">
-      <b>错误公式：</b>误将圆环面积写成 $S = \pi (R - r)^2$。<br>
-      <b>正确诊断：</b>$(R^2 - r^2)$ 表示“半径平方的差”，而 $(R - r)^2$ 表示“半径差的平方”，二者数值完全不同！<br>
-      <b>满分规范：</b>必须先分别求平方再相减：<b>$S = \pi (R^2 - r^2)$</b>！
+      <b>错误公式：</b>误将圆环面积写成 <b>S = π(R - r)²</b>。<br>
+      <b>正确诊断：</b>(R² - r²) 表示“半径平方的差”，而 (R - r)² 表示“半径差的平方”，二者数值完全不同！<br>
+      <b>满分规范：</b>必须先分别求平方再相减：<b>S = π(R² - r²)</b>！
     </p>
   </div>
 
@@ -471,8 +471,8 @@
     </div>
     <p style="font-size:14px; color:var(--ink-2); margin:0">
       <b>错误困惑：</b>题目没给正方形边长，不知道怎么求正方形面积。<br>
-      <b>正确诊断：</b>圆内接正方形的对角线等于圆的直径 $2r$，沿对角线切开可分成两个相同的三角形（底为 $2r$，高为 $r$）。<br>
-      <b>满分规范：</b>正方形面积 $= 2 \times (\frac{1}{2} \times 2r \times r) = 2 r^2$！
+      <b>正确诊断：</b>圆内接正方形的对角线等于圆的直径 2r，沿对角线切开可分成两个相同的三角形（底为 2r，高为 r）。<br>
+      <b>满分规范：</b>正方形面积 = 2 × (½ × 2r × r) = 2r²！
     </p>
   </div>
 </section>
