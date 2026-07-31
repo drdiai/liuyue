@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>圆环面积 & 外方内圆/外圆内方 & 阴影面积《圆的面积（二）》核心考点一页清</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --ink: #1f2937;
+    --ink-2: #4b5563;
+    --ink-3: #9ca3af;
+    --line: #e5e7eb;
+    --line-2: #f3f4f6;
+
+    /* 5 大模块配色 */
+    --m1:    #d97706;             /* 01 圆环面积 : 琥珀金 */
+    --m1-soft: #fffbeb;
+    --m1-deep: #b45309;
+
+    --m2:    #8b5cf6;             /* 02 外方内圆与外圆内方 : 罗兰紫 */
+    --m2-soft: #f5f3ff;
+    --m2-deep: #6d28d9;
+
+    --m3:    #059669;             /* 03 阴影四大解题技巧 : 翡翠绿 */
+    --m3-soft: #ecfdf5;
+    --m3-deep: #047857;
+
+    --m4:    #3b82f6;             /* 04 扇形与半圆面积 : 宝蓝 */
+    --m4-soft: #eff6ff;
+    --m4-deep: #1d4ed8;
+
+    --m5:    #ef4444;             /* 05 避坑指南 : 朱红 */
+    --m5-soft: #fef2f2;
+    --m5-deep: #b91c1c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: "Songti SC", "Noto Serif SC", "STSong", "华文宋体", "SimSun", Georgia, serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    background: var(--card);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 38px 44px 30px;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 600px 200px at top right, var(--m1-soft) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 200px at bottom left, var(--m2-soft) 0%, transparent 70%);
+  }
+  header .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--m1-deep);
+    background: var(--m1-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    border: 1px solid #fde68a;
+  }
+  header h1 {
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  header h1 .q { color: var(--m1-deep); }
+  header .subtitle {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+  }
+  header .meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  header .chip {
+    font-size: 12px;
+    color: var(--ink-2);
+    background: white;
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  header .chip b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Section base ---------- */
+  section { padding: 28px 44px; border-bottom: 1px solid var(--line-2); }
+  section:last-of-type { border-bottom: none; }
+
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .sec-num {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 6px;
+    color: white;
+  }
+  .sec-head h2 { font-size: 20px; font-weight: 800; color: var(--ink); }
+  .sec-head .en { font-size: 12px; color: var(--ink-3); font-weight: 500; margin-left: auto; }
+
+  /* 模块主题色 */
+  .c1 .sec-num { background: var(--m1); }
+  .c2 .sec-num { background: var(--m2); }
+  .c3 .sec-num { background: var(--m3); }
+  .c4 .sec-num { background: var(--m4); }
+  .c5 .sec-num { background: var(--m5); }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  }
+  .card:last-child { margin-bottom: 0; }
+  .card .head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15.5px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .card .pill {
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+  }
+
+  /* Grid layout */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  /* Overview nav */
+  .overview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .ov {
+    background: var(--line-2);
+    border-radius: 8px;
+    padding: 12px 8px;
+    text-align: center;
+    border: 1px solid transparent;
+  }
+  .ov .ico { font-size: 18px; display: block; margin-bottom: 2px; }
+  .ov .name { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .ov .en { font-size: 10px; color: var(--ink-3); }
+
+  .ov.a { background: var(--m1-soft); border-color: #fde68a; }
+  .ov.b { background: var(--m2-soft); border-color: #ddd6fe; }
+  .ov.c { background: var(--m3-soft); border-color: #a7f3d0; }
+  .ov.d { background: var(--m4-soft); border-color: #bfdbfe; }
+  .ov.e { background: var(--m5-soft); border-color: #fecaca; }
+
+  /* Footer */
+  footer {
+    padding: 26px 44px;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--ink-3);
+    border-top: 1px solid var(--line);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .page { max-width: 100%; }
+    header, section { padding-left: 20px; padding-right: 20px; }
+    .overview { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+<header>
+  <span class="tag">小学数学 · 第二单元 · 圆</span>
+  <h1>圆环公式与阴影面积妙解<br><span class="q">《圆的面积（二）& 阴影面积》核心考点一页清</span></h1>
+  <p class="subtitle">
+    从 <span style="color:var(--m1-deep); font-weight:700;">圆环面积公式 S = π(R² - r²)</span> 到
+    <span style="color:var(--m2-deep); font-weight:700;">外方内圆 vs 外圆内方速算</span>，再到
+    <span style="color:var(--m3-deep); font-weight:700;">割补平移四大解题技巧</span>。
+  </p>
+  <div class="meta">
+    <span class="chip">📅 发布时间 <b>2026-07-31</b></span>
+    <span class="chip">📚 适用 <b>六年级上册 (北师大版)</b></span>
+    <span class="chip">⏱ 阅读 <b>~4 分钟</b></span>
+    <span class="chip">🎯 核心考点 <b>9 个</b></span>
+    <span class="chip">📐 课时 <b>第6课时 · 圆的面积(二)</b></span>
+  </div>
+</header>
+
+<!-- =========================================================
+     OVERVIEW · 导览
+     ========================================================= -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num" style="background:var(--ink)">🗺</span>
+    <h2>知识导览</h2>
+    <span class="en">5 modules · Key concepts</span>
+  </div>
+  <div class="overview">
+    <div class="ov a">
+      <span class="ico">①</span>
+      <div class="name">圆环面积</div>
+      <div class="en">Ring Area</div>
+    </div>
+    <div class="ov b">
+      <span class="ico">②</span>
+      <div class="name">外方内圆/外圆内方</div>
+      <div class="en">Square & Circle</div>
+    </div>
+    <div class="ov c">
+      <span class="ico">③</span>
+      <div class="name">阴影四大技巧</div>
+      <div class="en">Shadow Area Methods</div>
+    </div>
+    <div class="ov d">
+      <span class="ico">④</span>
+      <div class="name">扇形与半圆</div>
+      <div class="en">Sector & Semicircle</div>
+    </div>
+    <div class="ov e">
+      <span class="ico">⑤</span>
+      <div class="name">避坑指南</div>
+      <div class="en">Pitfalls</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 01 · 圆环面积公式
+     ========================================================= -->
+<section class="c1">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2>圆环（环形）面积计算公式</h2>
+    <span class="en">Ring Area Formula</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="border-left: 4px solid var(--m1);">
+      <div class="head" style="color:var(--m1-deep)">
+        <span class="pill" style="background:var(--m1)">核心公式</span>
+        同心大圆挖去小圆得圆环
+      </div>
+      <p style="font-size:14px; color:var(--ink-2); line-height: 1.6;">
+        设大圆半径为 <b>R</b>，小圆半径为 <b>r</b>，环宽 $w = R - r$：<br>
+        • 基本公式：<b>$S_{\text{环}} = \pi R^2 - \pi r^2$</b><br>
+        • <b>简便公式：$S_{\text{环}} = \pi (R^2 - r^2)$</b><br>
+        <i>速算技巧：先算半径的平方差 $(R^2 - r^2)$，再乘以 3.14！</i>
+      </p>
+    </div>
+
+    <div class="card" style="text-align:center;">
+      <div class="head" style="justify-content:center; color:var(--m1-deep)">
+        圆环结构图解
+      </div>
+      <svg viewBox="0 0 160 110" style="width:130px; height:auto; margin:0 auto;">
+        <circle cx="80" cy="55" r="45" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+        <circle cx="80" cy="55" r="25" fill="#ffffff" stroke="#d97706" stroke-width="1.8"/>
+        <circle cx="80" cy="55" r="3" fill="#1f2937"/>
+        <line x1="80" y1="55" x2="125" y2="55" stroke="#ef4444" stroke-width="1.5"/>
+        <line x1="80" y1="55" x2="62.3" y2="37.3" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="100" y="50" font-size="10" font-weight="bold" fill="#ef4444">R</text>
+        <text x="70" y="44" font-size="10" font-weight="bold" fill="#2563eb">r</text>
+        <text x="80" y="108" font-size="9.5" font-weight="bold" fill="#b45309" text-anchor="middle">阴影为圆环 (R² - r²)</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 02 · 外方内圆 vs 外圆内方
+     ========================================================= -->
+<section class="c2">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2>高频期末必考：外方内圆 vs 外圆内方</h2>
+    <span class="en">Square & Circle Inscribed / Circumscribed</span>
+  </div>
+
+  <p style="font-size:14px; color:var(--ink-2); margin-bottom:12px;">
+    假设圆的半径均为 <b>r</b>（直径 $d = 2r$），记下秒杀公式可以直接口算阴影面积：
+  </p>
+
+  <div class="grid-2">
+    <!-- 外方内圆 -->
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m2)">图型 1</span>
+        外方内圆 (正方形内切圆)
+      </div>
+      <div style="text-align:center; margin:8px 0;">
+        <svg viewBox="0 0 120 120" style="width:100px; height:100px;">
+          <rect x="10" y="10" width="100" height="100" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="2"/>
+          <circle cx="60" cy="60" r="50" fill="#ffffff" stroke="#8b5cf6" stroke-width="2"/>
+        </svg>
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); line-height:1.6;">
+        • 正方形边长 $= 2r$，正方形面积 $= 4r^2$<br>
+        • 圆面积 $= \pi r^2 \approx 3.14 r^2$<br>
+        • <b>四周角阴影面积 $= (4 - \pi) r^2 \approx 0.86 r^2$</b>
+      </p>
+    </div>
+
+    <!-- 外圆内方 -->
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m2)">图型 2</span>
+        外圆内方 (圆内接正方形)
+      </div>
+      <div style="text-align:center; margin:8px 0;">
+        <svg viewBox="0 0 120 120" style="width:100px; height:100px;">
+          <circle cx="60" cy="60" r="50" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="2"/>
+          <polygon points="60,10 110,60 60,110 10,60" fill="#ffffff" stroke="#8b5cf6" stroke-width="2"/>
+        </svg>
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); line-height:1.6;">
+        • 圆面积 $= \pi r^2 \approx 3.14 r^2$<br>
+        • 内接正方形面积 $= 2 \times (\text{底}2r \times \text{高}r / 2) = 2r^2$<br>
+        • <b>四弓形阴影面积 $= (\pi - 2) r^2 \approx 1.14 r^2$</b>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 03 · 阴影面积四大解题技巧
+     ========================================================= -->
+<section class="c3">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2>阴影面积四大解题技巧</h2>
+    <span class="en">4 Shadow Area Techniques</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">技巧 1</span>
+        和差法 (大图形减小图形)
+      </div>
+      <p style="font-size:13px; color:var(--ink-2);">
+        <b>思路：</b>阴影面积无法直接计算时，用包含它的<b>规则大图形面积</b>减去<b>空白规则图形面积</b>。<br>
+        <i>公式：$S_{\text{阴影}} = S_{\text{总}} - S_{\text{空白}}$</i>
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">技巧 2</span>
+        割补平移法 (化零为整)
+      </div>
+      <p style="font-size:13px; color:var(--ink-2);">
+        <b>思路：</b>利用圆的轴对称性或旋转对称性，将分散的不规则阴影<b>平移、旋转或翻折</b>，拼凑成规则半圆或扇形。
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">技巧 3</span>
+        等积变形法 (同底等高)
+      </div>
+      <p style="font-size:13px; color:var(--ink-2);">
+        <b>思路：</b>利用“同底等高三角形面积相等”的性质，将难以计算的三角形阴影转化为位置更容易计算的三角形。
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m3)">技巧 4</span>
+        重叠容斥法 (重叠部分计算)
+      </div>
+      <p style="font-size:13px; color:var(--ink-2);">
+        <b>思路：</b>当两个图形重叠时，重叠区域面积等于两个图形面积之和减去覆盖的总面积。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 04 · 扇形与半圆面积计算
+     ========================================================= -->
+<section class="c4">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2>扇形与半圆面积公式与速算</h2>
+    <span class="en">Sector & Semicircle Area</span>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m4);">
+    <div class="head" style="color:var(--m4-deep)">
+      <span class="pill" style="background:var(--m4)">扇形公式</span>
+      扇形是圆的一部分，面积取决于圆心角 n°
+    </div>
+    <p style="font-size:14px; color:var(--ink-2); line-height:1.6;">
+      • 通用公式：<b>$S_{\text{扇形}} = \pi r^2 \times \frac{n^\circ}{360^\circ}$</b><br>
+      • <b>特殊扇形速算：</b><br>
+      &nbsp;&nbsp;1. <b>半圆（圆心角 180°）：</b>$S = \frac{1}{2} \pi r^2$<br>
+      &nbsp;&nbsp;2. <b>直角扇形（圆心角 90°）：</b>$S = \frac{1}{4} \pi r^2$<br>
+      &nbsp;&nbsp;3. <b>60° 扇形（圆心角 60°）：</b>$S = \frac{1}{6} \pi r^2$
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 05 · 易错避坑指南
+     ========================================================= -->
+<section class="c5">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2>易错避坑指南</h2>
+    <span class="en">Common Mistakes</span>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m5);">
+    <div class="head" style="color:var(--m5-deep)">
+      ❌ 易错点 1：圆环面积错用 π(R - r)²
+    </div>
+    <p style="font-size:14px; color:var(--ink-2); margin:0">
+      <b>错误公式：</b>误将圆环面积写成 $S = \pi (R - r)^2$。<br>
+      <b>正确诊断：</b>$(R^2 - r^2)$ 表示“半径平方的差”，而 $(R - r)^2$ 表示“半径差的平方”，二者数值完全不同！<br>
+      <b>满分规范：</b>必须先分别求平方再相减：<b>$S = \pi (R^2 - r^2)$</b>！
+    </p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m5);">
+    <div class="head" style="color:var(--m5-deep)">
+      ❌ 易错点 2：外圆内方求正方形面积时找不到边长
+    </div>
+    <p style="font-size:14px; color:var(--ink-2); margin:0">
+      <b>错误困惑：</b>题目没给正方形边长，不知道怎么求正方形面积。<br>
+      <b>正确诊断：</b>圆内接正方形的对角线等于圆的直径 $2r$，沿对角线切开可分成两个相同的三角形（底为 $2r$，高为 $r$）。<br>
+      <b>满分规范：</b>正方形面积 $= 2 \times (\frac{1}{2} \times 2r \times r) = 2 r^2$！
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer>
+  <div>北师大版六年级数学上册 · 第二单元《圆的面积（二）& 阴影面积》核心考点一页清</div>
+  <div style="margin-top:4px;">© 2026 WANG DI · 一页纸极简复习系列</div>
+</footer>
+
+</div>
+</body>
+</html>

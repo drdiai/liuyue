@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第二单元《圆》大单元核心考点大通关一页清 · 单元总复习</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --ink: #1f2937;
+    --ink-2: #4b5563;
+    --ink-3: #9ca3af;
+    --line: #e5e7eb;
+    --line-2: #f3f4f6;
+
+    /* 5 大模块配色 */
+    --m1:    #059669;             /* 01 知识网络 : 翠绿 */
+    --m1-soft: #ecfdf5;
+    --m1-deep: #064e3b;
+
+    --m2:    #3b82f6;             /* 02 公式大全 : 宝蓝 */
+    --m2-soft: #eff6ff;
+    --m2-deep: #1d4ed8;
+
+    --m3:    #d97706;             /* 03 必考模型秒杀 : 琥珀金 */
+    --m3-soft: #fffbeb;
+    --m3-deep: #78350f;
+
+    --m4:    #8b5cf6;             /* 04 易错陷阱盘点 : 罗兰紫 */
+    --m4-soft: #f5f3ff;
+    --m4-deep: #6d28d9;
+
+    --m5:    #ef4444;             /* 05 终极冲刺自测 : 朱红 */
+    --m5-soft: #fef2f2;
+    --m5-deep: #b91c1c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: "Songti SC", "Noto Serif SC", "STSong", "华文宋体", "SimSun", Georgia, serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    background: var(--card);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 38px 44px 30px;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 600px 200px at top right, var(--m1-soft) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 200px at bottom left, var(--m3-soft) 0%, transparent 70%);
+  }
+  header .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--m1-deep);
+    background: var(--m1-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    border: 1px solid #a7f3d0;
+  }
+  header h1 {
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  header h1 .q { color: var(--m1-deep); }
+  header .subtitle {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+  }
+  header .meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  header .chip {
+    font-size: 12px;
+    color: var(--ink-2);
+    background: white;
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  header .chip b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Section base ---------- */
+  section { padding: 28px 44px; border-bottom: 1px solid var(--line-2); }
+  section:last-of-type { border-bottom: none; }
+
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .sec-num {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 6px;
+    color: white;
+  }
+  .sec-head h2 { font-size: 20px; font-weight: 800; color: var(--ink); }
+  .sec-head .en { font-size: 12px; color: var(--ink-3); font-weight: 500; margin-left: auto; }
+
+  /* 模块主题色 */
+  .c1 .sec-num { background: var(--m1); }
+  .c2 .sec-num { background: var(--m2); }
+  .c3 .sec-num { background: var(--m3); }
+  .c4 .sec-num { background: var(--m4); }
+  .c5 .sec-num { background: var(--m5); }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  }
+  .card:last-child { margin-bottom: 0; }
+  .card .head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15.5px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .card .pill {
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+  }
+
+  /* Grid layout */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  /* Overview nav */
+  .overview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .ov {
+    background: var(--line-2);
+    border-radius: 8px;
+    padding: 12px 8px;
+    text-align: center;
+    border: 1px solid transparent;
+  }
+  .ov .ico { font-size: 18px; display: block; margin-bottom: 2px; }
+  .ov .name { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .ov .en { font-size: 10px; color: var(--ink-3); }
+
+  .ov.a { background: var(--m1-soft); border-color: #a7f3d0; }
+  .ov.b { background: var(--m2-soft); border-color: #bfdbfe; }
+  .ov.c { background: var(--m3-soft); border-color: #fde68a; }
+  .ov.d { background: var(--m4-soft); border-color: #ddd6fe; }
+  .ov.e { background: var(--m5-soft); border-color: #fecaca; }
+
+  /* Table styling */
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  .custom-table th, .custom-table td {
+    border: 1px solid var(--line);
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .custom-table th {
+    background: var(--line-2);
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Footer */
+  footer {
+    padding: 26px 44px;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--ink-3);
+    border-top: 1px solid var(--line);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .page { max-width: 100%; }
+    header, section { padding-left: 20px; padding-right: 20px; }
+    .overview { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+<header>
+  <span class="tag">小学数学 · 第二单元 · 圆</span>
+  <h1>第二单元《圆》全大元核心考点大通关<br><span class="q">单元总复习一页清</span></h1>
+  <p class="subtitle">
+    从 <span style="color:var(--m1-deep); font-weight:700;">基本要素与对称性</span> 到
+    <span style="color:var(--m2-deep); font-weight:700;">周长与面积双向计算</span>，再到
+    <span style="color:var(--m3-deep); font-weight:700;">高频模型与阴影面积秒杀</span>。
+  </p>
+  <div class="meta">
+    <span class="chip">📅 发布时间 <b>2026-07-31</b></span>
+    <span class="chip">📚 适用 <b>六年级上册 (北师大版)</b></span>
+    <span class="chip">⏱ 阅读 <b>~5 分钟</b></span>
+    <span class="chip">🎯 核心考点 <b>15 个</b></span>
+    <span class="chip">📐 课时 <b>单元总复习 · 核心大通关</b></span>
+  </div>
+</header>
+
+<!-- =========================================================
+     OVERVIEW · 导览
+     ========================================================= -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num" style="background:var(--ink)">🗺</span>
+    <h2>知识导览</h2>
+    <span class="en">5 modules · Full Review</span>
+  </div>
+  <div class="overview">
+    <div class="ov a">
+      <span class="ico">①</span>
+      <div class="name">知识结构网</div>
+      <div class="en">Knowledge Map</div>
+    </div>
+    <div class="ov b">
+      <span class="ico">②</span>
+      <div class="name">公式换算全集</div>
+      <div class="en">All Formulas</div>
+    </div>
+    <div class="ov c">
+      <span class="ico">③</span>
+      <div class="name">高频必考模型</div>
+      <div class="en">Key Models</div>
+    </div>
+    <div class="ov d">
+      <span class="ico">④</span>
+      <div class="name">易错陷阱大盘点</div>
+      <div class="en">Pitfalls Summary</div>
+    </div>
+    <div class="ov e">
+      <span class="ico">⑤</span>
+      <div class="name">终极冲刺自测</div>
+      <div class="en">Checklist</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 01 · 知识结构网络
+     ========================================================= -->
+<section class="c1">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2>第二单元《圆》结构化知识网络</h2>
+    <span class="en">Knowledge Structure</span>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m1);">
+    <div class="head" style="color:var(--m1-deep)">
+      <span class="pill" style="background:var(--m1)">体系框架</span>
+      三大主线串联圆的核心考点
+    </div>
+    <p style="font-size:14px; color:var(--ink-2); line-height: 1.7;">
+      <b>主线 1：圆的特征与要素</b> ➔ 圆心 O（决定位置）、半径 r（决定大小）、直径 d ($d=2r$)、“一中同长”。<br>
+      <b>主线 2：对称与作图</b> ➔ 轴对称图形、无数条对称轴（直径所在直线）、折纸找圆心、弦的中垂线求圆心。<br>
+      <b>主线 3：周长与面积</b> ➔ 化曲为直与圆周率 $\pi$ $\to$ 周长 $C=2\pi r$ $\to$ 剪拼转化推导面积 $S=\pi r^2$ $\to$ 圆环与组合图形阴影。
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 02 · 公式全集与换算汇总
+     ========================================================= -->
+<section class="c2">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2>核心公式全集与双向换算汇总表</h2>
+    <span class="en">Formula Summary Table</span>
+  </div>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">计算项目</th>
+        <th style="width:35%;">正向计算公式</th>
+        <th style="width:45%;">逆向求半径 r 或直径 d 公式</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>直径与半径</b></td>
+        <td>$d = 2r$</td>
+        <td>$r = \frac{d}{2}$</td>
+      </tr>
+      <tr>
+        <td><b>圆的周长 C</b></td>
+        <td>$C = \pi d = 2\pi r$</td>
+        <td>$d = \frac{C}{\pi}$， $r = \frac{C}{2\pi}$</td>
+      </tr>
+      <tr>
+        <td><b>圆的面积 S</b></td>
+        <td>$S = \pi r^2 = \pi \left(\frac{d}{2}\right)^2$</td>
+        <td>$r^2 = \frac{S}{\pi} \implies r = \sqrt{\frac{S}{\pi}}$</td>
+      </tr>
+      <tr>
+        <td><b>圆环面积 S</b></td>
+        <td>$S_{\text{环}} = \pi (R^2 - r^2)$</td>
+        <td>$R^2 - r^2 = \frac{S_{\text{环}}}{\pi}$</td>
+      </tr>
+      <tr>
+        <td><b>半圆周长 C</b></td>
+        <td>$C_{\text{半圆}} = \pi r + 2r \approx 5.14 r$</td>
+        <td>$r = \frac{C_{\text{半圆}}}{\pi + 2} \approx \frac{C_{\text{半圆}}}{5.14}$</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- =========================================================
+     MODULE 03 · 高频必考模型秒杀
+     ========================================================= -->
+<section class="c3">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2>三大高频必考模型秒杀公式</h2>
+    <span class="en">3 High-Frequency Models</span>
+  </div>
+
+  <div class="grid-3">
+    <div class="card" style="border-top:3px solid var(--m3);">
+      <div class="head" style="color:var(--m3-deep); font-size:14.5px;">
+        <span class="pill" style="background:var(--m3)">模型 1</span>
+        外方内圆 (四周阴影)
+      </div>
+      <p style="font-size:13px; color:var(--ink-2); line-height:1.6;">
+        <b>公式：</b><br>
+        阴影面积 $= (4 - \pi) r^2$<br>
+        <b>$\approx 0.86 r^2$</b>
+      </p>
+    </div>
+
+    <div class="card" style="border-top:3px solid var(--m3);">
+      <div class="head" style="color:var(--m3-deep); font-size:14.5px;">
+        <span class="pill" style="background:var(--m3)">模型 2</span>
+        外圆内方 (四弓形阴影)
+      </div>
+      <p style="font-size:13px; color:var(--ink-2); line-height:1.6;">
+        <b>公式：</b><br>
+        阴影面积 $= (\pi - 2) r^2$<br>
+        <b>$\approx 1.14 r^2$</b>
+      </p>
+    </div>
+
+    <div class="card" style="border-top:3px solid var(--m3);">
+      <div class="head" style="color:var(--m3-deep); font-size:14.5px;">
+        <span class="pill" style="background:var(--m3)">模型 3</span>
+        倍数变化规律
+      </div>
+      <p style="font-size:13px; color:var(--ink-2); line-height:1.6;">
+        半径/直径扩大 <b>k 倍</b>：<br>
+        • 周长扩大 <b>k 倍</b><br>
+        • 面积扩大 <b>$k^2$ 倍</b>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 04 · 易错陷阱大盘点
+     ========================================================= -->
+<section class="c4">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2>期末易错陷阱大盘点</h2>
+    <span class="en">Pitfalls Summary</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="border-left: 4px solid var(--m4);">
+      <div class="head" style="color:var(--m4-deep)">
+        🚨 概念坑：直径与对称轴
+      </div>
+      <p style="font-size:13px; color:var(--ink-2);">
+        ❌ 错误：“圆的直径是对称轴。”<br>
+        ✔ 正确：对称轴是<b>直线</b>，正确说法为“<b>直径所在的直线</b>是圆的对称轴”。
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--m4);">
+      <div class="head" style="color:var(--m4-deep)">
+        🚨 计算坑：半圆周长漏加直径
+      </div>
+      <p style="font-size:13px; color:var(--ink-2);">
+        ❌ 错误：半圆周长 $= \pi r$。<br>
+        ✔ 正确：半圆封闭图形包括弧长与底边直径：$C_{\text{半圆}} = \pi r + 2r$！
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--m4);">
+      <div class="head" style="color:var(--m4-deep)">
+        🚨 运算坑：r² 与 r × 2 混淆
+      </div>
+      <p style="font-size:13px; color:var(--ink-2);">
+        ❌ 错误：把 $r^2$ 算成 $r \times 2$（如 $4^2 = 8$）。<br>
+        ✔ 正确：$r^2 = r \times r$（$4^2 = 16$）。
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--m4);">
+      <div class="head" style="color:var(--m4-deep)">
+        🚨 公式坑：圆环面积误用 π(R - r)²
+      </div>
+      <p style="font-size:13px; color:var(--ink-2);">
+        ❌ 错误：$S_{\text{环}} = \pi (R - r)^2$。<br>
+        ✔ 正确：必须先算平方差再乘 $\pi$：$S_{\text{环}} = \pi (R^2 - r^2)$！
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 05 · 终极冲刺自测清单
+     ========================================================= -->
+<section class="c5">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2>终极冲刺自测清单</h2>
+    <span class="en">Self-Checklist</span>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m5);">
+    <div class="head" style="color:var(--m5-deep)">
+      ✅ 考前逐项查漏补缺自测表
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); line-height: 1.8;">
+      [ &nbsp; ] <b>1. 概念自测：</b>能否准确口述圆心、半径、直径定义及“一中同长”含义？<br>
+      [ &nbsp; ] <b>2. 对称自测：</b>能否准确写出圆、半圆、正方形、长方形、等边三角形的对称轴条数？<br>
+      [ &nbsp; ] <b>3. 周长自测：</b>能否熟练口算 1π~9π，并分清半圆周长与半圆弧长？<br>
+      [ &nbsp; ] <b>4. 面积自测：</b>已知 $r$、$d$ 或 $C$ 时，能否无误求出圆面积 $S$？<br>
+      [ &nbsp; ] <b>5. 阴影自测：</b>遇到外方内圆、外圆内方或圆环，能否用秒杀公式快速求解？
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer>
+  <div>北师大版六年级数学上册 · 第二单元《圆》大单元核心考点总复习一页清</div>
+  <div style="margin-top:4px;">© 2026 WANG DI · 一页纸极简复习系列</div>
+</footer>
+
+</div>
+</body>
+</html>

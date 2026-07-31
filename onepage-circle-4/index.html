@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>圆的周长 & 圆周率π & 半圆周长《圆的周长》核心考点一页清</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --ink: #1f2937;
+    --ink-2: #4b5563;
+    --ink-3: #9ca3af;
+    --line: #e5e7eb;
+    --line-2: #f3f4f6;
+
+    /* 5 大模块配色 */
+    --m1:    #059669;             /* 01 测量与化曲为直 : 翠绿 */
+    --m1-soft: #ecfdf5;
+    --m1-deep: #064e3b;
+
+    --m2:    #d97706;             /* 02 圆周率与祖冲之 : 琥珀金 */
+    --m2-soft: #fffbeb;
+    --m2-deep: #78350f;
+
+    --m3:    #3b82f6;             /* 03 周长公式与速算 : 宝蓝 */
+    --m3-soft: #eff6ff;
+    --m3-deep: #1d4ed8;
+
+    --m4:    #8b5cf6;             /* 04 半圆周长辨析 : 紫罗兰 */
+    --m4-soft: #f5f3ff;
+    --m4-deep: #6d28d9;
+
+    --m5:    #ef4444;             /* 05 避坑指南 : 朱红 */
+    --m5-soft: #fef2f2;
+    --m5-deep: #b91c1c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: "Songti SC", "Noto Serif SC", "STSong", "华文宋体", "SimSun", Georgia, serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    background: var(--card);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 38px 44px 30px;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 600px 200px at top right, var(--m1-soft) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 200px at bottom left, var(--m3-soft) 0%, transparent 70%);
+  }
+  header .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--m1-deep);
+    background: var(--m1-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    border: 1px solid #a7f3d0;
+  }
+  header h1 {
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  header h1 .q { color: var(--m1-deep); }
+  header .subtitle {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+  }
+  header .meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  header .chip {
+    font-size: 12px;
+    color: var(--ink-2);
+    background: white;
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  header .chip b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Section base ---------- */
+  section { padding: 28px 44px; border-bottom: 1px solid var(--line-2); }
+  section:last-of-type { border-bottom: none; }
+
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .sec-num {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 6px;
+    color: white;
+  }
+  .sec-head h2 { font-size: 20px; font-weight: 800; color: var(--ink); }
+  .sec-head .en { font-size: 12px; color: var(--ink-3); font-weight: 500; margin-left: auto; }
+
+  /* 模块主题色 */
+  .c1 .sec-num { background: var(--m1); }
+  .c2 .sec-num { background: var(--m2); }
+  .c3 .sec-num { background: var(--m3); }
+  .c4 .sec-num { background: var(--m4); }
+  .c5 .sec-num { background: var(--m5); }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  }
+  .card:last-child { margin-bottom: 0; }
+  .card .head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15.5px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .card .pill {
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+  }
+
+  /* Grid layout */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  /* Overview nav */
+  .overview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .ov {
+    background: var(--line-2);
+    border-radius: 8px;
+    padding: 12px 8px;
+    text-align: center;
+    border: 1px solid transparent;
+  }
+  .ov .ico { font-size: 18px; display: block; margin-bottom: 2px; }
+  .ov .name { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .ov .en { font-size: 10px; color: var(--ink-3); }
+
+  .ov.a { background: var(--m1-soft); border-color: #a7f3d0; }
+  .ov.b { background: var(--m2-soft); border-color: #fde68a; }
+  .ov.c { background: var(--m3-soft); border-color: #bfdbfe; }
+  .ov.d { background: var(--m4-soft); border-color: #ddd6fe; }
+  .ov.e { background: var(--m5-soft); border-color: #fecaca; }
+
+  /* Table styling */
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  .custom-table th, .custom-table td {
+    border: 1px solid var(--line);
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .custom-table th {
+    background: var(--line-2);
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Interactive Simulator Box */
+  .sim-box {
+    background: var(--m1-soft);
+    border: 1px solid #a7f3d0;
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 14px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 26px 44px;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--ink-3);
+    border-top: 1px solid var(--line);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .page { max-width: 100%; }
+    header, section { padding-left: 20px; padding-right: 20px; }
+    .overview { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+<header>
+  <span class="tag">小学数学 · 第二单元 · 圆</span>
+  <h1>化曲为直与周长计算<br><span class="q">《圆的周长》核心考点一页清</span></h1>
+  <p class="subtitle">
+    从 <span style="color:var(--m1-deep); font-weight:700;">滚动法与绕线法</span> 到
+    <span style="color:var(--m2-deep); font-weight:700;">祖冲之与圆周率 π</span>，再到
+    <span style="color:var(--m4-deep); font-weight:700;">半圆周长 vs 弧长高频考点辨析</span>。
+  </p>
+  <div class="meta">
+    <span class="chip">📅 发布时间 <b>2026-07-31</b></span>
+    <span class="chip">📚 适用 <b>六年级上册 (北师大版)</b></span>
+    <span class="chip">⏱ 阅读 <b>~4 分钟</b></span>
+    <span class="chip">🎯 核心考点 <b>9 个</b></span>
+    <span class="chip">📐 课时 <b>第4课时 · 圆的周长</b></span>
+  </div>
+</header>
+
+<!-- =========================================================
+     OVERVIEW · 导览
+     ========================================================= -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num" style="background:var(--ink)">🗺</span>
+    <h2>知识导览</h2>
+    <span class="en">5 modules · Key concepts</span>
+  </div>
+  <div class="overview">
+    <div class="ov a">
+      <span class="ico">①</span>
+      <div class="name">化曲为直</div>
+      <div class="en">Measurement</div>
+    </div>
+    <div class="ov b">
+      <span class="ico">②</span>
+      <div class="name">圆周率 π</div>
+      <div class="en">Pi & History</div>
+    </div>
+    <div class="ov c">
+      <span class="ico">③</span>
+      <div class="name">公式与速算</div>
+      <div class="en">Formula & Table</div>
+    </div>
+    <div class="ov d">
+      <span class="ico">④</span>
+      <div class="name">半圆周长</div>
+      <div class="en">Semicircle Perimeter</div>
+    </div>
+    <div class="ov e">
+      <span class="ico">⑤</span>
+      <div class="name">避坑指南</div>
+      <div class="en">Pitfalls</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 01 · 测量与化曲为直
+     ========================================================= -->
+<section class="c1">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2>圆周长定义与“化曲为直”测量法</h2>
+    <span class="en">Definition & Measurement</span>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m1);">
+    <div class="head" style="color:var(--m1-deep)">
+      <span class="pill" style="background:var(--m1)">概念</span>
+      圆的周长：围成圆的曲线的长度
+    </div>
+    <p style="font-size:14px; color:var(--ink-2); line-height:1.6;">
+      由于圆是由曲线围成的图形，直接用直尺无法测量其长度。数学上采用<b>“化曲为直”</b>的转化思想：
+    </p>
+  </div>
+
+  <div class="grid-2" style="margin-top:10px;">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">方法 1</span>
+        滚动法 (适用于硬币/圆形实物)
+      </div>
+      <p style="font-size:13px; color:var(--ink-2);">
+        在圆的边缘做个标记红点，放在直尺刻度 0 上，沿着直尺<b>紧贴滚动一周</b>，红点再次接触直尺时的刻度值，就是这个圆的周长。
+      </p>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m1)">方法 2</span>
+        绕线法 (适用于柱状体/圆形纸板)
+      </div>
+      <p style="font-size:13px; color:var(--ink-2);">
+        用一条没有弹性的细绳<b>紧紧缠绕圆的边缘一周</b>，在重合处剪断或做标记，展开绳子拉直后用直尺量出绳长，即为圆的周长。
+      </p>
+    </div>
+  </div>
+
+  <!-- 滚动法测周长动态模拟器 -->
+  <div class="sim-box">
+    <div style="font-size:14px; font-weight:700; color:var(--m1-deep); margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+      <span>🎛 动态体验：硬币滚动一周“化曲为直”测量模拟器</span>
+      <span style="font-size:12px; font-weight:normal; color:var(--ink-2)">拖动下方滑块滚动硬币</span>
+    </div>
+
+    <svg id="roll-svg" viewBox="0 0 540 140" style="width:100%; height:auto; background:white; border-radius:8px; border:1px solid var(--line);">
+      <!-- Ruler Scale Baseline -->
+      <line x1="40" y1="100" x2="500" y2="100" stroke="#374151" stroke-width="2"/>
+      
+      <!-- Ruler Marks (0 to 3.14 * d) -->
+      <g stroke="#374151" stroke-width="1.2">
+        <line x1="60" y1="100" x2="60" y2="112"/> <!-- 0 mark -->
+        <text x="60" y="125" font-size="10" font-weight="bold" fill="#1f2937" text-anchor="middle">0 (起点)</text>
+
+        <line x1="180" y1="100" x2="180" y2="108"/> <!-- 1d mark -->
+        <text x="180" y="125" font-size="9" fill="#4b5563" text-anchor="middle">1d</text>
+
+        <line x1="300" y1="100" x2="300" y2="108"/> <!-- 2d mark -->
+        <text x="300" y="125" font-size="9" fill="#4b5563" text-anchor="middle">2d</text>
+
+        <line x1="420" y1="100" x2="420" y2="108"/> <!-- 3d mark -->
+        <text x="420" y="125" font-size="9" fill="#4b5563" text-anchor="middle">3d</text>
+
+        <line x1="437" y1="100" x2="437" y2="114" stroke="#ef4444" stroke-width="2"/> <!-- 3.14d mark -->
+        <text x="437" y="125" font-size="9.5" font-weight="bold" fill="#ef4444" text-anchor="middle">πd ≈ 3.14d</text>
+      </g>
+
+      <!-- Unfolded Line Track -->
+      <line id="track-line" x1="60" y1="100" x2="60" y2="100" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round"/>
+
+      <!-- Rolling Coin / Wheel -->
+      <g id="coin-group" transform="translate(60, 61.8)">
+        <circle cx="0" cy="0" r="38.2" fill="#fffbeb" stroke="#d97706" stroke-width="2.5"/>
+        <circle cx="0" cy="0" r="28" fill="none" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,2"/>
+        <text x="0" y="4" font-size="11" font-weight="bold" fill="#92400e" text-anchor="middle">硬币 d</text>
+        <!-- Red mark on rim -->
+        <circle cx="0" cy="38.2" r="4.5" fill="#ef4444" stroke="#ffffff" stroke-width="1"/>
+        <line x1="0" y1="0" x2="0" y2="38.2" stroke="#ef4444" stroke-width="1.8"/>
+      </g>
+    </svg>
+
+    <div style="margin-top: 10px; display: flex; align-items: center; gap: 12px;">
+      <input type="range" id="coin-slider" min="0" max="100" value="0" style="flex: 1; accent-color: var(--m1); cursor: pointer;" />
+      <span id="coin-slider-val" style="font-size: 13px; font-family: monospace; font-weight: 700; color: var(--m1-deep); width: 110px; text-align: right;">滚动进度: 0%</span>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const slider = document.getElementById("coin-slider");
+        const sliderVal = document.getElementById("coin-slider-val");
+        const coinGroup = document.getElementById("coin-group");
+        const trackLine = document.getElementById("track-line");
+
+        const startX = 60;
+        const totalDist = 377; // 3.14 * 120 approx
+        const R = 38.2;
+        const Y = 100 - R;
+
+        slider.addEventListener("input", (e) => {
+          const p = parseFloat(e.target.value) / 100;
+          const curX = startX + totalDist * p;
+          const rotDeg = p * 360;
+
+          coinGroup.setAttribute("transform", `translate(${curX}, ${Y}) rotate(${rotDeg})`);
+          trackLine.setAttribute("x2", curX);
+          sliderVal.textContent = `滚动进度: ${Math.round(p * 100)}%`;
+        });
+      });
+    </script>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 02 · 圆周率 π 与数学文化
+     ========================================================= -->
+<section class="c2">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2>圆周率 π 的奥秘与数学文化</h2>
+    <span class="en">Pi & Mathematics History</span>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m2); background: var(--m2-soft);">
+    <div class="head" style="color:var(--m2-deep)">
+      📖 核心规律：任意一个圆的周长与它的直径的比值，是一个固定的数！
+    </div>
+    <p style="font-size:14px; color:var(--ink-2); line-height: 1.6; margin:0">
+      • <b>圆周率定义：</b>圆的周长除以直径的商，叫做<b>圆周率</b>，用希腊字母 <b>π</b>（pài）表示。<br>
+      • <b>数学性质：</b>π 是一个<b>无限不循环小数</b>：$\pi = 3.1415926535...$<br>
+      • <b>计算约定：</b>在小学阶段进行计算时，无特殊说明均取其近似值：<b>$\pi \approx 3.14$</b>。
+    </p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m2); margin-top:12px;">
+    <div class="head" style="color:var(--m2-deep)">
+      🇨🇳 伟大成就：中国古代数学巨匠 · 祖冲之
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); line-height: 1.6; margin:0">
+      南北朝时期著名数学家<b>祖冲之</b>利用“割圆术”，算出圆周率在 <b>3.1415926 与 3.1415927 之间</b>，并提出了约率 $\frac{22}{7}$ 和密率 $\frac{355}{113}$。<br>
+      这一精密纪录保持了近<b>1000 年</b>，是人类数学史上的伟大里程碑！
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 03 · 周长计算公式与速算表
+     ========================================================= -->
+<section class="c3">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2>圆周长计算公式与常用 π 乘积速算</h2>
+    <span class="en">Formulas & Pi Calculation Table</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="border-top: 3px solid var(--m3);">
+      <div class="head" style="color:var(--m3-deep)">
+        <span class="pill" style="background:var(--m3)">基本公式</span>
+        已知半径 r 或直径 d 求周长 C
+      </div>
+      <p style="font-size:14px; color:var(--ink-2);">
+        • 已知直径 d：<b>$C = \pi d$</b><br>
+        • 已知半径 r：<b>$C = 2\pi r$</b>
+      </p>
+    </div>
+
+    <div class="card" style="border-top: 3px solid var(--m3);">
+      <div class="head" style="color:var(--m3-deep)">
+        <span class="pill" style="background:var(--m3)">逆向公式</span>
+        已知周长 C 求直径 d 或半径 r
+      </div>
+      <p style="font-size:14px; color:var(--ink-2);">
+        • 求直径：<b>$d = \frac{C}{\pi}$</b><br>
+        • 求半径：<b>$r = \frac{C}{2\pi}$</b>
+      </p>
+    </div>
+  </div>
+
+  <!-- 高频 π 乘积口算表 -->
+  <div style="font-weight:700; font-size:14.5px; color:var(--ink); margin: 14px 0 6px;">
+    ⚡ 考试必背：1π ~ 9π 常用乘积速算表（大幅提高解题速度！）
+  </div>
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>1π</th>
+        <th>2π</th>
+        <th>3π</th>
+        <th>4π</th>
+        <th>5π</th>
+        <th>6π</th>
+        <th>7π</th>
+        <th>8π</th>
+        <th>9π</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>3.14</b></td>
+        <td><b>6.28</b></td>
+        <td><b>9.42</b></td>
+        <td><b>12.56</b></td>
+        <td><b>15.7</b></td>
+        <td><b>18.84</b></td>
+        <td><b>21.98</b></td>
+        <td><b>25.12</b></td>
+        <td><b>28.26</b></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- =========================================================
+     MODULE 04 · 半圆周长 vs 弧长高频考点
+     ========================================================= -->
+<section class="c4">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2>高频考点：半圆周长 vs 半圆弧长辨析</h2>
+    <span class="en">Semicircle Perimeter vs Arc Length</span>
+  </div>
+
+  <p style="font-size:14px; color:var(--ink-2); margin-bottom:12px;">
+    这是期末考试中最容易混淆扣分的题型，必须搞清图形的封边构成：
+  </p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m4)">概念 1</span>
+        半圆的弧长 (只有弯曲的弧)
+      </div>
+      <svg viewBox="0 0 160 80" style="width:100%; height:auto;">
+        <path d="M 30,60 A 50,50 0 0,1 130,60" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+        <line x1="30" y1="60" x2="130" y2="60" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="3,3"/>
+        <text x="80" y="32" font-size="10" font-weight="bold" fill="#ef4444" text-anchor="middle">仅弯曲弧长 = πr = ½πd</text>
+      </svg>
+      <p style="font-size:13px; color:var(--ink-2); text-align:center;">
+        <b>公式：</b>$C_{\text{弧}} = \frac{1}{2} \pi d = \pi r$
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="head">
+        <span class="pill" style="background:var(--m4)">概念 2</span>
+        半圆的周长 (弯曲弧 + 底部直径)
+      </div>
+      <svg viewBox="0 0 160 80" style="width:100%; height:auto;">
+        <path d="M 30,60 A 50,50 0 0,1 130,60 Z" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="2.5"/>
+        <line x1="30" y1="60" x2="130" y2="60" stroke="#8b5cf6" stroke-width="2.5"/>
+        <text x="80" y="30" font-size="10" font-weight="bold" fill="#8b5cf6" text-anchor="middle">弧长 (πr) + 直径 (2r)</text>
+      </svg>
+      <p style="font-size:13px; color:var(--ink-2); text-align:center;">
+        <b>公式：</b>$C_{\text{半圆}} = \pi r + 2r \approx 5.14 r$
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     MODULE 05 · 易错避坑指南
+     ========================================================= -->
+<section class="c5">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2>易错避坑指南</h2>
+    <span class="en">Common Mistakes</span>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m5);">
+    <div class="head" style="color:var(--m5-deep)">
+      ❌ 易错点 1：把“圆周率”等同于 3.14
+    </div>
+    <p style="font-size:14px; color:var(--ink-2); margin:0">
+      <b>错误说法：</b>“圆周率等于 3.14。”<br>
+      <b>正确诊断：</b>圆周率是一个<b>无限不循环小数</b>，3.14 只是计算时采用的<b>近似值</b>。<br>
+      <b>满分规范：</b>“圆周率<b>近似等于</b> 3.14（$\pi \approx 3.14$）。”
+    </p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m5);">
+    <div class="head" style="color:var(--m5-deep)">
+      ❌ 易错点 2：认为“大圆的圆周率比小圆的圆周率大”
+    </div>
+    <p style="font-size:14px; color:var(--ink-2); margin:0">
+      <b>错误说法：</b>“车轮越大，它的圆周率就越大。”<br>
+      <b>正确诊断：</b>圆周率是<b>周长与直径的比值</b>，对世界上任何大小的圆来说，这个比值都是固定不变的常数 $\pi$。<br>
+      <b>满分规范：</b>所有圆的圆周率都<b>完全相等</b>！
+    </p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--m5);">
+    <div class="head" style="color:var(--m5-deep)">
+      ❌ 易错点 3：计算半圆周长时忘记加上底边直径
+    </div>
+    <p style="font-size:14px; color:var(--ink-2); margin:0">
+      <b>错误做法：</b>求半径为 3cm 的半圆周长时，直接计算 $3.14 \times 3 = 9.42$ cm。<br>
+      <b>正确诊断：</b>9.42 cm 只是半圆的弧长，半圆封闭图形还包含一条长 6cm 的底部直径。<br>
+      <b>满分规范：</b>半圆周长 $= 3.14 \times 3 + 2 \times 3 = 9.42 + 6 = 15.42$ cm！
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer>
+  <div>北师大版六年级数学上册 · 第二单元《圆的周长》核心考点一页清</div>
+  <div style="margin-top:4px;">© 2026 WANG DI · 一页纸极简复习系列</div>
+</footer>
+
+</div>
+</body>
+</html>
