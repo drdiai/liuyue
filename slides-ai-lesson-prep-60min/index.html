@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI助力高质量备课 —— 60分钟主题分享与演说课件</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --bg-card-hover: rgba(51, 65, 85, 0.8);
+            --accent-purple: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-glow: rgba(139, 92, 246, 0.3);
+            --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Top Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            width: 0%;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        /* Top Header */
+        header {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 90;
+            pointer-events: none;
+        }
+
+        header > * {
+            pointer-events: auto;
+        }
+
+        .badge-title {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timer-box {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timer-btn {
+            background: none;
+            border: none;
+            color: var(--accent-cyan);
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Presentation Canvas */
+        #deck {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            position: absolute;
+            width: 88%;
+            max-width: 1280px;
+            height: 82vh;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: 40px 50px;
+            opacity: 0;
+            transform: scale(0.96) translateY(20px);
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 16px;
+        }
+
+        .slide-tag {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            background: rgba(6, 182, 212, 0.15);
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+
+        .slide-title {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: 6px;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Grid Layouts inside slides */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        /* Content Cards */
+        .card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.25s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent-purple);
+            background: rgba(30, 41, 59, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-body {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .highlight-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent-purple);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        /* Code & Prompt Boxes */
+        .prompt-box {
+            background: #090d16;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 12px;
+            padding: 16px;
+            font-family: "Fira Code", Consolas, Monaco, monospace;
+            font-size: 13.5px;
+            color: #a7f3d0;
+            position: relative;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-purple);
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #7c3aed;
+        }
+
+        /* Flow Diagrams */
+        .flow-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 10px 0;
+        }
+
+        .flow-step {
+            flex: 1;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .flow-step-num {
+            font-size: 12px;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .flow-step-text {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .flow-arrow {
+            color: var(--accent-purple);
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        /* Bottom Controls */
+        footer {
+            position: fixed;
+            bottom: 16px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 90;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            border-radius: 30px;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: var(--accent-purple);
+        }
+
+        .slide-counter {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 0 10px;
+        }
+
+        /* Presenter Notes Drawer */
+        #notes-drawer {
+            position: fixed;
+            bottom: 60px;
+            right: 20px;
+            width: 360px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid var(--accent-amber);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            display: none;
+            z-index: 95;
+            backdrop-filter: blur(10px);
+        }
+
+        #notes-drawer.active {
+            display: block;
+        }
+
+        .notes-header {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-amber);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .notes-content {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        /* Overview Modal Grid */
+        #overview-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        #overview-modal.active {
+            display: block;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover {
+            border-color: var(--accent-cyan);
+            transform: scale(1.03);
+        }
+
+        .thumb-card.active {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+
+        .thumb-num {
+            font-size: 12px;
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        .thumb-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            line-clamp: 2;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                width: 95%;
+                height: 88vh;
+                padding: 24px 20px;
+            }
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            .slide-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress-bar"></div>
+
+    <header>
+        <div class="badge-title">
+            <span>✨ AI助力高质量备课</span>
+            <span style="opacity: 0.5;">|</span>
+            <span>60分钟讲座演说课件</span>
+        </div>
+
+        <div class="timer-box">
+            <span>⏱️ 倒计时: <span id="timer-display">60:00</span></span>
+            <button class="timer-btn" onclick="toggleTimer()">暂停/继续</button>
+            <button class="timer-btn" onclick="resetTimer()">重置</button>
+        </div>
+    </header>
+
+    <div id="deck">
+
+        <!-- SLIDE 1 -->
+        <div class="slide active" data-notes="开场致辞（2分钟）：欢迎各位老师。今天我们分享的主题是《AI助力高质量备课》。AI技术发展至今，教师缺的不是工具，而是如何在教学场景中实现减负增效。">
+            <div class="slide-header">
+                <span class="slide-tag">00-08 MIN | 引言与破局</span>
+                <span style="color: var(--text-muted);">Slide 1 / 25</span>
+            </div>
+            <div class="slide-content" style="justify-content: center; align-items: center; text-align: center;">
+                <div style="font-size: 14px; color: var(--accent-cyan); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">2026 最新迭代版 · 60分钟专题演说</div>
+                <h1 style="font-size: 48px; font-weight: 900; background: linear-gradient(135deg, #ffffff 0%, #a7f3d0 50%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; margin-bottom: 20px;">
+                    AI助力高质量备课
+                </h1>
+                <p style="font-size: 22px; color: #cbd5e1; max-width: 800px; line-height: 1.6; margin-bottom: 30px;">
+                    从“备知识”到“备成长” —— “四备一评”人机协同备课路径与极速PPT/交互课件制作
+                </p>
+
+                <div class="grid-3" style="width: 100%; max-width: 900px; margin-top: 20px;">
+                    <div class="card" style="text-align: left;">
+                        <div class="card-title">💡 理念转向</div>
+                        <div class="card-body">从关注教什么，转向关注谁在学；从设计流程转向设计体验。</div>
+                    </div>
+                    <div class="card" style="text-align: left;">
+                        <div class="card-title">🛠️ 实操路径</div>
+                        <div class="card-body">四备一评框架 + 真实学情推演 + 声音说题与一生一案。</div>
+                    </div>
+                    <div class="card" style="text-align: left;">
+                        <div class="card-title">🚀 极速课件</div>
+                        <div class="card-body">DeepSeek 逻辑推理 + Gamma/Marp AI生成PPT + 动态HTML。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="slide" data-notes="数据分析（2分钟）：调研显示，88%的老师已经在使用AI设计教案，69%做PPT。然而大部分老师停留在单纯的生成文字，遇到问题是不知道如何让AI契合教学真实规律。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">00-08 MIN | 破局与理念</span>
+                    <h2 class="slide-title">教师使用 AI 的真实调研数据与痛点</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 2 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-4">
+                    <div class="card" style="border-top: 4px solid var(--accent-purple);">
+                        <div class="highlight-number">88.5%</div>
+                        <div class="card-title">教案设计</div>
+                        <div class="card-body">轻量对话型AI为主<br>(豆包 / DeepSeek / Kimi)</div>
+                    </div>
+                    <div class="card" style="border-top: 4px solid var(--accent-cyan);">
+                        <div class="highlight-number">69.2%</div>
+                        <div class="card-title">课件 / PPT</div>
+                        <div class="card-body">办公套件型AI为主<br>(WPS AI / Gamma / Kimi)</div>
+                    </div>
+                    <div class="card" style="border-top: 4px solid var(--accent-emerald);">
+                        <div class="highlight-number">46.2%</div>
+                        <div class="card-title">出题测评</div>
+                        <div class="card-body">专业测评型AI协助<br>(匠邦 / QuestionWell)</div>
+                    </div>
+                    <div class="card" style="border-top: 4px solid var(--accent-amber);">
+                        <div class="highlight-number">42.3%</div>
+                        <div class="card-title">资源管理</div>
+                        <div class="card-body">搜索与知识库整理<br>(秘塔 / NotebookLM)</div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: rgba(139, 92, 246, 0.15); border-color: var(--accent-purple); margin-top: 10px;">
+                    <div class="card-title" style="font-size: 20px; color: #fff;">🔑 核心结论：老师们需要的不是更多工具，而是更少负担、更稳判断！</div>
+                    <div class="card-body" style="font-size: 16px; color: #e2e8f0;">
+                        AI 可以快速给方法、给素材、排版样式，但核心的教学判断（学生认知卡点在哪里、证据是否真实、教学体验是否有效）仍然来自教师的专业经验。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3 -->
+        <div class="slide" data-notes="理念转向（4分钟）：讲解传统备课与AI赋能备课的三个根本转变。传统的备课侧重知识点的罗列，而高质量备课要求备学生的心智水平与成长可能。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">00-08 MIN | 破局与理念</span>
+                    <h2 class="slide-title">核心视角转向：从“备知识”到“备成长”</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 3 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-3">
+                    <div class="card">
+                        <div style="font-size: 13px; color: var(--accent-rose); font-weight: 700;">转变 1</div>
+                        <div class="card-title" style="margin-top: 6px;">从关注教什么 ➔ 关注谁在学</div>
+                        <div class="card-body">
+                            以往过多研究教材知识点拆解，忽略了学生现有的认知起点、心理特征和真实困惑。
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 13px; color: var(--accent-amber); font-weight: 700;">转变 2</div>
+                        <div class="card-title" style="margin-top: 6px;">从设计教学流程 ➔ 设计学习体验</div>
+                        <div class="card-body">
+                            不仅规划老师怎么讲、ppt怎么放，更重点设计学生如何动手操作、思考辩论、自主建构。
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 13px; color: var(--accent-emerald); font-weight: 700;">转变 3</div>
+                        <div class="card-title" style="margin-top: 6px;">从备标准答案 ➔ 备成长可能</div>
+                        <div class="card-body">
+                            预设多种可能的学生表征与思维误区，为不同层次的学生提供个性化脚手架（Learning how to learn）。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--accent-cyan); text-align: center; padding: 24px;">
+                    <span style="font-size: 20px; font-weight: 700; color: var(--accent-cyan);">💡 备课的本质：备学生的心智水平、身心特点与自主学习力</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4 -->
+        <div class="slide" data-notes="四备一评框架（2分钟）：引入全课的核心路线图——四备一评。后文将围绕这几个模块深入剖析实操案例。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">00-08 MIN | 破局与理念</span>
+                    <h2 class="slide-title">总体实施路径：“四备一评”人机协同模型</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 4 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="flow-container">
+                    <div class="flow-step" style="border-color: var(--accent-purple);">
+                        <div class="flow-step-num">STEP 1</div>
+                        <div class="flow-step-text">1. 备学生</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">学情假设与真实起点预判</div>
+                    </div>
+                    <div class="flow-arrow">➔</div>
+                    <div class="flow-step" style="border-color: var(--accent-cyan);">
+                        <div class="flow-step-num">STEP 2</div>
+                        <div class="flow-step-text">2. 备学习</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">五星网状模型与双线结构</div>
+                    </div>
+                    <div class="flow-arrow">➔</div>
+                    <div class="flow-step" style="border-color: var(--accent-emerald);">
+                        <div class="flow-step-num">STEP 3</div>
+                        <div class="flow-step-text">3. 备证据</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">声音说题与诊断量规</div>
+                    </div>
+                    <div class="flow-arrow">➔</div>
+                    <div class="flow-step" style="border-color: var(--accent-amber);">
+                        <div class="flow-step-num">STEP 4</div>
+                        <div class="flow-step-text">4. 备工具/PPT</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">AI极速PPT与动态交互课件</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px; border-color: rgba(255,255,255,0.2);">
+                    <div class="card-title">🔄 贯穿始终：【评成长】(形成性评价与一生一案归档)</div>
+                    <div class="card-body">
+                        逆向设计（UbD）：先确定期望的学习证据，再设计教学活动。<br>
+                        最近发展区（ZPD）：任务落在学生够得着的地方，AI帮教师搭建阶梯脚手架。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5 -->
+        <div class="slide" data-notes="模块一：备学生（3分钟）：解决老师凭经验预判学情容易出现偏差的问题。学生表面听懂了，其实卡在表征转换或算理表达上。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">08-20 MIN | 模块一：备学生</span>
+                    <h2 class="slide-title">从“凭经验”到“生成可验证的学情假设”</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 5 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-2">
+                    <div class="card" style="border-left: 4px solid var(--accent-rose);">
+                        <div class="card-title" style="color: var(--accent-rose);">❌ 传统备课痛点：凭空想象学情</div>
+                        <div class="card-body">
+                            • 凭经验写“学生已掌握XX，难点在YY”<br>
+                            • 忽视学生的真实卡点：听懂但不会做、会做但不会迁移、不敢表达<br>
+                            • 教案写得很完美，上课一问三不知
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid var(--accent-emerald);">
+                        <div class="card-title" style="color: var(--accent-emerald);">✅ AI 赋能新解法：生成可验证假设</div>
+                        <div class="card-body">
+                            • 输入课题与典型错例，让 AI 推演学生背后的深层认知障碍<br>
+                            • 区分“表面错误”与“概念混淆”<br>
+                            • AI 生成学情预判后，教师二次审核并设计微验证任务
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6 -->
+        <div class="slide" data-notes="AI实操1（4分钟）：现场展示 DeepSeek / Kimi 的学情诊断提示词。老师可以点击一键复制在自己的AI模型中使用。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">08-20 MIN | 模块一：备学生</span>
+                    <h2 class="slide-title">【AI实操】DeepSeek / Kimi 学情假设 Prompt 范式</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 6 / 25</span>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 15px; color: var(--text-muted);">使用结构化提示词（Role + Task + Context + Output format）生成深层学情分析：</p>
+                <div class="prompt-box">
+                    <button class="copy-btn" onclick="copyText(this)">一键复制 Prompt</button>
+【角色】你是一位资深中学学科教学专家，精通认知心理学与学生常见易错点。
+【课题】《[填写课题，如：函数单调性的概念]》
+【学生年级】[填写年级，如：高一]
+【任务】
+1. 分析学生在学习该主题时，最容易出现的3个深层认知卡点（非简单的计算粗心）。
+2. 分析学生“表面听懂了，但换个题目就不会做”的具体心理机制。
+3. 请为每个卡点设计1个3分钟的课堂口头测试或提问，用于快速验证学情真实起点。
+【输出要求】列表输出，语气专业切中要害，区分“概念混淆”与“表征转换障碍”。
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7 -->
+        <div class="slide" data-notes="学情研判案例（5分钟）：结合真实数学/理化案例，说明AI如何帮老师预判学生的盲区。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">08-20 MIN | 模块一：备学生</span>
+                    <h2 class="slide-title">学情研判案例：表面错误 vs 深度卡点</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 7 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-title">卡点 1：表征转换障碍</div>
+                        <div class="card-body">
+                            <strong>现象：</strong>能看懂图像上升，但无法写出数学符号表达式 $orall x_1 < x_2 \implies f(x_1) < f(x_2)$。<br>
+                            <strong>AI推演：</strong>形象思维向抽象符号思维转换断层。<br>
+                            <strong>教学支架：</strong>设计“图像-表格-代数式”三元对照表。
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">卡点 2：忽略前提条件</div>
+                        <div class="card-body">
+                            <strong>现象：</strong>求解单调区间时，直接把两个单调递增区间用 $\cup$ 连接。<br>
+                            <strong>AI推演：</strong>对“在定义域子区间上”的局部性理解不到位。<br>
+                            <strong>教学支架：</strong>提供反例图像（如 $y=1/x$）引发认知冲突。
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">卡点 3：心理不敢表达</div>
+                        <div class="card-body">
+                            <strong>现象：</strong>知道答案，但说不清为什么这么做。<br>
+                            <strong>AI推演：</strong>缺乏说题 SOP 话术支撑。<br>
+                            <strong>教学支架：</strong>给予“说题五步法”固定模板。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: rgba(16, 185, 129, 0.15); border-color: var(--accent-emerald);">
+                    <div class="card-title" style="color: var(--accent-emerald);">💡 教师黄金法则：AI 生成假设 ➔ 教师复核筛选 ➔ 课堂小测试验证</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8 -->
+        <div class="slide" data-notes="模块二：备学习（4分钟）：介绍五星网状教学模型。破解很多公开课“有亮点但没有结构”的问题。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">20-35 MIN | 模块二：备学习</span>
+                    <h2 class="slide-title">五星网状教学模型：为什么很多课“有亮点没结构”？</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 8 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-2">
+                    <div class="card" style="border-color: var(--accent-rose);">
+                        <div class="card-title" style="color: var(--accent-rose);">⚠️ “有亮点没结构”的典型表现</div>
+                        <div class="card-body">
+                            • 导入很新颖精彩（如放动画/打游戏），但与后面讲的概念脱节<br>
+                            • 课堂气氛热热闹闹，活动结束学生大脑一片空白<br>
+                            • 教学目标写的是“培养核心素养”，过程全是老师单向灌输
+                        </div>
+                    </div>
+                    <div class="card" style="border-color: var(--accent-cyan);">
+                        <div class="card-title" style="color: var(--accent-cyan);">🌟 五星网状教学模型的破解思路</div>
+                        <div class="card-body">
+                            • 以<strong>学习目标</strong>为中心放射延伸<br>
+                            • 包含5大关键环节：启动 ➔ 建构 ➔ 巩固 ➔ 运用 ➔ 总结<br>
+                            • 同一种教学形式在不同位置，承担不同的<strong>认知功能</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9 -->
+        <div class="slide" data-notes="双线结构图（4分钟）：双线结构图是教案设计的核心。上面是教师知识线，下面是学生认知体验线。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">20-35 MIN | 模块二：备学习</span>
+                    <h2 class="slide-title">设计“双线结构图”：知识线 + 认知体验线</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 9 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div style="background: rgba(15,23,42,0.9); padding: 20px; border-radius: 16px; border: 1px solid var(--accent-purple);">
+                    <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 16px;">
+                        <div style="width: 140px; font-weight: 700; color: var(--accent-cyan);">线 1：教师知识线</div>
+                        <div style="flex: 1; display: flex; gap: 10px;">
+                            <div class="card" style="flex:1; padding: 10px; text-align: center; font-size: 13px;">情境导入</div>
+                            <div class="card" style="flex:1; padding: 10px; text-align: center; font-size: 13px;">概念生成</div>
+                            <div class="card" style="flex:1; padding: 10px; text-align: center; font-size: 13px;">例题剖析</div>
+                            <div class="card" style="flex:1; padding: 10px; text-align: center; font-size: 13px;">变式训练</div>
+                            <div class="card" style="flex:1; padding: 10px; text-align: center; font-size: 13px;">课堂小结</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <div style="width: 140px; font-weight: 700; color: var(--accent-amber);">线 2：学生体验线</div>
+                        <div style="flex: 1; display: flex; gap: 10px;">
+                            <div class="card" style="flex:1; padding: 10px; text-align: center; font-size: 13px; border-color: var(--accent-amber);">启动体验/产生好奇</div>
+                            <div class="card" style="flex:1; padding: 10px; text-align: center; font-size: 13px; border-color: var(--accent-amber);">自主探究/经历定义</div>
+                            <div class="card" style="flex:1; padding: 10px; text-align: center; font-size: 13px; border-color: var(--accent-amber);">理解模型/暴露错因</div>
+                            <div class="card" style="flex:1; padding: 10px; text-align: center; font-size: 13px; border-color: var(--accent-amber);">迁移应用/说题表达</div>
+                            <div class="card" style="flex:1; padding: 10px; text-align: center; font-size: 13px; border-color: var(--accent-amber);">反思归纳/元认知</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 16px;">
+                    <div class="card-title">🤖 AI 在双线结构中的作用</div>
+                    <div class="card-body">
+                        1. <strong>修目标：</strong>把模糊目标改为“可观察的学生活动”<br>
+                        2. <strong>预设难点：</strong>提示学生在哪个体验环节容易掉队<br>
+                        3. <strong>给脚手架：</strong>为各环节生成配套探究问题链
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10 -->
+        <div class="slide" data-notes="AI实操2（4分钟）：展示如何用 DeepSeek 将抽象教学目标重构成双线结构图。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">20-35 MIN | 模块二：备学习</span>
+                    <h2 class="slide-title">【AI实操】用 DeepSeek 优化教学目标与双线结构</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 10 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="prompt-box">
+                    <button class="copy-btn" onclick="copyText(this)">一键复制 Prompt</button>
+【角色】教学设计专家与课程结构设计师。
+【原始教案目标】[粘贴原教案，如：掌握平面向量数量积的物理背景与几何意义]
+【任务】
+1. 请帮我把上述目标重构为“可观察、可评估的学生活动目标”（使用ABCD目标编写法）。
+2. 设计一套“双线结构表”：
+   - 知识推进线（教师做什么）
+   - 认知体验线（学生经历怎样的思考/探究/表达过程）
+3. 针对“概念建构”环节，请提供3个递进式的探究问题链，引导学生从“讲定义”变为“经历定义”。
+【输出要求】采用 Markdown 表格形式，结构清晰，可直接插入教案。
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11 -->
+        <div class="slide" data-notes="学科案例（3分钟）：展示数学与理化学科“经历定义”的真实对比。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">20-35 MIN | 模块二：备学习</span>
+                    <h2 class="slide-title">学科案例：从“讲定义”到“经历定义”</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 11 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-title">📐 数学案例：函数单调性</div>
+                        <div class="card-body">
+                            <strong>传统讲法：</strong>直接给出单调递增的代数定义 $x_1<x_2 \implies f(x_1)<f(x_2)$ 让学生背诵。<br><br>
+                            <strong>经历定义（AI辅助）：</strong><br>
+                            1. 给出一组气温变化数据表格；<br>
+                            2. 让学生用语言描述趋势 ➔ 画出图像；<br>
+                            3. 提问：“如何用严谨的数学符号保证‘随着x增大，y也增大’？” ➔ 引导学生自主导出代数定义。
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">🧪 理化案例：化学反应微观断键</div>
+                        <div class="card-body">
+                            <strong>传统讲法：</strong>板书化学方程式 $2H_2 + O_2 	o 2H_2O$。<br><br>
+                            <strong>经历定义（AI辅助）：</strong><br>
+                            1. 使用 HTML/3D 动态分子动画展示 $H-H$ 与 $O=O$ 键断裂；<br>
+                            2. 学生拖动滑块模拟原子重组成水分子；<br>
+                            3. 自主归纳“化学反应本质：旧键断裂，新键形成”与质量守恒。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12 -->
+        <div class="slide" data-notes="模块三：备证据（3分钟）：引入“说题”全流程。评价不仅仅是考试，说题是暴露思维过程最好的形成性评价证据。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">35-48 MIN | 模块三：备证据与评成长</span>
+                    <h2 class="slide-title">“说题”数字化全流程：声音转写 + AI 诊疗 + 一生一案</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 12 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-2">
+                    <div class="card" style="border-color: var(--accent-purple);">
+                        <div class="card-title">🧠 理论支撑：费曼学习法 (Feynman Technique)</div>
+                        <div class="card-body">
+                            以教促学！真正的理解不是能做对选择题，而是能用自己的语言把解题思路、依据、易错点向同伴讲清楚。
+                        </div>
+                    </div>
+                    <div class="card" style="border-color: var(--accent-cyan);">
+                        <div class="card-title">🎙️ 数字化破局：让声音过程可追溯</div>
+                        <div class="card-body">
+                            以往教师无法批量听完几百名学生的口头表达。如今通过“钉钉/飞书录音 ➔ 语音转文本 ➔ AI大模型初诊 ➔ 教师复核定诊”，实现了大规模个性化反馈。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13 -->
+        <div class="slide" data-notes="说题八步法SOP（4分钟）：介绍具体的8步操作闭环。全流程标准化，不增加过多的作业负担。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">35-48 MIN | 模块三：备证据与评成长</span>
+                    <h2 class="slide-title">“说题”数字化 8 步 SOP 落地流程</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 13 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-4">
+                    <div class="card">
+                        <div style="font-size: 12px; color: var(--accent-cyan); font-weight: 700;">1. 任务设计</div>
+                        <div style="font-size: 14px; font-weight: 600; margin-top: 4px;">每周一题</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">选择共性错题/审题易错题，给予说题五步话术SOP。</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 12px; color: var(--accent-cyan); font-weight: 700;">2. 视频/音频收集</div>
+                        <div style="font-size: 14px; font-weight: 600; margin-top: 4px;">钉钉 / 飞书</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">学生上传1-2分钟说题小视频或语音备忘录。</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 12px; color: var(--accent-cyan); font-weight: 700;">3. 文本转写</div>
+                        <div style="font-size: 14px; font-weight: 600; margin-top: 4px;">剪映 / 讯飞 / 飞书</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">自动转写为可搜索、可分析的结构化文字。</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 12px; color: var(--accent-cyan); font-weight: 700;">4. AI 初诊</div>
+                        <div style="font-size: 14px; font-weight: 600; margin-top: 4px;">量规自动化打分</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">输入诊断量规，评估审题、算理、逻辑表达。</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 12px; color: var(--accent-amber); font-weight: 700;">5. 教师复核</div>
+                        <div style="font-size: 14px; font-weight: 600; margin-top: 4px;">人机协同定诊</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">教师抽查复核，修正AI误判，确定干预策略。</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 12px; color: var(--accent-amber); font-weight: 700;">6. 精准干预</div>
+                        <div style="font-size: 14px; font-weight: 600; margin-top: 4px;">同伴互评/二次说题</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">分类辅导：逻辑不清二次说题，思维受阻同伴互评。</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 12px; color: var(--accent-emerald); font-weight: 700;">7. 复诊追踪</div>
+                        <div style="font-size: 14px; font-weight: 600; margin-top: 4px;">变式题验证</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">推送同类变式题，检验迁移能力。</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 12px; color: var(--accent-emerald); font-weight: 700;">8. 成长归档</div>
+                        <div style="font-size: 14px; font-weight: 600; margin-top: 4px;">飞书一生一案</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">多维表格自动汇总，生成学生学情画像。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14 -->
+        <div class="slide" data-notes="AI实操3（3分钟）：展示AI诊断量规与Prompt。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">35-48 MIN | 模块三：备证据与评成长</span>
+                    <h2 class="slide-title">【AI实操】AI 初诊量规与自动化评估 Prompt</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 14 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="prompt-box">
+                    <button class="copy-btn" onclick="copyText(this)">一键复制 Prompt</button>
+【角色】严谨的学科测评专家与学情诊断助手。
+【标准题目与答案】[粘贴题目与标准步骤]
+【学生说题转写文本】[粘贴学生口述转写的文字]
+【诊断量规】请从以下维度打分（1-5分）并给出简评：
+1. 审题立意：是否抓住了关键条件与突破口？
+2. 逻辑算理：推导过程依据是否充分？有无逻辑跳跃？
+3. 表达规范：术语使用是否准确？
+4. 易错点识别：是否说清了自己曾经踩坑的原因？
+【输出要求】给出总分、各维打分、优势表现、改进建议（写出具体的引导话术）。
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15 -->
+        <div class="slide" data-notes="飞书多维表格（3分钟）：演示飞书多维表格实现一生一案的真实效果。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">35-48 MIN | 模块三：备证据与评成长</span>
+                    <h2 class="slide-title">落地阵地：飞书多维表格“一生一案”档案库</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 15 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="card" style="background: rgba(9, 13, 22, 0.9); border-color: var(--accent-cyan); padding: 16px;">
+                    <div style="font-size: 14px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 12px;">📊 飞书多维表格“一生一案”字段规划模板</div>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px; color: #cbd5e1;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.2); text-align: left;">
+                                <th style="padding: 8px;">学生姓名</th>
+                                <th style="padding: 8px;">说题音频/视频</th>
+                                <th style="padding: 8px;">语音转写文本</th>
+                                <th style="padding: 8px;">AI 初诊得分与建议</th>
+                                <th style="padding: 8px;">教师定诊复核</th>
+                                <th style="padding: 8px;">二次说题复诊</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; color: #fff;">张同学</td>
+                                <td style="padding: 8px; color: var(--accent-cyan);">[🔗 音频链接]</td>
+                                <td style="padding: 8px;">“这道题我先看条件A，然后直接用公式B...”</td>
+                                <td style="padding: 8px;"><span style="color: var(--accent-amber);">3.5分</span> (算理缺乏依据)</td>
+                                <td style="padding: 8px;">确认误区：公式使用前提未满足</td>
+                                <td style="padding: 8px;"><span style="color: var(--accent-emerald);">已通过</span> (理解到位)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; color: #fff;">李同学</td>
+                                <td style="padding: 8px; color: var(--accent-cyan);">[🔗 视频链接]</td>
+                                <td style="padding: 8px;">“我不知道为什么选D，感觉挺像的...”</td>
+                                <td style="padding: 8px;"><span style="color: var(--accent-rose);">2.0分</span> (审题不清)</td>
+                                <td style="padding: 8px;">安排同伴互评对帮</td>
+                                <td style="padding: 8px;">待复诊</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" style="margin-top: 12px;">
+                    <div class="card-title">✨ 核心价值</div>
+                    <div class="card-body">
+                        彻底摆脱传统作业“只看对错分”的局限，让教学评价真正看见每个孩子的思维成长轨迹！
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 16 -->
+        <div class="slide" data-notes="模块四：AI工具全景（3分钟）：介绍2026最新的AI备课工具矩阵。涵盖LLM、PPT生成器、知识库与动态HTML课件。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">48-58 MIN | 模块四：AI工具极速PPT与交互课件</span>
+                    <h2 class="slide-title">2026 AI 备课与课件生产全景矩阵</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 16 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-4">
+                    <div class="card">
+                        <div class="card-title">🧠 逻辑推理 & 文本</div>
+                        <div class="card-body">
+                            • <strong>DeepSeek-R1/V3</strong> (深度推理)<br>
+                            • <strong>Claude 3.7 / Gemini</strong> (长上下文)<br>
+                            • 豆包 / Kimi (日常轻量)
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">📚 知识库与文献</div>
+                        <div class="card-body">
+                            • <strong>NotebookLM</strong> (论文与教材归纳)<br>
+                            • 秘塔 AI 搜索 (文献搜寻)<br>
+                            • 腾讯 ima (知识库沉淀)
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">📊 极速 PPT 生成</div>
+                        <div class="card-body">
+                            • <strong>Gamma</strong> (AI一键网页PPT)<br>
+                            • <strong>Marp</strong> (Markdown转PPT)<br>
+                            • Mindshow / Kimi / WPS AI
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">🎨 动态交互课件</div>
+                        <div class="card-body">
+                            • <strong>Canvas 2D / Three.js</strong> (Web动画)<br>
+                            • <strong>GeoGebra</strong> (动态几何引擎)<br>
+                            • 自定义 Agent / Skill
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 17 -->
+        <div class="slide" data-notes="Markdown转PPT实操（3分钟）：演示从DeepSeek大纲到Marp/Gamma自动排版PPT的极速流程。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">48-58 MIN | 模块四：AI工具极速PPT与交互课件</span>
+                    <h2 class="slide-title">【极速PPT】Markdown ➔ Marp / Gamma 自动化生产线</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 17 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="flow-container">
+                    <div class="flow-step" style="border-color: var(--accent-purple);">
+                        <div class="flow-step-num">STEP 1</div>
+                        <div class="flow-step-text">DeepSeek 输出 Markdown</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">指定 Slide 结构与卡片排版</div>
+                    </div>
+                    <div class="flow-arrow">➔</div>
+                    <div class="flow-step" style="border-color: var(--accent-cyan);">
+                        <div class="flow-step-num">STEP 2</div>
+                        <div class="flow-step-text">粘贴至 Gamma / Marp</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">一键渲染为高颜值幻灯片</div>
+                    </div>
+                    <div class="flow-arrow">➔</div>
+                    <div class="flow-step" style="border-color: var(--accent-emerald);">
+                        <div class="flow-step-num">STEP 3</div>
+                        <div class="flow-step-text">微调与导出</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">导出 HTML / PDF / PPTX 演示</div>
+                    </div>
+                </div>
+
+                <div class="prompt-box" style="margin-top: 10px;">
+                    <button class="copy-btn" onclick="copyText(this)">复制 Marp PPT 提示词</button>
+【角色】PPT 演示设计大师。
+【内容】[粘贴您的备课教案]
+【任务】请将上述内容转换为 Marp Markdown 格式的 PPT 演说大纲。
+【要求】
+1. 每一页使用 `---` 分割。
+2. 顶级标题用 `#`，子标题用 `##`。
+3. 多用表格、卡片（`marquee`/`grid`）和重点突出文字。
+4. 首页包含标题、副标题与主讲人，末页包含总结与Q&A。
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 18 -->
+        <div class="slide" data-notes="动态HTML交互课件（3分钟）：展示Canvas 2D与Three.js实现的交互教学画板。免安装、跨平台、实时拖动参数。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">48-58 MIN | 模块四：AI工具极速PPT与交互课件</span>
+                    <h2 class="slide-title">【高级课件】动态 Canvas / Three.js HTML 交互课件</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 18 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-title">💡 为什么需要 HTML 动态交互课件？</div>
+                        <div class="card-body">
+                            • 传统的 PPT 静态图片无法展示几何动态变化或微观反应过程。<br>
+                            • HTML 单文件<strong>免安装、跨平台</strong>，手机/电脑/平板/电子白板均可直接播放。<br>
+                            • 包含动态滑块控件：拖动滑块实时重算几何图形或分子构象。
+                        </div>
+                    </div>
+                    <div class="card" style="border-color: var(--accent-cyan);">
+                        <div class="card-title" style="color: var(--accent-cyan);">⚙️ 典型应用场景</div>
+                        <div class="card-body">
+                            • <strong>解析几何：</strong>拖动直线斜率 $k$ 实时展示椭圆焦点弦长变化与定点定值；<br>
+                            • <strong>立体几何：</strong>3D旋转视角观察异面直线夹角与二面角；<br>
+                            • <strong>化学微观：</strong>Three.js 拖动时间轴观察分子断键与电子转移。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Canvas Preview Demo -->
+                <div class="card" style="margin-top: 10px; background: rgba(9, 13, 22, 0.9); text-align: center;">
+                    <div style="font-size: 13px; color: var(--accent-cyan); font-weight: 700; margin-bottom: 8px;">🎨 嵌入式动态几何画板示范（拖动滑块观察圆锥曲线与切线）</div>
+                    <canvas id="demo-canvas" width="600" height="160" style="background: #0b1120; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);"></canvas>
+                    <div style="margin-top: 8px; display: flex; justify-content: center; align-items: center; gap: 16px;">
+                        <label style="font-size: 12px; color: #cbd5e1;">参数 $k$ (斜率): <input type="range" id="k-slider" min="-2" max="2" step="0.1" value="0.5" oninput="drawCanvasDemo()"></label>
+                        <span id="k-val" style="font-size: 12px; color: var(--accent-cyan); font-weight: 700;">0.5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 19 -->
+        <div class="slide" data-notes="教学Agent与Skill（2分钟）：介绍如何定制自己的学科备课Agent。将繁琐步骤封装为自动化 Skill。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">48-58 MIN | 模块四：AI工具极速PPT与交互课件</span>
+                    <h2 class="slide-title">【教学Agent与Skill】王林浩：定制技能，才有无限可能</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 19 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-title">1. 单次对话 ➔ 专属 Skill</div>
+                        <div class="card-body">
+                            不要每次都重新输Prompt。将优质的学情分析、教学目标修饰、诊断量规封装为系统级别的提示词技能。
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">2. SymPy/AI 精确驱动</div>
+                        <div class="card-body">
+                            结合 Python 数学符号计算库（SymPy），保证几何坐标、方程推导、定理逻辑的 100% 精确同源。
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">3. 自动化闭环</div>
+                        <div class="card-body">
+                            实现“输入一道数学/理化题目 ➔ 自动生成解题步骤 ➔ 自动生成3D/Canvas课件 ➔ 输出完整教案”。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 16px; background: rgba(139, 92, 246, 0.15); border-color: var(--accent-purple);">
+                    <div class="card-title" style="color: var(--accent-purple);">🚀 理念升级：未来教师将拥有一组专属的“AI备课助理 Agent 矩阵”</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 20 -->
+        <div class="slide" data-notes="教师备课Prompt速查（2分钟）：汇总最实用的5个Prompt脚本。老师可一键复制导出使用。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">48-58 MIN | 实操干预</span>
+                    <h2 class="slide-title">教师高质量备课 Prompt 极速指南（可直接复制）</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 20 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-title">📌 1. 学情认知障碍推演</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">用于备学生：推演真实卡点与表征缺陷。</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">📌 2. 双线结构图重构</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">用于备学习：生成知识线与认知体验线。</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">📌 3. 说题初诊量规生成</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">用于备证据：生成打分维度与反思引导。</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">📌 4. Marp PPT 极速大纲</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">用于做课件：输出Markdown并粘贴到Gamma/Marp。</div>
+                    </div>
+                </div>
+
+                <div class="prompt-box" style="margin-top: 10px;">
+                    <button class="copy-btn" onclick="copyText(this)">复制万能通用备课Prompt</button>
+你是一位兼具学科专业素养与学习科学理论的教学指导专家。请基于【课题名称】，帮我完成以下“四备一评”方案：
+1. 【备学生】：分析学生对本节课知识点可能存在的3个深层认知卡点，并给出验证提问。
+2. 【备目标】：采用ABCD目标法，将模糊目标重构为“可观察的学生活动”。
+3. 【备结构】：设计“知识线+体验线”双线结构表。
+4. 【备证据】：设计一个1分钟学生说题任务，并附带3维度诊断量规。
+5. 【备课件】：输出一份可供 Gamma/Marp 生成 PPT 的 8 页 Markdown 大纲。
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 21 -->
+        <div class="slide" data-notes="58-60min 总结与行动（2分钟）：总结人机协同的本质。AI是强大的脚手架，教师赋予关怀与灵魂。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">58-60 MIN | 总结与行动</span>
+                    <h2 class="slide-title">人机协同：AI 赋予效率，教师赋予灵魂</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 21 / 25</span>
+            </div>
+            <div class="slide-content" style="justify-content: center; align-items: center; text-align: center;">
+                <div style="max-width: 900px;">
+                    <div style="font-size: 28px; font-weight: 800; color: #fff; line-height: 1.5; margin-bottom: 24px;">
+                        “AI 可以生成完美的教案和绚丽的课件，<br>
+                        但永远无法替代教师<span style="color: var(--accent-cyan);">真正看见学生</span>眼神里的迷茫与闪光。”
+                    </div>
+
+                    <div class="grid-3" style="margin-top: 30px; text-align: left;">
+                        <div class="card" style="border-top: 4px solid var(--accent-purple);">
+                            <div class="card-title">AI 的角色</div>
+                            <div class="card-body">超级助手、数据分析师、素材生成器、排版排版员。</div>
+                        </div>
+                        <div class="card" style="border-top: 4px solid var(--accent-emerald);">
+                            <div class="card-title">教师的角色</div>
+                            <div class="card-body">专业判断者、成长引导者、情感倾听者、灵魂点燃者。</div>
+                        </div>
+                        <div class="card" style="border-top: 4px solid var(--accent-amber);">
+                            <div class="card-title">理想的课堂</div>
+                            <div class="card-body">高效率的备课准备 ➔ 高关怀的课堂互动 ➔ 高质量的成长体验。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 22 -->
+        <div class="slide" data-notes="Q&A互动（1分钟）：解答老师们最关心的两个落地疑问。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">58-60 MIN | 总结与行动</span>
+                    <h2 class="slide-title">现场问答与落地交流 (Q&A)</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 22 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-title" style="color: var(--accent-cyan);">❓ 问题 1：刚开始尝试 AI 备课，第一步建议做什么？</div>
+                        <div class="card-body">
+                            <strong>回答：</strong>切忌贪多！建议从<strong>“一个错例推演 Prompt”</strong>开始。拿一道班级近期错得最多的题目，喂给 DeepSeek，让它分析学生真正的卡点在哪里，先尝到 AI 助推专业判断的甜头。
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title" style="color: var(--accent-amber);">❓ 问题 2：怎样避免 AI 生成的内容太泛、不接地气？</div>
+                        <div class="card-body">
+                            <strong>回答：</strong>关键在于<strong>限定上下文</strong>！提示词中必须明确：学生年级、已知基础、教学时间限制、以及期望输出的具体格式（如表格、具体话术而非空洞的形容词）。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 23 -->
+        <div class="slide" data-notes="演示快捷键指南：说明如何方便地控制本演示页面。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">附录 | 交互课件功能</span>
+                    <h2 class="slide-title">本 HTML 演示系统快捷键指南</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 23 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="grid-4">
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: 800; color: var(--accent-cyan);">← / → / Space</div>
+                        <div class="card-title" style="justify-content: center; margin-top: 8px;">上一页 / 下一页</div>
+                        <div class="card-body">平滑翻页控制</div>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: 800; color: var(--accent-purple);">N 键</div>
+                        <div class="card-title" style="justify-content: center; margin-top: 8px;">演说讲稿备注</div>
+                        <div class="card-body">开关讲稿提示框</div>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: 800; color: var(--accent-emerald);">O 键</div>
+                        <div class="card-title" style="justify-content: center; margin-top: 8px;">全页缩略图概览</div>
+                        <div class="card-body">快速跳转任意 Slide</div>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: 800; color: var(--accent-amber);">F 键</div>
+                        <div class="card-title" style="justify-content: center; margin-top: 8px;">全屏演示模式</div>
+                        <div class="card-body">进入/退出全屏</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 24 -->
+        <div class="slide" data-notes="提交指南说明：说明如何把本文件上传发布到liuyue网址平台。">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-tag">附录 | 提交指南</span>
+                    <h2 class="slide-title">提交至 liuyue 网址 / 平台的简易流程</h2>
+                </div>
+                <span style="color: var(--text-muted);">Slide 24 / 25</span>
+            </div>
+            <div class="slide-content">
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="flow-step-num">步骤 1</div>
+                        <div class="flow-step-text">保存 HTML 文件</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">本单文件包已内置所有样式与交互逻辑</div>
+                    </div>
+                    <div class="flow-arrow">➔</div>
+                    <div class="flow-step">
+                        <div class="flow-step-num">步骤 2</div>
+                        <div class="flow-step-text">登录 liuyue 平台</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">进入教师培训/成果提交入口</div>
+                    </div>
+                    <div class="flow-arrow">➔</div>
+                    <div class="flow-step">
+                        <div class="flow-step-num">步骤 3</div>
+                        <div class="flow-step-text">上传与验证</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">选择附件上传 `.html` 即可在线播放</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 25 -->
+        <div class="slide" data-notes="结束页：感谢聆听！预祝各位老师AI备课收获满满。">
+            <div class="slide-header">
+                <span class="slide-tag">THANK YOU</span>
+                <span style="color: var(--text-muted);">Slide 25 / 25</span>
+            </div>
+            <div class="slide-content" style="justify-content: center; align-items: center; text-align: center;">
+                <h1 style="font-size: 44px; font-weight: 900; color: #fff; margin-bottom: 16px;">感谢惠听！</h1>
+                <p style="font-size: 20px; color: var(--accent-cyan); margin-bottom: 30px;">
+                    愿 AI 成为您教育教学探索中的得力好帮手！
+                </p>
+                <div style="display: flex; gap: 16px;">
+                    <button class="btn" style="background: var(--accent-purple);" onclick="goToSlide(0)">↺ 重新播放</button>
+                    <button class="btn" style="background: rgba(255,255,255,0.1);" onclick="toggleOverview()">☰ 查看所有幻灯片</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Presenter Notes Drawer -->
+    <div id="notes-drawer">
+        <div class="notes-header">
+            <span>🎙️ 演说讲稿备注 (N键)</span>
+            <span style="cursor: pointer;" onclick="toggleNotes()">✕</span>
+        </div>
+        <div class="notes-content" id="notes-text">
+            讲稿备注加载中...
+        </div>
+    </div>
+
+    <!-- Overview Grid Modal -->
+    <div id="overview-modal">
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto 20px auto;">
+            <h2 style="color: #fff; font-size: 24px;">幻灯片概览 (点击跳页)</h2>
+            <button class="btn" onclick="toggleOverview()">关闭 (O键)</button>
+        </div>
+        <div class="overview-grid" id="overview-grid"></div>
+    </div>
+
+    <!-- Footer Controls -->
+    <footer>
+        <div style="font-size: 13px; color: var(--text-muted);">
+            按 <strong>← / → / Space</strong> 翻页 | <strong>N</strong> 讲稿 | <strong>O</strong> 概览 | <strong>F</strong> 全屏
+        </div>
+
+        <div class="nav-controls">
+            <button class="btn" onclick="prevSlide()">‹ 上一页</button>
+            <span class="slide-counter" id="slide-num">1 / 25</span>
+            <button class="btn" onclick="nextSlide()">下一页 ›</button>
+            <button class="btn" style="padding: 8px 12px;" onclick="toggleNotes()" title="演说备注">📝</button>
+            <button class="btn" style="padding: 8px 12px;" onclick="toggleOverview()" title="幻灯片概览">☰</button>
+            <button class="btn" style="padding: 8px 12px;" onclick="toggleFullscreen()" title="全屏切换">⛶</button>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let timerInterval = null;
+        let secondsRemaining = 60 * 60; // 60 minutes
+        let timerRunning = false;
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Update Counter & Progress Bar
+            document.getElementById('slide-num').innerText = `${currentSlide + 1} / ${totalSlides}`;
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+
+            // Update Notes
+            const currentNotes = slides[currentSlide].getAttribute('data-notes') || '无备注';
+            document.getElementById('notes-text').innerText = currentNotes;
+
+            // Trigger Canvas demo if on slide 18
+            if (currentSlide === 17) {
+                setTimeout(drawCanvasDemo, 100);
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlide();
+            closeOverview();
+        }
+
+        /* Keyboard Shortcuts */
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key.toLowerCase() === 'n') {
+                toggleNotes();
+            } else if (e.key.toLowerCase() === 'o') {
+                toggleOverview();
+            } else if (e.key.toLowerCase() === 'f') {
+                toggleFullscreen();
+            }
+        });
+
+        /* Timer Logic */
+        function startTimer() {
+            if (!timerInterval) {
+                timerInterval = setInterval(() => {
+                    if (secondsRemaining > 0) {
+                        secondsRemaining--;
+                        formatTimerDisplay();
+                    }
+                }, 1000);
+            }
+            timerRunning = true;
+        }
+
+        function toggleTimer() {
+            if (timerRunning) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                timerRunning = false;
+            } else {
+                startTimer();
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            secondsRemaining = 60 * 60;
+            timerRunning = false;
+            formatTimerDisplay();
+        }
+
+        function formatTimerDisplay() {
+            const m = Math.floor(secondsRemaining / 60).toString().padStart(2, '0');
+            const s = (secondsRemaining % 60).toString().padStart(2, '0');
+            document.getElementById('timer-display').innerText = `${m}:${s}`;
+        }
+
+        /* Notes Drawer */
+        function toggleNotes() {
+            const drawer = document.getElementById('notes-drawer');
+            drawer.classList.toggle('active');
+        }
+
+        /* Overview Grid */
+        function toggleOverview() {
+            const modal = document.getElementById('overview-modal');
+            if (modal.classList.contains('active')) {
+                closeOverview();
+            } else {
+                openOverview();
+            }
+        }
+
+        function openOverview() {
+            const grid = document.getElementById('overview-grid');
+            grid.innerHTML = '';
+            slides.forEach((slide, index) => {
+                const title = slide.querySelector('.slide-title')?.innerText || slide.querySelector('h1')?.innerText || `Slide ${index+1}`;
+                const card = document.createElement('div');
+                card.className = `thumb-card ${index === currentSlide ? 'active' : ''}`;
+                card.onclick = () => goToSlide(index);
+                card.innerHTML = `
+                    <div class="thumb-num">SLIDE ${index + 1}</div>
+                    <div class="thumb-title">${title}</div>
+                `;
+                grid.appendChild(card);
+            });
+            document.getElementById('overview-modal').classList.add('active');
+        }
+
+        function closeOverview() {
+            document.getElementById('overview-modal').classList.remove('active');
+        }
+
+        /* Fullscreen */
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        /* Copy Text */
+        function copyText(btn) {
+            const box = btn.parentElement;
+            const text = box.innerText.replace('一键复制 Prompt', '').replace('复制 Marp PPT 提示词', '').replace('复制万能通用备课Prompt', '').trim();
+            navigator.clipboard.writeText(text).then(() => {
+                const orig = btn.innerText;
+                btn.innerText = '✓ 已复制到剪贴板';
+                btn.style.background = '#10b981';
+                setTimeout(() => {
+                    btn.innerText = orig;
+                    btn.style.background = 'var(--accent-purple)';
+                }, 2000);
+            });
+        }
+
+        /* Canvas Demo Animation */
+        function drawCanvasDemo() {
+            const canvas = document.getElementById('demo-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+            const k = parseFloat(document.getElementById('k-slider').value);
+            document.getElementById('k-val').innerText = k;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Draw Coordinate Axis
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, h/2); ctx.lineTo(w, h/2);
+            ctx.moveTo(w/2, 0); ctx.lineTo(w/2, h);
+            ctx.stroke();
+
+            // Draw Ellipse (a=180, b=60)
+            const cx = w/2;
+            const cy = h/2;
+            const a = 180;
+            const b = 60;
+            ctx.strokeStyle = '#06b6d4';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, a, b, 0, 0, 2 * Math.PI);
+            ctx.stroke();
+
+            // Draw Tangent / Secant Line y - cy = k * (x - cx)
+            ctx.strokeStyle = '#f43f5e';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            const x1 = 40;
+            const y1 = cy - k * (x1 - cx);
+            const x2 = w - 40;
+            const y2 = cy - k * (x2 - cx);
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+
+            // Draw Foci
+            const c = Math.sqrt(a*a - b*b);
+            ctx.fillStyle = '#f59e0b';
+            ctx.beginPath();
+            ctx.arc(cx - c, cy, 4, 0, 2*Math.PI);
+            ctx.arc(cx + c, cy, 4, 0, 2*Math.PI);
+            ctx.fill();
+
+            // Labels
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '11px sans-serif';
+            ctx.fillText('F1', cx - c - 10, cy + 16);
+            ctx.fillText('F2', cx + c + 4, cy + 16);
+            ctx.fillText(`切/割线 y = ${k}x`, x2 - 80, y2 - 8);
+        }
+
+        // Initialize Timer
+        startTimer();
+        updateSlide();
+    </script>
+</body>
+</html>
