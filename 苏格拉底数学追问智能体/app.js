@@ -76,7 +76,8 @@ const elements = {
   toast: document.getElementById('toast-message'),
   offlineBanner: document.getElementById('offline-banner'),
   customProblemContainer: document.getElementById('custom-problem-container'),
-  customProblemText: document.getElementById('custom-problem-text')
+  customProblemText: document.getElementById('custom-problem-text'),
+  btnCopyPrompt: document.getElementById('btn-copy-prompt')
 };
 
 
@@ -168,6 +169,9 @@ function setupEventListeners() {
   elements.btnChatReset.addEventListener('click', resetChat);
   elements.btnChatSend.addEventListener('click', handleUserSendMessage);
   elements.btnRecordMic.addEventListener('click', toggleMicRecording);
+  if (elements.btnCopyPrompt) {
+    elements.btnCopyPrompt.addEventListener('click', copySocraticPrompt);
+  }
   
   elements.selectTopic.addEventListener('change', handleTopicChange);
   
@@ -1783,6 +1787,31 @@ function parseUrlParamsAndStart() {
       }
       startSocraticTutor();
     }, 500);
+  }
+}
+
+// Copy Socratic System Prompt to Clipboard for Microsoft Word
+async function copySocraticPrompt() {
+  const promptText = `你是一个启发式数学辅导教练，基于苏格拉底提问法。
+
+你的教学原则是：
+1. 【决不直接给出答案】或列出最终式子，只引导学生自己推理。
+2. 以极度亲切、鼓励的语气（小学生视角），使用生动的比喻，每次只问【一个问题】。
+3. 严格保持简短（不超过80字），适合在手机/网页聊天气泡中阅读。
+4. 数学表达式必须使用 LaTeX 格式（如 $x+3=8$ 或 $\\frac{1}{2}$）。
+5. 针对学生的输入，循序渐进地给出引导和追问。`;
+
+  try {
+    await navigator.clipboard.writeText(promptText);
+    showToast('📋 提示词模板已成功复制到剪贴板！');
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = promptText;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('📋 提示词模板已成功复制！');
   }
 }
 
