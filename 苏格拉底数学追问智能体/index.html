@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>苏格拉底数学启发追问智能体 (五六年级)</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- KaTeX for beautiful math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-section">
+      <div class="logo-icon">?</div>
+      <div>
+        <h1>苏格拉底数学启发追问智能体</h1>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: -2px;">小学数学五六年级概念与应用题启发辅导系统</p>
+      </div>
+    </div>
+    
+    <div class="tutor-selectors">
+      <!-- Grade & Topic Selectors -->
+      <select id="select-grade" onchange="updateTopics()">
+        <option value="5">五年级 (下册)</option>
+        <option value="6">六年级 (上/下册)</option>
+      </select>
+      
+      <select id="select-topic">
+        <!-- Will be populated dynamically by JS -->
+      </select>
+      
+      <button class="btn-pill" id="btn-start-tutor">💡 开启启发辅导</button>
+      <button class="btn-pill btn-secondary" id="btn-open-config">⚙️ API 配置</button>
+      <button class="btn-pill btn-secondary" id="btn-theme-toggle">🌓 主题</button>
+    </div>
+  </header>
+
+  <!-- Workspace Grid -->
+  <div class="main-workspace">
+    <!-- Left Column: Whiteboard Canvas -->
+    <section class="whiteboard-panel">
+      <!-- Custom Problem Textarea (Shown when "custom" topic is selected) -->
+      <div class="form-group" id="custom-problem-container" style="display: none; margin-bottom: 12px;">
+        <label for="custom-problem-text">📝 输入自定义题目 (AI 将基于此题展开启发追问):</label>
+        <textarea id="custom-problem-text" placeholder="在此粘贴或输入任何你想讨论的小学数学题，点击开启辅导后，AI 将一步步引导你解答。&#10;例：有鸡和兔共 10 只，共有腿 32 条，问鸡和兔各有多少只？" style="min-height: 80px; font-size: 13.5px; border-radius: var(--radius-sm); border: 1px solid var(--panel-border); background: rgba(0, 0, 0, 0.2); color: var(--text-primary); padding: 10px; font-family: inherit; outline: none; width: 100%; resize: vertical;"></textarea>
+      </div>
+
+      <div class="whiteboard-toolbar">
+        <div class="toolbar-group">
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-right: 4px;">🎨 画笔颜色:</span>
+          <div class="color-option color-black active" onclick="setPenColor('#1e293b', this)"></div>
+          <div class="color-option color-red" onclick="setPenColor('#ef4444', this)"></div>
+          <div class="color-option color-blue" onclick="setPenColor('#3b82f6', this)"></div>
+          <div class="color-option color-green" onclick="setPenColor('#10b981', this)"></div>
+        </div>
+        
+        <div class="toolbar-group">
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-right: 4px;">📏 粗细:</span>
+          <select id="select-brush-size" style="padding: 3px 8px; font-size: 11px;" onchange="setBrushSize(this.value)">
+            <option value="2">细 (2px)</option>
+            <option value="5" selected>中 (5px)</option>
+            <option value="10">粗 (10px)</option>
+          </select>
+        </div>
+        
+        <div class="toolbar-group">
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-right: 4px;">📐 图形库:</span>
+          <button class="btn-preset" onclick="drawPreset('circle')">○ 圆</button>
+          <button class="btn-preset" onclick="drawPreset('rectangle')">▭ 矩形</button>
+          <button class="btn-preset" onclick="drawPreset('cylinder')">⌗ 圆柱</button>
+          <button class="btn-preset" onclick="drawPreset('grid')">⛛ 坐标系</button>
+        </div>
+
+        <div class="toolbar-group">
+          <button class="btn-preset" id="btn-canvas-undo" style="background: rgba(255,255,255,0.1);" title="撤销一步">↩ 撤销</button>
+          <button class="btn-preset" id="btn-canvas-clear" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border-color: rgba(239, 68, 68, 0.2);" title="清除白板">🗑 清除</button>
+          <button class="btn-preset" id="btn-canvas-export" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.2);" title="导出画板为图片">💾 导出</button>
+        </div>
+      </div>
+      
+      <div class="canvas-container">
+        <!-- Handwriting Canvas -->
+        <canvas id="math-canvas"></canvas>
+      </div>
+    </section>
+
+    <!-- Right Column: Socratic Chatroom -->
+    <section class="chat-panel">
+      <!-- Warning Banner for Offline Mode -->
+      <div id="offline-banner" style="background: rgba(239, 68, 68, 0.15); color: #fca5a5; padding: 8px 16px; font-size: 11.5px; border-bottom: 1px solid rgba(239, 68, 68, 0.2); display: flex; align-items: center; gap: 8px; font-weight: 500;">
+        ⚠️ 当前为离线剧本演示模式。配置右上方 API 密钥后，可开启全功能语音动态对话与绘图。
+      </div>
+
+      <!-- Loading Overlay -->
+      <div class="loading-overlay" id="chat-loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-text" id="chat-loading-text">苏格拉底老师正在倾听思考...</div>
+      </div>
+
+      <!-- Chat Header -->
+      <div class="chat-header">
+        <div class="chat-avatar-large">?</div>
+        <div class="tutor-info">
+          <h2>苏格拉底数学教练</h2>
+          <p id="tutor-status">请在上方选择你要讨论的数学主题，然后点击“开启启发辅导”</p>
+        </div>
+      </div>
+
+
+      <!-- Dialogue Bubble Stream -->
+      <div class="chat-history" id="chat-history">
+        <!-- Bubbles will be populated dynamically -->
+        <div class="bubble bubble-ai">
+          <div class="avatar avatar-ai">∑</div>
+          <div class="bubble-content">
+            <div class="bubble-sender">苏格拉底数学教练</div>
+            <div class="bubble-text">你好！我是你的数学启发教练。五六年级的数学有很多有趣的规律，比如神奇的“鸡兔同笼”、奇妙的“圆柱体积变化”和能预测位置的“笛卡尔坐标系”。&#10;&#10;请在上方选择一个你正在学习的主题，我们一起来探讨！在右边画板上，你可以随时涂鸦画图辅助思考哦。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="chat-input-bar">
+        <!-- Quick pills row -->
+        <div class="pills-row" id="quick-pills">
+          <!-- Pills will be populated dynamically by JS -->
+        </div>
+        
+        <!-- Input Row -->
+        <div class="input-row">
+          <button class="action-btn btn-mic" id="btn-record-mic" type="button" title="点击麦克风，现场语音答题">🎤</button>
+          <input type="text" class="chat-input" id="chat-user-input" placeholder="请说出或写下你的数学想法..." disabled>
+          <button class="action-btn btn-send" id="btn-chat-send" type="button" title="发送你的回答" disabled>➔</button>
+          <button class="action-btn btn-mic" id="btn-chat-reset" type="button" title="清空对话重来" style="font-size: 16px;">🔄</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- API Settings Modal -->
+  <div class="modal-overlay" id="config-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">⚙️ 大模型 API 配置</h3>
+        <button class="modal-close" id="btn-close-config">×</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px;">配置保存在您本地，通过前端 fetch 直连服务商，保证隐私与安全。</p>
+      
+      <div class="form-group">
+        <label for="api-base">API Base URL (接口基地址)</label>
+        <input type="text" id="api-base" placeholder="例如：https://api.openai.com/v1 或您的模型中转站">
+      </div>
+      
+      <div class="form-group">
+        <label for="api-key">API Key (密钥)</label>
+        <input type="password" id="api-key" placeholder="请输入 API 密钥">
+      </div>
+      
+      <div class="form-group">
+        <label for="api-model">Model Name (大模型名称)</label>
+        <input type="text" id="api-model" placeholder="例如：gpt-4o-mini, doubao-pro-4, deepseek-chat">
+      </div>
+
+      <div class="form-group">
+        <label for="api-whisper-model">Whisper Model Name (语音听写模型)</label>
+        <input type="text" id="api-whisper-model" placeholder="例如：whisper-1 （默认）">
+      </div>
+
+      <div style="display: flex; gap: 12px; margin-top: 12px;">
+        <button class="btn-pill btn-secondary" id="btn-cancel-config" style="flex: 1;">取消</button>
+        <button class="btn-pill" id="btn-save-config" style="flex: 1;">保存配置</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Toast -->
+  <div class="toast" id="toast-message">提示内容</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数学说题AI个性化点评系统</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="logo-section">
+        <div class="logo-icon">∑</div>
+        <div>
+          <h1>数学说题AI个性化点评系统</h1>
+          <p style="font-size: 11px; color: var(--text-muted); margin-top: -2px;">基于五维评价口径的交互式点评引擎</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <button class="btn btn-secondary btn-small" id="btn-theme-toggle">🌓 切换主题</button>
+        <button class="btn btn-secondary btn-small" id="btn-open-config">⚙️ API 配置</button>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <main>
+      <!-- Left Panel: Inputs -->
+      <section class="input-panel">
+        <div class="section-title">📝 点评配置与输入</div>
+        
+        <!-- Config Section -->
+        <div class="form-group">
+          <label>年级与科目配置</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="config-grade" value="五年级" placeholder="年级" style="flex: 1;">
+            <input type="text" id="config-subject" value="数学" placeholder="科目" style="flex: 1;">
+          </div>
+        </div>
+
+        <!-- Mode Selector -->
+        <div class="form-group">
+          <label>说题任务模式</label>
+          <div class="mode-selector">
+            <button class="mode-btn active" id="mode-a-btn" onclick="switchMode('A')">A 同题模式</button>
+            <button class="mode-btn" id="mode-b-btn" onclick="switchMode('B')">B 个性题模式</button>
+          </div>
+        </div>
+
+        <!-- Problem Input (Conditional on Mode) -->
+        <div class="form-group" id="group-problem-a">
+          <label for="problem-sop">统一题目材料 & 答案/SOP分析</label>
+          <textarea id="problem-sop" placeholder="在此输入这道题目的具体文字，以及教师的参考答案或SOP步骤。&#10;例：组合图形面积，大长方形长10，宽6；旁边拼接一个小正方形边长6。求阴影面积..."></textarea>
+        </div>
+
+        <div class="form-group" id="group-problem-b" style="display: none;">
+          <label for="problem-text">题目材料 (选填)</label>
+          <textarea id="problem-text" placeholder="在此输入当前学生说题的具体题目内容。如果留空，AI将尝试从学生原话中推断。"></textarea>
+        </div>
+
+        <!-- Student Metadata -->
+        <div class="form-group">
+          <label>学生基本信息 (选填)</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="student-name" placeholder="学生姓名/编号">
+            <input type="text" id="student-class" placeholder="班级">
+          </div>
+        </div>
+
+        <!-- Student Transcript Input -->
+        <div class="form-group" style="flex: 1; display: flex; flex-direction: column; min-height: 200px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label for="student-transcripts">学生说题文稿 (原话/AI转写)</label>
+            <span style="font-size: 11px; color: var(--text-muted);">支持多人，使用 `---` 分割</span>
+          </div>
+
+          <!-- Voice & Audio Tools -->
+          <div class="voice-tools-container">
+            <button class="record-action-btn" id="btn-record-mic" type="button">
+              <span id="record-icon">🎤</span> <span id="record-text">录音说题</span>
+            </button>
+            <button class="upload-action-btn" type="button">
+              <span>📁</span> 上传音视频
+              <input type="file" id="audio-file-upload" accept="audio/*,video/*">
+            </button>
+          </div>
+
+          <!-- STT Progress Indicator -->
+          <div class="stt-progress-bar" id="stt-progress">
+            <div class="stt-progress-fill"></div>
+          </div>
+
+          <textarea id="student-transcripts" style="flex: 1; min-height: 120px;" placeholder="请粘贴学生的音视频AI转写稿或含有学生原话的文档。&#10;&#10;或者直接使用上方 🎤 按钮现场录音，或 📁 按钮上传音视频转为文本。&#10;&#10;如果是多人文稿，可写成：&#10;张三：我是用大长方形面积加上...&#10;---&#10;李四：这道题是组合图形..."></textarea>
+        </div>
+
+
+        <!-- Batch Info Area (Only active for multiple students) -->
+        <div class="batch-indicator" id="batch-area" style="display: none;">
+          <span id="batch-status">已检测到 1 个学生档案</span>
+          <div style="display: flex; gap: 6px;">
+            <button class="batch-nav-btn" id="batch-prev" disabled>◀ 上一个</button>
+            <button class="batch-nav-btn" id="batch-next" disabled>下一个 ▶</button>
+          </div>
+        </div>
+
+        <!-- Operations -->
+        <div class="btn-container">
+          <button class="btn btn-secondary" id="btn-load-demo" title="导入内置演示数据">📥 载入演示</button>
+          <button class="btn btn-secondary" id="btn-mock" title="无需API，直接模拟生成效果">🧪 离线模拟</button>
+        </div>
+        <button class="btn btn-primary" id="btn-analyze" style="width: 100%;">⚡ 开始智能点评</button>
+      </section>
+
+      <!-- Middle Panel: One-Page Commentary Report (一页纸) -->
+      <section class="dashboard-panel">
+        
+        <!-- Empty State Dashboard -->
+        <div class="empty-state" id="empty-state-panel">
+          <div class="empty-icon">📊</div>
+          <h2>等待分析说题材料</h2>
+          <p style="margin-top: 10px; max-width: 500px; font-size: 14px;">请在左侧输入学生说题转写稿及题目，配置好 API 后点击<b>“开始智能点评”</b>。或者，点击<b>“离线模拟”</b>直接预览本系统的点评卡片与评分看板。</p>
+          <div style="display: flex; gap: 12px; margin-top: 24px;">
+            <button class="btn btn-primary btn-small" onclick="loadDemoAndRunMock()">一键体验 Demo</button>
+          </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content" id="dashboard-container" style="display: none; position: relative;">
+          <!-- Loading Overlay -->
+          <div class="loading-overlay" id="loading-overlay">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loading-status-text">AI 正在深度研读说题文稿...<br><span style="font-size: 12px; font-weight: normal; color: var(--text-muted);">正在评估五维细则并定位学生原话</span></div>
+          </div>
+
+          <!-- Student Profile & Radial Score -->
+          <div class="student-summary-card">
+            <div class="student-meta-info">
+              <div class="student-name-tag" id="summary-student-name">张小明</div>
+              <div class="student-class-tag">
+                <span id="summary-student-class">未分组</span>
+                <span class="mode-badge a-mode" id="summary-task-mode">A 同题模式</span>
+              </div>
+            </div>
+            
+            <div class="score-circle-container">
+              <!-- Horizontal Bars summary -->
+              <div class="five-dims-summary">
+                <div class="dim-summary-row">
+                  <span class="dim-summary-name">审题与理解</span>
+                  <div class="dim-summary-bar-bg"><div class="dim-summary-bar-fill" id="bar-dim-1" style="background: var(--color-star);"></div></div>
+                  <span class="dim-summary-val" id="val-dim-1">4★</span>
+                </div>
+                <div class="dim-summary-row">
+                  <span class="dim-summary-name">思路与建模</span>
+                  <div class="dim-summary-bar-bg"><div class="dim-summary-bar-fill" id="bar-dim-2" style="background: var(--color-circle);"></div></div>
+                  <span class="dim-summary-val" id="val-dim-2">3.5●</span>
+                </div>
+                <div class="dim-summary-row">
+                  <span class="dim-summary-name">解题与算理</span>
+                  <div class="dim-summary-bar-bg"><div class="dim-summary-bar-fill" id="bar-dim-3" style="background: var(--color-triangle);"></div></div>
+                  <span class="dim-summary-val" id="val-dim-3">2△</span>
+                </div>
+                <div class="dim-summary-row">
+                  <span class="dim-summary-name">数学语言表达</span>
+                  <div class="dim-summary-bar-bg"><div class="dim-summary-bar-fill" id="bar-dim-4" style="background: var(--color-empty);"></div></div>
+                  <span class="dim-summary-val" id="val-dim-4">1.5○</span>
+                </div>
+                <div class="dim-summary-row">
+                  <span class="dim-summary-name">呈现与反思</span>
+                  <div class="dim-summary-bar-bg"><div class="dim-summary-bar-fill" id="bar-dim-5" style="background: var(--color-verify);"></div></div>
+                  <span class="dim-summary-val" id="val-dim-5">◇</span>
+                </div>
+              </div>
+
+              <!-- Radial Score Circle -->
+              <div class="score-circle-wrapper">
+                <svg class="score-svg" viewBox="0 0 100 100">
+                  <defs>
+                    <linearGradient id="score-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="var(--primary-color)" />
+                      <stop offset="100%" stop-color="var(--secondary-color)" />
+                    </linearGradient>
+                  </defs>
+                  <circle class="score-bg-circle" cx="50" cy="50" r="40" />
+                  <circle class="score-progress-circle" id="score-ring" cx="50" cy="50" r="40" />
+                </svg>
+                <div class="score-text">
+                  <div class="score-number" id="summary-total-score">16.5</div>
+                  <div class="score-label">总分</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- B-Mode Knowledge points review (Shown dynamically) -->
+          <div class="knowledge-preview-card" id="knowledge-preview-card" style="display: none;">
+            <div class="section-title" style="font-size: 14px;">🎯 题目知识点与重难点分析 (仅B模式)</div>
+            <div class="knowledge-tags-container" id="knowledge-tags">
+              <span class="knowledge-tag">组合图形</span>
+            </div>
+            <div class="points-grid">
+              <div class="point-item"><span class="point-label">重点：</span><span class="point-content" id="knowledge-focus">求阴影面积</span></div>
+              <div class="point-item"><span class="point-label">难点：</span><span class="point-content" id="knowledge-difficulty">转化割补模型</span></div>
+              <div class="point-item" style="grid-column: span 2;"><span class="point-label">易错点：</span><span class="point-content" id="knowledge-mistakes">漏减空白部分</span></div>
+            </div>
+          </div>
+
+          <!-- Dimensions Cards Grid -->
+          <div class="dimensions-grid">
+            
+            <!-- Card 1: 审题与理解 -->
+            <div class="dimension-card">
+              <div class="dimension-card-header">
+                <div class="dimension-title-group">
+                  <div class="dimension-number-icon">1</div>
+                  <div class="dimension-name">审题与理解</div>
+                </div>
+                <div class="dimension-badge badge-circle" id="badge-dim-1">3.5 ●</div>
+              </div>
+              <div class="dimension-body">
+                <div class="detail-block">
+                  <div class="detail-label">学生证据</div>
+                  <div class="detail-content evidence" id="evidence-dim-1">“用大长方形减去中间空白部分”</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">评分理由</div>
+                  <div class="detail-content" id="reason-dim-1">能理解部分与整体关系，但忽视细节。</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">做得好的</div>
+                  <div class="detail-content" id="good-dim-1">没有直接套用复杂公式。</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">改进空间</div>
+                  <div class="detail-content" id="bad-dim-1">空白处描述不清。</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">怎么修改</div>
+                  <div class="detail-content how-to-fix" id="fix-dim-1">标出空白处长和宽再计算。</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: 思路与建模 -->
+            <div class="dimension-card">
+              <div class="dimension-card-header">
+                <div class="dimension-title-group">
+                  <div class="dimension-number-icon">2</div>
+                  <div class="dimension-name">思路与建模</div>
+                </div>
+                <div class="dimension-badge badge-star" id="badge-dim-2">4.0 ★</div>
+              </div>
+              <div class="dimension-body">
+                <div class="detail-block">
+                  <div class="detail-label">学生证据</div>
+                  <div class="detail-content evidence" id="evidence-dim-2">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">评分理由</div>
+                  <div class="detail-content" id="reason-dim-2">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">做得好的</div>
+                  <div class="detail-content" id="good-dim-2">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">改进空间</div>
+                  <div class="detail-content" id="bad-dim-2">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">怎么修改</div>
+                  <div class="detail-content how-to-fix" id="fix-dim-2">-</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: 解题与算理 -->
+            <div class="dimension-card">
+              <div class="dimension-card-header">
+                <div class="dimension-title-group">
+                  <div class="dimension-number-icon">3</div>
+                  <div class="dimension-name">解题与算理</div>
+                </div>
+                <div class="dimension-badge badge-circle" id="badge-dim-3">3.0 ●</div>
+              </div>
+              <div class="dimension-body">
+                <div class="detail-block">
+                  <div class="detail-label">学生证据</div>
+                  <div class="detail-content evidence" id="evidence-dim-3">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">评分理由</div>
+                  <div class="detail-content" id="reason-dim-3">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">做得好的</div>
+                  <div class="detail-content" id="good-dim-3">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">改进空间</div>
+                  <div class="detail-content" id="bad-dim-3">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">怎么修改</div>
+                  <div class="detail-content how-to-fix" id="fix-dim-3">-</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4: 数学语言表达 -->
+            <div class="dimension-card">
+              <div class="dimension-card-header">
+                <div class="dimension-title-group">
+                  <div class="dimension-number-icon">4</div>
+                  <div class="dimension-name">数学语言表达</div>
+                </div>
+                <div class="dimension-badge badge-circle" id="badge-dim-4">3.0 ●</div>
+              </div>
+              <div class="dimension-body">
+                <div class="detail-block">
+                  <div class="detail-label">学生证据</div>
+                  <div class="detail-content evidence" id="evidence-dim-4">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">评分理由</div>
+                  <div class="detail-content" id="reason-dim-4">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">做得好的</div>
+                  <div class="detail-content" id="good-dim-4">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">改进空间</div>
+                  <div class="detail-content" id="bad-dim-4">-</div>
+                </div>
+                <div class="detail-block">
+                  <div class="detail-label">怎么修改</div>
+                  <div class="detail-content how-to-fix" id="fix-dim-4">-</div>
+                </div>
+              </div>
+            </div>
+
+        <div class="overall-analysis-row">
+            <!-- Total Commentary -->
+            <div class="feature-card">
+              <div class="feature-header">💬 综合总评</div>
+              <div class="feature-content" id="total-summary-content">...</div>
+            </div>
+            
+            <!-- Highlights -->
+            <div class="feature-card" style="border-left: 4px solid var(--accent-color);">
+              <div class="feature-header" style="color: var(--accent-color);">⭐ 闪光亮点 (公开可见)</div>
+              <div class="feature-content" id="highlight-content">...</div>
+            </div>
+          </div>
+
+          <div class="overall-analysis-row" style="margin-top: 16px;">
+            <!-- Key Improvement Action -->
+            <div class="feature-card" style="border-left: 4px solid var(--primary-color);">
+              <div class="feature-header" style="color: var(--primary-color);">🎯 核心改进方向 (学生/家长可见)</div>
+              <div class="feature-content" id="action-advice-content">...</div>
+            </div>
+
+            <!-- Homework Challenges -->
+            <div class="feature-card">
+              <div class="feature-header">✍️ 举一反三针对任务</div>
+              <div class="feature-content" id="homework-challenge-content">...</div>
+            </div>
+          </div>
+
+          <!-- Teacher Box (Verify box) -->
+          <div class="feature-card verify-reminder-box" style="margin-top: 16px;">
+            <div class="feature-header">🔍 教师复核提醒 (仅教师可见)</div>
+            <div class="feature-content" id="teacher-verify-content">...</div>
+          </div>
+
+          <!-- Bottom Tools Container -->
+          <div style="display: flex; gap: 12px; margin-top: 16px;">
+            <button class="btn btn-secondary" id="btn-copy-report">📋 复制 Markdown 报告</button>
+            <button class="btn btn-secondary" id="btn-export-pdf">🖨️ 导出 PDF / 打印</button>
+            <button class="btn btn-secondary" id="btn-export-csv">💾 导出记录表格</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel: Socratic Whiteboard Coach Agent (智能体三栏) -->
+      <section class="socratic-panel" style="display: flex; flex-direction: column; height: 100%; gap: 16px;">
+        <!-- Empty State Socratic Coach -->
+        <div class="empty-state" id="socratic-empty-state" style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+          <div class="empty-icon">💡</div>
+          <h2>苏格拉底启发追问</h2>
+          <p style="margin-top: 10px; max-width: 400px; font-size: 13.5px;">点评完成后，苏格拉底智能体将在本栏自动同步开启，通过数学画板与分步追问引导学生自我发现和纠错。</p>
+        </div>
+
+        <!-- Socratic Whiteboard Iframe Container -->
+        <div class="socratic-iframe-container" id="socratic-iframe-container" style="display: none; height: 100%;">
+          <iframe id="socratic-iframe" src="" style="width: 100%; height: 100%; border: none; border-radius: var(--radius-lg); background: transparent; box-shadow: var(--shadow-md);"></iframe>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- API Settings Modal -->
+  <div class="modal-overlay" id="config-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">⚙️ 大模型 API 设置</h3>
+        <button class="modal-close" id="btn-close-config">×</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px;">所有配置均存储在您本地的浏览器缓存中，不会被传输到除大模型提供商以外的任何地方。</p>
+      
+      <div class="form-group">
+        <label for="api-base">API Base URL (接口基地址)</label>
+        <input type="text" id="api-base" placeholder="例如：https://api.openai.com/v1 或飞书/豆包API端点">
+      </div>
+      
+      <div class="form-group">
+        <label for="api-key">API Key (密钥)</label>
+        <input type="password" id="api-key" placeholder="请输入以 sk- 开头的 API 密钥">
+      </div>
+      
+      <div class="form-group">
+        <label for="api-model">Model Name (模型名称)</label>
+        <input type="text" id="api-model" placeholder="例如：gpt-4o-mini, doubao-pro-4, deepseek-chat">
+      </div>
+
+      <div class="form-group">
+        <label for="api-whisper-model">Whisper Model Name (语音转写模型)</label>
+        <input type="text" id="api-whisper-model" placeholder="例如：whisper-1 （默认）">
+      </div>
+
+      <div style="display: flex; gap: 12px; margin-top: 12px;">
+        <button class="btn btn-secondary" id="btn-cancel-config" style="flex: 1;">取消</button>
+        <button class="btn btn-primary" id="btn-save-config" style="flex: 1;">保存配置</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Toast -->
+  <div class="toast-msg" id="toast-message">提示内容</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

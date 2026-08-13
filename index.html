@@ -181,17 +181,23 @@
       footer { border-color: #21262d; }
     }
 
-    /* 两栏布局 */
+    /* 三栏布局 */
     .columns-container {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
       margin-top: 28px;
+    }
+    @media (max-width: 1024px) {
+      .columns-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
     }
     @media (max-width: 768px) {
       .columns-container {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 16px;
       }
     }
     .col-header {
@@ -213,6 +219,15 @@
       color: #16a34a;
       border-bottom-color: rgba(22, 163, 74, 0.2);
     }
+    .col.agent-col .col-header {
+      color: #8b5cf6;
+      border-bottom-color: rgba(139, 92, 246, 0.2);
+    }
+    .badge-purple {
+      color: #8b5cf6;
+      background: #f3e8ff;
+      border: 1px solid #e9d5ff;
+    }
     @media (prefers-color-scheme: dark) {
       .col-header {
         border-color: #30363d;
@@ -222,6 +237,14 @@
       }
       .col.onepage-col .col-header {
         color: #3fb950;
+      }
+      .col.agent-col .col-header {
+        color: #a78bfa;
+      }
+      .badge-purple {
+        background: #3b0764;
+        border-color: #8b5cf6;
+        color: #c084fc;
       }
     }
   </style>
@@ -330,6 +353,29 @@
           <li><a href="onepage-fraction-division/">U5 · 分数除法的所有考点 (北师大 5 下)</a></li>
           <li><a href="onepage-fraction-multiplication/">U3 · 分数乘法的所有考点 (北师大 5 下)</a></li>
           <li><a href="onepage-fractions/">U1 · 分数加减法的所有考点 (北师大 5 下)</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right Column: Agent Web -->
+    <div class="col agent-col">
+      <h2 class="col-header">🤖 智能网页 · Agent Web</h2>
+      
+      <div class="day-group">
+        <div class="day-header today">2026-08-13<span class="rel">今天</span></div>
+        <ul class="day-items">
+          <li>
+            <a href="数学说题点评系统/">
+              <span>数学说题点评与启发追问系统 (三栏看板)</span>
+              <span class="badge badge-purple">智能体</span>
+            </a>
+          </li>
+          <li>
+            <a href="苏格拉底数学追问智能体/">
+              <span>苏格拉底启发追问画板 (手写推导与提问)</span>
+              <span class="badge badge-purple">画板</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
