@@ -14,16 +14,16 @@
     --line: #e5e7eb;
     --line-2: #f3f4f6;
 
-    /* 5 大模块配色 (AI 紫 & 宝石青) */
-    --m1:    #7c3aed;             /* 01 工作流三步法 : 皇家紫 */
+    /* 5 大模块配色 (AI 皇家紫 & 宝石蓝 & 翡翠绿) */
+    --m1:    #7c3aed;             /* 01 工作流架构 : 皇家紫 */
     --m1-soft: #f5f3ff;
     --m1-deep: #5b21b6;
 
-    --m2:    #0284c7;             /* 02 SOP 评分细则 : 宝石蓝 */
+    --m2:    #0284c7;             /* 02 SOP评分细则 : 宝石蓝 */
     --m2-soft: #f0f9ff;
     --m2-deep: #0369a1;
 
-    --m3:    #059669;             /* 03 产出表结构 : 翡翠绿 */
+    --m3:    #059669;             /* 03 案例与三表 : 翡翠绿 */
     --m3-soft: #ecfdf5;
     --m3-deep: #047857;
 
@@ -48,7 +48,7 @@
   }
 
   .page {
-    max-width: 800px;
+    max-width: 840px;
     margin: 0 auto;
     background: var(--card);
     box-shadow: 0 0 0 1px var(--line);
@@ -60,7 +60,7 @@
     border-bottom: 1px solid var(--line);
     background:
       radial-gradient(ellipse 600px 220px at top right, var(--m1-soft) 0%, transparent 70%),
-      radial-gradient(ellipse 400px 200px at bottom left, var(--m2-soft) 0%, transparent 70%);
+      radial-gradient(ellipse 400px 200px at bottom left, var(--m3-soft) 0%, transparent 70%);
   }
   header .tag {
     display: inline-block;
@@ -231,18 +231,29 @@
   .custom-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 12px 0;
-    font-size: 13.5px;
+    margin: 10px 0;
+    font-size: 13px;
   }
   .custom-table th, .custom-table td {
     border: 1px solid var(--line);
-    padding: 8px 10px;
-    text-align: center;
+    padding: 7px 10px;
+    text-align: left;
   }
   .custom-table th {
     background: var(--line-2);
     font-weight: 700;
     color: var(--ink);
+    text-align: center;
+  }
+
+  /* Sub table title badge */
+  .table-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin-bottom: 6px;
   }
 
   /* Code block */
@@ -290,13 +301,13 @@
   <p class="subtitle">
     从 <span style="color:var(--m1-deep); font-weight:700;">Whisper 语音提取 ASR</span> 到
     <span style="color:var(--m2-deep); font-weight:700;">依据 SOP 规则 AI 盲审评分</span>，再到
-    <span style="color:var(--m3-deep); font-weight:700;">班级名册匹配与荣誉大拇指自动排行</span>。
+    <span style="color:var(--m3-deep); font-weight:700;">班级名册匹配与三张全流程产出表</span>。
   </p>
   <div class="meta">
     <span class="chip">📅 发布时间 <b>2026-08-16</b></span>
     <span class="chip">🤖 Skill 标识 <b>edu-video-evaluation</b></span>
-    <span class="chip">⚡ 核心架构 <b>Whisper + SOP LLM + Pandas</b></span>
-    <span class="chip">📥 状态 <b>支持一键下载配置包</b></span>
+    <span class="chip">⚡ 核心架构 <b>Whisper ASR + SOP LLM + Pandas</b></span>
+    <span class="chip">📥 状态 <b>支持一键下载技能配置包</b></span>
   </div>
 </header>
 
@@ -305,8 +316,8 @@
      ========================================================= -->
 <div class="dl-banner">
   <div class="info">
-    <h3>📥 技能配置文件与模版下载</h3>
-    <p>包含 SKILL.md 声明文件与配套自动化脚本，解压放置在 `.gemini/config/skills/` 即可生效</p>
+    <h3>📥 技能配置文件与模版一键下载</h3>
+    <p>包含 SKILL.md 声明文件与配套自动化脚本，解压放置在 `.gemini/config/skills/` 即可即刻生效</p>
   </div>
   <div class="dl-btns">
     <a href="edu-video-evaluation.zip" class="btn-dl" download>
@@ -335,22 +346,22 @@
     </div>
     <div class="ov b">
       <span class="ico">②</span>
-      <div class="name">SOP 评分细则</div>
-      <div class="en">Rubric SOP</div>
+      <div class="name">SOP 评分与口令</div>
+      <div class="en">Rubric & Prompt</div>
     </div>
     <div class="ov c">
       <span class="ico">③</span>
-      <div class="name">产出表结构</div>
-      <div class="en">Excel Schemas</div>
+      <div class="name">实操案例与三表</div>
+      <div class="en">Case & 3 Tables</div>
     </div>
     <div class="ov d">
       <span class="ico">④</span>
-      <div class="name">部署依赖指南</div>
+      <div class="name">部署环境指南</div>
       <div class="en">Environment</div>
     </div>
     <div class="ov e">
       <span class="ico">⑤</span>
-      <div class="name">优势与防坑点</div>
+      <div class="name">核心优势与注意事项</div>
       <div class="en">Tips & Features</div>
     </div>
   </div>
@@ -413,68 +424,32 @@
       </g>
     </svg>
   </div>
-
-  <!-- 💡 一线教师实操案例 -->
-  <div class="card" style="border-left: 4px solid #f59e0b; background: #fefce8; margin-top: 14px;">
-    <div class="head" style="color: #b45309;">
-      💡 一线教师实操案例：五年级数学《行程问题·说题作业》自动化批改实录
-    </div>
-    <div style="font-size: 13.5px; color: var(--ink-2); line-height: 1.7;">
-      <p style="margin-bottom: 8px;">
-        <b>👩‍🏫 真实教学场景：</b>五年级 505 班（45 人），布置了暑期第 5 次数学说题作业《相遇与追及问题》。学生各自录制 1~2 分钟口述讲解视频上传至文件夹 <code>暑期第5次说题/</code>。
-      </p>
-      
-      <div style="background: white; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 14px; margin: 8px 0;">
-        <div style="font-weight: 700; color: #92400e; margin-bottom: 4px;">💬 教师口令（对 AI 智能体说一句话）：</div>
-        <div style="font-family: monospace; font-size: 12.5px; color: #b45309;">
-          “请帮我处理‘暑期第5次说题’文件夹里的视频，按照SOP打分并与505班名册匹配，生成带大拇指排名的反馈表。”
-        </div>
-      </div>
-
-      <div class="grid-2" style="margin-top: 10px;">
-        <div style="background: #ffffff; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px;">
-          <div style="font-weight: 700; color: #5b21b6; margin-bottom: 4px;">🎬 学生 15 号 (李华) 录制实况：</div>
-          <div style="font-size: 12px; color: var(--ink-2);">
-            • 提交了分段视频 <code>15-1.mp4</code> 与 <code>15-2.mp4</code><br>
-            • <b>AI 自动处理：</b>自动将两段视频人声缝合，将语音口误“相向”自动纠正为学科术语“相向而行”，准确提取全量转写文本。
-          </div>
-        </div>
-
-        <div style="background: #ffffff; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px;">
-          <div style="font-weight: 700; color: #047857; margin-bottom: 4px;">🤖 AI 根据 SOP 产生的自动打分表：</div>
-          <div style="font-size: 12px; color: var(--ink-2);">
-            • <b>总分：19 / 20 分</b> (全班第 2 名)<br>
-            • <b>评语：</b>审题4/思路4/计算3/反思4/表达4。“未知数设法清晰，反思指出了同向而行的区别，计算时脱式未写单位扣1分”。<br>
-            • <b>榜单授予：</b>自动发放 <b>👍👍👍</b> 荣誉奖章。
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top: 10px; font-weight: 700; color: #047857; background: #ecfdf5; padding: 8px 12px; border-radius: 6px; border: 1px solid #a7f3d0;">
-        ⚡ 批改减负效果对比：过去人工看完 45 个视频并逐个写评语需 <b>2.5 小时</b>（极为疲劳） ➔ 现在 AI 自动化全套批改<b>仅需 2 分钟</b>！导出的 Excel 可直接发到班级群。
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- =========================================================
-     MODULE 02 · SOP 评分维度与细则拆解
+     MODULE 02 · SOP 评分细则与教师口令示范
      ========================================================= -->
 <section class="c2">
   <div class="sec-head">
     <span class="sec-num">02</span>
-    <h2>《说题 SOP》5 大打分维度与权重细则</h2>
-    <span class="en">Scoring SOP Dimensions</span>
+    <h2>《说题 SOP》评分细则与教师口令示范</h2>
+    <span class="en">Scoring SOP & Teacher Command Prompt</span>
   </div>
 
   <div class="card" style="border-left: 4px solid var(--m2);">
     <div class="head" style="color:var(--m2-deep)">
+      💬 教师自然语言口令示范（只需说一句话）
+    </div>
+    <div style="background: var(--m2-soft); border: 1px solid #bae6fd; border-radius: 8px; padding: 12px 14px; margin-bottom: 12px;">
+      <div style="font-family: monospace; font-size: 13px; color: var(--m2-deep); font-weight: bold;">
+        “请帮我处理‘暑期第5次说题’文件夹里的学生视频，按照SOP评分细则打分，并与‘五5 6 0816.xlsx’中的505班名册匹配，生成带大拇指排名的反馈表。”
+      </div>
+    </div>
+
+    <div class="head" style="color:var(--m2-deep); margin-top: 14px;">
       <span class="pill" style="background:var(--m2)">原则</span>
       严格依据 SOP 量化标准，无偏见、无外部盲猜打分 (满分 20 分)
     </div>
-    <p style="font-size:13.5px; color:var(--ink-2); margin-bottom:10px;">
-      评审智能体在打分时，必须逐条比对教师提供的 SOP 文件，按 5 个维度（每项 0~4 分）精准扣分并给出评语：
-    </p>
 
     <table class="custom-table">
       <thead>
@@ -516,58 +491,159 @@
 </section>
 
 <!-- =========================================================
-     MODULE 03 · 产出文件表结构与自动化示范
+     MODULE 03 · 真实教学实操案例与三张匿名化产出表格
      ========================================================= -->
 <section class="c3">
   <div class="sec-head">
     <span class="sec-num">03</span>
-    <h2>产出文件表结构与荣誉大拇指榜单</h2>
-    <span class="en">Output Excel Schema & Ranking</span>
+    <h2>真实教学实操案例与三张匿名化产出表格全景</h2>
+    <span class="en">Case Study & 3 Anonymized Process Tables</span>
   </div>
 
-  <div class="card" style="border-left: 4px solid var(--m3);">
-    <div class="head" style="color:var(--m3-deep)">
-      🏆 最终反馈表《&lt;文件夹名&gt;_反馈表.xlsx》标准化列定义
+  <div class="card" style="border-left: 4px solid #f59e0b; background: #fefce8; margin-bottom: 16px;">
+    <div class="head" style="color: #b45309;">
+      💡 一线教师实操场景：五年级数学《行程问题·说题作业》自动化批改实录
     </div>
-    <p style="font-size:13.5px; color:var(--ink-2); line-height: 1.7;">
-      工作流会自动与用户工作目录下的总成绩表（如 `暑期505` 名单 Sheet）进行<b>学号与姓名反向匹配</b>，并生成格式如下的 Excel 反馈表：
+    <div style="font-size: 13.5px; color: var(--ink-2); line-height: 1.7;">
+      <b>👩‍🏫 案例背景：</b>五年级 505 班（45 人），布置了暑期第 5 次数学说题作业《相遇与追及问题》。学生各自录制 1~2 分钟口述视频上传至 `暑期第5次说题/` 文件夹（文件名如 `1.mp4`, `15-1.mp4`, `15-2.mp4`）。<br>
+      <b>⚡ 减负对比：</b>传统人工批改 45 个视频需 <b>2.5 小时</b>（疲劳易漏判） ➔ AI 自动化批改<b>仅需 2 分钟</b>并生成以下 3 张过程与结果表格！
+    </div>
+  </div>
+
+  <!-- 表 1 -->
+  <div class="card" style="border-top: 3px solid var(--m1);">
+    <span class="table-badge" style="background:var(--m1-soft); color:var(--m1-deep); border:1px solid #ddd6fe;">
+      表 1 (Step 1 产出)：《暑期第5次说题_语音转文本.xlsx》
+    </span>
+    <p style="font-size:12.5px; color:var(--ink-2); margin-bottom:6px;">
+      • <b>核心能力：</b>自动识别并拼缝分段视频（如 `15-1`+`15-2`），自动纠正同音字（如“相向而行”）。
     </p>
 
     <table class="custom-table">
       <thead>
         <tr>
-          <th>学号</th>
-          <th>姓名</th>
-          <th>视频序号</th>
-          <th>说题总分</th>
-          <th>本班说题最高分 (荣誉榜)</th>
-          <th>多维度详细打分及评语</th>
+          <th style="width:15%;">视频序号</th>
+          <th style="width:85%;">语音转文本 (Whisper 识别与同音词纠错)</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>50501</td>
-          <td><b>张小明</b></td>
-          <td>12</td>
-          <td><b style="color:#059669;">20 /20</b></td>
-          <td><span style="font-size:16px;">👍👍👍👍👍</span> (第一名)</td>
-          <td style="text-anchor:left; font-size:12px;">审题清晰:4/4; 思路正确:4/4; 计算规范:4/4; 反思深刻:4/4; 表达流畅:4/4。总评：逻辑非常清晰，主动提出了检验验算方法！</td>
+          <td style="text-align:center;"><b>15</b></td>
+          <td>大家好，我是15号。今天我说题的题目是行程问题。已知小明和小华相距500米<b>相向而行</b>，小明速度50米每分，小华速度60米每分…我们设经过x分钟相遇，列出方程 50x + 60x = 550…求解得到 x = 5…如果两个人是同向而行，追及方程就不一样了…</td>
         </tr>
         <tr>
-          <td>50508</td>
-          <td><b>李华</b></td>
-          <td>05</td>
-          <td><b style="color:#0284c7;">19 /20</b></td>
-          <td><span style="font-size:16px;">👍👍👍</span> (第二名)</td>
-          <td style="text-anchor:left; font-size:12px;">审题清晰:4/4; 思路正确:4/4; 计算规范:4/4; 反思深刻:3/4; 表达流畅:4/4。总评：表达生动，反思环节如能总结易错点会更好。</td>
+          <td style="text-align:center;"><b>03</b></td>
+          <td>大家好，我是03号。题目要求已知圆的半径是3厘米，求半圆的周长。首先半圆的弧长是 3.14 乘以 3 等于 9.42 厘米，但是半圆封闭图形还要加上底边的直径 6 厘米，所以总周长等于 15.42 厘米…</td>
         </tr>
         <tr>
-          <td>50515</td>
-          <td><b>王强</b></td>
-          <td>03</td>
-          <td><b style="color:#d97706;">18 /20</b></td>
-          <td><span style="font-size:16px;">👍</span> (第三名)</td>
-          <td style="text-anchor:left; font-size:12px;">审题清晰:4/4; 思路正确:4/4; 计算规范:3/4; 反思深刻:3/4; 表达流畅:4/4。总评：整体顺畅，计算过程中同分母化简略有遗漏。</td>
+          <td style="text-align:center;"><b>12</b></td>
+          <td>大家好，我是12号。这道题已知正方形边长 8 厘米，求内切圆的面积。正方形边长等于圆的直径，所以半径是 4 厘米，圆面积等于 3.14 乘以 4 的平方等于 50.24 平方厘米…四周四个角的阴影面积等于正方形面积减去圆面积等于 13.76 平方厘米…</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 表 2 -->
+  <div class="card" style="border-top: 3px solid var(--m2);">
+    <span class="table-badge" style="background:var(--m2-soft); color:var(--m2-deep); border:1px solid #bae6fd;">
+      表 2 (Step 2 产出)：《暑期第5次说题_包含评审结果.xlsx》
+    </span>
+    <p style="font-size:12.5px; color:var(--ink-2); margin-bottom:6px;">
+      • <b>核心能力：</b>依据 SOP 对转写文本进行 5 维度量化评分，并自动撰写细致优缺点评语。
+    </p>
+
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th style="width:10%;">序号</th>
+          <th style="width:12%;">【总分】</th>
+          <th style="width:10%;">审题</th>
+          <th style="width:10%;">思路</th>
+          <th style="width:10%;">计算</th>
+          <th style="width:10%;">反思</th>
+          <th style="width:10%;">表达</th>
+          <th style="width:28%;">【简短总评】</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:center;"><b>15</b></td>
+          <td style="text-align:center;"><b style="color:#0284c7;">19 /20</b></td>
+          <td style="text-align:center;">4/4</td>
+          <td style="text-align:center;">4/4</td>
+          <td style="text-align:center;">3/4</td>
+          <td style="text-align:center;">4/4</td>
+          <td style="text-align:center;">4/4</td>
+          <td style="font-size:12px;">未知数设法清晰，反思环节主动对比了同向而行的区别，计算时脱式未口述单位扣 1 分。鼓励继续保持！</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;"><b>03</b></td>
+          <td style="text-align:center;"><b style="color:#d97706;">18 /20</b></td>
+          <td style="text-align:center;">4/4</td>
+          <td style="text-align:center;">4/4</td>
+          <td style="text-align:center;">3/4</td>
+          <td style="text-align:center;">3/4</td>
+          <td style="text-align:center;">4/4</td>
+          <td style="font-size:12px;">准确注意到了半圆周长需加底边直径，展现了很好的避坑防错意识！计算脱式化简略有卡顿。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;"><b>12</b></td>
+          <td style="text-align:center;"><b style="color:#059669;">20 /20</b></td>
+          <td style="text-align:center;">4/4</td>
+          <td style="text-align:center;">4/4</td>
+          <td style="text-align:center;">4/4</td>
+          <td style="text-align:center;">4/4</td>
+          <td style="text-align:center;">4/4</td>
+          <td style="font-size:12px;">完美解答！不仅准确求出圆面积，还主动拓展了外方内圆阴影面积的计算，思路非常开阔！</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 表 3 -->
+  <div class="card" style="border-top: 3px solid var(--m3);">
+    <span class="table-badge" style="background:var(--m3-soft); color:var(--m3-deep); border:1px solid #a7f3d0;">
+      表 3 (Step 3 产出)：《暑期第5次说题_反馈表.xlsx》 (最终带名单匹配与荣誉大拇指)
+    </span>
+    <p style="font-size:12.5px; color:var(--ink-2); margin-bottom:6px;">
+      • <b>核心能力：</b>匹配学号姓名、按总分降序排列，Top 1~3 自动颁发荣誉大拇指奖章。
+    </p>
+
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th style="width:12%;">学号</th>
+          <th style="width:12%;">姓名</th>
+          <th style="width:10%;">序号</th>
+          <th style="width:14%;">说题总分</th>
+          <th style="width:22%;">本班说题最高分 (荣誉榜)</th>
+          <th style="width:30%;">多维度打分及详细评语</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:center;">50512</td>
+          <td style="text-align:center;"><b>张小明</b></td>
+          <td style="text-align:center;">12</td>
+          <td style="text-align:center;"><b style="color:#059669;">20 /20</b></td>
+          <td style="text-align:center;"><span style="font-size:15px;">👍👍👍👍👍</span> (第一名)</td>
+          <td style="font-size:12px;">完美解答！拓展了外方内圆阴影面积计算，逻辑极其严密。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;">50515</td>
+          <td style="text-align:center;"><b>李华</b></td>
+          <td style="text-align:center;">15</td>
+          <td style="text-align:center;"><b style="color:#0284c7;">19 /20</b></td>
+          <td style="text-align:center;"><span style="font-size:15px;">👍👍👍</span> (第二名)</td>
+          <td style="font-size:12px;">思路清晰，主动复盘同向而行区别。计算脱式口述未写单位扣1分。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;">50503</td>
+          <td style="text-align:center;"><b>王强</b></td>
+          <td style="text-align:center;">03</td>
+          <td style="text-align:center;"><b style="color:#d97706;">18 /20</b></td>
+          <td style="text-align:center;"><span style="font-size:15px;">👍</span> (第三名)</td>
+          <td style="font-size:12px;">准确避开了半圆周长漏加直径的陷阱，防错意识极强！</td>
         </tr>
       </tbody>
     </table>
