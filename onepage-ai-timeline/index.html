@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 发展史核心时间节点与技术演进全景 · 一页纸</title>
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --ink: #0f172a;
+    --ink-2: #334155;
+    --ink-3: #64748b;
+    --ink-4: #94a3b8;
+    --line: #e2e8f0;
+    --line-2: #f1f5f9;
+
+    /* 5 大纪元主题配色 */
+    --e1: #6366f1; /* 1950-1974 符号逻辑与萌芽 : 靛蓝 */
+    --e1-soft: #eef2ff;
+    --e1-deep: #4338ca;
+
+    --e2: #0284c7; /* 1980-1997 专家系统与联结复苏 : 天蓝 */
+    --e2-soft: #f0f9ff;
+    --e2-deep: #0369a1;
+
+    --e3: #0d9488; /* 2006-2017 统计学习与深度革命 : 湖绿 */
+    --e3-soft: #f0fdfa;
+    --e3-deep: #0f766e;
+
+    --e4: #8b5cf6; /* 2018-2023 大模型与生成式狂潮 : 幻紫 */
+    --e4-soft: #f5f3ff;
+    --e4-deep: #6d28d9;
+
+    --e5: #f43f5e; /* 2024-至今 推理时代与具身 AGI : 绯红 */
+    --e5-soft: #fff1f2;
+    --e5-deep: #be123c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Serif SC", "Songti SC", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 14.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 1080px;
+    margin: 20px auto 40px;
+    background: var(--card);
+    border-radius: 16px;
+    box-shadow: 0 4px 24px -2px rgba(15, 23, 42, 0.08), 0 0 0 1px var(--line);
+    overflow: hidden;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 40px 48px 28px;
+    background: radial-gradient(ellipse 700px 300px at top right, rgba(99, 102, 241, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 250px at bottom left, rgba(244, 63, 94, 0.06) 0%, transparent 70%);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .tag-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .tag {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+  .tag-purple { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+  .tag-blue { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+  .tag-red { background: #ffe4e6; color: #9f1239; border: 1px solid #fecdd3; }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+  .btn-print {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: white;
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn-print:hover {
+    background: var(--line-2);
+    color: var(--ink);
+    border-color: var(--ink-4);
+  }
+
+  header h1 {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  header h1 span.highlight {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #e11d48 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  header p.subtitle {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    max-width: 860px;
+    line-height: 1.65;
+  }
+
+  .summary-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .metric-card {
+    background: white;
+    border: 1px solid var(--line);
+    padding: 12px 16px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+  .metric-card .num {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .metric-card .num small {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-3);
+  }
+  .metric-card .label {
+    font-size: 12px;
+    color: var(--ink-3);
+    margin-top: 2px;
+  }
+
+  /* ---------- Nav / Filter Bar ---------- */
+  .timeline-nav {
+    display: flex;
+    overflow-x: auto;
+    padding: 12px 48px;
+    background: white;
+    border-bottom: 1px solid var(--line);
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.95);
+  }
+  .nav-btn {
+    border: 1px solid var(--line);
+    background: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nav-btn .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .nav-btn:hover {
+    border-color: var(--ink-3);
+  }
+  .nav-btn.active {
+    background: var(--ink);
+    color: white;
+    border-color: var(--ink);
+  }
+  .nav-btn.active .dot { background: #38bdf8 !important; }
+
+  /* ---------- Content Body ---------- */
+  .content {
+    padding: 36px 48px;
+  }
+
+  .section-title {
+    font-size: 19px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .section-title::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: #6366f1;
+    border-radius: 2px;
+  }
+
+  /* ---------- Timeline Layout ---------- */
+  .era-container {
+    margin-bottom: 36px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: white;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+  }
+  .era-container:hover {
+    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.06);
+  }
+
+  .era-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    user-select: none;
+  }
+  .era-1 .era-header { background: var(--e1-soft); border-bottom-color: #e0e7ff; }
+  .era-2 .era-header { background: var(--e2-soft); border-bottom-color: #bae6fd; }
+  .era-3 .era-header { background: var(--e3-soft); border-bottom-color: #ccfbf1; }
+  .era-4 .era-header { background: var(--e4-soft); border-bottom-color: #ede9fe; }
+  .era-5 .era-header { background: var(--e5-soft); border-bottom-color: #ffe4e6; }
+
+  .era-title-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .era-badge {
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    color: white;
+    letter-spacing: 0.04em;
+  }
+  .era-1 .era-badge { background: var(--e1); }
+  .era-2 .era-badge { background: var(--e2); }
+  .era-3 .era-badge { background: var(--e3); }
+  .era-4 .era-badge { background: var(--e4); }
+  .era-5 .era-badge { background: var(--e5); }
+
+  .era-name {
+    font-size: 16.5px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .era-summary {
+    font-size: 13px;
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+
+  .timeline-list {
+    padding: 24px 28px 12px;
+    position: relative;
+  }
+  .timeline-list::before {
+    content: "";
+    position: absolute;
+    top: 32px;
+    bottom: 24px;
+    left: 120px;
+    width: 2px;
+    background: var(--line);
+  }
+
+  .timeline-item {
+    display: flex;
+    position: relative;
+    margin-bottom: 22px;
+    align-items: flex-start;
+  }
+  .timeline-item:last-child {
+    margin-bottom: 8px;
+  }
+
+  .timeline-year {
+    width: 80px;
+    flex-shrink: 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--ink);
+    text-align: right;
+    padding-right: 20px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+  .timeline-node {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #64748b;
+    position: absolute;
+    left: 114px;
+    top: 4px;
+    z-index: 2;
+    transition: transform 0.15s ease;
+  }
+  .era-1 .timeline-node { border-color: var(--e1); }
+  .era-2 .timeline-node { border-color: var(--e2); }
+  .era-3 .timeline-node { border-color: var(--e3); }
+  .era-4 .timeline-node { border-color: var(--e4); }
+  .era-5 .timeline-node { border-color: var(--e5); }
+  .timeline-item:hover .timeline-node {
+    transform: scale(1.35);
+  }
+
+  .timeline-body {
+    margin-left: 42px;
+    background: #f8fafc;
+    border: 1px solid var(--line-2);
+    padding: 12px 18px;
+    border-radius: 10px;
+    flex: 1;
+    transition: all 0.15s ease;
+  }
+  .timeline-item:hover .timeline-body {
+    background: white;
+    border-color: var(--line);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .item-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+  .item-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .item-tag {
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: #e2e8f0;
+    color: #475569;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .item-desc {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+  .item-people {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .item-people b {
+    color: var(--ink-2);
+  }
+
+  /* 寒冬警告条 */
+  .winter-alert {
+    margin: 16px 0 20px 42px;
+    background: #fef2f2;
+    border-left: 4px solid #ef4444;
+    padding: 10px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 12.5px;
+    color: #991b1b;
+  }
+  .winter-alert b { color: #7f1d1d; }
+
+  /* ---------- 4 大范式转移表 ---------- */
+  .paradigm-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    margin-bottom: 36px;
+  }
+  table.paradigm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    text-align: left;
+    background: white;
+  }
+  table.paradigm-table th {
+    background: #f1f5f9;
+    padding: 12px 16px;
+    font-weight: 700;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  table.paradigm-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line-2);
+    color: var(--ink-2);
+    vertical-align: top;
+  }
+  table.paradigm-table tr:last-child td {
+    border-bottom: none;
+  }
+  table.paradigm-table tr:hover td {
+    background: #fafafa;
+  }
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+  .pill-p1 { background: #e0e7ff; color: #3730a3; }
+  .pill-p2 { background: #e0f2fe; color: #075985; }
+  .pill-p3 { background: #ccfbf1; color: #115e59; }
+  .pill-p4 { background: #fae8ff; color: #86198f; }
+
+  /* ---------- 三要素与驱动力 ---------- */
+  .trio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  .trio-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px;
+    background: white;
+  }
+  .trio-card h3 {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .trio-card p {
+    font-size: 12.8px;
+    color: var(--ink-2);
+    line-height: 1.6;
+  }
+  .trio-card ul {
+    margin-top: 10px;
+    padding-left: 18px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+  .trio-card li {
+    margin-bottom: 4px;
+  }
+
+  /* ---------- 核心启示与未来展望 ---------- */
+  .takeaway-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .takeaway-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px;
+    background: #f8fafc;
+  }
+  .takeaway-card.gold {
+    background: #fffbeb;
+    border-color: #fef3c7;
+  }
+  .takeaway-card.purple {
+    background: #faf5ff;
+    border-color: #f3e8ff;
+  }
+  .takeaway-card h4 {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .takeaway-card p {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.6;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 24px 48px 32px;
+    border-top: 1px solid var(--line);
+    background: #f8fafc;
+    text-align: center;
+    color: var(--ink-3);
+    font-size: 12.5px;
+  }
+  footer a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* ---------- Print & Responsive Styles ---------- */
+  @media print {
+    body { background: white; }
+    .page { margin: 0; box-shadow: none; max-width: 100%; border: none; }
+    .timeline-nav, .btn-print { display: none; }
+    header { padding: 20px 24px 16px; }
+    .content { padding: 20px 24px; }
+    .timeline-list::before { left: 95px; }
+    .timeline-year { width: 65px; font-size: 13px; }
+    .timeline-node { left: 89px; }
+    .timeline-body { margin-left: 32px; }
+    .era-container { break-inside: avoid; margin-bottom: 20px; }
+    .trio-grid, .takeaway-grid { break-inside: avoid; }
+  }
+
+  @media (max-width: 768px) {
+    header { padding: 24px 20px; }
+    .content { padding: 20px 16px; }
+    .timeline-nav { padding: 10px 16px; }
+    .summary-metrics { grid-template-columns: repeat(2, 1fr); }
+    .trio-grid { grid-template-columns: 1fr; }
+    .takeaway-grid { grid-template-columns: 1fr; }
+    .timeline-list::before { left: 75px; }
+    .timeline-year { width: 55px; font-size: 13px; padding-right: 12px; }
+    .timeline-node { left: 69px; }
+    .timeline-body { margin-left: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <div class="header-top">
+      <div class="tag-group">
+        <span class="tag tag-purple">AI 核心技术演进</span>
+        <span class="tag tag-blue">从图灵测试到 AGI</span>
+        <span class="tag tag-red">大模型与推理时代</span>
+      </div>
+      <div class="actions">
+        <button class="btn-print" onclick="window.print()">🖨️ 打印 / 存为 PDF</button>
+      </div>
+    </div>
+
+    <h1>🤖 人工智能发展史 <span class="highlight">核心时间节点与演进全景</span> · 一页纸</h1>
+    <p class="subtitle">
+      纵览 70 余年 AI 探索历程：从 1950 年图灵之问、1956 年达特茅斯确立学科，历经“两次低谷与三次回潮”，跨越符号逻辑、专家系统、深度表征学习，全面跃进至大语言模型（LLM）、强化推理（Reasoning）与具身智能（Embodied AI）时代。
+    </p>
+
+    <div class="summary-metrics">
+      <div class="metric-card">
+        <div class="num">75+ <small>年</small></div>
+        <div class="label">学科跨度 (1950 - 2026)</div>
+      </div>
+      <div class="metric-card">
+        <div class="num">5 <small>大纪元</small></div>
+        <div class="label">演进历程与范式转移</div>
+      </div>
+      <div class="metric-card">
+        <div class="num">2 <small>次寒冬</small></div>
+        <div class="label">技术泡沫与破局重生</div>
+      </div>
+      <div class="metric-card">
+        <div class="num">3 <small>大要素</small></div>
+        <div class="label">算力 × 算法 × 海量数据</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Filter Navigation -->
+  <div class="timeline-nav">
+    <button class="nav-btn active" onclick="filterEra('all', this)"><span class="dot" style="background:#64748b"></span>全部时间线</button>
+    <button class="nav-btn" onclick="filterEra('era-1', this)"><span class="dot" style="background:var(--e1)"></span>① 萌芽与逻辑 (1950-1974)</button>
+    <button class="nav-btn" onclick="filterEra('era-2', this)"><span class="dot" style="background:var(--e2)"></span>② 专家与联结复苏 (1980-1997)</button>
+    <button class="nav-btn" onclick="filterEra('era-3', this)"><span class="dot" style="background:var(--e3)"></span>③ 深度学习爆发 (2006-2017)</button>
+    <button class="nav-btn" onclick="filterEra('era-4', this)"><span class="dot" style="background:var(--e4)"></span>④ 大模型与生成式 (2018-2023)</button>
+    <button class="nav-btn" onclick="filterEra('era-5', this)"><span class="dot" style="background:var(--e5)"></span>⑤ 推理与具身 AGI (2024-至今)</button>
+  </div>
+
+  <div class="content">
+
+    <!-- 01 萌芽与逻辑主义 -->
+    <div class="era-container era-1" id="era-1">
+      <div class="era-header">
+        <div class="era-title-box">
+          <span class="era-badge">纪元 01</span>
+          <span class="era-name">萌芽与逻辑主义 · 概念奠基期</span>
+        </div>
+        <span class="era-summary">1950 — 1974 · 机器思考之梦与符号推理的探索</span>
+      </div>
+      <div class="timeline-list">
+
+        <div class="timeline-item">
+          <div class="timeline-year">1950</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">图灵提出“图灵测试” (Turing Test)</span>
+              <span class="item-tag">哲学与基石</span>
+            </div>
+            <div class="item-desc">阿兰·图灵 (Alan Turing) 发表划时代论文《计算机器与智能》，提出著名的“模仿游戏”，探讨“机器能思考吗？”，奠定了人工智能的哲学与评测基石。</div>
+            <div class="item-people">👤 核心人物：<b>Alan Turing</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1956</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">达特茅斯会议 (Dartmouth Workshop) · AI 学科诞生</span>
+              <span class="item-tag">学科确立</span>
+            </div>
+            <div class="item-desc">麦卡锡、明斯基、罗切斯特、香农等人在达特茅斯学院举办研讨会，<b>首次提出“Artificial Intelligence (人工智能)”</b>术语，标志着 AI 成为一门独立科学。</div>
+            <div class="item-people">👤 核心人物：<b>John McCarthy, Marvin Minsky, Claude Shannon, Herbert Simon</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1957</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">感知机 (Perceptron) 诞生</span>
+              <span class="item-tag">神经网络原型</span>
+            </div>
+            <div class="item-desc">罗森布拉特发明第一台人工神经网络硬件“感知机”，实现了简单的二分类线性学习，掀起联结主义第一波高潮。</div>
+            <div class="item-people">👤 核心人物：<b>Frank Rosenblatt</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1966</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">ELIZA · 首个自然语言对话程序</span>
+              <span class="item-tag">NLP 早期探索</span>
+            </div>
+            <div class="item-desc">MIT 教授魏泽鲍姆开发 ELIZA 心理咨询聊天机器人，通过模式匹配与脚本规则模拟人类对话，引发早期“人机情感投射”。</div>
+            <div class="item-people">👤 核心人物：<b>Joseph Weizenbaum</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1969</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">《Perceptrons》出版 · 揭示单层感知机局限</span>
+              <span class="item-tag">理论瓶颈</span>
+            </div>
+            <div class="item-desc">明斯基与佩珀特证明单层感知机无法解决基础的“异或 (XOR)”线性不可分问题，加之计算机硬件极为薄弱，导致科研界与资方失去信心。</div>
+            <div class="item-people">👤 核心人物：<b>Marvin Minsky, Seymour Papert</b></div>
+          </div>
+        </div>
+
+        <!-- 寒冬 1 -->
+        <div class="winter-alert">
+          ❄️ <b>第一次 AI 寒冬 (1974 — 1980)</b>：Lighthill 报告批评 AI 进展缓慢，美国 DARPA 撤减大量基础研究资助，符号推导受限于“组合爆炸”，联结主义研究基本停滞。
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 02 专家系统与联结复苏 -->
+    <div class="era-container era-2" id="era-2">
+      <div class="era-header">
+        <div class="era-title-box">
+          <span class="era-badge">纪元 02</span>
+          <span class="era-name">专家系统与联结复苏 · 知识工程期</span>
+        </div>
+        <span class="era-summary">1980 — 1997 · 知识库规则、BP 破局与深蓝击败棋王</span>
+      </div>
+      <div class="timeline-list">
+
+        <div class="timeline-item">
+          <div class="timeline-year">1980</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">专家系统 (Expert Systems) 商业化繁荣</span>
+              <span class="item-tag">知识工程</span>
+            </div>
+            <div class="item-desc">以 XCON/R1、MYCIN 为代表的专家系统进入企业商业落地，通过“If-Then 规则库 + 推理机”模拟人类专家决策，开创知识工程繁荣期。</div>
+            <div class="item-people">👤 核心人物：<b>Edward Feigenbaum</b> (专家系统之父)</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1986</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">反向传播算法 (Backpropagation) 普及</span>
+              <span class="item-tag">训练核心突破</span>
+            </div>
+            <div class="item-desc">Hinton、Rumelhart、Williams 在《Nature》发表论文，系统化应用反向传播算法训练多层神经网络 (MLP)，彻底攻克 XOR 瓶颈。</div>
+            <div class="item-people">👤 核心人物：<b>Geoffrey Hinton, David Rumelhart</b></div>
+          </div>
+        </div>
+
+        <!-- 寒冬 2 -->
+        <div class="winter-alert">
+          ❄️ <b>第二次 AI 寒冬 (1987 — 1993)</b>：专用 Lisp 机器市场被低成本通用个人电脑 (PC) 击溃，专家系统规则库维护极其昂贵且缺乏常识泛化能力，商业泡沫破裂。
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1989</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">CNN 卷积神经网络用于手写识别 (LeNet)</span>
+              <span class="item-tag">计算机视觉</span>
+            </div>
+            <div class="item-desc">Yann LeCun 将反向传播与局部感受野、权值共享结合，打造 LeNet-5，成功应用于美国邮政系统手写支票与邮政编码识别。</div>
+            <div class="item-people">👤 核心人物：<b>Yann LeCun</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1997</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">IBM 深蓝 (Deep Blue) 战胜世界棋王 & LSTM 诞生</span>
+              <span class="item-tag">算力博弈 / 时序建模</span>
+            </div>
+            <div class="item-desc">IBM 深蓝通过专用超级计算硬件与极大极小值 Alpha-Beta 剪枝搜索战胜国际象棋特级大师卡斯帕罗夫；同年 Hochreiter 和 Schmidhuber 提出长短期记忆网络 (LSTM)，解决 RNN 梯度消失难题。</div>
+            <div class="item-people">👤 核心人物：<b>Garry Kasparov, Sepp Hochreiter, Jürgen Schmidhuber</b></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 03 统计学习与深度革命 -->
+    <div class="era-container era-3" id="era-3">
+      <div class="era-header">
+        <div class="era-title-box">
+          <span class="era-badge">纪元 03</span>
+          <span class="era-name">统计学习与深度革命 · 算力与表征期</span>
+        </div>
+        <span class="era-summary">2006 — 2017 · GPU 算力觉醒、ImageNet 奇迹与 Transformer 登场</span>
+      </div>
+      <div class="timeline-list">
+
+        <div class="timeline-item">
+          <div class="timeline-year">2006</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">“深度学习”概念正式打响 (Deep Belief Networks)</span>
+              <span class="item-tag">概念觉醒</span>
+            </div>
+            <div class="item-desc">Hinton 发表论文提出通过逐层无监督贪心预训练解决深层网络优化问题，正式确立“深度学习 (Deep Learning)”术语与方向。</div>
+            <div class="item-people">👤 核心人物：<b>Geoffrey Hinton, Ruslan Salakhutdinov</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2012</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">AlexNet 引爆 ImageNet · 深度学习革命全面爆发</span>
+              <span class="item-tag">CV 历史拐点</span>
+            </div>
+            <div class="item-desc">Krizhevsky、Sutskever 和 Hinton 借助 NVIDIA GPU 算力与 ReLU、Dropout 训练深层 CNN，将 ImageNet 图像识别错误率大幅降低 10 个百分点，碾压传统特征工程。</div>
+            <div class="item-people">👤 核心人物：<b>Alex Krizhevsky, Ilya Sutskever, Geoffrey Hinton</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2014</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">生成对抗网络 (GAN) 提出</span>
+              <span class="item-tag">生成式模型</span>
+            </div>
+            <div class="item-desc">Goodfellow 提出由“生成器 (Generator)”与“判别器 (Discriminator)”相互博弈对抗学习的框架，开启生成式 AI 在图像与多媒体创作领域的狂飙。</div>
+            <div class="item-people">👤 核心人物：<b>Ian Goodfellow</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2016</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">AlphaGo 击败世界围棋冠军李世石</span>
+              <span class="item-tag">深度强化学习</span>
+            </div>
+            <div class="item-desc">DeepMind 研发的 AlphaGo 融合深度卷积神经网络、蒙特卡洛树搜索 (MCTS) 与强化学习自我对弈，以 4:1 击败李世石，攻克曾被认为机器数十年无法逾越的围棋堡垒。</div>
+            <div class="item-people">👤 核心人物：<b>Demis Hassabis, David Silver</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2017</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">Google 提出 Transformer 架构 (Attention Is All You Need)</span>
+              <span class="item-tag">现代大模型基石</span>
+            </div>
+            <div class="item-desc">抛弃传统循环与卷积，提出纯自注意力机制 (Self-Attention)，具备极高并行计算效率与长距离上下文捕捉能力，成为后续所有现代大语言模型和多模态模型的统一底层骨干。</div>
+            <div class="item-people">👤 核心论文：<b>Ashish Vaswani, Noam Shazeer, Niki Parmar 等 8 人</b></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 04 大模型与生成式狂潮 -->
+    <div class="era-container era-4" id="era-4">
+      <div class="era-header">
+        <div class="era-title-box">
+          <span class="era-badge">纪元 04</span>
+          <span class="era-name">大模型与生成式狂潮 · 规模化涌现期</span>
+        </div>
+        <span class="era-summary">2018 — 2023 · Scaling Law、ChatGPT、全球开源与多模态</span>
+      </div>
+      <div class="timeline-list">
+
+        <div class="timeline-item">
+          <div class="timeline-year">2018</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">BERT 与 GPT-1 开启“预训练 + 微调”双雄时代</span>
+              <span class="item-tag">NLP 统一范式</span>
+            </div>
+            <div class="item-desc">Google 推出基于双向 Encoder 的 BERT，刷新 11 项 NLP 纪录；OpenAI 坚持 Decoder-only 自回归单向语言建模并发布 GPT-1，确立大模型两大演进路径。</div>
+            <div class="item-people">👤 代表机构：<b>Google AI, OpenAI</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2020</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">GPT-3 发布 · 1750 亿参数与 Scaling Law 涌现</span>
+              <span class="item-tag">少样本 / In-Context</span>
+            </div>
+            <div class="item-desc">参数量暴增至 175B，展现出惊人的上下文学习能力 (In-Context Learning) 与少样本/零样本泛化，Kaplan 等人系统提出神经语言模型扩展定律 (Scaling Law)。</div>
+            <div class="item-people">👤 核心人物：<b>Tom Brown, Jared Kaplan, Sam Altman</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2022.11</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">ChatGPT 惊艳全球 · 人工智能迎来“iPhone 时刻”</span>
+              <span class="item-tag">RLHF 对齐 / 全球破圈</span>
+            </div>
+            <div class="item-desc">OpenAI 结合指令微调 (Instruction Tuning) 与基于人类反馈的强化学习 (RLHF)，推出 ChatGPT。仅用 2 个月月活突破 1 亿，成为人类历史上增长最快的消费级应用。</div>
+            <div class="item-people">👤 核心人物：<b>OpenAI 团队 (John Schulman, Ilya Sutskever 等)</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2023</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">GPT-4 标杆确立 & Meta LLaMA 开源生态爆发</span>
+              <span class="item-tag">多模态与开源盛宴</span>
+            </div>
+            <div class="item-desc">2023 年 3 月 OpenAI 发布 GPT-4，在各项专业考试中达到人类前 10% 水平；Meta 开源 LLaMA 系列引发全球开源大模型百花齐放；Google 发布原生多模态 Gemini 体系。</div>
+            <div class="item-people">👤 代表产品：<b>GPT-4, LLaMA-1/2, Claude 2, Gemini 1.0</b></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 05 推理时代与具身 AGI -->
+    <div class="era-container era-5" id="era-5">
+      <div class="era-header">
+        <div class="era-title-box">
+          <span class="era-badge">纪元 05</span>
+          <span class="era-name">推理时代与具身 AGI · 深度思考与物理世界</span>
+        </div>
+        <span class="era-summary">2024 — 至今 · Test-Time Compute (慢思考)、开源高效推理与物理实体落地</span>
+      </div>
+      <div class="timeline-list">
+
+        <div class="timeline-item">
+          <div class="timeline-year">2024.02</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">OpenAI Sora 惊艳发布 · 视频生成与世界模拟器</span>
+              <span class="item-tag">Diffusion Transformer</span>
+            </div>
+            <div class="item-desc">将 Diffusion 与 Transformer (DiT) 深度融合，支持长达 60 秒的高清、物理一致性连贯视频生成，展现了 AI 对 3D 物理世界几何与运动规律的深层学习潜力。</div>
+            <div class="item-people">👤 核心技术：<b>Diffusion Transformer (DiT), Spacetime Patches</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2024.09</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">OpenAI o1 开启强化推理范式 (System 2 Thinking)</span>
+              <span class="item-tag">测试期算力 Scaling</span>
+            </div>
+            <div class="item-desc">引入强化学习自我反思机制与思维链 (Chain-of-Thought)，从单纯依靠预训练参数量规模 (Pre-training Compute) 拓展到测试期思考算力扩展 (Test-time Compute Scaling)，在数学、奥赛与编程推理中取得突破。</div>
+            <div class="item-people">👤 范式转变：<b>强化学习推理 + 隐式长思维链</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2024-2025</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">DeepSeek-V3 / R1 震撼开源 · 纯 RL 与高能效架构破局</span>
+              <span class="item-tag">开源推理与工程奇迹</span>
+            </div>
+            <div class="item-desc">提出 DeepSeek-R1（利用纯强化学习冷启动自我涌现长推理链）与 DeepSeek-V3（MLA 多头潜在注意力 + DeepSeekMoE + FP8 混合精度训练），以极致算力性价比媲美顶尖闭源模型，引发全球 AI 行业巨震。</div>
+            <div class="item-people">👤 核心创新：<b>MLA / 细粒度 MoE / 纯 RL 推理蒸馏</b></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2025-2026</div>
+          <div class="timeline-node"></div>
+          <div class="timeline-body">
+            <div class="item-head">
+              <span class="item-title">具身智能 (Embodied AI) 与 自主智能体 (Agentic AI) 迈向 AGI</span>
+              <span class="item-tag">未来图景</span>
+            </div>
+            <div class="item-desc">从虚拟屏幕走向真实物理空间：VLA (Vision-Language-Action) 端到端大模型赋能人形机器人与无人驾驶；多智能体协同、自主工具调用与软硬件闭环成为通往通用人工智能 (AGI) 的前沿主干道。</div>
+            <div class="item-people">👤 前沿领域：<b>Figure, Tesla Optimus, Boston Dynamics, Autonomous Agents</b></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 06 四大核心范式对比 -->
+    <h2 class="section-title">📊 人工智能四大范式演进对比 (The 4 Paradigm Shifts)</h2>
+    <div class="paradigm-table-wrap">
+      <table class="paradigm-table">
+        <thead>
+          <tr>
+            <th>演进范式</th>
+            <th>代表时代</th>
+            <th>核心驱动机制</th>
+            <th>知识与数据获取方式</th>
+            <th>优势与突破</th>
+            <th>主要瓶颈与痛点</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="pill pill-p1">① 符号主义 / 逻辑推理</span></td>
+            <td>1950s - 1970s</td>
+            <td>一阶谓词逻辑、产生式系统、搜索树</td>
+            <td>人类专家手工形式化编码规则库</td>
+            <td>解释性极强，定理证明与受限领域严密</td>
+            <td>“组合爆炸”、缺乏常识、无法处理模糊信息</td>
+          </tr>
+          <tr>
+            <td><span class="pill pill-p2">② 统计机器学习</span></td>
+            <td>1980s - 2000s</td>
+            <td>SVM、决策树/随机森林、贝叶斯、朴素ANN</td>
+            <td>手工设计特征工程 (Feature Engineering)</td>
+            <td>具有严谨统计理论支持，工业落地泛化稳定</td>
+            <td>高度依赖人类特征设计，深层表征能力不足</td>
+          </tr>
+          <tr>
+            <td><span class="pill pill-p3">③ 深度表征学习</span></td>
+            <td>2010s - 2020s</td>
+            <td>深层 CNN、RNN/LSTM、Transformer 预训练</td>
+            <td>端到端自动从原始海量数据中提取多层特征</td>
+            <td>彻底颠覆图像、语音、机器翻译等感知任务</td>
+            <td>数据与算力吞吐巨大，缺乏因果推理与慢思考</td>
+          </tr>
+          <tr>
+            <td><span class="pill pill-p4">④ 基础大模型与强化推理</span></td>
+            <td>2022 至今</td>
+            <td>Scaling Law + MoE + RL 强化慢思考 + Agent</td>
+            <td>全网多模态语料无监督预训练 + 强化环境自我对弈</td>
+            <td>通识能力、跨领域泛化、自主反思规划与工具调用</td>
+            <td>幻觉控制、对齐安全、巨额训练能耗与物理交互验证</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 07 AI 演进的三大支柱驱动力 -->
+    <h2 class="section-title">⚙️ AI 持续爆发的三大底层引擎 (The Core Drivers)</h2>
+    <div class="trio-grid">
+      <div class="trio-card">
+        <h3>🧮 算力 (Compute)</h3>
+        <p>从手工打孔纸带到单核 CPU，再到 GPU 并行矩阵运算、专用 TPU/NPU 芯片，以及超大规模集群（万卡/十万卡集群 FP8/FP4 混合精度并行加速），算力指数级提升构成了大模型 Scaling 的物理根基。</p>
+        <ul>
+          <li>1950s: 电子管 / 晶体管大型机</li>
+          <li>2012: NVIDIA GTX 580 (AlexNet)</li>
+          <li>2024+: H100/B200 集群分布式训练</li>
+        </ul>
+      </div>
+
+      <div class="trio-card">
+        <h3>📐 算法 (Algorithms)</h3>
+        <p>从简单的线性感知机到反向传播 (BP)、卷积与循环机制，再到注意力机制 (Transformer)、扩散模型 (Diffusion) 与近期的纯强化学习推理 (RL Scaling)，算法架构不断突破表达能力的边界。</p>
+        <ul>
+          <li>感知机与反向传播 (Backpropagation)</li>
+          <li>Transformer 自注意力统一架构</li>
+          <li>Test-time Compute 强化学习慢思考</li>
+        </ul>
+      </div>
+
+      <div class="trio-card">
+        <h3>📚 数据 (Data)</h3>
+        <p>数据形式从最早由专家人工编写的数十条规则，演进至标注数据集 (ImageNet, SQuAD)，再到全网万亿级文本、代码、图像、视频多模态语料，乃至合成数据 (Synthetic Data) 与自对弈强化探索。</p>
+        <ul>
+          <li>规则时代: 人工精选几百条事实</li>
+          <li>标注时代: ImageNet 百万标注图像</li>
+          <li>大模型时代: 15T+ Tokens 与高质量合成数据</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 08 历史教训与未来启示 -->
+    <h2 class="section-title">💡 两次寒冬的历史教训与通往 AGI 的关键启示</h2>
+    <div class="takeaway-grid">
+      <div class="takeaway-card gold">
+        <h4>⚡ 为什么前两次 AI 会经历寒冬？</h4>
+        <p>
+          <b>1. 过度承诺与预期脱节：</b>早期学术界曾轻言“十年内实现人类通用智能”，当成果无法落地时资本迅速撤离。<br>
+          <b>2. 算力与硬件无法支撑理论：</b>多层神经网络理论早已提出，但在缺乏 GPU 和海量存储的年代无法有效训练。<br>
+          <b>3. 封闭规则无法应对开放现实：</b>专家系统规则库存在“常识盲区”且维护成本极高，无法自适应复杂世界。
+        </p>
+      </div>
+      <div class="takeaway-card purple">
+        <h4>🚀 为什么本次大模型浪潮不会轻易破灭？</h4>
+        <p>
+          <b>1. 涌现通用底座：</b>LLM 具备跨任务通识能力，已在代码辅助、搜索问答、创意写作等场景形成真实生产力闭环。<br>
+          <b>2. 双重 Scaling 曲线：</b>预训练规模定律与推理测试期算力扩展定律相互叠加，模型思考上限持续突破。<br>
+          <b>3. 具身与 Agent 落地：</b>AI 正在从纯文本交互向自主智能体 (Agents) 和物理机器人 (Embodied AI) 延伸，开辟万亿级实体产业空间。
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div style="font-weight: 700; color: var(--ink); margin-bottom: 4px;">AI 发展史核心时间节点与演进全景 · 一页纸归纳</div>
+    <div>整理自计算机科学史经典文献、Turing / Dartmouth / NIPS / ICML 历史论文与最新前沿发布</div>
+    <div style="margin-top: 10px; font-size: 11.5px; color: var(--ink-4);">
+      © 2026 知识工程与前沿技术整理 · 适合技术科普、学术演讲、系统复习与挂图速查
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  function filterEra(eraClass, btn) {
+    // 切换按钮状态
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const containers = document.querySelectorAll('.era-container');
+    if (eraClass === 'all') {
+      containers.forEach(c => c.style.display = 'block');
+    } else {
+      containers.forEach(c => {
+        if (c.id === eraClass) {
+          c.style.display = 'block';
+          c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          c.style.display = 'none';
+        }
+      });
+    }
+  }
+</script>
+
+</body>
+</html>
