@@ -1,0 +1,3123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>《面积魔法岛：进率百变大闯关》三年级数学微知识点交互课件</title>
+  
+  <!-- 引入 Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 Canvas Confetti 撒花库 -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            magic: {
+              dark: '#0f172a',
+              card: '#1e293b',
+              amber: '#f59e0b',
+              rose: '#f43f5e',
+              sky: '#0ea5e9',
+              emerald: '#10b981',
+              purple: '#8b5cf6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --deck-bg: radial-gradient(circle at 50% 30%, #1e1b4b 0%, #09061a 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--bg-dark);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 16:9 标准比例自适应幻灯片容器 */
+    .viewport-wrapper {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .slide-deck {
+      width: 1280px;
+      height: 720px;
+      background: var(--deck-bg);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(124, 58, 237, 0.2);
+      border: 2px solid rgba(139, 92, 246, 0.35);
+      position: absolute;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform-origin: center center;
+    }
+
+    /* 顶部信息栏 */
+    .top-header {
+      height: 54px;
+      padding: 0 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 50;
+    }
+
+    /* 幻灯片单页 */
+    .slide-section {
+      flex: 1;
+      width: 100%;
+      height: calc(720px - 54px - 48px);
+      display: none;
+      padding: 24px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-section.active {
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 0.35s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 底部控制栏 */
+    .bottom-bar {
+      height: 48px;
+      padding: 0 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.7);
+      z-index: 50;
+    }
+
+    .ctrl-btn {
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .ctrl-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.15);
+    }
+    .ctrl-btn:active {
+      transform: translateY(1px);
+    }
+
+    .shake {
+      animation: shakeAnim 0.4s ease-in-out;
+    }
+    @keyframes shakeAnim {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .pop-scale {
+      animation: popScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes popScale {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* 动态物理天平样式 */
+    .balance-scene {
+      width: 100%;
+      max-width: 720px;
+      height: 180px;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .balance-base {
+      width: 140px;
+      height: 16px;
+      background: linear-gradient(180deg, #475569, #1e293b);
+      border-radius: 8px;
+      border: 2px solid #94a3b8;
+      z-index: 10;
+    }
+    .balance-pillar {
+      width: 14px;
+      height: 96px;
+      background: linear-gradient(90deg, #64748b, #94a3b8, #475569);
+      border-radius: 4px;
+      position: absolute;
+      bottom: 14px;
+      z-index: 10;
+    }
+    .balance-pivot {
+      width: 24px;
+      height: 24px;
+      background: radial-gradient(circle at 35% 35%, #fbbf24, #b45309);
+      border-radius: 50%;
+      border: 2px solid #fff;
+      position: absolute;
+      bottom: 100px;
+      z-index: 25;
+    }
+    .balance-beam {
+      width: 520px;
+      height: 10px;
+      background: linear-gradient(180deg, #cbd5e1, #64748b);
+      border-radius: 5px;
+      border: 1px solid #fff;
+      position: absolute;
+      bottom: 107px;
+      transform-origin: center center;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 20;
+    }
+    .balance-pan-left, .balance-pan-right {
+      position: absolute;
+      top: 4px;
+      width: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .balance-pan-left { left: 8px; }
+    .balance-pan-right { right: 8px; }
+    .pan-strings {
+      width: 100%;
+      height: 48px;
+      position: relative;
+    }
+    .pan-strings::before, .pan-strings::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 2px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+    .pan-strings::before { left: 22px; transform: rotate(15deg); transform-origin: top center; }
+    .pan-strings::after { right: 22px; transform: rotate(-15deg); transform-origin: top center; }
+    .pan-plate {
+      width: 155px;
+      min-height: 44px;
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.95));
+      border: 2px solid #38bdf8;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="viewport-wrapper" id="viewportWrapper">
+    <div class="slide-deck" id="slideDeck">
+      
+      <!-- ==================== 顶部导航 ==================== -->
+      <header class="top-header">
+        <div class="flex items-center gap-3">
+          <div class="px-2.5 py-0.5 rounded-lg bg-amber-500/20 border border-amber-400 text-amber-300 text-xs font-black">
+            🎮 闯关大冒险 · 三年级数学
+          </div>
+          <h1 class="text-white text-base font-black tracking-wide flex items-center gap-2">
+            <span>🏝️</span> 面积魔法岛：进率百变大闯关
+          </h1>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- 快捷关卡直达选择 -->
+          <div class="flex items-center bg-white/10 rounded-xl p-1 gap-1" id="navDots">
+            <!-- 动态生成 -->
+          </div>
+
+          <button onclick="toggleSound()" id="soundBtn" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold ml-2">
+            🔊
+          </button>
+          <button onclick="toggleFullScreen()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold" title="全屏显示">
+            ⛶
+          </button>
+        </div>
+      </header>
+
+      <!-- ==================== 关卡内容区域 (6大关卡) ==================== -->
+      
+      <!-- 关卡 0: 启程冒险 (封面) -->
+      <section class="slide-section justify-center items-center text-center space-y-6 active" id="slide-0">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/40 text-amber-300 text-sm font-bold pop-scale">
+          <span>✨</span> 欢迎来到数学探险王国
+        </div>
+
+        <h2 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-rose-300 tracking-wider">
+          《面积魔法岛：进率百变大闯关》
+        </h2>
+        
+        <p class="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
+          为什么长度进率是 <strong class="text-amber-400">10</strong>，而面积进率是 <strong class="text-rose-400">100</strong> 呢？<br>
+          勇士们，带上你的智慧，通过“方格密室、天平法阵、单人闯关与双人PK”赢取终极大师勋章吧！
+        </p>
+
+        <!-- 三大核心单位感知卡片 -->
+        <div class="grid grid-cols-3 gap-6 max-w-3xl w-full pt-4">
+          <div class="bg-white/5 border border-sky-400/30 rounded-2xl p-4 text-center hover:bg-white/10 transition-all">
+            <div class="text-3xl font-black text-sky-400 mb-1">m²</div>
+            <div class="text-white font-bold text-base">平方米</div>
+            <div class="text-xs text-slate-400 mt-1">教室地面、黑板</div>
+          </div>
+          <div class="bg-white/5 border border-emerald-400/30 rounded-2xl p-4 text-center hover:bg-white/10 transition-all">
+            <div class="text-3xl font-black text-emerald-400 mb-1">dm²</div>
+            <div class="text-white font-bold text-base">平方分米</div>
+            <div class="text-xs text-slate-400 mt-1">课桌面、手帕</div>
+          </div>
+          <div class="bg-white/5 border border-rose-400/30 rounded-2xl p-4 text-center hover:bg-white/10 transition-all">
+            <div class="text-3xl font-black text-rose-400 mb-1">cm²</div>
+            <div class="text-white font-bold text-base">平方厘米</div>
+            <div class="text-xs text-slate-400 mt-1">邮票、橡皮擦面</div>
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <button onclick="nextSlide()" class="ctrl-btn px-8 py-3.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black rounded-2xl text-base shadow-lg shadow-amber-500/30 flex items-center gap-2 mx-auto">
+            <span>开启第 1 关挑战</span>
+            <span>➔</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 关卡 1: 第一关 · 面积进率铺砖探究 (放入《面积单位的进率》完整交互HTML) -->
+      <section class="slide-section" id="slide-1" style="padding: 0; width: 100%; height: calc(720px - 54px - 48px); overflow: hidden; background: #dae2ed;">
+        <iframe id="pavingIframe" srcdoc="<!DOCTYPE html>
+<html lang=&quot;zh-CN&quot;>
+<head>
+    <meta charset=&quot;UTF-8&quot; />
+    <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
+    <title>🧱 面积进率 · 铺砖探究</title>
+    <style>
+        /* ===== 全局重置 ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', system-ui, sans-serif;
+            background: linear-gradient(145deg, #f0f4fa 0%, #dae2ed 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            margin: 0;
+        }
+        .game-container {
+            max-width: 820px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 18px 20px 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 20, 30, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+
+        /* ===== 开始页面 ===== */
+        .start-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 30px 20px;
+            text-align: center;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        .start-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.96);
+        }
+        .start-overlay .welcome-icon {
+            font-size: 68px;
+            margin-bottom: 12px;
+        }
+        .start-overlay h1 {
+            font-size: 30px;
+            font-weight: 700;
+            color: #1e2b3c;
+            margin-bottom: 10px;
+        }
+        .start-overlay p {
+            font-size: 20px;
+            font-weight: 500;
+            color: #3f5a73;
+            margin-bottom: 28px;
+            max-width: 460px;
+            line-height: 1.5;
+        }
+        .start-overlay .btn-start {
+            padding: 14px 52px;
+            background: linear-gradient(135deg, #2d4b7a, #4a7ab5);
+            border: none;
+            border-radius: 60px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 12px 30px rgba(44, 82, 130, 0.3);
+            transition: 0.2s;
+        }
+        .start-overlay .btn-start:hover {
+            transform: scale(1.04);
+            box-shadow: 0 16px 40px rgba(44, 82, 130, 0.4);
+        }
+        .start-overlay .btn-start:active {
+            transform: scale(0.96);
+        }
+        .start-overlay .sub-hint {
+            margin-top: 16px;
+            font-size: 15px;
+            color: #8a9fb0;
+        }
+
+        /* ===== 顶部 ===== */
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 8px;
+        }
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e2b3c;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 2px 14px 2px 10px;
+            border-radius: 40px;
+        }
+        .title-icon {
+            font-size: 24px;
+        }
+        .title span {
+            background: linear-gradient(135deg, #2d4b7a, #4a7ab5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .top-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px 14px;
+            flex-wrap: wrap;
+        }
+        .timer-box {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e3a5f;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-variant-numeric: tabular-nums;
+        }
+        .btn-music {
+            background: rgba(255, 255, 255, 0.6);
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-music:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.04);
+        }
+        .btn-music.muted {
+            opacity: 0.4;
+        }
+        .btn-reset {
+            background: rgba(44, 82, 130, 0.12);
+            border: none;
+            border-radius: 30px;
+            padding: 4px 16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e3a5f;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .btn-reset:hover {
+            background: rgba(44, 82, 130, 0.22);
+        }
+
+        /* ===== 计分板 ===== */
+        .scoreboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            padding: 6px 16px;
+            margin-bottom: 12px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            gap: 6px;
+        }
+        .scoreboard .badge {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1e3a5f;
+        }
+        .scoreboard .score-num {
+            font-weight: 700;
+            font-size: 22px;
+            min-width: 32px;
+            text-align: center;
+            color: #2d4b7a;
+        }
+        .scoreboard .total-label {
+            font-weight: 500;
+            color: #4a6a8a;
+            font-size: 15px;
+        }
+        .winner-msg {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1e7e34;
+            background: rgba(30, 126, 52, 0.1);
+            padding: 2px 14px;
+            border-radius: 30px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+        }
+        .winner-msg.show {
+            display: inline-flex;
+        }
+
+        /* ===== 单位选择 (方块池) ===== */
+        .unit-selector {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 12px 20px;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 28px;
+            border: 2px dashed rgba(160, 180, 200, 0.2);
+            margin-bottom: 10px;
+        }
+        .unit-selector .label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5a6f88;
+        }
+        .unit-btn {
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            background: #8a9fb0;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            font-family: inherit;
+        }
+        .unit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+        .unit-btn.active {
+            border-color: #f5b042;
+            box-shadow: 0 0 0 4px rgba(245, 176, 66, 0.2);
+            transform: scale(1.02);
+        }
+        .unit-btn.dm2 {
+            background: linear-gradient(135deg, #4a7ab5, #2d5f8a);
+        }
+        .unit-btn.cm2 {
+            background: linear-gradient(135deg, #6f4f94, #8b6cb0);
+        }
+        .unit-btn .sub {
+            font-size: 12px;
+            font-weight: 400;
+            opacity: 0.8;
+            display: block;
+            margin-top: 2px;
+        }
+        .unit-btn .grid-info {
+            font-size: 11px;
+            font-weight: 400;
+            opacity: 0.7;
+            display: block;
+        }
+
+        /* ===== 网格容器 (canvas) ===== */
+        .grid-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .canvas-container {
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 1 / 1;
+            background: rgba(200, 215, 230, 0.2);
+            border-radius: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 3px;
+            touch-action: none;
+            position: relative;
+        }
+        .canvas-container canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 10px;
+            background: rgba(220, 235, 250, 0.15);
+            cursor: pointer;
+            touch-action: none;
+        }
+
+        /* ===== 操作按钮栏 ===== */
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px 16px;
+            margin: 2px 0;
+        }
+        .btn-action {
+            padding: 8px 22px;
+            border: none;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e2b3c;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 2px solid transparent;
+            font-family: inherit;
+        }
+        .btn-action:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+        }
+        .btn-action.active {
+            background: #2d4b7a;
+            color: #fff;
+            border-color: #1e3a5f;
+            box-shadow: 0 6px 18px rgba(44, 82, 130, 0.25);
+        }
+        .btn-action.active:hover {
+            background: #3a5f8f;
+        }
+        .btn-action .icon {
+            font-size: 18px;
+        }
+
+        /* ===== 进率展示 ===== */
+        .rate-display {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 24px;
+            min-height: 44px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 8px 20px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 15px;
+            font-weight: 500;
+            color: #1e2b3c;
+            margin-top: 6px;
+        }
+        .rate-display .empty-hint {
+            color: #8a9fb0;
+            font-weight: 400;
+        }
+        .rate-item {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            animation: fadeUp 0.4s ease;
+        }
+        .rate-item .eq {
+            color: #1e7e34;
+            margin: 0 4px;
+        }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== 底部 ===== */
+        .footer {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .hint-text {
+            font-size: 14px;
+            color: #3f5a73;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 3px 16px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-reset-bottom {
+            background: rgba(44, 82, 130, 0.08);
+            border: none;
+            border-radius: 30px;
+            padding: 6px 22px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e3a5f;
+            cursor: pointer;
+            transition: 0.15s;
+            font-family: inherit;
+        }
+        .btn-reset-bottom:hover {
+            background: rgba(44, 82, 130, 0.18);
+            transform: scale(1.02);
+        }
+
+        /* ===== 胜利弹窗 ===== */
+        .victory-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 20, 30, 0.4);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeIn 0.5s ease;
+        }
+        .victory-overlay.show {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .victory-modal {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border-radius: 48px;
+            padding: 30px 32px 38px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.85); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .victory-modal .trophy {
+            font-size: 60px;
+            margin-bottom: 2px;
+        }
+        .victory-modal h2 {
+            font-size: 28px;
+            color: #1e2b3c;
+            margin-bottom: 4px;
+        }
+        .victory-modal p {
+            font-size: 15px;
+            color: #3f5a73;
+            margin: 4px 0 10px;
+            line-height: 1.6;
+        }
+        .victory-modal .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 10px 0 18px;
+            flex-wrap: wrap;
+        }
+        .victory-modal .stats div {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 4px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #1e2b3c;
+            font-size: 15px;
+        }
+        .victory-modal .btn-play-again {
+            background: linear-gradient(135deg, #2d4b7a, #4a7ab5);
+            border: none;
+            border-radius: 40px;
+            padding: 12px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 8px 20px rgba(44, 82, 130, 0.25);
+            font-family: inherit;
+        }
+        .victory-modal .btn-play-again:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 28px rgba(44, 82, 130, 0.35);
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 700px) {
+            .game-container {
+                padding: 14px 14px 18px;
+                border-radius: 32px;
+            }
+            .title {
+                font-size: 17px;
+                padding: 2px 12px 2px 8px;
+            }
+            .title-icon {
+                font-size: 20px;
+            }
+            .unit-btn {
+                padding: 6px 14px;
+                font-size: 15px;
+            }
+            .unit-btn .sub {
+                font-size: 10px;
+            }
+            .unit-btn .grid-info {
+                font-size: 10px;
+            }
+            .btn-action {
+                padding: 6px 16px;
+                font-size: 14px;
+            }
+            .btn-action .icon {
+                font-size: 16px;
+            }
+            .scoreboard .badge {
+                font-size: 14px;
+            }
+            .scoreboard .score-num {
+                font-size: 19px;
+                min-width: 26px;
+            }
+            .timer-box {
+                font-size: 16px;
+                padding: 0 12px;
+            }
+            .btn-music {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+            }
+            .btn-reset {
+                font-size: 13px;
+                padding: 3px 12px;
+            }
+            .rate-display {
+                font-size: 13px;
+                padding: 6px 12px;
+                min-height: 38px;
+            }
+            .victory-modal {
+                padding: 24px 18px 30px;
+            }
+            .victory-modal h2 {
+                font-size: 24px;
+            }
+            .victory-modal .trophy {
+                font-size: 50px;
+            }
+            .start-overlay h1 {
+                font-size: 24px;
+            }
+            .start-overlay p {
+                font-size: 17px;
+            }
+            .start-overlay .btn-start {
+                padding: 12px 36px;
+                font-size: 18px;
+            }
+            .start-overlay .welcome-icon {
+                font-size: 54px;
+            }
+            .hint-text {
+                font-size: 13px;
+                padding: 2px 12px;
+            }
+            .unit-selector {
+                gap: 8px 14px;
+                padding: 4px 10px;
+            }
+            .unit-selector .label {
+                font-size: 12px;
+            }
+            .footer {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
+            }
+            .hint-text {
+                justify-content: center;
+            }
+            .btn-reset-bottom {
+                justify-content: center;
+                padding: 5px 18px;
+                font-size: 14px;
+            }
+        }
+        @media (max-width: 460px) {
+            .game-container {
+                padding: 10px 10px 14px;
+                border-radius: 24px;
+            }
+            .title {
+                font-size: 15px;
+            }
+            .unit-btn {
+                padding: 4px 10px;
+                font-size: 13px;
+            }
+            .unit-btn .sub {
+                font-size: 9px;
+            }
+            .unit-btn .grid-info {
+                font-size: 9px;
+            }
+            .btn-action {
+                padding: 4px 12px;
+                font-size: 12px;
+            }
+            .btn-action .icon {
+                font-size: 14px;
+            }
+            .scoreboard .badge {
+                font-size: 12px;
+            }
+            .scoreboard .score-num {
+                font-size: 17px;
+                min-width: 22px;
+            }
+            .timer-box {
+                font-size: 14px;
+                padding: 0 10px;
+            }
+            .btn-music {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+            .btn-reset {
+                font-size: 12px;
+                padding: 2px 10px;
+            }
+            .rate-display {
+                font-size: 12px;
+                padding: 4px 10px;
+                min-height: 32px;
+            }
+            .start-overlay h1 {
+                font-size: 20px;
+            }
+            .start-overlay p {
+                font-size: 15px;
+            }
+            .start-overlay .btn-start {
+                padding: 10px 28px;
+                font-size: 16px;
+            }
+            .victory-modal {
+                padding: 18px 14px 22px;
+            }
+            .victory-modal h2 {
+                font-size: 20px;
+            }
+            .victory-modal .trophy {
+                font-size: 40px;
+            }
+            .victory-modal .btn-play-again {
+                padding: 10px 28px;
+                font-size: 16px;
+            }
+            .hint-text {
+                font-size: 12px;
+            }
+        }
+    </style>
+<style>
+  html, body {
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+  }
+  body {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px 16px !important;
+  }
+  .game-container {
+    max-width: 1200px !important;
+    width: 98% !important;
+    padding: 12px 20px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12) !important;
+    border-radius: 20px !important;
+    background: #ffffff !important;
+  }
+  .header {
+    margin-bottom: 6px !important;
+  }
+  .deck-body-layout {
+    display: grid !important;
+    grid-template-columns: 420px 1fr !important;
+    gap: 24px !important;
+    align-items: center !important;
+  }
+  .deck-left-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .deck-right-panel {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .canvas-container {
+    width: 440px !important;
+    height: 440px !important;
+    max-width: 440px !important;
+    max-height: 440px !important;
+    aspect-ratio: 1/1 !important;
+    margin: 0 auto !important;
+  }
+  .scoreboard {
+    margin-bottom: 4px !important;
+    padding: 6px 14px !important;
+  }
+  .unit-selector {
+    margin-bottom: 4px !important;
+    padding: 6px 12px !important;
+    gap: 8px 14px !important;
+  }
+  .action-bar {
+    margin-bottom: 4px !important;
+    gap: 8px !important;
+  }
+  .rate-display {
+    min-height: 40px !important;
+    padding: 6px 12px !important;
+    font-size: 15px !important;
+  }
+  .footer {
+    margin-top: 2px !important;
+  }
+</style></head>
+<body>
+
+    <div class=&quot;game-container&quot; id=&quot;app&quot;>
+        <!-- ===== 开始页面 ===== -->
+        <div class=&quot;start-overlay&quot; id=&quot;startOverlay&quot;>
+            <div class=&quot;welcome-icon&quot;>🧱</div>
+            <h1>面积进率 · 铺砖探究</h1>
+            <p>开始你的面积进率探索之旅吧！</p>
+            <button class=&quot;btn-start&quot; id=&quot;startBtn&quot;>🚀 开始探究</button>
+            <div class=&quot;sub-hint&quot;>选择不同单位，铺满 1 平方米，发现进率奥秘</div>
+        </div>
+
+        <!-- ===== 游戏主体 ===== -->
+        <!-- 顶部 -->
+        <div class=&quot;header&quot;>
+            <div class=&quot;title&quot;>
+                <span class=&quot;title-icon&quot;>🧱</span>
+                <span>面积进率 · 铺砖探究</span>
+            </div>
+            <div class=&quot;top-controls&quot;>
+                <div class=&quot;timer-box&quot; id=&quot;timerDisplay&quot;>⏱ 00:00</div>
+                <button class=&quot;btn-music&quot; style=&quot;display:none;&quot; id=&quot;musicToggle&quot; title=&quot;背景音乐&quot;>🔊</button>
+                <button class=&quot;btn-reset&quot; id=&quot;resetBtn&quot;>⟳ 重来</button>
+            </div>
+        </div>
+
+        <!-- 计分板 -->
+        <div class=&quot;scoreboard&quot; id=&quot;scoreboard&quot;>
+            <span class=&quot;badge&quot;>🧱 已铺砖块</span>
+            <span class=&quot;score-num&quot; id=&quot;placedCount&quot;>0</span>
+            <span class=&quot;total-label&quot; id=&quot;totalLabel&quot;>/ 100</span>
+            <div class=&quot;winner-msg&quot; id=&quot;winnerMsg&quot;>🏆 完成！</div>
+        </div>
+
+        <!-- 单位选择 (方块池) -->
+        <div class=&quot;unit-selector&quot; id=&quot;unitSelector&quot;>
+            <span class=&quot;label&quot;>🧱 选择方块：</span>
+            <button class=&quot;unit-btn dm2 active&quot; id=&quot;unitDm2&quot; data-unit=&quot;dm²&quot;>
+                1 dm²
+                <span class=&quot;sub&quot;>10 × 10 = 100 块</span>
+            </button>
+            <button class=&quot;unit-btn cm2&quot; id=&quot;unitCm2&quot; data-unit=&quot;cm²&quot;>
+                1 cm²
+                <span class=&quot;sub&quot;>100 × 100 = 10000 块</span>
+            </button>
+        </div>
+
+        <!-- 网格 (canvas) -->
+        <div class=&quot;grid-wrapper&quot;>
+            <div class=&quot;canvas-container&quot; id=&quot;canvasContainer&quot;>
+                <canvas id=&quot;gridCanvas&quot;></canvas>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class=&quot;action-bar&quot;>
+                <button class=&quot;btn-action active&quot; id=&quot;singleModeBtn&quot;>
+                    <span class=&quot;icon&quot;>🧱</span> 一个一个铺
+                </button>
+                <button class=&quot;btn-action&quot; id=&quot;rowModeBtn&quot;>
+                    <span class=&quot;icon&quot;>📏</span> 一排一排铺
+                </button>
+            </div>
+        </div>
+
+        <!-- 进率展示 -->
+        <div class=&quot;rate-display&quot; id=&quot;rateDisplay&quot;>
+            <span class=&quot;empty-hint&quot;>💡 选择单位，点击网格铺设，感受面积单位的累积</span>
+        </div>
+
+        <!-- 底部 -->
+        <div class=&quot;footer&quot;>
+            <div class=&quot;hint-text&quot; id=&quot;turnHint&quot;>
+                <span>👉 选择铺设方式，点击网格铺砖</span>
+            </div>
+            <button class=&quot;btn-reset-bottom&quot; id=&quot;resetBtnBottom&quot;>⟳ 重新开始</button>
+        </div>
+    </div>
+
+    <!-- 胜利弹窗 -->
+    <div class=&quot;victory-overlay&quot; id=&quot;victoryOverlay&quot;>
+        <div class=&quot;victory-modal&quot;>
+            <div class=&quot;trophy&quot;>🏆</div>
+            <h2>🎉 探究成功！</h2>
+            <p id=&quot;victoryDesc&quot;>你铺满了整个 1 平方米的区域！</p>
+            <div class=&quot;stats&quot;>
+                <div id=&quot;victoryStats&quot;>🧱 总铺砖 100 块</div>
+                <div>⏱ <span id=&quot;finalTime&quot;>00:00</span></div>
+            </div>
+            <p id=&quot;victoryRate&quot; style=&quot;font-size:16px; color:#1e3a5f; font-weight:600; margin-top:4px;&quot;>
+                1 m² = 100 dm²
+            </p>
+            <button class=&quot;btn-play-again&quot; id=&quot;playAgainBtn&quot;>🔄 再来一次</button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // =============================================================
+            //  配置
+            // =============================================================
+            const UNIT_CONFIG = {
+                'dm²': {
+                    label: '1 dm²',
+                    gridSize: 10,
+                    totalCells: 100,
+                    rateText: '1 m² = 100 dm²',
+                    rateDesc: '1 平方米 = 100 平方分米'
+                },
+                'cm²': {
+                    label: '1 cm²',
+                    gridSize: 100,
+                    totalCells: 10000,
+                    rateText: '1 m² = 10000 cm²',
+                    rateDesc: '1 平方米 = 10000 平方厘米'
+                }
+            };
+
+            // =============================================================
+            //  DOM 引用
+            // =============================================================
+            const canvas = document.getElementById('gridCanvas');
+            const canvasContainer = document.getElementById('canvasContainer');
+            const timerDisplay = document.getElementById('timerDisplay');
+            const placedCountEl = document.getElementById('placedCount');
+            const totalLabel = document.getElementById('totalLabel');
+            const rateDisplay = document.getElementById('rateDisplay');
+            const turnHint = document.getElementById('turnHint');
+            const winnerMsg = document.getElementById('winnerMsg');
+            const victoryOverlay = document.getElementById('victoryOverlay');
+            const finalTime = document.getElementById('finalTime');
+            const victoryStats = document.getElementById('victoryStats');
+            const victoryDesc = document.getElementById('victoryDesc');
+            const victoryRate = document.getElementById('victoryRate');
+            const resetBtn = document.getElementById('resetBtn');
+            const resetBtnBottom = document.getElementById('resetBtnBottom');
+            const playAgainBtn = document.getElementById('playAgainBtn');
+            const musicToggle = document.getElementById('musicToggle');
+            const singleModeBtn = document.getElementById('singleModeBtn');
+            const rowModeBtn = document.getElementById('rowModeBtn');
+            const startOverlay = document.getElementById('startOverlay');
+            const startBtn = document.getElementById('startBtn');
+            const unitDm2 = document.getElementById('unitDm2');
+            const unitCm2 = document.getElementById('unitCm2');
+
+            // =============================================================
+            //  游戏状态
+            // =============================================================
+            const state = {
+                unit: 'dm²', // 'dm²' | 'cm²'
+                grid: [], // 一维数组，存储每个格子的状态: null 或 'filled'
+                gridSize: 10,
+                totalCells: 100,
+                filledCount: 0,
+                timerSeconds: 0,
+                timerInterval: null,
+                isRunning: false,
+                isComplete: false,
+                mode: 'single', // 'single' | 'row'
+                processing: false,
+                gameStarted: false,
+                // canvas相关
+                ctx: null,
+                cellSize: 0,
+                canvasWidth: 0,
+                canvasHeight: 0,
+                // 拖拽状态 (保留)
+                isDragging: false,
+                dragItem: null,
+                dragClone: null,
+                dragOffsetX: 0,
+                dragOffsetY: 0,
+            };
+
+            // =============================================================
+            //  音效 &amp; 背景音乐
+            // =============================================================
+            let audioCtx = null;
+            let musicInterval = null;
+            let isMusicOn = false;
+            let musicStarted = false;
+
+            function initAudio() {
+                if (!audioCtx) {
+                    audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+                }
+            }
+
+            function playSound(freq = 520, duration = 0.12, type = 'sine', volume = 0.15) {
+                try {
+                    initAudio();
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = type;
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + duration);
+                } catch (_) {}
+            }
+
+            function playPlaceSound() {
+                playSound(500, 0.08, 'sine', 0.10);
+            }
+
+            function playRowSound() {
+                playSound(600, 0.10, 'sine', 0.12);
+                setTimeout(() => playSound(750, 0.10, 'sine', 0.10), 100);
+            }
+
+            function playWinSound() {
+                [523, 659, 784, 1047].forEach((f, i) => {
+                    setTimeout(() => playSound(f, 0.18, 'sine', 0.13), i * 130);
+                });
+            }
+
+            function startBackgroundMusic() {
+                try {
+                    initAudio();
+                    if (musicInterval) return;
+                    let noteIndex = 0;
+                    const melody = [
+                        [523, 0.3],
+                        [587, 0.3],
+                        [659, 0.3],
+                        [523, 0.3],
+                        [659, 0.3],
+                        [784, 0.3],
+                        [880, 0.4],
+                        [784, 0.3],
+                        [659, 0.3],
+                        [587, 0.3],
+                        [523, 0.4]
+                    ];
+                    let isPlaying = false;
+
+                    function playNextNote() {
+                        if (!isMusicOn || !audioCtx || audioCtx.state === 'closed') {
+                            musicInterval = null;
+                            return;
+                        }
+                        if (isPlaying) return;
+                        isPlaying = true;
+                        const [freq, dur] = melody[noteIndex % melody.length];
+                        try {
+                            const osc = audioCtx.createOscillator();
+                            const gain = audioCtx.createGain();
+                            osc.type = 'sine';
+                            osc.frequency.value = freq;
+                            gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+                            osc.connect(gain);
+                            gain.connect(audioCtx.destination);
+                            osc.start();
+                            osc.stop(audioCtx.currentTime + dur);
+                            setTimeout(() => { isPlaying = false; }, dur * 1000 + 50);
+                        } catch (_) { isPlaying = false; }
+                        noteIndex++;
+                    }
+                    musicInterval = setInterval(() => {
+                        if (isMusicOn &amp;&amp; audioCtx &amp;&amp; audioCtx.state === 'running') {
+                            playNextNote();
+                        }
+                    }, 460);
+                    setTimeout(playNextNote, 100);
+                } catch (_) {}
+            }
+
+            function stopBackgroundMusic() {
+                if (musicInterval) {
+                    clearInterval(musicInterval);
+                    musicInterval = null;
+                }
+            }
+
+            function toggleMusic() {
+                isMusicOn = !isMusicOn;
+                musicToggle.textContent = isMusicOn ? '🔊' : '🔇';
+                musicToggle.classList.toggle('muted', !isMusicOn);
+                if (isMusicOn) {
+                    // startBackgroundMusic();
+                    if (audioCtx &amp;&amp; audioCtx.state === 'suspended') audioCtx.resume();
+                } else {
+                    stopBackgroundMusic();
+                }
+            }
+
+            function ensureMusicStarted() {
+                if (musicStarted) return;
+                musicStarted = true;
+                if (isMusicOn) {
+                    initAudio();
+                    if (audioCtx &amp;&amp; audioCtx.state === 'suspended') audioCtx.resume();
+                    // startBackgroundMusic();
+                }
+            }
+
+            // =============================================================
+            //  Canvas 渲染
+            // =============================================================
+            function initCanvas() {
+                const container = canvasContainer;
+                const rect = container.getBoundingClientRect();
+                const size = Math.min(rect.width, rect.height, 600);
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = size * dpr;
+                canvas.height = size * dpr;
+                canvas.style.width = size + 'px';
+                canvas.style.height = size + 'px';
+                state.ctx = canvas.getContext('2d');
+                state.ctx.scale(dpr, dpr);
+                state.canvasWidth = size;
+                state.canvasHeight = size;
+                state.cellSize = size / state.gridSize;
+                renderGrid();
+            }
+
+            function renderGrid() {
+                const ctx = state.ctx;
+                if (!ctx) return;
+                const size = state.canvasWidth;
+                const cellSize = state.cellSize;
+                const gridSize = state.gridSize;
+
+                // 清空
+                ctx.clearRect(0, 0, size, size);
+
+                // 绘制背景网格线
+                ctx.strokeStyle = 'rgba(160, 180, 200, 0.25)';
+                ctx.lineWidth = 0.5;
+
+                for (let i = 0; i <= gridSize; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(i * cellSize, 0);
+                    ctx.lineTo(i * cellSize, size);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(0, i * cellSize);
+                    ctx.lineTo(size, i * cellSize);
+                    ctx.stroke();
+                }
+
+                // 绘制填充的格子
+                for (let i = 0; i < state.totalCells; i++) {
+                    if (state.grid[i] === 'filled') {
+                        const row = Math.floor(i / gridSize);
+                        const col = i % gridSize;
+                        ctx.fillStyle = '#c44536';
+                        ctx.fillRect(col * cellSize + 0.5, row * cellSize + 0.5, cellSize - 1, cellSize - 1);
+                        // 加一点高光
+                        ctx.fillStyle = 'rgba(255,255,255,0.1)';
+                        ctx.fillRect(col * cellSize + 1, row * cellSize + 1, cellSize - 3, 2);
+                    }
+                }
+
+                // 绘制边框
+                ctx.strokeStyle = 'rgba(60, 80, 100, 0.3)';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(0, 0, size, size);
+
+                // 绘制网格线（覆盖在填充之上，更清晰）
+                ctx.strokeStyle = 'rgba(160, 180, 200, 0.2)';
+                ctx.lineWidth = 0.5;
+                for (let i = 0; i <= gridSize; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(i * cellSize, 0);
+                    ctx.lineTo(i * cellSize, size);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(0, i * cellSize);
+                    ctx.lineTo(size, i * cellSize);
+                    ctx.stroke();
+                }
+            }
+
+            // =============================================================
+            //  更新 UI
+            // =============================================================
+            function updateUI() {
+                placedCountEl.textContent = state.filledCount;
+                totalLabel.textContent = `/ ${state.totalCells}`;
+                const config = UNIT_CONFIG[state.unit];
+                if (state.filledCount === state.totalCells) {
+                    rateDisplay.innerHTML = `<span class=&quot;rate-item&quot;>🎉 ${config.rateText}</span>`;
+                } else {
+                    rateDisplay.innerHTML =
+                        `<span class=&quot;empty-hint&quot;>🧱 用 ${config.label} 铺满 1 平方米（${state.totalCells} 块）</span>`;
+                }
+                // 更新单位按钮高亮
+                unitDm2.classList.toggle('active', state.unit === 'dm²');
+                unitCm2.classList.toggle('active', state.unit === 'cm²');
+                // 更新模式按钮
+                singleModeBtn.classList.toggle('active', state.mode === 'single');
+                rowModeBtn.classList.toggle('active', state.mode === 'row');
+                const hint = state.mode === 'single' ?
+                    '👉 点击单个网格铺设一块砖' :
+                    '👉 点击网格，整行将全部铺满';
+                turnHint.innerHTML = `<span>${hint}</span>`;
+            }
+
+            function updateTimerDisplay() {
+                const m = String(Math.floor(state.timerSeconds / 60)).padStart(2, '0');
+                const s = String(state.timerSeconds % 60).padStart(2, '0');
+                timerDisplay.textContent = `⏱ ${m}:${s}`;
+            }
+
+            // =============================================================
+            //  计时器
+            // =============================================================
+            function startTimer() {
+                if (state.isRunning) return;
+                state.isRunning = true;
+                state.timerInterval = setInterval(() => {
+                    state.timerSeconds++;
+                    updateTimerDisplay();
+                }, 1000);
+            }
+
+            function stopTimer() {
+                state.isRunning = false;
+                if (state.timerInterval) {
+                    clearInterval(state.timerInterval);
+                    state.timerInterval = null;
+                }
+            }
+
+            // =============================================================
+            //  核心游戏逻辑
+            // =============================================================
+            function switchUnit(unit) {
+                if (state.unit === unit) return;
+                if (state.isComplete) return;
+                if (state.processing) return;
+
+                const config = UNIT_CONFIG[unit];
+                state.unit = unit;
+                state.gridSize = config.gridSize;
+                state.totalCells = config.totalCells;
+                state.grid = new Array(state.totalCells).fill(null);
+                state.filledCount = 0;
+                state.isComplete = false;
+                winnerMsg.classList.remove('show');
+                victoryOverlay.classList.remove('show');
+
+                // 重置计时（但保留总时间？ 这里重置计时器）
+                stopTimer();
+                state.timerSeconds = 0;
+                state.isRunning = false;
+                updateTimerDisplay();
+
+                // 重新初始化canvas
+                state.cellSize = state.canvasWidth / state.gridSize;
+                renderGrid();
+                updateUI();
+                turnHint.innerHTML = `👉 选择铺设方式，点击网格铺砖`;
+                rateDisplay.innerHTML =
+                    `<span class=&quot;empty-hint&quot;>🧱 用 ${config.label} 铺满 1 平方米（${state.totalCells} 块）</span>`;
+            }
+
+            function placeBlock(index) {
+                if (state.isComplete) return false;
+                if (state.processing) return false;
+                if (index < 0 || index >= state.totalCells) return false;
+                if (state.grid[index] !== null) return false;
+                if (state.filledCount >= state.totalCells) return false;
+
+                state.processing = true;
+                state.grid[index] = 'filled';
+                state.filledCount++;
+                renderGrid();
+                playPlaceSound();
+
+                placedCountEl.textContent = state.filledCount;
+                if (state.filledCount === state.totalCells) {
+                    // 完成！
+                    state.isComplete = true;
+                    stopTimer();
+                    playWinSound();
+                    winnerMsg.classList.add('show');
+                    const config = UNIT_CONFIG[state.unit];
+                    victoryStats.textContent = `🧱 总铺砖 ${state.totalCells} 块`;
+                    finalTime.textContent = formatTime(state.timerSeconds);
+                    victoryDesc.textContent = `你铺满了整个 1 平方米的区域！`;
+                    victoryRate.textContent = config.rateDesc;
+                    victoryOverlay.classList.add('show');
+                    turnHint.innerHTML = '🎉 恭喜完成探究！';
+                    updateUI();
+                    state.processing = false;
+                    return true;
+                }
+
+                updateUI();
+                state.processing = false;
+                return true;
+            }
+
+            function placeRow(index) {
+                if (state.isComplete) return false;
+                if (state.processing) return false;
+                if (state.filledCount >= state.totalCells) return false;
+
+                const row = Math.floor(index / state.gridSize);
+                const start = row * state.gridSize;
+                const end = start + state.gridSize;
+                const indexesToFill = [];
+                for (let i = start; i < end; i++) {
+                    if (state.grid[i] === null) {
+                        indexesToFill.push(i);
+                    }
+                }
+
+                if (indexesToFill.length === 0) {
+                    playSound(300, 0.15, 'sawtooth', 0.05);
+                    return false;
+                }
+
+                state.processing = true;
+                playRowSound();
+
+                // 逐个填充
+                indexesToFill.forEach((idx, i) => {
+                    setTimeout(() => {
+                        state.grid[idx] = 'filled';
+                        state.filledCount++;
+                        renderGrid();
+                        playPlaceSound();
+                        placedCountEl.textContent = state.filledCount;
+
+                        if (state.filledCount === state.totalCells) {
+                            state.isComplete = true;
+                            stopTimer();
+                            playWinSound();
+                            winnerMsg.classList.add('show');
+                            const config = UNIT_CONFIG[state.unit];
+                            victoryStats.textContent = `🧱 总铺砖 ${state.totalCells} 块`;
+                            finalTime.textContent = formatTime(state.timerSeconds);
+                            victoryDesc.textContent = `你铺满了整个 1 平方米的区域！`;
+                            victoryRate.textContent = config.rateDesc;
+                            victoryOverlay.classList.add('show');
+                            turnHint.innerHTML = '🎉 恭喜完成探究！';
+                            updateUI();
+                            state.processing = false;
+                            return;
+                        }
+
+                        if (i === indexesToFill.length - 1) {
+                            updateUI();
+                            state.processing = false;
+                        }
+                    }, i * 40);
+                });
+
+                if (!state.isRunning &amp;&amp; !state.isComplete &amp;&amp; state.filledCount > 0) {
+                    startTimer();
+                }
+
+                return true;
+            }
+
+            function formatTime(seconds) {
+                const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+                const s = String(seconds % 60).padStart(2, '0');
+                return `${m}:${s}`;
+            }
+
+            // =============================================================
+            //  Canvas 交互 (点击检测)
+            // =============================================================
+            function getCellIndex(clientX, clientY) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = state.canvasWidth / rect.width;
+                const scaleY = state.canvasHeight / rect.height;
+                const x = (clientX - rect.left) * scaleX;
+                const y = (clientY - rect.top) * scaleY;
+                if (x < 0 || x >= state.canvasWidth || y < 0 || y >= state.canvasHeight) return -1;
+                const col = Math.floor(x / state.cellSize);
+                const row = Math.floor(y / state.cellSize);
+                if (col >= state.gridSize || row >= state.gridSize) return -1;
+                return row * state.gridSize + col;
+            }
+
+            function onCanvasClick(e) {
+                if (state.isComplete) return;
+                if (state.processing) return;
+                if (!state.gameStarted) return;
+                ensureMusicStarted();
+
+                const clientX = e.clientX || (e.touches &amp;&amp; e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches &amp;&amp; e.touches[0].clientY);
+                if (clientX == null) return;
+
+                const index = getCellIndex(clientX, clientY);
+                if (index < 0 || index >= state.totalCells) return;
+
+                let result = false;
+                if (state.mode === 'single') {
+                    result = placeBlock(index);
+                } else if (state.mode === 'row') {
+                    result = placeRow(index);
+                }
+
+                if (result &amp;&amp; !state.isRunning &amp;&amp; !state.isComplete &amp;&amp; state.filledCount > 0) {
+                    startTimer();
+                }
+            }
+
+            // =============================================================
+            //  开始 / 重置
+            // =============================================================
+            function startGame() {
+                startOverlay.classList.add('hidden');
+                state.gameStarted = true;
+                // 初始化网格
+                const config = UNIT_CONFIG[state.unit];
+                state.gridSize = config.gridSize;
+                state.totalCells = config.totalCells;
+                state.grid = new Array(state.totalCells).fill(null);
+                state.filledCount = 0;
+                state.timerSeconds = 0;
+                state.isRunning = false;
+                state.isComplete = false;
+                updateTimerDisplay();
+                initCanvas();
+                updateUI();
+                ensureMusicStarted();
+                turnHint.innerHTML = `👉 选择铺设方式，点击网格铺砖`;
+            }
+
+            function resetGame() {
+                if (!state.gameStarted) {
+                    startOverlay.classList.remove('hidden');
+                    return;
+                }
+                stopTimer();
+                const config = UNIT_CONFIG[state.unit];
+                state.gridSize = config.gridSize;
+                state.totalCells = config.totalCells;
+                state.grid = new Array(state.totalCells).fill(null);
+                state.filledCount = 0;
+                state.timerSeconds = 0;
+                state.isRunning = false;
+                state.isComplete = false;
+                state.processing = false;
+                victoryOverlay.classList.remove('show');
+                winnerMsg.classList.remove('show');
+                renderGrid();
+                updateUI();
+                updateTimerDisplay();
+                turnHint.innerHTML = `👉 选择铺设方式，点击网格铺砖`;
+                rateDisplay.innerHTML =
+                    `<span class=&quot;empty-hint&quot;>🧱 用 ${config.label} 铺满 1 平方米（${state.totalCells} 块）</span>`;
+                if (isMusicOn &amp;&amp; !musicStarted) {
+                    ensureMusicStarted();
+                }
+            }
+
+            // =============================================================
+            //  窗口自适应
+            // =============================================================
+            function handleResize() {
+                if (state.gameStarted) {
+                    initCanvas();
+                    renderGrid();
+                }
+            }
+
+            // =============================================================
+            //  事件绑定
+            // =============================================================
+            // 开始
+            startBtn.addEventListener('click', startGame);
+
+            // Canvas 点击
+            canvas.addEventListener('click', onCanvasClick);
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                onCanvasClick(e);
+            }, { passive: false });
+
+            // 单位切换
+            unitDm2.addEventListener('click', () => {
+                if (!state.gameStarted) return;
+                switchUnit('dm²');
+            });
+            unitCm2.addEventListener('click', () => {
+                if (!state.gameStarted) return;
+                switchUnit('cm²');
+            });
+
+            // 模式切换
+            singleModeBtn.addEventListener('click', () => {
+                if (!state.gameStarted) return;
+                state.mode = 'single';
+                updateUI();
+            });
+            rowModeBtn.addEventListener('click', () => {
+                if (!state.gameStarted) return;
+                state.mode = 'row';
+                updateUI();
+            });
+
+            // 重置
+            resetBtn.addEventListener('click', resetGame);
+            resetBtnBottom.addEventListener('click', resetGame);
+            playAgainBtn.addEventListener('click', () => {
+                victoryOverlay.classList.remove('show');
+                resetGame();
+            });
+
+            // 音乐
+            musicToggle.addEventListener('click', toggleMusic);
+
+            // 窗口 resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(handleResize, 150);
+            });
+
+            // 键盘快捷键
+            document.addEventListener('keydown', (e) => {
+                if ((e.key === 'r' || e.key === 'R') &amp;&amp; !e.ctrlKey &amp;&amp; !e.metaKey) resetGame();
+                if ((e.key === 'm' || e.key === 'M') &amp;&amp; !e.ctrlKey &amp;&amp; !e.metaKey) toggleMusic();
+                if (e.key === '1') { if (state.gameStarted) { state.mode = 'single';
+                        updateUI(); } }
+                if (e.key === '2') { if (state.gameStarted) { state.mode = 'row';
+                        updateUI(); } }
+                if (e.key === 'Enter' &amp;&amp; !state.gameStarted) {
+                    startGame();
+                }
+            });
+
+            // 全局点击启动音频
+            document.addEventListener('click', () => {
+                if (state.gameStarted) ensureMusicStarted();
+            });
+            document.addEventListener('touchstart', () => {
+                if (state.gameStarted) ensureMusicStarted();
+            });
+
+            // =============================================================
+            //  初始化
+            // =============================================================
+            // 预初始化canvas
+            setTimeout(() => {
+                if (!state.gameStarted) {
+                    // 预先设置一个占位
+                    const config = UNIT_CONFIG['dm²'];
+                    state.gridSize = config.gridSize;
+                    state.totalCells = config.totalCells;
+                    state.grid = new Array(state.totalCells).fill(null);
+                    initCanvas();
+                    renderGrid();
+                    updateUI();
+                }
+            }, 50);
+
+            console.log('🧱 面积进率铺砖游戏 (单关双单位) 已加载！');
+            console.log('📖 快捷键: R=重置, M=音乐, 1=单块, 2=整排, Enter=开始');
+            console.log('📐 支持 dm² (10x10) 和 cm² (100x100) 两种单位');
+
+        })();
+    </script>
+
+</body>
+</html>" style="width: 100%; height: 100%; border: none; display: block;" allow="autoplay"></iframe>
+      </section>
+
+      <!-- 关卡 2: 第二关 · 魔法天平（单位进率阶梯与换算法则） -->
+      <section class="slide-section" id="slide-2">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-400/40 rounded-xl text-xs font-black">第 2 关 · 魔法天平</span>
+          <h2 class="text-xl font-black text-white">单位进率阶梯与换算法则</h2>
+        </div>
+
+        <!-- 阶梯可视化 (5列独立流式布局：平方米向左、平方厘米向右，箭头独立居中，绝不压框) -->
+        <div class="flex items-center justify-between max-w-5xl mx-auto mb-6 px-2">
+          
+          <!-- 1. 平方米卡片 (向左侧展开) -->
+          <div class="w-64 bg-gradient-to-b from-sky-900/40 to-slate-900/60 border border-sky-400/30 rounded-2xl p-4 text-center shadow-lg">
+            <div class="w-8 h-8 rounded-full bg-sky-500 text-white font-black text-xs flex items-center justify-center mx-auto mb-1">1</div>
+            <h3 class="text-lg font-black text-sky-300">平方米 (m²)</h3>
+            <p class="text-xs text-slate-400">教室地面、球场</p>
+            <div class="mt-3 py-1 bg-sky-500/20 rounded-md text-xs font-bold text-sky-200">
+              大单位
+            </div>
+          </div>
+
+          <!-- 2. 左侧 ×100 箭头 (向左侧移动，独立占据两卡片之间空隙) -->
+          <div class="flex flex-col items-center px-3">
+            <span class="px-3 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-full shadow-md whitespace-nowrap">
+              ×100 ➔
+            </span>
+          </div>
+
+          <!-- 3. 平方分米卡片 (正居中) -->
+          <div class="w-64 bg-gradient-to-b from-emerald-900/40 to-slate-900/60 border border-emerald-400/30 rounded-2xl p-4 text-center shadow-lg">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white font-black text-xs flex items-center justify-center mx-auto mb-1">2</div>
+            <h3 class="text-lg font-black text-emerald-300">平方分米 (dm²)</h3>
+            <p class="text-xs text-slate-400">课桌面、显示屏</p>
+            <div class="mt-3 py-1 bg-emerald-500/20 rounded-md text-xs font-bold text-emerald-200">
+              中间单位
+            </div>
+          </div>
+
+          <!-- 4. 右侧 ×100 箭头 (向右侧移动，独立占据两卡片之间空隙) -->
+          <div class="flex flex-col items-center px-3">
+            <span class="px-3 py-1 bg-amber-400 text-slate-950 font-black text-xs rounded-full shadow-md whitespace-nowrap">
+              ×100 ➔
+            </span>
+          </div>
+
+          <!-- 5. 平方厘米卡片 (向右侧展开) -->
+          <div class="w-64 bg-gradient-to-b from-rose-900/40 to-slate-900/60 border border-rose-400/30 rounded-2xl p-4 text-center shadow-lg">
+            <div class="w-8 h-8 rounded-full bg-rose-500 text-white font-black text-xs flex items-center justify-center mx-auto mb-1">3</div>
+            <h3 class="text-lg font-black text-rose-300">平方厘米 (cm²)</h3>
+            <p class="text-xs text-slate-400">邮票、名片面</p>
+            <div class="mt-3 py-1 bg-rose-500/20 rounded-md text-xs font-bold text-rose-200">
+              小单位
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 换算天平实验器（物理可摇摆天平） -->
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-4 max-w-4xl mx-auto space-y-3 relative">
+          
+          <div class="flex justify-between items-center px-4">
+            <div class="font-black text-sm text-amber-300 flex items-center gap-2">
+              <span>⚖️ 动态换算天平</span>
+              <span class="text-xs text-slate-400 font-normal">（调整右侧数值与单位，使天平保持平衡）</span>
+            </div>
+            <button onclick="generateRandomScaleQ()" class="ctrl-btn px-3 py-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs rounded-lg flex items-center gap-1 shadow">
+              <span>🔄 重新生成</span>
+            </button>
+          </div>
+
+          <!-- 物理天平动画场景 -->
+          <div class="balance-scene">
+            <!-- 底座与立柱 -->
+            <div class="balance-pillar"></div>
+            <div class="balance-base"></div>
+            <div class="balance-pivot"></div>
+
+            <!-- 可旋转横梁 -->
+            <div class="balance-beam" id="balanceBeam">
+              <!-- 左托盘 (系统出题) -->
+              <div class="balance-pan-left" id="balancePanLeft">
+                <div class="pan-strings"></div>
+                <div class="pan-plate border-sky-400" id="plateLeft">
+                  <span class="text-[10px] text-sky-300 font-bold">系统题目</span>
+                  <div class="text-xl font-black text-amber-300" id="scaleQText">4 dm²</div>
+                </div>
+              </div>
+
+              <!-- 右托盘 (学生填空) -->
+              <div class="balance-pan-right" id="balancePanRight">
+                <div class="pan-strings"></div>
+                <div class="pan-plate border-amber-400" id="plateRight">
+                  <span class="text-[10px] text-amber-300 font-bold">学生填空</span>
+                  <div class="flex items-center gap-1.5 mt-0.5">
+                    <input type="number" id="deckScaleInput" placeholder="输入" class="w-16 px-1.5 py-0.5 text-base font-black text-center text-rose-300 bg-slate-800 rounded border border-rose-400/50 focus:outline-none" oninput="checkBalance()">
+                    <select id="deckScaleUnit" onchange="checkBalance()" class="px-1 py-0.5 text-xs font-bold bg-slate-800 text-white rounded border border-white/30 focus:outline-none">
+                      <option value="m2">m²</option>
+                      <option value="dm2">dm²</option>
+                      <option value="cm2" selected>cm²</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 底部状态与提示栏 -->
+          <div id="deckScaleExplain" class="text-center text-xs font-bold text-slate-300 bg-black/40 py-2 px-4 rounded-xl border border-white/5 transition-all">
+            💡 请在右侧输入数字并选择单位，使天平保持水平平衡！
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- 关卡 3: 第三关 · 4阶天梯个人闯关（可选关/可进阶/对错音效/错给解析/对给鼓励与重难点） -->
+      <section class="slide-section" id="slide-3">
+        
+        <!-- 关卡顶部栏：包含关卡切换 Tab 与星星得分 -->
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-3">
+            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 rounded-xl text-xs font-black">第 3 关 · 4阶天梯试炼</span>
+            
+            <!-- 4阶可选关卡 Tab 栏 -->
+            <div class="flex items-center bg-black/40 p-1 rounded-xl border border-white/10 gap-1" id="stageTabs">
+              <button onclick="selectStage(0)" id="stageTab-0" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950">⭐ 1.基础直化</button>
+              <button onclick="selectStage(1)" id="stageTab-1" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all text-slate-300 hover:text-white">⭐⭐ 2.逆向去零</button>
+              <button onclick="selectStage(2)" id="stageTab-2" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all text-slate-300 hover:text-white">⭐⭐⭐ 3.复名数易错</button>
+              <button onclick="selectStage(3)" id="stageTab-3" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all text-slate-300 hover:text-white">⭐⭐⭐⭐ 4.混淆对比</button>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-400">当前进度：<span id="soloQNum" class="text-amber-400 font-bold">1</span> / <span id="soloQTotal">2</span></span>
+            <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-400/30 px-3 py-1 rounded-full font-bold" id="soloStarLabel">✨ 星星：0</span>
+          </div>
+        </div>
+
+        <!-- 试炼主卡片 -->
+        <div class="max-w-3xl mx-auto w-full bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col justify-between flex-1 relative overflow-hidden">
+          
+          <!-- 题面区域 -->
+          <div class="text-center space-y-1">
+            <div class="flex items-center justify-center gap-2">
+              <span id="soloStageTitle" class="px-3 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-bold">第1阶 · 基础直化</span>
+              <span id="soloQTag" class="text-xs text-slate-400 font-medium">大单位乘进率 100</span>
+            </div>
+            <h3 id="soloQTitle" class="text-2xl font-black text-white pt-1">3 平方分米 ＝ ( &nbsp;&nbsp;&nbsp;&nbsp; ) 平方厘米</h3>
+          </div>
+
+          <!-- 4个选项按钮 -->
+          <div id="soloOptionsGrid" class="grid grid-cols-2 gap-3 my-2">
+            <!-- 动态生成 -->
+          </div>
+
+          <!-- 底部多功能反馈区：提示、解析、鼓励与重难点 -->
+          <div class="space-y-1.5 min-h-[90px] flex flex-col justify-end">
+            
+            <div class="flex justify-between items-center">
+              <button onclick="toggleSoloHint()" class="ctrl-btn px-3 py-1 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 rounded-lg text-xs font-bold flex items-center gap-1">
+                <span>💡 三步法思维锦囊</span>
+              </button>
+              <button onclick="nextSoloQuestionManual()" id="nextQuestionBtn" class="hidden ctrl-btn px-4 py-1 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-lg text-xs shadow">
+                进阶下一题 ➔
+              </button>
+            </div>
+
+            <!-- 提示气泡 -->
+            <div id="soloHintBox" class="hidden bg-amber-950/80 border border-amber-400/50 rounded-xl p-2.5 text-xs text-amber-200 pop-scale space-y-0.5">
+              <div class="font-bold text-amber-300 flex items-center gap-1">
+                <span>🔍 三步法思考锦囊：</span>
+              </div>
+              <p id="soloHintText">三步法：① 想模型：大化小乘进率；② 定进率：100；③ 算结果：3 × 100 ＝ 300。</p>
+            </div>
+
+            <!-- 答错解析气泡（错给解析） -->
+            <div id="soloErrorBox" class="hidden bg-rose-950/90 border border-rose-400/60 rounded-xl p-2.5 text-xs text-rose-200 pop-scale space-y-1">
+              <div class="font-bold text-rose-300 flex items-center gap-1">
+                <span>🤔 错因深度解析：</span>
+              </div>
+              <p id="soloErrorText">面积单位进率是 100（添 2 个 0），千万不要记成长度单位的 10（添 1 个 0）哦！</p>
+            </div>
+
+            <!-- 答对鼓励与重难点气泡（对给鼓励和题目重难点） -->
+            <div id="soloPraiseBox" class="hidden bg-emerald-950/90 border border-emerald-400/60 rounded-xl p-2.5 text-xs text-emerald-200 pop-scale space-y-1">
+              <div class="font-bold text-emerald-300 flex items-center gap-1" id="soloPraiseTitle">
+                <span>🎉 太棒了！回答完全正确！</span>
+              </div>
+              <p id="soloKeyPointText" class="text-white font-medium">🌟 【重难点提炼】从大单位变小单位乘进率 100，相当于在数字后面添 2 个 0。</p>
+            </div>
+
+          </div>
+
+          <!-- 通关卡片覆盖层 -->
+          <div id="soloDoneOverlay" class="hidden absolute inset-0 bg-slate-900/95 backdrop-blur rounded-2xl flex flex-col items-center justify-center p-6 text-center space-y-4 pop-scale z-30">
+            <div class="text-5xl animate-bounce">👑</div>
+            <h3 class="text-2xl font-black text-white" id="soloDoneTitle">太棒啦！4阶试炼大获全胜！</h3>
+            <p class="text-slate-300 text-xs" id="soloDoneDesc">你已经通关了全部阶梯，完美掌握了基础、逆向、复名数与概念辨析！</p>
+            <div class="flex items-center gap-3">
+              <button onclick="resetSoloGame()" class="ctrl-btn px-5 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-xl text-xs shadow">
+                🔄 重玩本阶
+              </button>
+              <button onclick="nextStageFromOverlay()" id="btnNextStageOverlay" class="ctrl-btn px-5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-xs shadow">
+                🚀 挑战下一阶
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 关卡 4: 第四关 · 巅峰对决（支持 2人/3人 极速争霸战 · 连击/冻结机制） -->
+      <section class="slide-section" id="slide-4">
+        
+        <!-- 顶部比赛模式与目标说明 -->
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-3">
+            <span class="px-3 py-1 bg-rose-500/20 text-rose-300 border border-rose-400/40 rounded-xl text-xs font-black">第 4 关 · 巅峰争霸</span>
+            
+            <!-- 2人/3人模式切换开关 -->
+            <div class="flex items-center bg-black/40 p-1 rounded-xl border border-white/10 gap-1">
+              <button onclick="setPKMode(2)" id="modeBtn2" class="px-3 py-1 rounded-lg text-xs font-bold transition-all bg-rose-500 text-white shadow">
+                👥 双人对决 (红 vs 蓝)
+              </button>
+              <button onclick="setPKMode(3)" id="modeBtn3" class="px-3 py-1 rounded-lg text-xs font-bold transition-all text-slate-300 hover:text-white">
+                👥👥 三人争霸 (红 vs 黄 vs 蓝)
+              </button>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-300">目标：率先达到 <strong class="text-amber-400 font-bold text-sm">50分</strong> 夺冠！</span>
+            <button onclick="resetPK()" class="ctrl-btn px-3 py-1 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-lg flex items-center gap-1">
+              <span>🔄 重开一局</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 选手竞技场栅格 (动态由 grid-cols-2 或 grid-cols-3 控制) -->
+        <div id="pkArenaGrid" class="grid grid-cols-2 gap-4 flex-1 relative min-h-0">
+          
+          <!-- 红队 (玩家 1 · 玫红) -->
+          <div class="bg-rose-950/40 border-2 border-rose-500/40 rounded-2xl p-3.5 flex flex-col justify-between space-y-2 relative overflow-hidden" id="p1Box">
+            <!-- 冻结遮罩 -->
+            <div id="p1Freeze" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-[2px] z-30 flex flex-col items-center justify-center pop-scale">
+              <span class="text-3xl animate-spin">❄️</span>
+              <span class="text-xs font-black text-sky-300 mt-1">答错冻结中 (1.5秒)...</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-rose-500 text-white text-xs font-black flex items-center justify-center">1</span>
+                <span class="text-rose-300 font-bold text-sm">红队选手</span>
+                <span id="p1Combo" class="hidden px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-black">🔥 连击 ×2</span>
+              </div>
+              <div class="text-2xl font-black text-rose-400 flex items-center gap-1 font-mono">
+                <span class="text-sm">⭐</span>
+                <span id="p1ScoreVal">0</span>
+                <span class="text-xs text-slate-400 font-normal">/50</span>
+              </div>
+            </div>
+
+            <!-- 题目区域 -->
+            <div class="bg-black/40 border border-rose-400/30 rounded-xl p-2.5 text-center min-h-[75px] flex flex-col justify-center">
+              <span class="text-[10px] text-rose-300 font-bold mb-0.5" id="p1QTag">大化小速算</span>
+              <div id="p1QText" class="text-xl font-black text-white">7 m² ＝ ( &nbsp;&nbsp; ) dm²</div>
+            </div>
+
+            <!-- 4个选项按键 -->
+            <div id="p1OptsGrid" class="grid grid-cols-2 gap-2"></div>
+            <div id="p1Msg" class="h-4 text-center text-xs font-bold text-rose-400"></div>
+          </div>
+
+          <!-- 黄队 (玩家 2 · 金黄，仅在 3 人模式下显示) -->
+          <div class="hidden bg-amber-950/40 border-2 border-amber-500/40 rounded-2xl p-3.5 flex flex-col justify-between space-y-2 relative overflow-hidden" id="p2Box">
+            <!-- 冻结遮罩 -->
+            <div id="p2Freeze" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-[2px] z-30 flex flex-col items-center justify-center pop-scale">
+              <span class="text-3xl animate-spin">❄️</span>
+              <span class="text-xs font-black text-sky-300 mt-1">答错冻结中 (1.5秒)...</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-amber-500 text-slate-950 text-xs font-black flex items-center justify-center">2</span>
+                <span class="text-amber-300 font-bold text-sm">黄队选手</span>
+                <span id="p2Combo" class="hidden px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-black">🔥 连击 ×2</span>
+              </div>
+              <div class="text-2xl font-black text-amber-400 flex items-center gap-1 font-mono">
+                <span class="text-sm">⭐</span>
+                <span id="p2ScoreVal">0</span>
+                <span class="text-xs text-slate-400 font-normal">/50</span>
+              </div>
+            </div>
+
+            <!-- 题目区域 -->
+            <div class="bg-black/40 border border-amber-400/30 rounded-xl p-2.5 text-center min-h-[75px] flex flex-col justify-center">
+              <span class="text-[10px] text-amber-300 font-bold mb-0.5" id="p2QTag">小化大去零</span>
+              <div id="p2QText" class="text-xl font-black text-white">900 dm² ＝ ( &nbsp;&nbsp; ) m²</div>
+            </div>
+
+            <!-- 4个选项按键 -->
+            <div id="p2OptsGrid" class="grid grid-cols-2 gap-2"></div>
+            <div id="p2Msg" class="h-4 text-center text-xs font-bold text-amber-400"></div>
+          </div>
+
+          <!-- 蓝队 (玩家 2/3 · 天蓝) -->
+          <div class="bg-sky-950/40 border-2 border-sky-500/40 rounded-2xl p-3.5 flex flex-col justify-between space-y-2 relative overflow-hidden" id="p3Box">
+            <!-- 冻结遮罩 -->
+            <div id="p3Freeze" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-[2px] z-30 flex flex-col items-center justify-center pop-scale">
+              <span class="text-3xl animate-spin">❄️</span>
+              <span class="text-xs font-black text-sky-300 mt-1">答错冻结中 (1.5秒)...</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-sky-500 text-white text-xs font-black flex items-center justify-center" id="p3NumBadge">2</span>
+                <span class="text-sky-300 font-bold text-sm">蓝队选手</span>
+                <span id="p3Combo" class="hidden px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-black">🔥 连击 ×2</span>
+              </div>
+              <div class="text-2xl font-black text-sky-400 flex items-center gap-1 font-mono">
+                <span class="text-sm">⭐</span>
+                <span id="p3ScoreVal">0</span>
+                <span class="text-xs text-slate-400 font-normal">/50</span>
+              </div>
+            </div>
+
+            <!-- 题目区域 -->
+            <div class="bg-black/40 border border-sky-400/30 rounded-xl p-2.5 text-center min-h-[75px] flex flex-col justify-center">
+              <span class="text-[10px] text-sky-300 font-bold mb-0.5" id="p3QTag">复名数速算</span>
+              <div id="p3QText" class="text-xl font-black text-white">4 dm² 20 cm² ＝ ( &nbsp;&nbsp; ) cm²</div>
+            </div>
+
+            <!-- 4个选项按键 -->
+            <div id="p3OptsGrid" class="grid grid-cols-2 gap-2"></div>
+            <div id="p3Msg" class="h-4 text-center text-xs font-bold text-sky-400"></div>
+          </div>
+
+        </div>
+
+        <!-- PK 胜利结算弹窗 -->
+        <div id="pkWinModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div class="bg-slate-900 border-2 border-amber-400 rounded-3xl p-8 max-w-sm w-full text-center space-y-4 pop-scale shadow-2xl">
+            <div class="text-6xl animate-bounce">👑</div>
+            <h3 id="pkWinTitle" class="text-2xl font-black text-white">红队 夺冠！</h3>
+            <p class="text-slate-300 text-xs">反应极快，换算精准无误，真是三年级面积换算小达人！</p>
+            <button onclick="closePKWinModal()" class="ctrl-btn w-full py-3 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-black rounded-xl text-sm shadow">
+              🎉 再来一局 PK
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 关卡 5: 通关加冕 · 面积大师荣耀宝典与一句话反思 -->
+      <section class="slide-section justify-between items-center text-center py-2" id="slide-5">
+        
+        <div class="space-y-1">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold">
+            <span>👑</span> 恭喜通关 · 面积大师加冕
+          </div>
+          <h2 class="text-2xl font-black text-white">
+            一图牢记 · 面积单位换算口诀宝典
+          </h2>
+        </div>
+
+        <!-- 核心记忆点与口诀 (保留原有) -->
+        <div class="grid grid-cols-2 gap-4 max-w-4xl w-full text-left">
+          
+          <div class="bg-white/5 border border-amber-400/30 rounded-2xl p-3.5 space-y-1.5 shadow-lg">
+            <div class="text-amber-400 font-black text-sm flex items-center gap-1.5">
+              <span>🌟</span> 进率核心记忆点
+            </div>
+            <ul class="text-xs text-slate-300 space-y-1.5 leading-relaxed">
+              <li>• <strong class="text-white">1 平方米 ＝ 100 平方分米</strong></li>
+              <li>• <strong class="text-white">1 平方分米 ＝ 100 平方厘米</strong></li>
+              <li>• <strong class="text-white">1 平方米 ＝ 10000 平方厘米</strong> (连跳两级，添 4 个 0)</li>
+            </ul>
+          </div>
+
+          <div class="bg-white/5 border border-sky-400/30 rounded-2xl p-3.5 space-y-1.5 shadow-lg">
+            <div class="text-sky-400 font-black text-sm flex items-center gap-1.5">
+              <span>🚀</span> 换算口诀技巧
+            </div>
+            <ul class="text-xs text-slate-300 space-y-1.5 leading-relaxed">
+              <li>• <strong class="text-emerald-300">大单位 ➔ 小单位</strong>：乘进率 100（添 2 个 0）</li>
+              <li>• <strong class="text-rose-300">小单位 ➔ 大单位</strong>：除以进率 100（去 2 个 0）</li>
+              <li>• <strong class="text-amber-300">先看单位定方向，再数零数算得快！</strong></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- 优化新增：💭 课堂一句话反思互动卡（对准教案第七步） -->
+        <div class="bg-slate-900/90 border border-emerald-400/40 rounded-2xl p-3.5 max-w-4xl w-full text-left space-y-2 relative shadow-xl">
+          <div class="flex justify-between items-center">
+            <div class="text-emerald-300 font-black text-xs flex items-center gap-1.5">
+              <span>💭</span> 课堂一句话反思（点击选择你的今日发现）：
+            </div>
+            <span id="reflectBadge" class="hidden text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-bold pop-scale">
+              ✨ 已生成反思卡
+            </span>
+          </div>
+
+          <div class="bg-black/40 border border-white/10 rounded-xl p-2 text-xs text-slate-300 flex items-center gap-1.5">
+            <span class="font-bold text-white whitespace-nowrap">今天我发现，面积单位换算最要注意的是：</span>
+            <span id="reflectAnswer" class="text-amber-300 font-black underline underline-offset-4 decoration-amber-400">（请在下方点击选择...）</span>
+          </div>
+
+          <!-- 4个可选核心词条 -->
+          <div class="flex flex-wrap gap-2 pt-0.5">
+            <button onclick="pickReflection(0, '别和长度进率10搞混！')" class="reflect-btn ctrl-btn px-3 py-1 rounded-xl bg-white/5 hover:bg-emerald-500/20 border border-white/15 text-xs text-slate-300 font-bold transition-all">
+              ⚡ 别和长度进率10搞混！
+            </button>
+            <button onclick="pickReflection(1, '复名数先拆大单位再相加！')" class="reflect-btn ctrl-btn px-3 py-1 rounded-xl bg-white/5 hover:bg-emerald-500/20 border border-white/15 text-xs text-slate-300 font-bold transition-all">
+              🧩 复名数先拆大单位再相加！
+            </button>
+            <button onclick="pickReflection(2, '大化小乘100添两个0！')" class="reflect-btn ctrl-btn px-3 py-1 rounded-xl bg-white/5 hover:bg-emerald-500/20 border border-white/15 text-xs text-slate-300 font-bold transition-all">
+              🚀 大化小乘100添两个0！
+            </button>
+            <button onclick="pickReflection(3, '小化大除以100去掉两个0！')" class="reflect-btn ctrl-btn px-3 py-1 rounded-xl bg-white/5 hover:bg-emerald-500/20 border border-white/15 text-xs text-slate-300 font-bold transition-all">
+              ✂️ 小化大除以100去掉两个0！
+            </button>
+          </div>
+        </div>
+
+        <div class="pt-0.5">
+          <button onclick="goToSlide(0)" class="ctrl-btn px-8 py-2 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl text-xs border border-white/20 shadow">
+            🔄 回到封面重新闯关
+          </button>
+        </div>
+      </section>
+
+      <!-- ==================== 底部控制栏 ==================== -->
+      <footer class="bottom-bar">
+        <div class="flex items-center gap-3">
+          <button onclick="prevSlide()" class="ctrl-btn px-4 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-bold flex items-center gap-1">
+            <span>◀</span> 上一关
+          </button>
+          <button onclick="nextSlide()" class="ctrl-btn px-4 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-black flex items-center gap-1 shadow">
+            下一关 <span>▶</span>
+          </button>
+        </div>
+
+        <div class="text-xs text-slate-400 font-medium">
+          关卡 <span id="currentSlideNum" class="text-white font-bold">1</span> / <span id="totalSlideNum">6</span>
+          <span class="hidden sm:inline text-slate-500 ml-2">(可使用键盘 ⬅ ➡ 翻页)</span>
+        </div>
+
+        <div class="text-xs text-slate-500 font-mono">
+          三年级数学 · 面积魔法岛
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ==================== 全局交互逻辑脚本 ==================== -->
+  <script>
+    // ---------- 16:9 自适应缩放系统 ----------
+    function autoScaleDeck() {
+      const deck = document.getElementById('slideDeck');
+      const baseWidth = 1280;
+      const baseHeight = 720;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+
+      const scaleX = windowWidth / baseWidth;
+      const scaleY = windowHeight / baseHeight;
+      const scale = Math.min(scaleX, scaleY, 1.25);
+
+      deck.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener('resize', autoScaleDeck);
+    window.addEventListener('DOMContentLoaded', autoScaleDeck);
+
+    // ---------- 全屏切换 ----------
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // ---------- Web Audio 音效系统 ----------
+    let soundOn = true;
+    let audioCtx = null;
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleSound() {
+      soundOn = !soundOn;
+      document.getElementById('soundBtn').innerText = soundOn ? '🔊' : '🔇';
+    }
+
+    function playTone(type) {
+      if (!soundOn) return;
+      initAudioContext();
+      if (!audioCtx) return;
+
+      try {
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'correct') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.setValueAtTime(659.25, now + 0.1);
+          osc.frequency.setValueAtTime(783.99, now + 0.2);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+          osc.start(now);
+          osc.stop(now + 0.45);
+        } else if (type === 'pop') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'error') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.setValueAtTime(160, now + 0.15);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        }
+      } catch (_) {}
+    }
+
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 90,
+          spread: 80,
+          origin: { y: 0.5 },
+          colors: ['#f59e0b', '#ec4899', '#3b82f6', '#10b981', '#a855f7']
+        });
+      }
+    }
+
+    // ==================== 关卡轮播控制器 ====================
+    const totalSlides = 6;
+    let currentSlide = 0;
+    const slideNames = [
+      '🏠 封面',
+      '关卡1 · 铺砖探究',
+      '关卡2 · 魔法天平',
+      '关卡3 · 4阶天梯',
+      '关卡4 · 极速争霸',
+      '关卡5 · 荣耀宝典'
+    ];
+
+    function initNavDots() {
+      const navContainer = document.getElementById('navDots');
+      navContainer.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = `px-2 py-1 rounded-lg text-xs font-bold transition-all ${i === 0 ? 'bg-amber-400 text-slate-950 shadow' : 'text-slate-300 hover:text-white hover:bg-white/10'}`;
+        dot.innerText = slideNames[i];
+        dot.onclick = () => goToSlide(i);
+        navContainer.appendChild(dot);
+      }
+      document.getElementById('totalSlideNum').innerText = totalSlides;
+    }
+
+    function goToSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+      
+      document.querySelectorAll('.slide-section').forEach(sec => sec.classList.remove('active'));
+      const target = document.getElementById(`slide-${index}`);
+      if (target) target.classList.add('active');
+
+      currentSlide = index;
+      document.getElementById('currentSlideNum').innerText = currentSlide + 1;
+
+      const navDots = document.getElementById('navDots').children;
+      for (let i = 0; i < navDots.length; i++) {
+        if (i === currentSlide) {
+          navDots[i].className = 'px-2 py-1 rounded-lg text-xs font-bold transition-all bg-amber-400 text-slate-950 shadow';
+        } else {
+          navDots[i].className = 'px-2 py-1 rounded-lg text-xs font-bold transition-all text-slate-300 hover:text-white hover:bg-white/10';
+        }
+      }
+
+      playTone('pop');
+
+      if (index === 2) {
+        generateRandomScaleQ();
+      } else if (index === 3) {
+        updateStageTabStyles();
+        renderSoloQuestion();
+      } else if (index === 4) {
+        initPKQuestion();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        goToSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        goToSlide(currentSlide - 1);
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+
+    function playClapSound() {
+      if (!soundOn) return;
+      initAudioContext();
+      if (!audioCtx) return;
+      try {
+        const chord = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+        chord.forEach((freq, idx) => {
+          const now = audioCtx.currentTime + idx * 0.08;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.45);
+        });
+      } catch (_) {}
+    }
+
+    // ==================== 关卡 2: 动态换算天平逻辑 ====================
+    let currentScaleQ = { val: 4, unit: 'dm2', unitName: '平方分米' };
+    const scaleQuestionBank = [
+      { val: 3, unit: 'm2', unitName: '平方米' },
+      { val: 6, unit: 'm2', unitName: '平方米' },
+      { val: 5, unit: 'dm2', unitName: '平方分米' },
+      { val: 8, unit: 'dm2', unitName: '平方分米' },
+      { val: 400, unit: 'dm2', unitName: '平方分米' },
+      { val: 700, unit: 'dm2', unitName: '平方分米' },
+      { val: 900, unit: 'cm2', unitName: '平方厘米' },
+      { val: 200, unit: 'cm2', unitName: '平方厘米' },
+      { val: 12, unit: 'm2', unitName: '平方米' }
+    ];
+    let hasBalanced = false;
+
+    function generateRandomScaleQ() {
+      const q = scaleQuestionBank[Math.floor(Math.random() * scaleQuestionBank.length)];
+      currentScaleQ = { ...q };
+      document.getElementById('scaleQText').innerText = `${q.val} ${q.unit}`;
+      document.getElementById('deckScaleInput').value = '';
+      
+      const targetUnits = ['m2', 'dm2', 'cm2'].filter(u => u !== q.unit);
+      document.getElementById('deckScaleUnit').value = targetUnits[Math.floor(Math.random() * targetUnits.length)];
+      
+      resetScaleState();
+      playTone('pop');
+    }
+
+    function checkBalance() {
+      const inputValStr = document.getElementById('deckScaleInput').value.trim();
+      const inputVal = parseFloat(inputValStr);
+      const rightUnit = document.getElementById('deckScaleUnit').value;
+      const beam = document.getElementById('balanceBeam');
+      const panLeft = document.getElementById('balancePanLeft');
+      const panRight = document.getElementById('balancePanRight');
+      const plateLeft = document.getElementById('plateLeft');
+      const plateRight = document.getElementById('plateRight');
+      const explain = document.getElementById('deckScaleExplain');
+
+      if (isNaN(inputVal) || inputVal <= 0) {
+        resetScaleState();
+        return;
+      }
+
+      const rates = { 'm2': 10000, 'dm2': 100, 'cm2': 1 };
+      const leftTotalCm2 = currentScaleQ.val * rates[currentScaleQ.unit];
+      const rightTotalCm2 = inputVal * rates[rightUnit];
+
+      if (rightTotalCm2 === leftTotalCm2) {
+        // 完全平衡！
+        beam.style.transform = 'rotate(0deg)';
+        panLeft.style.transform = 'rotate(0deg) translateY(0px)';
+        panRight.style.transform = 'rotate(0deg) translateY(0px)';
+        
+        plateLeft.className = 'pan-plate border-emerald-400 bg-emerald-950/60 shadow-lg shadow-emerald-500/20';
+        plateRight.className = 'pan-plate border-emerald-400 bg-emerald-950/60 shadow-lg shadow-emerald-500/20';
+        
+        explain.className = 'text-center text-xs font-black text-emerald-300 bg-emerald-950/80 py-2.5 px-4 rounded-xl border border-emerald-400 shadow pop-scale';
+        explain.innerHTML = `🎉 <strong>太棒啦！天平完美平衡！</strong> ${currentScaleQ.val} ${currentScaleQ.unit} ＝ <strong class="text-white">${inputVal}</strong> ${rightUnit}`;
+        
+        if (!hasBalanced) {
+          hasBalanced = true;
+          playClapSound();
+          triggerConfetti();
+        }
+      } else if (rightTotalCm2 > leftTotalCm2) {
+        // 学生写大了 ➔ 右侧沉，左侧翘起来！
+        hasBalanced = false;
+        const angle = 9; // 顺时针旋转，左高右低（左翘）
+        beam.style.transform = `rotate(${angle}deg)`;
+        panLeft.style.transform = `rotate(${-angle}deg) translateY(-14px)`;
+        panRight.style.transform = `rotate(${-angle}deg) translateY(14px)`;
+        
+        plateLeft.className = 'pan-plate border-sky-400';
+        plateRight.className = 'pan-plate border-rose-400';
+        
+        explain.className = 'text-center text-xs font-bold text-rose-300 bg-rose-950/80 py-2 px-4 rounded-xl border border-rose-400/50';
+        explain.innerHTML = `⚠️ <strong>右侧偏大（左侧翘起来了）</strong>：${inputVal} ${rightUnit} 大于 ${currentScaleQ.val} ${currentScaleQ.unit}，请再调小一点！`;
+        playTone('error');
+      } else {
+        // 学生写小了 ➔ 左侧沉，右侧翘起来！
+        hasBalanced = false;
+        const angle = -9; // 逆时针旋转，左低右高（右翘）
+        beam.style.transform = `rotate(${angle}deg)`;
+        panLeft.style.transform = `rotate(${-angle}deg) translateY(14px)`;
+        panRight.style.transform = `rotate(${-angle}deg) translateY(-14px)`;
+        
+        plateLeft.className = 'pan-plate border-sky-400';
+        plateRight.className = 'pan-plate border-amber-400';
+        
+        explain.className = 'text-center text-xs font-bold text-amber-300 bg-amber-950/80 py-2 px-4 rounded-xl border border-amber-400/50';
+        explain.innerHTML = `⚠️ <strong>右侧偏小（右侧翘起来了）</strong>：${inputVal} ${rightUnit} 小于 ${currentScaleQ.val} ${currentScaleQ.unit}，请再调大一点！`;
+        playTone('error');
+      }
+    }
+
+    function resetScaleState() {
+      hasBalanced = false;
+      const beam = document.getElementById('balanceBeam');
+      const panLeft = document.getElementById('balancePanLeft');
+      const panRight = document.getElementById('balancePanRight');
+      const plateLeft = document.getElementById('plateLeft');
+      const plateRight = document.getElementById('plateRight');
+      const explain = document.getElementById('deckScaleExplain');
+
+      if (beam) beam.style.transform = 'rotate(0deg)';
+      if (panLeft) panLeft.style.transform = 'rotate(0deg) translateY(0px)';
+      if (panRight) panRight.style.transform = 'rotate(0deg) translateY(0px)';
+      if (plateLeft) plateLeft.className = 'pan-plate border-sky-400';
+      if (plateRight) plateRight.className = 'pan-plate border-amber-400';
+      if (explain) {
+        explain.className = 'text-center text-xs font-bold text-slate-300 bg-black/40 py-2 px-4 rounded-xl border border-white/5';
+        explain.innerHTML = `💡 请在右侧输入数字并选择单位，使天平保持水平平衡！`;
+      }
+    }
+
+    // ==================== 关卡 3: 4阶天梯试炼系统 ====================
+    const ladderStages = [
+      {
+        id: 1,
+        name: '第1阶 · 基础直化',
+        tag: '大单位乘进率 100',
+        questions: [
+          {
+            text: '3 平方分米 ＝ ( &nbsp;&nbsp;&nbsp;&nbsp; ) 平方厘米',
+            options: ['30', '300', '3000', '30000'],
+            correct: 1,
+            hint: '三步法：① 想模型：大化小乘进率；② 定进率：100；③ 算结果：3 × 100 ＝ 300。',
+            analysis: '【错因深度解析】面积单位进率是 100（添 2 个 0），千万不要记成长度单位的 10（添 1 个 0）哦！',
+            praise: '🎉 太棒了！回答完全正确！',
+            keyPoint: '🌟 【重难点提炼】从大单位变小单位乘进率 100，相当于在数字后面添 2 个 0。'
+          },
+          {
+            text: '8 平方米 ＝ ( &nbsp;&nbsp;&nbsp;&nbsp; ) 平方分米',
+            options: ['80', '800', '8000', '80000'],
+            correct: 1,
+            hint: '1平方米 = 100平方分米，8 × 100 = 800。',
+            analysis: '【错因深度解析】平方米化为平方分米是大化小，乘进率 100 得到 800，在数字 8 后添 2 个 0。',
+            praise: '🎉 算得又快又准！',
+            keyPoint: '🌟 【重难点提炼】相邻两个面积单位之间的进率都是 100。'
+          }
+        ]
+      },
+      {
+        id: 2,
+        name: '第2阶 · 逆向去零',
+        tag: '小单位除以进率 100',
+        questions: [
+          {
+            text: '500 平方厘米 ＝ ( &nbsp;&nbsp;&nbsp;&nbsp; ) 平方分米',
+            options: ['5', '50', '500', '5000'],
+            correct: 0,
+            hint: '三步法：① 想模型：小化大除以进率；② 定进率：100；③ 算结果：500 ÷ 100 ＝ 5（去掉末尾 2 个 0）。',
+            analysis: '【错因深度解析】从小单位变大单位要除以 100（去掉末尾 2 个 0），500 去掉 2 个 0 是 5。',
+            praise: '🎉 逆向思维太敏锐了！',
+            keyPoint: '🌟 【重难点提炼】从小单位化为大单位要除以进率 100，末尾直接去掉 2 个 0。'
+          },
+          {
+            text: '1200 平方分米 ＝ ( &nbsp;&nbsp;&nbsp;&nbsp; ) 平方米',
+            options: ['12', '120', '1.2', '12000'],
+            correct: 0,
+            hint: '100平方分米 = 1平方米，1200 ÷ 100 = 12。',
+            analysis: '【错因深度解析】平方分米化为平方米除以 100，划掉末尾 2 个 0 得到 12。',
+            praise: '🎉 去零大法掌握得炉火纯青！',
+            keyPoint: '🌟 【重难点提炼】数零定位法：除以 100 时直接数出 2 个 0 划掉。'
+          }
+        ]
+      },
+      {
+        id: 3,
+        name: '第3阶 · 复名数易错',
+        tag: '先拆后合 · 重难点攻坚',
+        questions: [
+          {
+            text: '7 平方分米 15 平方厘米 ＝ ( &nbsp;&nbsp;&nbsp;&nbsp; ) 平方厘米',
+            options: ['715', '7015', '85', '7150'],
+            correct: 0,
+            hint: '【拆分三步法】先化大：7 dm² ＝ 700 cm²；再相加：700 ＋ 15 ＝ 715 cm²。',
+            analysis: '【错因深度解析】复名数不能直接拼在一起！必须先将 7 平方分米化成 700 平方厘米，再加上 15 平方厘米，得到 715 平方厘米！',
+            praise: '🎉 恭喜攻克三年级高频失分大难关！',
+            keyPoint: '🌟 【重难点提炼】复名数换算核心秘诀：先将高级单位换算成低级单位，再加上后面的零头！'
+          },
+          {
+            text: '5 平方米 30 平方分米 ＝ ( &nbsp;&nbsp;&nbsp;&nbsp; ) 平方分米',
+            options: ['53', '530', '5030', '5300'],
+            correct: 1,
+            hint: '5 m² ＝ 500 dm²，500 ＋ 30 ＝ 530 dm²。',
+            analysis: '【错因深度解析】5 平方米是 500 平方分米，加上 30 平方分米，一共是 530 平方分米，不是 53 或 5030 哦！',
+            praise: '🎉 算理清晰，复名数完全难不倒你！',
+            keyPoint: '🌟 【重难点提炼】5 m² = 500 dm²，500 + 30 = 530 dm²。注意十位对齐相加。'
+          }
+        ]
+      },
+      {
+        id: 4,
+        name: '第4阶 · 混淆对比',
+        tag: '火眼金睛 · 概念辨析',
+        questions: [
+          {
+            text: '对比思考：3 米 ＝ ( &nbsp;&nbsp; ) 分米 ， 3 平方米 ＝ ( &nbsp;&nbsp; ) 平方分米',
+            options: ['30 和 300', '300 和 30', '30 和 30', '300 和 300'],
+            correct: 0,
+            hint: '长度单位进率是 10（添 1 个 0）；面积单位进率是 100（添 2 个 0）！',
+            analysis: '【错因深度解析】千万不要混淆！长度单位“米与分米”进率是 10（3米=30分米）；而面积单位“平方米与平方分米”进率是 100（3平方米=300平方分米）！',
+            praise: '🎉 火眼金睛！完美避开所有思维陷阱！',
+            keyPoint: '🌟 【重难点提炼】谨记：长度单位是一维（进率 10），面积单位是二维方格铺满（10×10 进率 100）！'
+          },
+          {
+            text: '边长 1 米的正方形，它的周长是 ( &nbsp;&nbsp; )，面积是 ( &nbsp;&nbsp; )',
+            options: ['4 米 ， 100 平方分米', '4 平方分米 ， 100 米', '40 分米 ， 10 平方分米', '4 米 ， 10 平方分米'],
+            correct: 0,
+            hint: '周长 = 1×4 = 4米；面积 = 1平方米 = 100平方分米。',
+            analysis: '【错因深度解析】周长算的是四条边的长度总和（1×4=4米）；面积算的是面的大小（1平方米=100平方分米）。',
+            praise: '🎉 太精彩了！你已经完全具备面积大师的思维！',
+            keyPoint: '🌟 【重难点提炼】周长用长度单位（米/分米/厘米），面积用面积单位（平方米/平方分米/平方厘米），不可混淆！'
+          }
+        ]
+      }
+    ];
+
+    let currentStageIdx = 0;
+    let stageQIdx = 0;
+    let soloStars = 0;
+    let hasAnsweredCurrentCorrect = false;
+
+    function selectStage(stageIdx) {
+      currentStageIdx = stageIdx;
+      stageQIdx = 0;
+      updateStageTabStyles();
+      renderSoloQuestion();
+      playTone('pop');
+    }
+
+    function updateStageTabStyles() {
+      for (let i = 0; i < ladderStages.length; i++) {
+        const tab = document.getElementById(`stageTab-${i}`);
+        if (!tab) continue;
+        if (i === currentStageIdx) {
+          tab.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950 shadow';
+        } else {
+          tab.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition-all text-slate-300 hover:text-white';
+        }
+      }
+    }
+
+    function renderSoloQuestion() {
+      const stage = ladderStages[currentStageIdx];
+      const q = stage.questions[stageQIdx];
+      hasAnsweredCurrentCorrect = false;
+
+      document.getElementById('soloStageTitle').innerText = stage.name;
+      document.getElementById('soloQTag').innerText = stage.tag;
+      document.getElementById('soloQNum').innerText = stageQIdx + 1;
+      document.getElementById('soloQTotal').innerText = stage.questions.length;
+      document.getElementById('soloQTitle').innerHTML = q.text;
+
+      // 重置反馈区域
+      document.getElementById('soloHintBox').classList.add('hidden');
+      document.getElementById('soloErrorBox').classList.add('hidden');
+      document.getElementById('soloPraiseBox').classList.add('hidden');
+      document.getElementById('nextQuestionBtn').classList.add('hidden');
+      document.getElementById('soloDoneOverlay').classList.add('hidden');
+
+      document.getElementById('soloHintText').innerText = q.hint;
+      document.getElementById('soloErrorText').innerText = q.analysis;
+      document.getElementById('soloPraiseTitle').innerHTML = `<span>${q.praise}</span>`;
+      document.getElementById('soloKeyPointText').innerText = q.keyPoint;
+
+      // 渲染选项按钮
+      const grid = document.getElementById('soloOptionsGrid');
+      grid.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'ctrl-btn py-3 px-4 bg-white/5 hover:bg-white/15 border-2 border-emerald-400/30 text-white font-bold rounded-xl text-lg text-center transition-all';
+        btn.innerText = opt;
+        btn.onclick = () => checkSoloAnswer(idx, btn);
+        grid.appendChild(btn);
+      });
+    }
+
+    function checkSoloAnswer(selectedIdx, btn) {
+      if (hasAnsweredCurrentCorrect) return;
+      const stage = ladderStages[currentStageIdx];
+      const q = stage.questions[stageQIdx];
+
+      if (selectedIdx === q.correct) {
+        hasAnsweredCurrentCorrect = true;
+        playTone('correct');
+        btn.classList.remove('bg-white/5', 'border-emerald-400/30', 'hover:bg-white/15');
+        btn.classList.add('bg-emerald-500', 'border-emerald-400', 'text-slate-950', 'font-black');
+
+        soloStars++;
+        document.getElementById('soloStarLabel').innerText = `✨ 星星：${soloStars}`;
+        triggerConfetti();
+
+        // 隐藏错误，展示对的鼓励与题目重难点
+        document.getElementById('soloErrorBox').classList.add('hidden');
+        document.getElementById('soloPraiseBox').classList.remove('hidden');
+        document.getElementById('nextQuestionBtn').classList.remove('hidden');
+
+        // 延迟自动进阶下一题或结算
+        setTimeout(() => {
+          if (hasAnsweredCurrentCorrect) {
+            nextSoloQuestionManual();
+          }
+        }, 1800);
+      } else {
+        playTone('error');
+        btn.classList.add('shake', 'bg-rose-500/20', 'border-rose-400');
+        setTimeout(() => btn.classList.remove('shake'), 400);
+
+        // 隐藏鼓励，展示错因解析
+        document.getElementById('soloPraiseBox').classList.add('hidden');
+        document.getElementById('soloErrorBox').classList.remove('hidden');
+      }
+    }
+
+    function nextSoloQuestionManual() {
+      const stage = ladderStages[currentStageIdx];
+      if (stageQIdx < stage.questions.length - 1) {
+        stageQIdx++;
+        renderSoloQuestion();
+      } else {
+        // 本阶通关！
+        showStageClearOverlay();
+      }
+    }
+
+    function showStageClearOverlay() {
+      const overlay = document.getElementById('soloDoneOverlay');
+      const title = document.getElementById('soloDoneTitle');
+      const desc = document.getElementById('soloDoneDesc');
+      const btnNext = document.getElementById('btnNextStageOverlay');
+
+      if (currentStageIdx < ladderStages.length - 1) {
+        title.innerText = `🎉 恭喜通关【${ladderStages[currentStageIdx].name}】！`;
+        desc.innerText = `太棒了！已顺利攻克本阶重难点，接下来准备迎接更高阶挑战吧！`;
+        btnNext.innerText = `🚀 挑战 ${ladderStages[currentStageIdx + 1].name}`;
+        btnNext.classList.remove('hidden');
+      } else {
+        title.innerText = `👑 4阶天梯大闯关 全部通关！`;
+        desc.innerText = `恭喜你！基础、逆向、复名数与概念辨析全部登顶，你就是面积换算特级大师！`;
+        btnNext.innerText = `⚔️ 进入双人巅峰对决`;
+        btnNext.onclick = () => goToSlide(4);
+      }
+
+      overlay.classList.remove('hidden');
+      triggerConfetti();
+    }
+
+    function nextStageFromOverlay() {
+      if (currentStageIdx < ladderStages.length - 1) {
+        selectStage(currentStageIdx + 1);
+      } else {
+        goToSlide(4);
+      }
+    }
+
+    function toggleSoloHint() {
+      const box = document.getElementById('soloHintBox');
+      box.classList.toggle('hidden');
+      if (!box.classList.contains('hidden')) playTone('pop');
+    }
+
+    function resetSoloGame() {
+      stageQIdx = 0;
+      document.getElementById('soloDoneOverlay').classList.add('hidden');
+      renderSoloQuestion();
+    }
+
+    // ==================== 关卡 4: 极速争霸竞技场系统 (2人/3人模式 + 连击 + 1.5s冻结) ====================
+    let pkPlayerCount = 2; // 2 或 3
+    const pkGoal = 50;
+    let pkPlayers = {
+      p1: { score: 0, combo: 0, frozen: false, currentQ: null },
+      p2: { score: 0, combo: 0, frozen: false, currentQ: null }, // 黄队 (3人模式下)
+      p3: { score: 0, combo: 0, frozen: false, currentQ: null }  // 蓝队 (2人或3人)
+    };
+
+    function setPKMode(count) {
+      pkPlayerCount = count;
+      const modeBtn2 = document.getElementById('modeBtn2');
+      const modeBtn3 = document.getElementById('modeBtn3');
+      const p2Box = document.getElementById('p2Box');
+      const arenaGrid = document.getElementById('pkArenaGrid');
+      const p3NumBadge = document.getElementById('p3NumBadge');
+
+      if (count === 3) {
+        modeBtn3.className = 'px-3 py-1 rounded-lg text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow';
+        modeBtn2.className = 'px-3 py-1 rounded-lg text-xs font-bold transition-all text-slate-300 hover:text-white';
+        p2Box.classList.remove('hidden');
+        arenaGrid.className = 'grid grid-cols-3 gap-3 flex-1 relative min-h-0';
+        p3NumBadge.innerText = '3';
+      } else {
+        modeBtn2.className = 'px-3 py-1 rounded-lg text-xs font-bold transition-all bg-rose-500 text-white shadow';
+        modeBtn3.className = 'px-3 py-1 rounded-lg text-xs font-bold transition-all text-slate-300 hover:text-white';
+        p2Box.classList.add('hidden');
+        arenaGrid.className = 'grid grid-cols-2 gap-4 flex-1 relative min-h-0';
+        p3NumBadge.innerText = '2';
+      }
+
+      resetPK();
+      playTone('pop');
+    }
+
+    function makePKQuestion() {
+      const types = ['m2_to_dm2', 'dm2_to_cm2', 'dm2_to_m2', 'cm2_to_dm2', 'compound_dm2_cm2', 'compound_m2_dm2', 'compare'];
+      const type = types[Math.floor(Math.random() * types.length)];
+      const num = Math.floor(Math.random() * 8) + 2;
+
+      let text = '';
+      let tag = '大化小速算';
+      let correct = '';
+      let wrongs = [];
+
+      if (type === 'm2_to_dm2') {
+        tag = '大化小 · 乘100';
+        text = `${num} m² ＝ ( &nbsp;&nbsp; ) dm²`;
+        correct = (num * 100).toString();
+        wrongs = [(num * 10).toString(), (num * 1000).toString(), (num + 100).toString()];
+      } else if (type === 'dm2_to_cm2') {
+        tag = '大化小 · 乘100';
+        text = `${num} dm² ＝ ( &nbsp;&nbsp; ) cm²`;
+        correct = (num * 100).toString();
+        wrongs = [(num * 10).toString(), (num * 1000).toString(), ((num + 1) * 100).toString()];
+      } else if (type === 'dm2_to_m2') {
+        tag = '小化大 · 除以100';
+        text = `${num * 100} dm² ＝ ( &nbsp;&nbsp; ) m²`;
+        correct = num.toString();
+        wrongs = [(num * 10).toString(), (num * 100).toString(), (num * 2).toString()];
+      } else if (type === 'cm2_to_dm2') {
+        tag = '小化大 · 除以100';
+        text = `${num * 100} cm² ＝ ( &nbsp;&nbsp; ) dm²`;
+        correct = num.toString();
+        wrongs = [(num * 10).toString(), (num * 100).toString(), (num + 10).toString()];
+      } else if (type === 'compound_dm2_cm2') {
+        tag = '🔥 复名数速算';
+        const subNum = [15, 20, 35, 50, 80][Math.floor(Math.random() * 5)];
+        text = `${num} dm² ${subNum} cm² ＝ ( &nbsp;&nbsp; ) cm²`;
+        correct = (num * 100 + subNum).toString();
+        wrongs = [`${num}${subNum}`, (num * 100 + subNum + 10).toString(), (num * 10 + subNum).toString()];
+      } else if (type === 'compound_m2_dm2') {
+        tag = '🔥 复名数速算';
+        const subNum = [20, 30, 50, 60][Math.floor(Math.random() * 4)];
+        text = `${num} m² ${subNum} dm² ＝ ( &nbsp;&nbsp; ) dm²`;
+        correct = (num * 100 + subNum).toString();
+        wrongs = [`${num}${subNum}`, (num * 100 + subNum + 100).toString(), (num * 10 + subNum).toString()];
+      } else {
+        tag = '⚡ 比大小排雷';
+        const factor = [100, 10, 1000][Math.floor(Math.random() * 3)];
+        text = `${num} m² ○ ${num * factor} dm²`;
+        if (factor === 100) {
+          correct = '＝';
+          wrongs = ['＞', '＜', '无法比较'];
+        } else if (factor === 10) {
+          correct = '＞';
+          wrongs = ['＝', '＜', '无法比较'];
+        } else {
+          correct = '＜';
+          wrongs = ['＝', '＞', '无法比较'];
+        }
+      }
+
+      const opts = [correct, ...wrongs].sort(() => Math.random() - 0.5);
+      return { text, tag, correct, opts };
+    }
+
+    function initPKQuestion() {
+      ['p1', 'p2', 'p3'].forEach(p => {
+        pkPlayers[p].currentQ = makePKQuestion();
+        renderPlayerCard(p);
+      });
+    }
+
+    function renderPlayerCard(pKey) {
+      const p = pkPlayers[pKey];
+      const q = p.currentQ;
+      if (!q) return;
+
+      document.getElementById(`${pKey}QTag`).innerText = q.tag;
+      document.getElementById(`${pKey}QText`).innerHTML = q.text;
+      document.getElementById(`${pKey}ScoreVal`).innerText = p.score;
+      document.getElementById(`${pKey}Msg`).innerText = '';
+
+      // 连击显示
+      const comboEl = document.getElementById(`${pKey}Combo`);
+      if (p.combo >= 2) {
+        comboEl.innerText = p.combo >= 3 ? `⚡ 超神 ×${p.combo}` : `🔥 连击 ×${p.combo}`;
+        comboEl.classList.remove('hidden');
+      } else {
+        comboEl.classList.add('hidden');
+      }
+
+      // 选项渲染
+      const box = document.getElementById(`${pKey}OptsGrid`);
+      box.innerHTML = '';
+      q.opts.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'ctrl-btn py-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-black rounded-xl text-sm transition-all';
+        btn.innerText = opt;
+        btn.onclick = () => onPlayerPick(pKey, opt, btn);
+        box.appendChild(btn);
+      });
+    }
+
+    function onPlayerPick(pKey, val, btn) {
+      const p = pkPlayers[pKey];
+      if (p.frozen) return;
+
+      if (val === p.currentQ.correct) {
+        playTone('correct');
+        p.combo++;
+        const addScore = 10 + (p.combo >= 3 ? 5 : (p.combo === 2 ? 2 : 0));
+        p.score += addScore;
+        document.getElementById(`${pKey}ScoreVal`).innerText = p.score;
+        document.getElementById(`${pKey}Msg`).innerText = p.combo >= 2 ? `🎉 连对！+${addScore} 分！` : `🎉 正确 +10 分！`;
+
+        if (p.score >= pkGoal) {
+          const names = { p1: '红队 (玩家1)', p2: '黄队 (玩家2)', p3: (pkPlayerCount === 3 ? '蓝队 (玩家3)' : '蓝队 (玩家2)') };
+          showPKWin(names[pKey]);
+        } else {
+          p.currentQ = makePKQuestion();
+          setTimeout(() => renderPlayerCard(pKey), 300);
+        }
+      } else {
+        // 答错惩罚：连击清零 + 冻结 1.5 秒
+        playTone('error');
+        p.combo = 0;
+        p.frozen = true;
+        btn.classList.add('shake', 'bg-rose-500/30', 'border-rose-400');
+
+        const freezeEl = document.getElementById(`${pKey}Freeze`);
+        freezeEl.classList.remove('hidden');
+        document.getElementById(`${pKey}Msg`).innerText = '❌ 答错！冻结 1.5 秒';
+
+        setTimeout(() => {
+          p.frozen = false;
+          freezeEl.classList.add('hidden');
+          p.currentQ = makePKQuestion();
+          renderPlayerCard(pKey);
+        }, 1500);
+      }
+    }
+
+    function showPKWin(name) {
+      playClapSound();
+      triggerConfetti();
+      document.getElementById('pkWinTitle').innerText = `🏆 ${name} 斩获冠军！`;
+      document.getElementById('pkWinModal').classList.remove('hidden');
+    }
+
+    function closePKWinModal() {
+      document.getElementById('pkWinModal').classList.add('hidden');
+      resetPK();
+    }
+
+    function resetPK() {
+      ['p1', 'p2', 'p3'].forEach(pKey => {
+        pkPlayers[pKey].score = 0;
+        pkPlayers[pKey].combo = 0;
+        pkPlayers[pKey].frozen = false;
+        document.getElementById(`${pKey}Freeze`).classList.add('hidden');
+        document.getElementById(`${pKey}ScoreVal`).innerText = '0';
+        document.getElementById(`${pKey}Combo`).classList.add('hidden');
+        document.getElementById(`${pKey}Msg`).innerText = '';
+      });
+      initPKQuestion();
+    }
+
+    // ==================== 关卡 5: 一句话反思互动系统 ====================
+    function pickReflection(idx, text) {
+      playTone('correct');
+      triggerConfetti();
+      document.getElementById('reflectAnswer').innerText = text;
+      document.getElementById('reflectBadge').classList.remove('hidden');
+
+      const btns = document.querySelectorAll('.reflect-btn');
+      btns.forEach((b, i) => {
+        if (i === idx) {
+          b.className = 'reflect-btn ctrl-btn px-3 py-1 rounded-xl bg-emerald-500 text-slate-950 font-black border border-emerald-400 shadow-md pop-scale';
+        } else {
+          b.className = 'reflect-btn ctrl-btn px-3 py-1 rounded-xl bg-white/5 hover:bg-emerald-500/20 border border-white/15 text-xs text-slate-300 font-bold transition-all';
+        }
+      });
+    }
+
+    // ==================== 页面初始化 ====================
+    window.addEventListener('DOMContentLoaded', () => {
+      initNavDots();
+      autoScaleDeck();
+    });
+  </script>
+</body>
+</html>
