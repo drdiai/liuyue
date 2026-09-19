@@ -61,6 +61,12 @@ nav button.on{background:var(--brand);color:#fff;font-weight:600}
 .coach-head span{font-size:11.5px;color:var(--ink3);background:#fff;border:1px solid #d9def5;border-radius:999px;padding:2px 8px}
 .coach p{font-size:12.8px;color:var(--ink2);margin:4px 0 9px;line-height:1.65}
 .coach textarea{background:rgba(255,255,255,.88);min-height:150px;font-size:13.5px}
+.ai-chat{background:#fff;border:1px solid #d9def5;border-radius:10px;padding:10px;margin-top:10px}
+.ai-msg{padding:9px 11px;border-radius:9px;margin:7px 0;white-space:pre-wrap;font-size:13.5px;line-height:1.75}
+.ai-msg.user{background:#eef4ff;margin-left:14%}.ai-msg.assistant{background:#f7f4ff;margin-right:8%}
+.ai-msg.system{background:#fff8e8;color:#785b18;font-size:12px}
+.ai-chat textarea{min-height:72px}.ai-settings{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+@media(max-width:700px){.ai-settings{grid-template-columns:1fr}}
 .ck{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line)}
 .ck:last-child{border-bottom:none}
 .ck input{width:17px;height:17px;margin-top:3px;accent-color:var(--brand);cursor:pointer;flex:0 0 auto}
@@ -193,10 +199,17 @@ body{padding-bottom:80px}
     </div>
     <div class="qbox" id="spQ">点击「抽题」开始 —— 建议全程录像</div>
     <div class="coach" id="spCoach">
-      <div class="coach-head"><b>🤖 参考答案智能体</b><span>本地生成 · 可编辑</span></div>
-      <p>抽到题目后，这里会按“立场—依据—课堂做法—边界—收束”生成一版参考答案。先自己讲，再打开参考稿对照。</p>
-      <textarea id="spCoachText" placeholder="抽题后生成参考答案……"></textarea>
-      <div class="row" style="margin-top:8px"><button class="btn ghost sm" onclick="copyCoach()">📋 复制参考稿</button><span class="tag g" id="coachTip"></span></div>
+      <div class="coach-head"><b>🤖 答题智能体</b><span>连续对话 · 需要模型 API</span></div>
+      <p>把题目交给智能体，它会先给完整答案；你还可以继续说“换个角度”“加入案例”“压缩成 4 分钟”。API 密钥只保存在本机浏览器，不要填写 GitHub PAT。</p>
+      <div class="ai-chat" id="aiChat"><div class="ai-msg system">还没有对话。先在下方填写 API 设置，再抽题或粘贴题目。</div></div>
+      <textarea id="aiInput" placeholder="输入题目或追问，例如：请把刚才的答案改成更像现场口语"></textarea>
+      <div class="row" style="margin-top:8px"><button class="btn" onclick="aiSend()">发送给智能体</button><button class="btn ghost sm" onclick="aiClear()">清空对话</button><button class="btn gray sm" onclick="copyLastAi()">复制最新答案</button><span class="tag g" id="aiTip"></span></div>
+      <div class="ai-settings">
+        <input id="aiBase" type="text" placeholder="API 地址，如 https://api.openai.com/v1">
+        <input id="aiModel" type="text" placeholder="模型，如 gpt-4o-mini">
+        <input id="aiKey" type="password" placeholder="API Key（仅本机保存）">
+        <button class="btn ghost sm" onclick="saveAiSettings()">保存设置</button>
+      </div>
     </div>
     <div class="timerbox">
       <div class="clock" id="spClock">01:00</div>
@@ -863,7 +876,7 @@ document.getElementById("spCount").textContent="题库 "+SPEECH.length+" 题";
 let curQ="";
 function pool(){const c=spCat.value;return c==="全部"?SPEECH:SPEECH.filter(x=>x.c===c);}
 function drawSpeech(){const p=pool();const q=p[Math.floor(Math.random()*p.length)];curQ=q.q;
- document.getElementById("spQ").textContent="《"+q.q+"》";renderCoach(q.q);spReset();}
+ document.getElementById("spQ").textContent="《"+q.q+"》";renderCoach(q.q);aiAddUser(q.q);spReset();}
 function customSpeech(){const v=prompt("输入自定义题目：");if(v){curQ=v;document.getElementById("spQ").textContent="《"+v+"》";renderCoach(v);spReset();}}
 function coachAnswer(q){
  const topic=q.replace(/[“”"《》]/g,"").replace(/[？?]$/,""), lower=topic.toLowerCase();
@@ -875,6 +888,17 @@ function coachAnswer(q){
 }
 function renderCoach(q){document.getElementById("spCoachText").value=coachAnswer(q);document.getElementById("coachTip").textContent="已生成，可按你的案例改写";}
 async function copyCoach(){const t=document.getElementById("spCoachText").value;if(!t)return;try{await navigator.clipboard.writeText(t);document.getElementById("coachTip").textContent="已复制";}catch(e){document.getElementById("spCoachText").select();document.execCommand("copy");document.getElementById("coachTip").textContent="已复制";}setTimeout(()=>document.getElementById("coachTip").textContent="",2200);}
+const AI_SYSTEM="你是‘破茧七日’综合实践青工赛答题教练。请准确理解用户题目，先给明确立场，再给政策或理论依据、课堂/案例证据、可执行做法、风险边界，最后给一版自然的现场口语稿。不要编造政策原文或数据；不确定时明确写‘待核验’。用户要求改写、追问或压缩时，直接基于上下文修改。回答使用中文，结构清晰，避免空泛口号。";
+let aiHistory=[];let lastAi="";
+function aiSettings(){return {base:(localStorage.getItem("pojian_ai_base")||"https://api.openai.com/v1").replace(/\/$/,""),model:localStorage.getItem("pojian_ai_model")||"gpt-4o-mini",key:localStorage.getItem("pojian_ai_key")||""};}
+function initAi(){const s=aiSettings();aiBase.value=s.base;aiModel.value=s.model;aiKey.value=s.key;}
+function saveAiSettings(){localStorage.setItem("pojian_ai_base",aiBase.value.trim().replace(/\/$/,""));localStorage.setItem("pojian_ai_model",aiModel.value.trim());localStorage.setItem("pojian_ai_key",aiKey.value.trim());aiTip.textContent="设置已保存到本机";setTimeout(()=>aiTip.textContent="",2200);}
+function aiRender(role,text){const d=document.createElement("div");d.className="ai-msg "+role;d.textContent=text;aiChat.appendChild(d);aiChat.scrollTop=aiChat.scrollHeight;}
+function aiAddUser(text){if(!text)return;aiHistory.push({role:"user",content:text});aiRender("user","题目："+text);}
+function aiClear(){aiHistory=[];lastAi="";aiChat.innerHTML='<div class="ai-msg system">对话已清空。可以重新抽题或输入题目。</div>';}
+async function aiSend(){const q=aiInput.value.trim();if(!q)return;const s=aiSettings();if(!s.key){aiRender("system","请先填写 API Key 并点击“保存设置”。GitHub PAT 不能调用大模型。");return;}aiInput.value="";aiHistory.push({role:"user",content:q});aiRender("user",q);const loading=document.createElement("div");loading.className="ai-msg assistant";loading.textContent="正在思考…";aiChat.appendChild(loading);try{const res=await fetch(s.base+"/chat/completions",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+s.key},body:JSON.stringify({model:s.model,messages:[{role:"system",content:AI_SYSTEM},...aiHistory],temperature:.4})});const data=await res.json();if(!res.ok)throw new Error(data.error?.message||("请求失败（"+res.status+"）"));const answer=data.choices?.[0]?.message?.content;if(!answer)throw new Error("模型没有返回答案");loading.remove();aiHistory.push({role:"assistant",content:answer});lastAi=answer;aiRender("assistant",answer);}catch(e){loading.textContent="调用失败："+e.message+"。请检查 API 地址、模型、密钥和浏览器跨域设置。";aiHistory.pop();}}
+async function copyLastAi(){if(!lastAi)return;try{await navigator.clipboard.writeText(lastAi);aiTip.textContent="已复制最新答案";}catch(e){}setTimeout(()=>aiTip.textContent="",2200);}
+initAi();
 function spStart(){if(!curQ){alert("请先抽题");return;}
  run("spClock","spBar","spLabel",60,l=>{
   if(l>45)return "思考①定性：这是观点题/现象题/材料题/自我题？";
