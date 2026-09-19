@@ -55,6 +55,12 @@ nav button.on{background:var(--brand);color:#fff;font-weight:600}
 .bar>i{display:block;height:100%;background:linear-gradient(90deg,#38bdf8,#6d4aff);width:0%;transition:width .3s}
 .qbox{background:var(--brand-soft);border-left:4px solid var(--brand);border-radius:10px;padding:14px 16px;font-size:17px;font-weight:600;color:var(--brand-dark);margin:11px 0;line-height:1.55}
 .qbox.sm{font-size:15px;font-weight:500}
+.coach{background:linear-gradient(135deg,#f8fbff,#f4f0ff);border:1px solid #d9def5;border-radius:12px;padding:14px 16px;margin:11px 0}
+.coach-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px}
+.coach-head b{color:var(--brand-dark);font-size:14px}
+.coach-head span{font-size:11.5px;color:var(--ink3);background:#fff;border:1px solid #d9def5;border-radius:999px;padding:2px 8px}
+.coach p{font-size:12.8px;color:var(--ink2);margin:4px 0 9px;line-height:1.65}
+.coach textarea{background:rgba(255,255,255,.88);min-height:150px;font-size:13.5px}
 .ck{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line)}
 .ck:last-child{border-bottom:none}
 .ck input{width:17px;height:17px;margin-top:3px;accent-color:var(--brand);cursor:pointer;flex:0 0 auto}
@@ -186,6 +192,12 @@ body{padding-bottom:80px}
       <span class="tag t" id="spCount"></span>
     </div>
     <div class="qbox" id="spQ">点击「抽题」开始 —— 建议全程录像</div>
+    <div class="coach" id="spCoach">
+      <div class="coach-head"><b>🤖 参考答案智能体</b><span>本地生成 · 可编辑</span></div>
+      <p>抽到题目后，这里会按“立场—依据—课堂做法—边界—收束”生成一版参考答案。先自己讲，再打开参考稿对照。</p>
+      <textarea id="spCoachText" placeholder="抽题后生成参考答案……"></textarea>
+      <div class="row" style="margin-top:8px"><button class="btn ghost sm" onclick="copyCoach()">📋 复制参考稿</button><span class="tag g" id="coachTip"></span></div>
+    </div>
     <div class="timerbox">
       <div class="clock" id="spClock">01:00</div>
       <div class="tlabel" id="spLabel">思考阶段 · 草稿纸上只写 3 个关键词 + 1 个真实故事</div>
@@ -851,8 +863,18 @@ document.getElementById("spCount").textContent="题库 "+SPEECH.length+" 题";
 let curQ="";
 function pool(){const c=spCat.value;return c==="全部"?SPEECH:SPEECH.filter(x=>x.c===c);}
 function drawSpeech(){const p=pool();const q=p[Math.floor(Math.random()*p.length)];curQ=q.q;
- document.getElementById("spQ").textContent="《"+q.q+"》";spReset();}
-function customSpeech(){const v=prompt("输入自定义题目：");if(v){curQ=v;document.getElementById("spQ").textContent="《"+v+"》";spReset();}}
+ document.getElementById("spQ").textContent="《"+q.q+"》";renderCoach(q.q);spReset();}
+function customSpeech(){const v=prompt("输入自定义题目：");if(v){curQ=v;document.getElementById("spQ").textContent="《"+v+"》";renderCoach(v);spReset();}}
+function coachAnswer(q){
+ const topic=q.replace(/[“”"《》]/g,"").replace(/[？?]$/,""), lower=topic.toLowerCase();
+ let action="我会把它落到一个可观察的课堂任务上：先让学生提出自己的判断，再通过小组合作、真实材料或访谈获取证据，最后用作品、口述或行动方案呈现变化。";
+ if(/ai|人工智能|数字|技术/.test(lower)) action="我会把技术放在‘促进思考’的位置，而不是替学生下结论：先让学生独立判断，再用 AI 生成一个需要核验的参考答案，最后做事实核查、偏差辨析和隐私安全检查。";
+ if(/评价|考试|分数|量规/.test(lower)) action="我会把评价前置，公开一份简单量规，既看最终成果，也看问题提出、证据使用、合作过程和反思修订；允许学生用文字、口述或作品呈现，避免把表达能力误当成全部能力。";
+ if(/家长|社区|资源/.test(lower)) action="我会给家长和社区安排具体、低负担且可替代的任务，例如一次短访谈或一份真实性核查；没有外部资源的学生可以使用校内访谈对象，确保资源差异不变成评价差异。";
+ return `我的判断是：${topic}的关键，不是停留在口号，而是让学生在真实情境中发生可观察的变化。\n\n依据上，我会坚持以学生发展为中心，把核心素养落到问题意识、实践能力、合作交流和反思改进上。\n\n做法上，${action}\n\n我也会主动说明边界：一节课只能呈现变化的起点，不能夸大为长期效果；如果证据不足，我会如实记录“尚待验证”，再通过后续观察和修订补足。\n\n所以，回到${topic}，我追求的不是一份漂亮答案，而是一条学生能理解、能参与、能用证据改进的学习路径。谢谢。`;
+}
+function renderCoach(q){document.getElementById("spCoachText").value=coachAnswer(q);document.getElementById("coachTip").textContent="已生成，可按你的案例改写";}
+async function copyCoach(){const t=document.getElementById("spCoachText").value;if(!t)return;try{await navigator.clipboard.writeText(t);document.getElementById("coachTip").textContent="已复制";}catch(e){document.getElementById("spCoachText").select();document.execCommand("copy");document.getElementById("coachTip").textContent="已复制";}setTimeout(()=>document.getElementById("coachTip").textContent="",2200);}
 function spStart(){if(!curQ){alert("请先抽题");return;}
  run("spClock","spBar","spLabel",60,l=>{
   if(l>45)return "思考①定性：这是观点题/现象题/材料题/自我题？";
