@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>破茧七日 · 训练营｜立·辩·行</title>
+<style>
+:root{
+  --bg:#f5f7fb; --card:#fff; --ink:#1b2333; --ink2:#4a5568; --ink3:#8a94a6;
+  --line:#e4e8f0; --brand:#2563eb; --brand-soft:#eaf1ff; --brand-dark:#1e40af;
+  --ok:#0f9d58; --ok-soft:#e8f6ee; --warn:#d97b00; --warn-soft:#fff4e2;
+  --danger:#d64545; --danger-soft:#fdecec; --purple:#6d4aff; --purple-soft:#f0ecff;
+  --teal:#0f8f8f; --teal-soft:#e6f6f6; --pink:#c2418a; --pink-soft:#fdeaf5;
+  --radius:14px; --shadow:0 1px 3px rgba(20,30,60,.06),0 8px 24px rgba(20,30,60,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding:18px 16px 90px}
+header{background:linear-gradient(120deg,#1e40af,#2563eb 45%,#6d4aff);color:#fff;border-radius:18px;padding:20px 24px;box-shadow:0 10px 30px rgba(37,99,235,.22);margin-bottom:14px}
+header h1{font-size:21px;font-weight:700}
+header p{opacity:.93;font-size:13px;margin-top:5px}
+.hmeta{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.hmeta span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);padding:3px 10px;border-radius:20px;font-size:12px}
+nav{display:flex;gap:5px;overflow-x:auto;background:var(--card);padding:7px;border-radius:14px;box-shadow:var(--shadow);margin-bottom:14px;position:sticky;top:6px;z-index:30}
+nav button{flex:0 0 auto;border:none;background:transparent;color:var(--ink2);padding:8px 13px;border-radius:9px;font-size:13.5px;cursor:pointer;font-family:inherit;white-space:nowrap}
+nav button:hover{background:var(--bg)}
+nav button.on{background:var(--brand);color:#fff;font-weight:600}
+.pane{display:none}.pane.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:17px 19px;box-shadow:var(--shadow);margin-bottom:13px}
+.card h2{font-size:17px;margin-bottom:3px}
+.card h3{font-size:14.5px;margin:14px 0 7px;color:var(--brand-dark)}
+.sub{color:var(--ink3);font-size:12.8px;margin-bottom:11px;line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:900px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.btn{border:none;background:var(--brand);color:#fff;padding:9px 16px;border-radius:9px;font-size:13.5px;cursor:pointer;font-family:inherit;font-weight:600}
+.btn:hover{background:var(--brand-dark)}
+.btn.ghost{background:var(--brand-soft);color:var(--brand-dark)}
+.btn.gray{background:#eef1f6;color:var(--ink2)}
+.btn.purple{background:var(--purple)}.btn.teal{background:var(--teal)}.btn.pink{background:var(--pink)}
+.btn.sm{padding:5px 11px;font-size:12.5px;border-radius:7px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.tag{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:6px;background:var(--brand-soft);color:var(--brand-dark);margin-right:5px}
+.tag.g{background:var(--ok-soft);color:var(--ok)}.tag.o{background:var(--warn-soft);color:var(--warn)}
+.tag.p{background:var(--purple-soft);color:var(--purple)}.tag.t{background:var(--teal-soft);color:var(--teal)}
+.tag.r{background:var(--danger-soft);color:var(--danger)}.tag.k{background:var(--pink-soft);color:var(--pink)}
+.timerbox{background:linear-gradient(135deg,#0f172e,#1e293b);color:#fff;border-radius:var(--radius);padding:16px 18px;margin:11px 0}
+.clock{font-size:48px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:2px;text-align:center;line-height:1.1}
+.clock.warn{color:#ffc65c}.clock.over{color:#ff7b7b}
+.tlabel{text-align:center;font-size:12.5px;opacity:.8;margin-top:1px;min-height:20px}
+.bar{height:6px;background:rgba(255,255,255,.14);border-radius:6px;overflow:hidden;margin-top:10px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,#38bdf8,#6d4aff);width:0%;transition:width .3s}
+.qbox{background:var(--brand-soft);border-left:4px solid var(--brand);border-radius:10px;padding:14px 16px;font-size:17px;font-weight:600;color:var(--brand-dark);margin:11px 0;line-height:1.55}
+.qbox.sm{font-size:15px;font-weight:500}
+.ck{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line)}
+.ck:last-child{border-bottom:none}
+.ck input{width:17px;height:17px;margin-top:3px;accent-color:var(--brand);cursor:pointer;flex:0 0 auto}
+.ck label{cursor:pointer;flex:1;font-size:14px}
+.ck.done label{color:var(--ink3);text-decoration:line-through}
+.dayhead{display:flex;justify-content:space-between;align-items:center;background:var(--brand-soft);border-radius:9px;padding:8px 13px;margin:10px 0 1px;font-weight:700;color:var(--brand-dark);font-size:14px}
+.sc{display:flex;align-items:center;gap:9px;padding:6px 0}
+.sc label{width:88px;font-size:13px;flex:0 0 auto}
+.sc input[type=range]{flex:1;accent-color:var(--brand)}
+.sc b{width:32px;text-align:right;font-variant-numeric:tabular-nums;color:var(--brand)}
+.flash{background:linear-gradient(135deg,#fff,#f8faff);border:1px solid var(--line);border-radius:var(--radius);padding:22px;min-height:170px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:.2s}
+.flash:hover{border-color:var(--brand);box-shadow:0 6px 20px rgba(37,99,235,.1)}
+.flash .q{font-size:16.5px;font-weight:600;margin-bottom:8px;text-align:center}
+.flash .a{font-size:14px;color:var(--ink2);line-height:1.85;white-space:pre-wrap}
+.flash .hint{font-size:12px;color:var(--ink3);margin-top:12px;text-align:center}
+.lesson{border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:10px;background:#fcfdff}
+.lesson h4{font-size:14.5px;color:var(--brand-dark);margin-bottom:5px}
+.tl{width:100%;border-collapse:collapse;font-size:12.8px;margin-top:7px}
+.tl th{background:#f1f5fb;text-align:left;padding:5px 7px;font-weight:600;color:var(--ink2);border-bottom:1px solid var(--line)}
+.tl td{padding:5px 7px;border-bottom:1px solid var(--line);vertical-align:top}
+.tl tr:last-child td{border-bottom:none}
+.tl td.t{font-variant-numeric:tabular-nums;color:var(--brand);font-weight:600;white-space:nowrap}
+.note{background:var(--warn-soft);border-left:3px solid var(--warn);padding:9px 13px;border-radius:8px;font-size:13.2px;margin:9px 0;color:#7a5200}
+.note.blue{background:var(--brand-soft);border-color:var(--brand);color:var(--brand-dark)}
+.note.green{background:var(--ok-soft);border-color:var(--ok);color:#0b6b3c}
+.note.red{background:var(--danger-soft);border-color:var(--danger);color:#a02b2b}
+.acc{border:1px solid var(--line);border-radius:10px;margin-bottom:7px;overflow:hidden}
+.acc>summary{padding:10px 14px;cursor:pointer;font-size:14px;font-weight:600;background:#fbfcfe;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:9px}
+.acc>summary::-webkit-details-marker{display:none}
+.acc>summary::after{content:"＋";color:var(--brand);font-weight:700}
+.acc[open]>summary::after{content:"－"}
+.acc[open]>summary{background:var(--brand-soft);color:var(--brand-dark)}
+.acc .body{padding:12px 15px;font-size:13.6px;line-height:1.85;color:var(--ink2);border-top:1px solid var(--line);white-space:pre-wrap}
+.stat{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:11px;text-align:center}
+.stat .n{font-size:24px;font-weight:800;color:var(--brand);font-variant-numeric:tabular-nums}
+.stat .l{font-size:11.5px;color:var(--ink3)}
+.spark{display:flex;align-items:flex-end;gap:4px;height:105px;padding:9px;background:#fbfcfe;border:1px solid var(--line);border-radius:10px}
+.spark i{flex:1;background:linear-gradient(180deg,#60a5fa,#2563eb);border-radius:4px 4px 0 0;min-height:3px;position:relative}
+.spark i span{position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:10px;color:var(--ink3)}
+.hr{height:1px;background:var(--line);margin:14px 0}
+ul.tight{padding-left:19px;margin:5px 0}
+ul.tight li{margin:3px 0;font-size:13.6px}
+.kv{display:flex;gap:8px;font-size:13.3px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.kv b{color:var(--brand-dark);flex:0 0 auto;min-width:66px}
+.rec{background:#f1f5fb;border-radius:10px;padding:9px 13px;font-size:13px;margin-top:9px;max-height:250px;overflow:auto}
+.rec div{padding:4px 0;border-bottom:1px dashed #dde3ee}
+.rec div:last-child{border-bottom:none}
+input[type=text],textarea,select{font-family:inherit;font-size:13.5px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;width:100%;background:#fff;color:var(--ink)}
+textarea{min-height:78px;line-height:1.7;resize:vertical}
+select:focus,input:focus,textarea:focus{outline:2px solid var(--brand-soft);border-color:var(--brand)}
+.pill{display:inline-block;font-size:12px;padding:3px 9px;border-radius:20px;background:#eef1f6;color:var(--ink2);margin:2px 3px 2px 0;cursor:pointer}
+.pill.on{background:var(--brand);color:#fff}
+.pill:hover{background:#e0e6f0}.pill.on:hover{background:var(--brand-dark)}
+.foot{font-size:11.5px;color:var(--ink3);text-align:center;margin-top:22px}
+.mini{font-size:12.5px;color:var(--ink3)}
+.chip{display:inline-block;background:var(--teal-soft);color:var(--teal);font-size:11.5px;padding:2px 8px;border-radius:6px;margin:2px 3px 2px 0}
+table.k{width:100%;border-collapse:collapse;font-size:13.2px}
+table.k th{background:#f1f5fb;padding:6px 8px;text-align:left;font-weight:600;color:var(--ink2);border-bottom:1px solid var(--line)}
+table.k td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+table.k tr:last-child td{border-bottom:none}
+
+/* ===== 资料包导航条 ===== */
+.pkgbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(10px);border-top:1px solid #dbe2ee;display:flex;gap:6px;
+  overflow-x:auto;padding:7px 10px;box-shadow:0 -2px 14px rgba(20,30,60,.08);scrollbar-width:none}
+.pkgbar::-webkit-scrollbar{display:none}
+.pkgbar a{flex:0 0 auto;font-size:12.5px;text-decoration:none;color:#4a5568;
+  border:1px solid #dbe2ee;border-radius:999px;padding:5px 13px;background:#fff;white-space:nowrap}
+.pkgbar a.on{background:var(--brand,#1e40af);color:#fff;border-color:var(--brand,#1e40af);font-weight:600}
+body{padding-bottom:80px}
+@media print{ .pkgbar{display:none} body{padding-bottom:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>破茧七日 · 训练营 <span style="font-weight:400;opacity:.85">｜立 · 辩 · 行</span></h1>
+  <p>不只是一份案例——是把你整个人的教育素养、素材库存和临场思维，在一周内压进肌肉里</p>
+  <div class="hmeta">
+    <span><b>立</b> 案例＋PPT 口径一致</span>
+    <span><b>辩</b> 演讲必说"边界"</span>
+    <span><b>行</b> 试讲每 60 秒有学生</span>
+    <span>🎤 第二关 5′即兴演讲（1′思考+4′讲）</span>
+    <span>🎬 第三关 8-12′无生试讲 + 3′答辩</span>
+    <span id="hdays"></span>
+  </div>
+</header>
+
+<nav id="nav"></nav>
+
+<!-- 1 计划 -->
+<div class="pane" id="p-plan">
+  <div class="card">
+    <h2>📅 7 天冲刺作战表 <span class="tag" id="planProg"></span></h2>
+    <div class="sub">每天 90 分钟。<b>上午装素材，下午练输出，晚上录像复盘。</b>勾选自动保存。</div>
+    <div id="planList"></div>
+    <div class="hr"></div>
+    <button class="btn gray sm" onclick="resetPlan()">重置打卡</button>
+  </div>
+  <div class="card">
+    <h2>🎯 三关能力拆解 · 你到底在练什么</h2>
+    <div class="grid3">
+      <div class="lesson"><h4>即兴演讲 = 库存 × 结构 × 手感</h4>
+        <ul class="tight"><li><b>库存</b>：政策、理论、热点、金句、故事、数据（本系统「资源库存」）</li>
+        <li><b>结构</b>：看到题 10 秒内能选对骨架（本系统「思维训练」）</li>
+        <li><b>手感</b>：20 次以上真计时录像（本系统「即兴演讲」）</li></ul></div>
+      <div class="lesson"><h4>无声试讲 = 设计 × 表演 × 控时</h4>
+        <ul class="tight"><li><b>设计</b>：目标准、环节清、有生成</li>
+        <li><b>表演</b>：让评委“看见”不存在的学生</li>
+        <li><b>控时</b>：8-12 分钟，目标 11:30，可剪枝</li></ul></div>
+      <div class="lesson"><h4>答辩 = 准确 × 逻辑 × 真诚</h4>
+        <ul class="tight"><li><b>准确</b>：政策与理论不张冠李戴</li>
+        <li><b>逻辑</b>：定调→依据→证据→边界→迁移</li>
+        <li><b>真诚</b>：敢说真不足，敢说“我还没有数据"</li></ul></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2 演讲 -->
+<div class="pane" id="p-speech">
+  <div class="card">
+    <h2>🎤 即兴演讲全真训练器</h2>
+    <div class="sub">评分六维：教育理念 · 课程理解 · 逻辑组织 · 语言表达 · 应变能力 · 思维深度。完全复刻赛场节奏。</div>
+    <div class="row" style="margin-bottom:9px">
+      <select id="spCat" style="width:auto;min-width:220px"></select>
+      <button class="btn" onclick="drawSpeech()">🎲 抽题</button>
+      <button class="btn gray sm" onclick="customSpeech()">✍️ 自定义</button>
+      <span class="tag t" id="spCount"></span>
+    </div>
+    <div class="qbox" id="spQ">点击「抽题」开始 —— 建议全程录像</div>
+    <div class="timerbox">
+      <div class="clock" id="spClock">01:00</div>
+      <div class="tlabel" id="spLabel">思考阶段 · 草稿纸上只写 3 个关键词 + 1 个真实故事</div>
+      <div class="bar"><i id="spBar"></i></div>
+      <div class="row" style="justify-content:center;margin-top:12px">
+        <button class="btn" id="spStart" onclick="spStart()">▶ 开始 1 分钟思考</button>
+        <button class="btn gray sm" onclick="spReset()">重置</button>
+        <button class="btn ghost sm" id="spRec" onclick="toggleRec('sp')">🔴 录音</button>
+      </div>
+      <div id="spRecBox"></div>
+    </div>
+    <div class="note"><b>1 分钟只做三件事：</b>① 定性（观点/现象/材料/自我）② 定骨架（8 选 1，见「思维训练」）③ 定弹药（政策一句 + 学生故事一个 + 金句一条）。<b>不写整段话。</b></div>
+  </div>
+  <div class="card">
+    <h3>135 通用结构（最稳，不会出错）</h3>
+    <div class="grid2">
+      <div>
+        <div class="kv"><b>0-15″</b><span>亮观点：我的判断是——（必须带立场，不许复述题目）</span></div>
+        <div class="kv"><b>15″-1′</b><span>是什么/为什么：拆概念 + 一句政策或一句名家</span></div>
+        <div class="kv"><b>1′-2′30″</b><span>怎么做（最重）：落到你的课堂，<b>一个具体做法 + 一个学生细节</b></span></div>
+        <div class="kv"><b>2′30″-3′30″</b><span>深化：讲边界/风险/反面 —— 这是”思维深度“唯一得分点</span></div>
+        <div class="kv"><b>3′30″-4′</b><span>收束：金句 + 回到”我" + 致谢。宁早 10 秒，不要超时</span></div>
+      </div>
+      <div>
+        <div class="note green"><b>高分三件套</b><br>① 一句政策（懂行）② 一个真实学生细节（真做）③ 一句自我限定（有反思）</div>
+        <div class="note red"><b>四大扣分坑</b><br>① 空喊口号没案例 ② 通篇“我们应该”没有“我做过"<br>③ 超时被打断 ④ 开头复述题目超过 20 秒</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>📊 自评（保存后进入成长曲线）</h2>
+    <div id="spScore"></div>
+    <div style="margin-top:10px"><label class="mini">本次复盘笔记（最该改的一点）</label><textarea id="spNote" placeholder="例：'怎么做'只有一个抽象做法，缺学生细节。下次把小A的访谈原话背下来。"></textarea></div>
+    <div class="row" style="margin-top:9px"><button class="btn" onclick="saveSpeech()">💾 保存成绩</button><span class="tag g" id="spSaveTip"></span></div>
+  </div>
+</div>
+
+<!-- 3 思维训练 -->
+<div class="pane" id="p-mind">
+  <div class="card">
+    <h2>🧠 思维能力训练场</h2>
+    <div class="sub">即兴演讲的本质不是”背“，是<b>在 60 秒内完成：定性 → 选骨架 → 调弹药</b>。下面五个训练器分别打这三项。<span class="tag p">每天至少做 2 项</span></div>
+    <div class="grid4" id="mindNav"></div>
+  </div>
+  <div class="card" id="mindBody"></div>
+</div>
+
+<!-- 4 试讲 -->
+<div class="pane" id="p-teach">
+  <div class="card">
+    <h2>🎬 无声试讲训练器</h2>
+    <div class="sub">赛场：<b>从你提交的案例中随机抽取课题</b>，8-12 分钟无生模拟教学。目标 <b>11:30</b>（不足 8 分钟严重扣分，超时每分钟扣 1 分）。</div>
+    <div class="row" style="margin-bottom:9px">
+      <button class="btn" onclick="drawLesson()">🎲 随机抽课时</button>
+      <select id="lsSel" style="width:auto;min-width:280px" onchange="showLesson(+this.value)"></select>
+      <button class="btn gray sm" onclick="startTeach()">▶ 12 分钟计时</button>
+      <button class="btn gray sm" onclick="stopTeach()">■ 停</button>
+      <button class="btn ghost sm" id="lsRec" onclick="toggleRec('ls')">🔴 录音</button>
+    </div>
+    <div class="timerbox">
+      <div class="clock" id="lsClock">12:00</div>
+      <div class="tlabel" id="lsLabel">倒计时 · 8:00 起进入安全区 · 建议 11:30 收束</div>
+      <div class="bar"><i id="lsBar"></i></div>
+      <div id="lsRecBox"></div>
+    </div>
+    <div id="lsBox"></div>
+  </div>
+  <div class="card">
+    <h2>🧰 无声试讲「无中生有」六技法</h2>
+    <div class="sub">无生课堂最高分的共性是：<b>评委能”看见“不存在的学生</b>。</div>
+    <div class="grid2">
+      <div class="lesson"><h4>1. 复述追问法</h4>先转述再追问：「你说的是——你觉得自己不适合当众发言，因为上次小组汇报忘词了，是吗？那你是怎么克服的？」<span class="tag">必用</span></div>
+      <div class="lesson"><h4>2. 方位定位法</h4>固定眼神+手势代表小组：左前=一组，右后=四组。每次提问指向同一方向，评委自动”看见“课堂。</div>
+      <div class="lesson"><h4>3. 真停顿留白</h4>提问后<b>真停 3 秒</b>，眼神扫视、微微点头。不停顿＝告诉评委这里没有学生。</div>
+      <div class="lesson"><h4>4. 板书随生成</h4>板书随”学生回答"<b>逐条长出</b>。写的时候背台说：「老师把你这个发现记下来——」</div>
+      <div class="lesson"><h4>5. 预设错误生成</h4>故意安排错误答案：「有同学说，未知的自己就是我没有的能力——同意吗？」展示课堂调控与难点突破。</div>
+      <div class="lesson"><h4>6. 物化道具</h4>拿出真实任务单/信封/卡片：“这是上一届同学填的《未知我种子卡》”。实物＝真实感＝压倒性优势。</div>
+    </div>
+    <div class="note">开场<b>不要</b>说“同学们好，今天我们学习…”。第一句必须是<b>情境钩子</b>。前 30 秒决定评委期待值。</div>
+  </div>
+  <div class="card">
+    <h2>📐 综合实践四大课型 · 通用备课骨架（应急用）</h2>
+    <div class="sub">万一现场需要现备一节课，按骨架套，10 分钟出结构。</div>
+    <div id="ktBox"></div>
+  </div>
+</div>
+
+<!-- 5 答辩 -->
+<div class="pane" id="p-def">
+  <div class="card">
+    <h2>🛡️ 答辩训练器</h2>
+    <div class="sub">评分点：答题准确性 · 逻辑性 · 应变拓展 · 态度。三类必问：<b>理念追问、落地质疑、请你自我批评</b>。</div>
+    <div class="row" style="margin-bottom:9px">
+      <select id="dfCat" style="width:auto;min-width:220px"></select>
+      <button class="btn" onclick="drawDef()">🎲 抽题</button>
+      <button class="btn gray sm" onclick="startDef()">▶ 3 分钟</button>
+      <button class="btn gray sm" onclick="stopDef()">■ 停</button>
+    </div>
+    <div class="qbox sm" id="dfQ">点击「抽题」</div>
+    <div class="timerbox"><div class="clock" id="dfClock">03:00</div><div class="tlabel">30″ 定调 + 90″ 展开 + 60″ 收束与迁移</div><div class="bar"><i id="dfBar"></i></div></div>
+    <div id="dfAns"></div>
+  </div>
+  <div class="card">
+    <h3>万能骨架 ·「感谢—确认—依据—证据—边界—迁移」</h3>
+    <div class="kv"><b>① 定调</b><span>"谢谢评委。您问的其实是——“（复述确认，防止跑偏）</span></div>
+    <div class="kv"><b>② 依据</b><span>一句政策/理论（纲要、方案、指南、名家）</span></div>
+    <div class="kv"><b>③ 证据</b><span>一个课堂事实（学生原话、作品、数据、你做的调整）</span></div>
+    <div class="kv"><b>④ 边界</b><span>主动说局限：”当然，我的做法也有边界——“（思维深度分在这）</span></div>
+    <div class="kv"><b>⑤ 迁移</b><span>落到可复制：”如果换到薄弱学校，我会…"</span></div>
+    <div class="note red"><b>三不：</b>不辩解（不说“因为时间紧”）、不空谈（每点带例子）、不否定评委（先接住再转折）。<br><b>被问“最大不足”必须真答一个可控真问题 + 你怎么改。</b></div>
+  </div>
+</div>
+
+<!-- 6 资源库存 -->
+<div class="pane" id="p-lib">
+  <div class="card">
+    <h2>📚 资源库存 · 闪卡</h2>
+    <div class="sub">考场能脱口而出的才算库存。选卡组 → 点卡片翻面 → 标记掌握。</div>
+    <div class="row" id="libCats" style="margin-bottom:10px"></div>
+    <div class="flash" id="flash" onclick="flipCard()"><div class="q">选择上方卡组开始</div><div class="hint">👆 点卡片翻面</div></div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn gray sm" onclick="prevCard()">← 上张</button>
+      <span class="tag" id="cardPos"></span>
+      <button class="btn gray sm" onclick="nextCard()">下张 →</button>
+      <button class="btn ghost sm" onclick="shuffleCard()">🔀 打乱</button>
+      <button class="btn sm" onclick="markMastered()">✅ 标记掌握</button>
+      <span class="tag g" id="masterTip"></span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>🔗 每日信息源（每天扫一遍，10 分钟）</h2>
+    <div class="grid2">
+      <div><h3>权威政策</h3><ul class="tight">
+        <li>教育部官网 moe.gov.cn — 政策文件 / 新闻发布</li>
+        <li>微言教育（教育部官微）</li>
+        <li>中国教育报 / 中国教育新闻网 jyb.cn</li>
+        <li>深圳市教育局官网 +「深圳教育」官微</li>
+        <li>龙岗区教育局 lg.gov.cn —「AI+教育」专栏</li></ul></div>
+      <div><h3>教研与案例</h3><ul class="tight">
+        <li>国家中小学智慧教育平台 basic.smartedu.cn</li>
+        <li>深圳市教科院 / 南方教育时报 szjy.sznews.com</li>
+        <li>知网关键词：综合实践活动 / 职业启蒙 / 生涯教育 / 人机协同 / AI素养 / 跨学科主题学习</li>
+        <li>已备文献：张婷《儿童职业启蒙教育主题单元开发》、朱嫣嫣《职业认知教育研究》</li></ul></div>
+    </div>
+  </div>
+</div>
+
+<!-- 7 弹药库 -->
+<div class="pane" id="p-mine">
+  <div class="card">
+    <h2>🗂️ 我的弹药库（自定义，写进去才算你的）</h2>
+    <div class="sub">四类必建：<b>学生故事卡</b>（演讲的血肉）、<b>我的教学数据</b>、<b>我的金句</b>、<b>我的高频追问</b>。全部存在本机。</div>
+    <div class="grid2">
+      <div><h3>➕ 新增一条</h3>
+        <select id="mineType" style="margin-bottom:7px"><option>学生故事卡</option><option>我的教学数据</option><option>我的金句</option><option>我的高频追问</option><option>其他</option></select>
+        <textarea id="mineText" placeholder="学生故事卡模板：谁 + 说了什么/做了什么 + 我怎么处理 + 后来怎样（60字内，能脱稿）"></textarea>
+        <div class="row" style="margin-top:7px"><button class="btn" onclick="addMine()">保存</button><span class="tag g" id="mineTip"></span></div>
+      </div>
+      <div><h3>📖 我的库存</h3><div class="rec" id="mineList" style="max-height:330px"></div></div>
+    </div>
+    <div class="note blue"><b>为什么必须自建？</b>通用素材所有人都背，只有“你的学生说过什么话”是谁也抄不走的。即兴演讲的“思维深度”和“真实感”，80% 来自这一栏。</div>
+  </div>
+</div>
+
+<!-- 8 自测 -->
+<div class="pane" id="p-quiz">
+  <div class="card">
+    <h2>🧪 自测 · 素养+案例双重体检</h2>
+    <div class="sub">答辩 80% 的问题来自你的案例和通用素养。答不上来＝答辩必崩。<button class="btn ghost sm" onclick="startQuiz()">开始 / 重测</button></div>
+    <div id="quizBox"></div>
+  </div>
+</div>
+
+<!-- 9 出奇制胜 -->
+<div class="pane" id="p-win">
+  <div class="card">
+    <h2>💡 出奇制胜 · 让人记住你的 14 招</h2>
+    <div class="sub">按性价比排序，前 5 招一周内能练出来。</div>
+    <div id="winList"></div>
+  </div>
+  <div class="card">
+    <h2>⚠️ 风险自查（上场前必过）</h2>
+    <div id="riskList"></div>
+  </div>
+</div>
+
+<!-- 10 成长 -->
+<div class="pane" id="p-stat">
+  <div class="card">
+    <h2>📈 我的成长曲线</h2>
+    <div class="grid4" style="margin-bottom:13px">
+      <div class="stat"><div class="n" id="s1">0</div><div class="l">演讲练习</div></div>
+      <div class="stat"><div class="n" id="s2">0</div><div class="l">试讲练习</div></div>
+      <div class="stat"><div class="n" id="s3">0</div><div class="l">掌握素材卡</div></div>
+      <div class="stat"><div class="n" id="s4">0</div><div class="l">自建弹药</div></div>
+    </div>
+    <h3>演讲总分变化（满分 60）</h3>
+    <div class="spark" id="spark"></div>
+    <h3 style="margin-top:14px">训练记录</h3>
+    <div class="rec" id="speechRec"></div>
+    <div class="row" style="margin-top:11px"><button class="btn gray sm" onclick="exportData()">⬇ 导出数据</button><button class="btn gray sm" onclick="clearAll()">🗑 清空</button></div>
+  </div>
+</div>
+
+<div class="foot">数据保存在本机浏览器 · 不上传任何服务器</div>
+</div>
+
+<script>
+/* ============ 数据：7天计划 ============ */
+const PLAN=[
+{d:"D1 · 装库存（最重的一天）",items:[
+ "通读《中小学综合实践活动课程指导纲要》原文，背下课程定义句 + 四大核心素养 + 四种活动方式",
+ "背《使用指南》分学段三句（小学禁独用／初中可分析／高中可探究）+《教师应用指引》六条红线",
+ "刷「资源库存」政策卡 + 理论卡各 2 轮，标记掌握",
+ "通读自己的案例 2 遍，用一句话说出核心创新点",
+ "即兴演讲 ×2（录像）自评，找出最致命的一个毛病"]},
+{d:"D2 · 建骨架",items:[
+ "在「思维训练」练 8 种结构各 1 次，找出你最顺手的 2 种",
+ "整理案例「一页纸逻辑图」：背景→理念→六课时→证据链→评价→反思，能脱稿画",
+ "为六大课时各写一句「一句话价值」",
+ "背 10 条政策金句 + 5 组深圳/龙岗数据",
+ "即兴演讲 ×3（含 1 道 AI 类），强制用 135 结构"]},
+{d:"D3 · 磨思维",items:[
+ "思维训练 5 个模块各做 1 次（拆词/三词成篇/反驳/联想/结构约束）",
+ "即兴演讲 ×4：观点1、AI1、课程1、材料1，全部录像",
+ "建「我的弹药库」：写满 5 张学生故事卡（这是今天最重要的产出）",
+ "准备 1 句「记忆钉子」定位句，三关通用",
+ "无声试讲第 1 课时，只练开场 30 秒钩子 ×5 遍"]},
+{d:"D4 · 攻试讲",items:[
+ "无声试讲 ×3：抽签定课时，12 分钟全程录像含板书",
+ "六课时板书各设计 1 版，必须“长出来”不能一次写完",
+ "准备可剪枝清单：每课时标 ★必做 / ☆可删",
+ "做实物道具：周哈里窗四开窗卡、未知我种子信封、3 份学生匿名任务单",
+ "即兴演讲 ×2 保持手感"]},
+{d:"D5 · 答辩战",items:[
+ "答辩题库抽 15 题，每题 3 分钟口答并录音",
+ "写下「我最可能答砸的 3 题」标准答案并背熟（通常是：你的不足／AI合规性／怎么证明学生真思考）",
+ "准备证据三件套：3 个学生作品或原话 + 2 张过程照片说明 + 1 组前后测数据",
+ "逐条核对「风险自查」（出奇制胜页）",
+ "无声试讲 ×2，专攻弱项课时"]},
+{d:"D6 · 全真模考",items:[
+ "完整模拟：抽课时→备课 20 分钟→12 分钟试讲→3 分钟答辩（找同事/家人当评委）",
+ "即兴演讲 ×3 全真（1 分钟严格计时，不许停不许看资料）",
+ "PPT 过 3 遍：无错别字、无 AI 冒充学生作品、图注规范、数据与案例一致",
+ "定服装与教态方案（浅色上衣+深色下装最稳）",
+ "写「上场前 10 分钟」流程卡"]},
+{d:"D7 · 定状态",items:[
+ "只做轻量：即兴演讲 ×2 + 试讲 1 次（保持肌肉记忆，不练新的）",
+ "只刷已掌握的素材卡，不学新东西",
+ "默背六课时时间轴 + 记忆钉子 + 3 张故事卡",
+ "准备「被问倒」应急话术",
+ "早睡。状态分比内容分更容易丢"]}
+];
+
+/* ============ 数据：演讲题库 100+ ============ */
+const S_A=["没有差生，只有差异","教育不是灌满一桶水，而是点燃一把火","教是为了不教","十年树木，百年树人","小节与大德","做自己的伯乐","“不要让孩子输在起跑线上”你怎看","儿童是一张白纸吗","“没有教不好的学生，只有不会教的老师”你同意吗","教育的“慢”与“快”","磨难是财富，要不要给孩子制造磨难","什么是好的教育？一句话回答并展开","严师出高徒，还是爱生出高徒","教师是“蜡烛”还是“长明灯”","教育公平与教育质量，哪个更优先","什么叫做“把学生放在正中央”","“静待花开”是不是放任","表扬与批评，哪个更有力量","规矩与自由","教育要不要“狠”一点","教育的目的是什么？请用一句话回答并展开","谈谈“教书”与“育人”的关系","“因材施教”在今天还做得到吗","谈谈教育的“长期主义”","你怎么看“快乐教育”","教育要不要有“惩戒”","谈谈“言传”与“身教”","什么叫做“为党育人、为国育才”"];
+const S_B=["当学生把思考“外包”给AI，教师该怎么办","AI时代，什么是AI替代不了的教育","教师会被AI取代吗","《使用指南》规定小学禁止学生独自使用开放式生成功能，你怎么理解","AI是创意加速器还是思考替代品","如何培养学生的AI审辩素养","用AI批改作文并作为最终评价，你怎么看","《教师生成式人工智能应用指引》六条红线，你最认同哪一条","AI让教育更公平还是更不公平","课堂上AI给出了错误答案，你怎么办","数智化时代青年教师的核心竞争力是什么","家长一边要求全面禁用AI、一边要求全面开放，你如何回应","如何防止“AI鸿沟”加剧学生差距","谈谈“人机协同、以人为本”","有学生用AI写完了全部探究报告，你怎么办","AI时代还要不要背诵和记忆","教师用AI备课，会不会让教案千篇一律","学校该不该给学生配“AI学伴”","AI能代替教师做情感支持吗","如果AI比老师讲得更清楚，老师还有价值吗","AI 时代，学生还要不要“记住知识”","谈谈“算法推荐”对青少年的影响","学生用 AI 完成了一件很好的作品，该不该表扬","谈谈“数字鸿沟”与教育公平","AI 会让教育更个性化还是更标准化","教师如何用 AI 而不被 AI 牵着走"];
+const S_C=["综合实践活动课为什么不能被学科课替代","综合实践活动如何避免“走过场”“旅游式实践”","跨学科主题学习不少于10%课时，怎么用才不流于形式","科学教育加法，加什么、怎么加","劳动教育的“劳”与“育”如何统一","深圳“每周半天计划”给综合实践带来什么","综合实践的成果，是一份作品还是一次成长","如何让综合实践的评价不流于形式","场馆、社区、企业资源如何真正转化为课程","项目化学习中的“假探究”长什么样","综合实践指导教师最重要的专业素养是什么","研学旅行为何容易变成“游而不学”","综合实践活动与校本课程的关系","如何设计一份好的学生活动单","综合实践活动需要教材吗","实践活动中“安全第一”和“挑战性”如何平衡","综合实践活动与研学旅行是什么关系","如何设计一个长周期的探究任务","综合实践活动课上，教师到底该不该讲","谈谈“场景式学习”","如何把社区资源真正变成课程","综合实践活动如何与劳动教育协同","综合实践活动的安全性边界在哪里","如何判断一次实践活动是成功还是失败"];
+const S_D=["初中生需要职业启蒙，而不是职业定向，为什么","自我探索类活动如何守住心理安全边界","为什么青少年那么相信网络心理测试和星座","怎样看待“别人家的孩子”","如何看待学生给自己贴“学渣”“社恐”标签","课堂上内向学生不愿发言，你怎么办","学生说“我根本没有优点”，你怎么回应","如何引导学生正确看待失败","学生沉迷短视频，你怎么引导","同伴压力（peer pressure）是坏事吗","如何培养成长型思维","学生之间起冲突，教师该不该马上介入","如何对待“特立独行”的学生","怎样让学生愿意说真话","学生说“我努力了也没用”，你怎么回应","如何帮助有“习得性无助”的学生","这个年龄段的孩子，真的能理解“职业”吗","如何看待“躺平”心态的低龄化","如何引导学生看待“成功”","学生之间互相比较，教师该怎么引导"];
+const S_E=["你希望成为怎样的教师？为此如何努力","青年教师最该锤炼的教学基本功是什么","分享一次令你印象深刻的教学失败及反思","你如何理解“教育家精神”","你的教学特色是什么","赛课与日常课堂，哪个更能代表一个老师","教师如何保持持续学习的动力","如何处理教学与行政事务的冲突","谈谈“师徒结对”对你的帮助","你最近读的一本教育类书，给你什么启发","如何面对家长的质疑","教师如何调节自己的情绪","青年教师如何形成自己的教学风格","谈谈“反思型教师”","你如何看待教师的专业自主权","教学中如何平衡“创新”与“常规”","谈谈教师学习共同体的价值","一次公开课磨了十遍，值得吗"];
+const S_F=["某校为参加评比用AI生成学生探究报告，你怎么看","家长说：综合实践不考试，别耽误学习。你如何回应","学生说：AI已经告诉我答案了，为什么还要我自己想","学校要求综合实践必须有“可见成果展”，你怎么办","你布置的微访谈，多数学生是编的。你发现了，怎么办","课堂上两个学生因同伴反馈吵起来，你怎么处理","公开课上一个学生提出你完全没准备的问题，你怎么应对","家长群里有人公开质疑你的教学设计","学校要求所有教师用AI备课并留痕","你在课堂上讲错了一个知识点，学生当场指出","学生在实践活动中受了轻伤，你怎么办","家长拒绝孩子参加校外访谈，你怎么办","小组里有一个人完全不干活，你怎么办","实践活动当天暴雨，你怎么办","学生在访谈中被拒绝当场崩溃，你怎么办","赛前一天你发现自己的设计有伦理漏洞，怎么办"];
+const S_G=["“双减”之后，教师反而更累了，你怎么看","课间 15 分钟和每天一节体育课，会不会挤占学习时间","校园欺凌预防，班主任该做什么","如何做真正的家校社协同","手机进校园之争","“县中振兴”与优质均衡，青年教师能做什么","职业教育与普通教育分流，家长焦虑你怎么看","拔尖创新人才培养，要不要“早发现早选拔”","学生心理健康问题低龄化，教师能做什么","教师减负为什么这么难","谈谈“课间15分钟”和“每天综合体育活动2小时”","“五育并举”和“五育融合”，区别在哪","中考改革的“多元录取”，你怎么看","教师的非教育教学负担，怎么减","谈谈“教联体”","人工智能伦理教育要不要进中小学课堂","“名校集团化”能带来优质均衡吗","普职融通，中小学能做什么"];
+const S_H=["谈谈你对“做中学”的理解（它只是“动手”吗）","“做中学”与“学中做”，区别在哪里","实践育人的“育”，到底育的是什么","如何避免“有实践、无育人”","从“做中学”到“创中学”，你怎么理解","项目化学习的“驱动性问题”怎么设计","如何判断一个项目是不是“真 PBL”","“浅项目化学习”有哪些典型症状","项目化学习会不会弱化知识学习","项目化学习如何照顾后进生","项目化学习的“公开成果”到底重不重要","长周期项目与课时紧张的矛盾怎么解","“跨学科主题学习”与“项目化学习”是一回事吗","具身认知对课堂教学有什么启发","“脖颈以上的学习”有什么问题","谈谈“身体参与”在学习中的作用","数字技术会让学习变得更“离身”吗","如何在一节课里做到“知行合一”","谈谈“失败”在实践学习中的价值","探究式学习是不是太慢、不经济"];
+const S_I=["谈谈“教育强国”","谈谈“人工智能+教育”","谈谈“教育数智化变革”","如何理解“实践育人”","谈谈“五育融合”","谈谈“科学教育加法”","谈谈“核心素养”","谈谈“大单元教学”","谈谈“综合素质评价”","谈谈“表现性评价”","谈谈“教育家精神”","谈谈“教联体”与家校社协同","谈谈“大规模因材施教”","谈谈“教师减负”","谈谈“教育内卷”","谈谈“数字伦理与未成年人保护”"];
+const SPEECH=[].concat(
+ S_A.map(q=>({c:"A·教育理念",q})),
+ S_B.map(q=>({c:"B·AI与教育",q})),
+ S_C.map(q=>({c:"C·综合实践与课程",q})),
+ S_D.map(q=>({c:"D·学生观与生涯",q})),
+ S_E.map(q=>({c:"E·教师成长",q})),
+ S_F.map(q=>({c:"F·情境突发",q})),
+ S_G.map(q=>({c:"G·教育热点",q})),
+ S_H.map(q=>({c:"H·做中学·PBL·具身",q})),
+ S_I.map(q=>({c:"I·教育热词",q}))
+);
+
+/* ============ 数据：8种思维骨架 ============ */
+const FRAMES=[
+ {n:"135 结构",d:"1观点+3层次+5句收束",u:"万能，尤其观点题",s:"亮观点（是什么）→ 为什么 → 怎么做（最重）→ 讲边界 → 金句收"},
+ {n:"PREP",d:"Point理由例子重申",u:"时间紧、题目抽象",s:"观点 → 理由2条 → 我的课堂例子 → 重申观点"},
+ {n:"主体分层法",d:"个人-教师-学校-家庭-社会",u:"现象题、责任类",s:"先定性 → 各主体分别能做什么 → 我作为教师怎么做"},
+ {n:"正反合",d:"肯定-否定-统合",u:"争议题、两难题",s:"这个说法有道理在… → 但我不完全同意… → 我的看法是（在X前提下成立，在Y条件下要改）"},
+ {n:"时间轴",d:"过去-现在-未来",u:"政策类、改革类",s:"过去怎么做 → 现在为什么变 → 未来我怎么做"},
+ {n:"SCQA",d:"情境-冲突-问题-答案",u:"材料题、案例题",s:"描述情境 → 点出冲突 → 提出真问题 → 给答案"},
+ {n:"拆词法",d:"把一个概念拆成3个维度",u:"概念题、名词题",s:"这个词包含三层：①…②…③…，其中最容易被忽略的是…"},
+ {n:"辩证三分",d:"是什么-不是什么-更重要的是",u:"防偏题、显深度",s:"它是… → 它不是…（常见误解） → 更重要的是…"}
+];
+
+/* ============ 数据：思维训练素材 ============ */
+const CONCEPTS=["核心素养","因材施教","减负","家校共育","项目化学习","表现性评价","跨学科主题学习","人工智能素养","职业启蒙","批判性思维","立德树人","五育并举","学习共同体","最近发展区","成长型思维","深度学习","教育公平","教师数字素养","科学教育加法","劳动素养","审辩式思维","探究性学习","综合素质评价","教学设计"];
+const TRIPLE=[
+ ["一根粉笔","一间教室","一次失败"],["种子","镜子","地图"],["提问","证据","判断"],
+ ["看见","倾听","等待"],["手机","AI","家长群"],["规则","自由","责任"],
+ ["好奇心","挫败感","成就感"],["三十天","一个承诺","一个档案袋"],
+ ["职业","劳动","价值"],["数据","故事","温度"],["课堂","社会","未来"],
+ ["差异","尊重","可能"],["效率","公平","质量"],["传统","创新","守正"]
+];
+const REBUT=["AI能代替老师","综合实践就是带着学生玩","分数才是硬道理","严师才能出高徒","兴趣是最好的老师（无需引导）","教育要快乐，不要吃苦","以后用不上就不用学","教师只要把课上好就行","学生犯错就要立刻纠正","名校就是好教育","技术越先进课堂越好","孩子还小，什么都不懂","减负就是不布置作业","生涯规划是高中以后的事","公开课都是演的"];
+const ASSOC=["一杯水","一面镜子","一张地图","一粒种子","一扇窗","一把钥匙","一座桥","一盏灯","一个信封","一份档案袋","一双眼睛","一双手","一个问号","一条路","一杆秤","一个罗盘"];
+
+/* ============ 数据：六课时 ============ */
+CONCEPTS.push("做中学","实践育人","具身认知","具身学习","知行合一","经验学习圈","实践共同体","驱动性问题","核心知识再建构","心智自由","长周期探究","场景式学习","探究实践","五育融合","教育数智化","教联体","大规模因材施教","数字伦理","宽容失败","惰性知识");
+REBUT.push("做中学就是让孩子多动手","项目化学习就是做个作品","实践活动越热闹越好","理论都是空的，一线不管用","搞活动就是耽误学习","只要学生开心这节课就成了","技术一定能提高学习兴趣","评价就是打个分","综合实践不需要知识基础","长周期项目在中小学根本做不了","学生太小，谈不了职业","有AI就不用教方法了");
+ASSOC.push("一双手","一粒米","一次失败","一张车票","一把锤子","一条河","一封信","一扇门","一双鞋","一盏路灯");
+const LESSONS=[
+{t:"第1课时 我是谁——周哈里窗初体验",
+ hook:"（不发问，直接发纸）'请你在30秒内，用「我是……」开头，连续写十个句子。想到什么写什么，不许划掉。'",
+ aim:"让学生第一次意识到：我对自己的认识，是有层次的，而且是不完整的。",
+ tl:[["0:00-0:30","情境钩子","十句「我是……」限时书写","——","板书：我是……（写\"？\"）"],
+ ["0:30-4:00","分类发现","快速统计：这些句子分别说的是身体/角色/内心？","生1：我是篮球队的（社会）；生2：我怕被批评（心理）","板贴三区：生理自我／社会自我／心理自我"],
+ ["4:00-9:00","概念建构","两个问题交叉出四个区域：自己知道吗？别人知道吗？","生：那'我还没发现的潜力'算哪个？","画 2×2 四窗，逐格命名"],
+ ["9:00-13:00","难点突破","预设错误：'未知我就是我没有的东西'——同意吗？","生A：同意，因为我确实不会。生B：不对，是还没试过","红笔圈出：未知我≠没有"],
+ ["13:00-16:00","同伴反馈","句式训练：在[情境]中，我观察到[行为]，体现了[特质]","生：上次讨论你主动帮大家整理观点——你很在意合作","板书反馈句式"],
+ ["16:00-18:30","播下种子","写下最想验证的一颗'未知我种子'，封入信封","生：我想知道自己能不能坚持30天记录","发信封，封存仪式"]],
+ board:"周哈里窗\n①公开我 ②盲目我\n③隐藏我（自愿） ④未知我→种子",
+ digital:"投屏四窗动画；平板匿名提交'我是……'10句，实时词云",
+ climax:"信封封存仪式——'30天后我们亲手打开它'，全场最强记忆点",
+ cut:"☆可剪：巴纳姆效应辨析；★必留：四窗建构 + 种子信封"},
+{t:"第2课时 放大镜下的我——把愿望改写成探究问题",
+ hook:"'我想变得更勇敢——这句话有问题吗？请大家找茬。'",
+ aim:"教学生把空泛愿望翻译成可观察、可检验的探究问题。",
+ tl:[["0:00-1:00","找茬入课","愿望 vs 探究问题对比","生：'勇敢'没法量","板书：愿望？"],
+ ["1:00-5:00","四要素拆解","对象+行为+时间+指标","生：四周内主动发言3次，记录心率和完整度","板书四要素"],
+ ["5:00-10:00","填写问题卡","独立填写《个人探究问题卡》","巡视点拨：'你打算观察什么具体行为？'","展示空白卡模板"],
+ ["10:00-14:00","组内质询","追问：如果证据不支持你的假设，你怎么办？","生：那我就改假设，不改证据","板书：证据>假设"],
+ ["14:00-17:00","安全约定","隐私与安全承诺书、访谈分工","——","签署栏"],
+ ["17:00-18:30","小结延伸","下课前每人说出自己要访谈的对象","生：我要去采访校门口的保安叔叔","——"]],
+ board:"愿望 → 问题\n对象·行为·时间·指标\n证据 > 假设",
+ digital:"AI对比演示：同一句话分别'问愿望'和'问问题'，体会指令差异（人先思考后再看AI）",
+ climax:"把'我想变勇敢'当场改写成'未来四周内在小组完成3次独立发言，记录心率和完整度'",
+ cut:"☆可剪：AI对比演示；★必留：四要素 + 组内质询"},
+{t:"第3课时 别人眼中的我——微访谈与资料核查",
+ hook:"'上周五，小A采访了学校门口的保安。她问了一句——叔叔，您一天要走多少步？'",
+ aim:"建立事实与观点的分界意识，学会多源核查。",
+ tl:[["0:00-1:30","原话导入","展示1-2句学生访谈原话（匿名）","生笑/沉思","板书：原话"],
+ ["1:30-5:30","事实 vs 观点","剥离客观事实与修饰词","生：'他很辛苦'是观点，'站8小时'是事实","双栏板书"],
+ ["5:30-9:30","来源核查","发布机构、时间、可核查要点","生：这条是某自媒体2023年的，太旧了","板书：谁·何时·可查吗"],
+ ["9:30-15:00","证据矩阵","三栏：支持／矛盾／待验证","生：我妈说我细心，但同桌说我很马虎——矛盾！","画三栏矩阵"],
+ ["15:00-17:30","矛盾分享","各组分享最意外的矛盾证据","生：我以为我喜欢画画，但老师说我只喜欢'被夸'","——"],
+ ["17:30-18:30","衔接","矛盾怎么办？下节课请AI来帮忙——但先别急","——","板书：？"]],
+ board:"事实|观点\n来源核查：谁·何时·可查吗\n证据矩阵：支持｜矛盾｜待验证",
+ digital:"平板调取国家中小学智慧教育平台/政府公开数据做来源核查演示",
+ climax:"学生自己发现'我妈说我细心，同桌说我马虎'——矛盾证据的价值被看见",
+ cut:"☆可剪：来源核查演示；★必留：事实观点分离 + 三栏矩阵"},
+{t:"第4课时 AI帮我看到更多——人机协同分析与核查（最可能被抽中）",
+ hook:"'今天这节课，我不让你们一上来就开电脑。请先拿出纸笔——'",
+ aim:"训练'人先—AI后—人判断'工作流，学会交叉验证与反例质询。",
+ tl:[["0:00-3:00","人先（断网关）","不看AI，独立写下3条核心判断","生写，巡视：'这就是你思考的指纹'","板书：①人先（留痕）"],
+ ["3:00-7:00","AI后（限定指令）","规范指令：归纳高频能力词+指出逻辑漏洞，**严禁替我推荐职业**","生：我加了'严禁'两个字，它就真的不推荐了","板书：②AI后（限定）"],
+ ["7:00-13:00","人判断（核验）","逐条比对，红笔圈AI幻觉/刻板印象，填《人机对比单》","生：它说我'适合做会计'，但我根本没提过数字","展示《人机对比单》实物"],
+ ["13:00-16:00","反例质询","展示典型AI幻觉，追问：它凭什么这么说？","生：它把'喜欢画画'直接推到'适合设计'，跳步了","板书：③人判断（采纳/修改/拒绝）"],
+ ["16:00-18:30","价值升华","AI是镜子，不是裁判；判断权永远在你手里","生：我不是被AI骗了，是我自己先没想清楚","板书：判断权"]],
+ board:"人先（留痕）→ AI后（限定）→ 人判断（采纳/修改/拒绝）\nAI是镜子，不是裁判",
+ digital:"现场真实调用白名单AI（或预录视频/离线数据包兜底）；投屏展示一条真实AI幻觉",
+ climax:"学生红笔圈出AI幻觉的那张《人机对比单》——全场唯一能让评委看到'思维留痕'的证据",
+ cut:"★必留：三步法全流程 + 反例质询；☆可剪：多条案例，只讲1条讲透"},
+{t:"第5课时 梦想起航——愿景与行动方案设计",
+ hook:"'请你闭上眼睛，想象90天后的自己。（停5秒）现在睁开——愿景和梦想，只差一个可检验的指标。'",
+ aim:"把远期愿景转化为30-90天可执行的七要素行动方案。",
+ tl:[["0:00-2:00","愿景具象化","学业/能力/习惯三选一，锁定1个90天内可验证的小目标","生：我想能在全班面前讲3分钟不卡壳","板书：愿景→小目标"],
+ ["2:00-9:00","七要素设计","目标-证据-步骤-资源-指标-风险预案-复盘机制","生：我的指标是'连续21天打卡，缺卡≤2次'","板书七要素"],
+ ["9:00-14:00","可行性辩论","质询：指标可检验吗？遇到挫折怎么办？","生：如果他忘打卡怎么办？→预案：同桌提醒","板书：风险预案"],
+ ["14:00-17:00","AI润色边界","可让AI优化文字，但**不得改动真实经历与目标**","生：AI把我的'21天'改成了'一个月'，我不采纳","板书：可润色≠可改写"],
+ ["17:00-18:30","承诺签署","公开承诺 + 复盘时间入档","——","——"]],
+ board:"愿景→30/90天小目标\n七要素：目标·证据·步骤·资源·指标·风险·复盘",
+ digital:"AI仅用于文字润色，现场演示'哪些改了、哪些坚决不改'",
+ climax:"学生拒绝AI改写自己的目标——'这是我自己定的'",
+ cut:"★必留：七要素 + 可行性辩论；☆可剪：AI润色演示"},
+{t:"第6课时 行动在路上——成果展示、答辩与反思修订",
+ hook:"'今天不是评奖，是质证。每人3分钟陈述、2分钟答辩、1分钟承诺。'",
+ aim:"用表现性量规完成多元评价，形成可追踪的反思修订闭环。",
+ tl:[["0:00-3:00","公布规则量规","3+2+1 模式与量规","——","板书：3+2+1"],
+ ["3:00-12:00","展示与质询","2-3位代表作证：问题卡→证据矩阵→人机对比单→方案","生质询：你的证据只来自你妈一个人，够吗？","记录质询要点"],
+ ["12:00-16:00","反思修订","写'原判断—新证据—我的修改—下一步'","生：我原以为我外向，现在改成'我在熟悉的人面前外向'","板书四栏反思"],
+ ["16:00-18:30","档案袋与追踪","装入档案袋，约定30/90天回访","——","展示档案袋实物"]],
+ board:"3分钟陈述 + 2分钟答辩 + 1分钟承诺\n反思四栏：原判断｜新证据｜我的修改｜下一步",
+ digital:"投屏量规实时打分（教师/同伴/自评三色）",
+ climax:"学生当场修改判断：'我原以为我外向，现在改成我在熟悉的人面前外向'——成长被看见",
+ cut:"★必留：量规 + 反思修订；☆可剪：第二组展示"}
+];
+
+/* ============ 数据：四大课型骨架 ============ */
+const KETYPES=[
+{n:"考察探究",f:"发现问题 → 提出假设 → 制定方案 → 收集证据 → 分析解释 → 表达交流 → 反思改进",
+ tool:["KWL表（已知-想知-学知）","5W1H提问法","观察记录表","访谈提纲","证据矩阵","鱼骨图归因"],
+ eval:"问题质量 · 证据意识 · 方法规范 · 合作交流 · 反思改进",
+ tip:"最容易做成“查资料汇报”。破解：必须有<b>一手数据</b>（自己数、自己量、自己问），而不是二手资料摘抄。"},
+{n:"社会服务",f:"发现需求 → 明确对象 → 设计方案 → 实施服务 → 记录反思 → 评估影响 → 持续跟进",
+ tool:["需求调研问卷","服务日志","服务对象反馈表","服务时长与质量记录","反思日志"],
+ eval:"价值体认 · 责任担当 · 服务规范 · 真实影响 · 持续承诺",
+ tip:"最容易变成“拍照打卡”。破解：必须有<b>服务对象的一句真实反馈</b>，服务后要问“对方变好了吗”。"},
+{n:"设计制作",f:"明确需求 → 创意构思 → 绘制方案 → 选择材料 → 制作迭代 → 测试优化 → 展示评价",
+ tool:["设计思维5步（同理-定义-构想-原型-测试）","SCAMPER创意法","草图与三视图","迭代记录表","测试量规"],
+ eval:"创意性 · 技术性 · 迭代次数 · 实用性 · 表达展示",
+ tip:"最容易变成“手工课”。破解：必须有<b>至少一次失败与改版记录</b>，并在评价里给迭代分。"},
+{n:"职业体验",f:"职业认知（是什么） → 职业理解（为什么/难在哪） → 职业应用（我能不能做） → 对标反思",
+ tool:["职业信息卡","岗位任务清单","工作流程观察表","人物访谈提纲","能力对标矩阵","反思修订单"],
+ eval:"认知准确 · 体验真实 · 责任体认 · 自我对标 · 行动转化",
+ tip:"最容易变成“参观”。破解：必须<b>动手做一件岗位上的真事</b>，并说出“我原以为…现在发现…”。"}
+];
+
+/* ============ 数据：答辩题库 ============ */
+const DEF=[
+{c:"案例·理念",q:"你的案例为什么选择“周哈里窗”？理论依据是什么？",a:"①《指导纲要》要求综合实践从学生真实生活和发展需要出发；周哈里窗提供了“自我认知”的可操作脚手架，把抽象心理概念转化为可探究问题。②它不是心理课：我用它是为了**生成探究问题**，不是做心理治疗。③重点用“盲目我”产出同伴反馈证据、“未知我”产出可验证的探究种子。④边界：隐藏我严格自愿。"},
+{c:"案例·理念",q:"“人先—AI后—人判断”与常见AI教学的本质区别？",a:"常见做法是“用AI提效”（更快得到答案）；我做的是“用AI制造认知冲突”（更慢但更真）。区别：①顺序制度化——AI前必须纸质留痕，硬约束不是倡议；②指令被限定——明令禁止AI做确定性判断；③输出必须被审判——填《人机对比单》写明采纳/修改/拒绝及理由。本质是把审辩从“教师要求”变成“流程内嵌”。"},
+{c:"案例·理念",q:"六个课时的逻辑递进关系？抽掉一课会怎样？",a:"向内探索（1-2）→ 向外求证（3-4）→ 向前规划（5-6）。抽掉第2：学生带空泛愿望去访谈，证据无的放矢；抽掉第4：退化为普通生涯课，AI赋能失去依托；抽掉第6：没有闭环，回到“活动结束即学习终止”。最不可抽的是第2和第4。"},
+{c:"案例·理念",q:"请用一句话概括你案例的核心创新。",a:"**把“AI审辩”从教师的口头要求，变成学生必须走完的流程**——人先留痕、限定指令、红笔判AI，三步缺一不可且每步留痕。其他案例教学生用AI，我的案例教学生用AI之前先用自己。"},
+{c:"案例·合规",q:"初中生使用生成式AI，是否符合《使用指南》？",a:"符合且精准对标。《使用指南》：**初中阶段可适度探索生成内容的逻辑性分析，指导学生交叉验证生成内容的合理性**。我做的正是交叉验证训练，不是让AI代写。三重保障：①白名单AI平台；②禁止输入姓名住址成绩等敏感信息；③断网离线数据包兜底。另按《教师应用指引》，我从不用AI生成内容作为学生最终评价。"},
+{c:"案例·合规",q:"断网或AI不可用，第4课时怎么上？",a:"预设兜底：①预置离线脱敏资料卡（往届访谈摘要打印版）；②三步法退化为“人先—同伴互审—人判断”，AI角色由“同伴反例质询”替代，目标（审辩）不变、工具变；③课后补做线上环节。核心：**我教的是审辩的方法，不是某个软件的操作**，这也是能迁移到薄弱学校的原因。"},
+{c:"案例·合规",q:"怎么证明学生真的思考了，而不是抄AI？",a:"三层证据：①**时序证据**——AI开启前必须纸笔留痕；②**矛盾证据**——《人机对比单》必须写出一条“AI说得不对”，抄的人写不出；③**反例证据**——第6课时追问“你的证据来自谁”。另设最低达成线：至少排查出1条需核实的AI信息。"},
+{c:"案例·合规",q:"学生作品会不会是AI生成的？如何保证真实？",a:"不会。实施说明明确“教师不代写、不用AI生成冒充学生作品”。佐证：①过程性材料带笔迹、涂改、时间线，横跨6课时；②访谈可回溯到具体人和原话（匿名化）；③展示附教师说明，解释体现什么学习证据。可提供任一学生完整档案袋。"},
+{c:"案例·落地",q:"学生不愿分享“隐藏我”甚至抗拒，怎么办？",a:"这是设计预期内的。三条防线：①**规则前置**——第一节课宣布隐藏我永不强制分享；②**替代通道**——匿名纸条、书面提交、录音替代；③**评价不参与深度**——量规评“参与质量”而非“表露深度”。实际课堂里，安全感到位后自愿分享率反而更高。"},
+{c:"案例·落地",q:"微访谈涉及校外人员，安全与伦理如何保障？",a:"①对象优先校内教职工与家长，校外需家长知情同意；②签署隐私与安全承诺书，明确“三不”（不单独入户、不拍摄正脸、不索取联系方式）；③所有记录匿名化，只拍材料特写；④校内替代方案——保安、食堂师傅、图书管理员同样成立。"},
+{c:"案例·落地",q:"如何迁移到硬件薄弱或农村学校？",a:"零硬件依赖：①无网络——离线脱敏资料卡和纸笔表格；②无平板——纸质《人机对比单》，AI环节教师投屏演示一次即可；③无家长职业资源——访谈对象换成校内保安、食堂师傅、社区店主。**方法可复制，工具可替换**。"},
+{c:"案例·落地",q:"6课时怎么放得下？课时从哪来？",a:"①第3课时访谈放课外（课前微实践）不占课时；②第6课时与班会课合并；③按《课程方案（2022）》和深圳“每周半天计划”，可统筹综合实践活动、地方课程与校本课程课时；④实际执行用“4个集中课时 + 2个弹性时段”。"},
+{c:"案例·评价",q:"评价量规如何保证后进生也够得着？",a:"三级达成线：基础合格线＝提出1个可探究问题 + 完成1次真实访谈 + 保留全套记录 + 排查出1条需核实的AI信息 + 制定1个带量化指标的30天微目标。达到即激励性评语。权重上实践过程25%、证据意识20%，过程分远大于成果分——让踏实做但不擅表达的孩子不吃亏。"},
+{c:"案例·评价",q:"四大核心素养在你案例里如何落地？",a:"价值体认——技术主体意识“科技赋能而非替代自我”；责任担当——隐私边界、数据安全、访谈承诺；问题解决——愿望转问题、多源取证、矛盾矩阵；创意物化——七要素行动方案的设计与迭代。另把**信息与AI审辩素养**作为第五维融入。"},
+{c:"自我批评",q:"你的案例最大的不足是什么？",a:"真实答案：**长周期追踪的落地率**。课上能做30/90天承诺，但跨学期后靠综合实践教师一人很难持续追访。改进：档案袋接入班级德育与综合素质评价，班主任协同追踪。更诚实地说——目前只有启动机制，还没有验证过长周期数据，这是我下一步要补的。"},
+{c:"自我批评",q:"如果重上第1课时，你会改什么？",a:"把“我是……”十条降到6条，腾出5分钟给同伴反馈。上一轮实操里部分学生写到第8条已开始重复表面信息，稀释了后续反馈质量。另增加“写不出来也没关系”的显性许可，减少书写焦虑。"},
+{c:"刁钻追问",q:"AI 在你的案例里是必需的吗？去掉会怎样？",a:"去掉仍然成立，是一堂不错的职业启蒙课。但加上AI，它回应了**这个时代特有的真问题**：学生不是不想思考，是有了更轻松的选项。我真正解决的不是“认识自己”，而是“在有AI的世界里，还愿不愿意自己先想一遍”。所以我定位它不是AI课，是**守住判断力的课**。"},
+{c:"刁钻追问",q:"生涯启蒙会不会过早给学生贴标签？",a:"三重防标签：①全程使用“暂时判断”而非“结论”，证据矩阵第三栏永远保留“待验证”；②不产出一句话职业推荐，AI被明令禁止做确定性判断；③目标是**可验证的小行动**而非职业定向，30天后允许推翻重来。初中是启蒙不是定型。"},
+{c:"刁钻追问",q:"数字化手段体现在哪？会不会是炫技？",a:"三个必需点：①第3课时来源核查必须联网；②第4课时人机对比必须真实调用；③词云让“看不见的自我描述”变可见。此外无额外技术。判断标准：**去掉它，目标还能不能达成？** 达不成的才留。"},
+{c:"刁钻追问",q:"过程性证据学生会造假吗？",a:"会，所以设计相互制衡：①访谈要有可回溯的原话和对象身份（匿名但可核）；②小组质询环节同伴交叉追问来源；③证据矩阵强制填写“与判断矛盾”一栏——造假的证据往往只有支持项。看“有没有矛盾证据”是最快的辨伪指标。"},
+{c:"刁钻追问",q:"有评委说你的案例“太理想化，普通老师做不了”，你怎么回应？",a:"工具标准化：7套学生活动单 + 2套教师工具表全做成空白模板，照单执行即可；AI环节提供离线兜底；评价给最低达成线，不必逐份精批。同校另一位非信息技术背景的教师平行实施，也能完整跑完六课时。"},
+{c:"区域政策",q:"案例如何回应深圳“每周半天计划”和龙岗“All in AI”？",a:"“每周半天计划”给学生走出校园提供制度性时间，我的第3课时微访谈正是把社区职业资源转化为课程；龙岗“All in AI”“AI龙老师”“趣龙岗·育未来”资源地图提供区域生态。更重要——**我把区域战略翻译成了一节课**：不是讲AI多强大，而是教孩子在AI面前怎么保持判断。"},
+{c:"区域政策",q:"《义务教育课程方案（2022年版）》对综合实践活动的定位？",a:"方案明确综合实践活动侧重**跨学科研究性学习与社会实践**，与跨学科主题学习共同构成实践育人板块，跨学科主题学习不少于10%课时。2026年《科学教育“做中学”领航行动指南》进一步允许4-9年级统筹使用跨学科主题学习课时与综合实践活动课时（每学期≥1任务、≥4课时）。"},
+{c:"区域政策",q:"《教师生成式AI应用指引》六条红线，你哪一条差点踩？",a:"“加强内容审查把关”。备课时我一度直接采用AI生成的访谈提纲，后来发现其中一条“你觉得自己性格有什么缺陷”带有引导性和心理风险。我改成“有没有一件事，你以前做不好、现在做得比较好了”。这件事后来成了我给学生讲的第一堂AI审查课——教师的审查就是学生的示范。"},
+{c:"通用·理念",q:"你如何理解“立德树人”？在你的课堂上怎么落？",a:"不是单独加一个环节，而是三条嵌入：①**内容**——育人目标写进每条教学目标；②**方法**——同伴反馈句式本身就是德育（尊重、具体、不贴标签）；③**评价**——量规里责任担当、隐私边界占权重。最好的德育是让学生在做事中体会，而不是听一遍道理。"},
+{c:"通用·理念",q:"“以学生为中心”你会怎么做，而不是只说？",a:"三个可观察的动作：①**学生产出占比**——一节课学生说话时间 > 教师；②**教师不抢答**——学生卡住时先等3秒再支架；③**评价前置**——把量规在课前就发给学生，让他们知道被怎么评。空洞的“以学生为中心”和真实的差别，就在量规给不给。"},
+{c:"通用·理念",q:"怎么看待“双减”？教师反而更累，你怎么看？",a:"双减减的是**过量、无效、同质化**的负担，不是减责任和成长。累的原因是：减了量但没提质，教师要用更高质量的设计补上。我的应对是用工具和流程提效（AI批改、结构化活动单），把省下的时间给个性化辅导。"},
+{c:"通用·理念",q:"“五育并举”在综合实践中怎么体现？",a:"综合实践天然是五育融合的载体：德（价值体认与责任担当）、智（问题解决）、体（户外实践）、美（设计与物化）、劳（制作与服务）。关键是**不要各育单列**，而是在一个真实任务里自然发生。"},
+{c:"通用·理念",q:"如何处理“会说的学生”和“不会说的学生”的参与差距？",a:"多元表达通道：书面卡片、匿名投递、小组轮流、录音替代；量规把“参与质量”与“表达流畅”分开计分。另刻意让表达强的学生担任“质询者”而非“展示者”，把话筒让出来。"},
+{c:"通用·课堂",q:"学生当场提出你没准备的问题，怎么办？",a:"三种处理：①与本节目标强相关——当场接住，转为生成性资源：“这个问题值得单独研究，先记在问题墙上”；②相关但超纲——课后成立小组专题；③无关或敏感——肯定提问勇气，约定私下交流。原则：**不假装有答案，也不让学生觉得问错了**。"},
+{c:"通用·课堂",q:"你讲错了一个知识点，学生当场指出，怎么办？",a:"①当场承认并感谢，不遮掩；②把纠错过程本身变成一次教学：“大家看，这正是我们说的——证据比权威重要”；③课后查证，下节课给全班一个完整说明。**教师如何面对错误，就是最真实的审辩示范**。"},
+{c:"通用·课堂",q:"课堂上两个学生吵起来，你怎么办？",a:"①先降温分开，不停课讲道理；②课后分别听，让每人只说“我看到了什么、我当时怎么想”；③回到规则而不是评判人品；④第二天用5分钟全班复盘（不点名）。情绪问题不在情绪最旺时处理。"},
+{c:"通用·课堂",q:"家长群里有人公开质疑你的教学，怎么办？",a:"①不在群里辩论，先私聊：“谢谢您提意见，我想先听您完整说一次”；②区分事实与情绪，对事实部分给依据（为什么这么设计）；③能改的明确给改法和时间；④不能改的说明边界。**公开场合给面子，私下场合给依据**。"},
+{c:"通用·专业",q:"青年教师最该锤炼的基本功是什么？",a:"我认为是三件事：**设计**（一节课能不能说清目标与证据）、**观察**（能不能看见学生真实发生了什么）、**表达**（能不能把复杂的事说简单）。技术会迭代，这三项不会过时。"},
+{c:"通用·专业",q:"你如何理解“教育家精神”？",a:"我理解为两句话：**心有大我、行为世范**。落到日常，就是把每一节常态课都当公开课来备，把每一个“麻烦”的学生都当课题来研究。我不敢自称教育家，但可以用教育家的标准要求每一次设计。"},
+{c:"通用·专业",q:"你的教学特色是什么？",a:"**用流程保证思考，用证据代替感觉。** 我做的每一件事，都会先问：学生在这里有没有被迫思考？有没有留下可查的证据？这套习惯来自我这次案例，也改写了我后面所有课的设计。"},
+{c:"通用·专业",q:"赛课与日常课堂，哪个更能代表一个老师？",a:"日常课堂。赛课是**设计能力的高光**，日常是**教育良知的底色**。我这次参赛最大的收获不是一个奖，而是把赛课里验证过的流程沉淀成了常态工具单——这才是我真正想要的。"},
+{c:"通用·专业",q:"你最近读的一本书给你什么启发？",a:"【按你真实情况替换，推荐一本书 + 一个具体改变】例如《可见的学习》：让我把“反馈”从“你做得不错”改成“你在X处做到了Y标准，下一步Z”。"},
+{c:"通用·专业",q:"教师如何调节情绪、避免职业倦怠？",a:"三个可操作：①把”控制不了的事“和”能改的事“分开写；②保留一件与教学无关的、能进入心流的事；③建立同行小圈子定期倾诉。**倦怠来自无意义感，而不是工作量**——找回意义最有效的办法是看到学生的具体变化。"},
+{c:"通用·专业",q:"这个案例对你个人专业成长意味着什么？",a:"它逼我回答了一个我回避很久的问题：当获取答案的成本趋近于零，教师的价值到底在哪。我的答案是——**设计让学生不得不思考的流程**。这个认识会改写我后面所有课的设计。"},
+{c:"通用·专业",q:"AI时代，教师最该守住什么？",a:"三件：①**提问权**——问题由学生自己提出，不能由AI代拟；②**判断权**——采纳、修改还是拒绝，人说了算；③**情感连接**——价值观、情感、心理支持，教师必须亲自在场。技术可以替我们做得更快，但不能替我们决定做什么。"},
+{c:"通用·专业",q:"如何做真正的家校社协同？",a:"把家长从”配合者“变成”资源者“和”评价者“：①明确告知课程需要什么（一次15分钟访谈）；②给家长具体话术和边界（不要替孩子回答）；③让家长参与评价（真实性核查）。**协同的关键是给具体任务，不是发通知**。"},
+{c:"通用·专业",q:"你还有什么想补充的吗？（最后30秒）",a:"【必背】只说一句 + 一个证据：我最想让评委记住的是——这个案例里最打动我的不是某个作品，而是有个学生在《人机对比单》上写：“AI说我很适合做设计，可我连一次完整的作品都没做完过。”他开始怀疑AI，也第一次认真看自己。"}
+];
+
+/* ============ 数据：资源库存卡组 ============ */
+const LIB={
+"政策文件":[
+ {q:"《中小学综合实践活动课程指导纲要》（教材〔2017〕4号）核心表述",a:"定义：综合实践活动是从学生的真实生活和发展需要出发，从生活情境中发现问题，转化为活动主题，通过探究、服务、制作、体验等方式，培养学生综合素质的**跨学科实践性课程**。\n\n四大核心素养：价值体认 · 责任担当 · 问题解决 · 创意物化\n四种活动方式：考察探究 · 社会服务 · 设计制作 · 职业体验\n\n关键句背诵：「从生活情境中发现问题，转化为活动主题」"},
+ {q:"《义务教育课程方案（2022年版）》关于实践育人",a:"· 综合实践活动侧重**跨学科研究性学习与社会实践**\n· 各门课程用不少于 **10%** 课时设计跨学科主题学习\n· 1-9年级设置综合实践活动课程\n· 2026年《科学教育“做中学”领航行动指南》：4-9年级可统筹使用跨学科主题学习课时与综合实践活动、地方/校本课程课时，**每学期不少于1个任务、不少于4课时**"},
+ {q:"《中小学人工智能通识教育指南（2025年版）》",a:"分层递进、螺旋上升：\n小学——兴趣培养与基础认知（语音识别、图像分类等趣味活动 + 数据隐私伦理启蒙）\n初中——强化技术原理与基础应用（经典机器学习模型训练项目）\n高中——系统思维与创新实践（智慧城市、AI辅助医疗等真实场景）\n\n四位一体素养：知识 · 技能 · 思维 · 价值观\n鼓励探索将人工智能素养纳入学生综合素质评价"},
+ {q:"《中小学生成式人工智能使用指南（2025年版）》分学段红线（必背）",a:"**小学**：禁止学生独自使用开放式内容生成功能；在教师/家长帮助下使用，防止影响知识建构与思维发展。\n**初中**：可适度探索生成内容的逻辑性分析，指导学生交叉验证生成内容的合理性。\n**高中**：结合技术原理开展探究性学习，自主评估生成内容的社会影响。\n\n共同要求：禁止直接复制AI生成内容作为作业或考试答案；严禁输入考试试题、个人身份信息等敏感数据；建立“白名单”制度。"},
+ {q:"《教师生成式人工智能应用指引（第一版）》（2025.11）",a:"六大应用方向：助力学习变革 · 教学提质 · 育人进阶 · 评价增效 · 管理升级 · 研究创新（学、教、育、评、管、研，共30个场景）\n\n六条红线：\n1 坚持育人主体地位（价值观、道德、情感、心理支持不得交由技术替代）\n2 加强内容审查把关（严禁未经审查直接使用）\n3 恪守学术创作伦理（严禁AI生成内容作为个人成果提交）\n4 引导学生规范使用（禁止小学生独立使用；学生须标注使用环节）\n5 合规合法处理数据（严禁上传敏感信息）\n6 践行技术智能向善\n\n另：不得将AI批改作文/开放性作业结果直接作为学生最终评价"},
+ {q:"《教育强国建设规划纲要（2024—2035年）》",a:"到2035年建成教育强国。基础教育重点：扩优提质、义务教育教学改革、科学教育加法、人工智能赋能教育、教师队伍建设。\n配套：《关于加强中小学人工智能教育的通知》（2024.11）、《关于加快推进教育数字化的意见》（2025.4 九部门）、《义务教育阶段科学教育“做中学”领航行动指南》（2026）。"},
+ {q:"深圳 / 龙岗区域战略（本地评委最爱听）",a:"**深圳市**：\n· 《深圳市推进中小学人工智能教育工作方案》（2023）→《深圳市义务教育人工智能课程纲要》\n· 《深圳市建设教育人工智能先锋城市行动计划（2025—2027年）》\n· AI课程“1+4”模式：小学感知体验／初中编程算法启蒙／高中项目应用\n· **“每周半天计划”**：全市54%义务教育学校、65万学生常态化走出校园；1228个校外基地；1500多门校外课程；近2000人志愿者\n· 2026世界数字教育大会主题《突围与重塑：AI时代深圳基础教育变革的探索与思考》\n\n**龙岗区**：\n· “All in AI”“鸿蒙之区”战略，打造“AI+教育”先锋城区\n· **“AI龙老师”**：2025年智能批改作业超197.2万份，生成7万册“一生一案”个性化成长手册\n· “趣龙岗·育未来”每周半天教育资源地图\n· 教育AI六大场景“揭榜挂帅”、首批人工智能教育攻坚队"},
+ {q:"其他常备政策（至少要知道名字和年份）",a:"· 《深化新时代教育评价改革总体方案》（2020）\n· 《义务教育质量评价指南》（2021）\n· 《义务教育劳动课程标准（2022年版）》10个任务群\n· 《全面加强和改进新时代学生心理健康工作专项行动计划（2023—2025）》\n· 《关于加强新时代中小学科学教育工作的意见》（2023.5 十八部门）\n· 《新时代基础教育强师计划》（2022）\n· 《新时代中小学教师职业行为十项准则》\n· 《中小学教育惩戒规则（试行）》（2021）\n· 《未成年人网络保护条例》（2024.1施行）\n· “双减”《关于进一步减轻义务教育阶段学生作业负担和校外培训负担的意见》（2021）"}
+],
+"理论名家":[
+ {q:"杜威 “做中学” / 陶行知 “生活即教育”",a:"杜威：教育即生活、学校即社会、从做中学——经验是学习的核心。\n陶行知：生活即教育、社会即学校、教学做合一。**“行是知之始，知是行之成”**。\n用法：所有综合实践类题目都能挂在”从做中学“上，这是本课程的祖师爷。"},
+ {q:"叶圣陶 “教是为了不教”",a:"原话：「教是为了达到不需要教。」\n用法：讲学法指导、讲自主学习、讲培养终身学习者时的第一引用。\n延伸：与“授人以鱼不如授人以渔”、与AI时代“培养会提问的人”天然呼应。"},
+ {q:"维果茨基：最近发展区与支架",a:"最近发展区＝学生独立水平与在成人/同伴帮助下能达到的水平之间的区域。**支架（Scaffolding）**即在区内提供临时支持，能力形成后撤除。\n用法：讲活动单、讲教师指导时机、讲分层任务的理论依据。答辩问“你什么时候介入”时用它。"},
+ {q:"加德纳多元智能",a:"语言、逻辑-数学、空间、音乐、身体-动觉、人际、内省、自然观察。\n用法：讲“没有差生只有差异”、讲多元评价与多元表达通道。\n**注意**：别把它当成”让每个孩子只学擅长的“，官方口径更强调”扬长补短、全面发展“。"},
+ {q:"苏霍姆林斯基 / 于漪 / 顾明远",a:"苏霍姆林斯基：「让每一个孩子都抬起头来走路。」\n于漪：「一辈子做教师，一辈子学做教师。」「教育是滴灌生命之魂。」\n顾明远：「没有爱就没有教育，没有兴趣就没有学习。**教书育人在细微处，学生成长在活动中**。」\n用法：顾明远后半句对综合实践是量身定制的金句。"},
+ {q:"舒伯生涯发展理论 / 霍兰德职业兴趣",a:"**舒伯**：生涯发展五阶段——成长(0-14)、探索(15-24)、建立、维持、衰退。初中生处于**成长晚期向探索期过渡**，任务是”自我概念形成与角色试探“，不是定向。\n**霍兰德**：现实型R、研究型I、艺术型A、社会型S、企业型E、常规型C。\n用法：答辩被问”初中生做生涯教育会不会太早/会不会定型“，舒伯是最硬的理论依据。"},
+ {q:"周哈里窗 Johari Window",a:"由 Luft 与 Ingham 提出，两维度（自己知/不知 × 他人知/不知）交叉出四区：\n**开放我**（自知人知）· **盲目我**（自不知人知）· **隐藏我**（自知人不）· **未知我**（双方不知）\n用法：本案例的核心脚手架。注意强调：未知我≠没有，是”尚未被发现“；隐藏我必须自愿。"},
+ {q:"巴纳姆效应 Barnum Effect",a:"人们倾向于认为笼统、一般性的人格描述非常准确地揭示了自己的特点（星座、网络心理测试）。\n用法：解释”为什么青少年迷恋网络性格测试“；本案例用它训练学生区分”听起来很准“与”有行为证据“。"},
+ {q:"德韦克 成长型思维",a:"能力可通过努力提升（growth mindset）vs 固定型（fixed mindset）。关键在**表扬努力与策略，而非天赋**，以及把”还没“挂嘴边（”你只是还没学会“）。\n用法：讲”我不行“”我就是学不会“的学生标签问题。"},
+ {q:"UbD逆向设计 / 表现性评价 / SOLO",a:"**UbD**（威金斯&麦克泰格）：先定预期结果→再定评价证据→最后设计活动。\n**表现性评价**：在真实或模拟情境中，用**量规**评价学生完成真实任务的表现。\n**SOLO分类**：前结构→单点→多点→关联→拓展抽象，用于评价思维层级。\n用法：答辩问”你怎么评价“时，说”我用UbD反向设计，量规前置，SOLO看思维层级“。"},
+ {q:"PBL黄金标准（巴克教育研究院）",a:"七大要素：①挑战性问题 ②持续探究 ③真实性 ④学生声音与选择 ⑤反思 ⑥评价与修订 ⑦公开展示成果。\n用法：被问”你的项目化学习是真PBL吗“，逐条对照即可。"},
+ {q:"设计思维（斯坦福五步）+ SCAMPER",a:"设计思维：共情 → 定义 → 构想 → 原型 → 测试。\nSCAMPER：替代·合并·改造·放大/缩小·移作他用·删除·重排。\n用法：设计制作类课型的通用流程，也是”创意“的落地工具。"}
+],
+"教育热点":[
+ {q:"AI 进校园 / 学生依赖 AI",b:"背景：生成式AI普及，学生作业代写、思考外包。\n**官方口径**：《使用指南》分学段差异化应用，避免过度技术依赖；禁止直接复制AI内容作为作业。\n**你的角度**：不是禁，是**管顺序**——人先思考、限定指令、交叉验证。\n**风险**：别说”全面禁止“，会被认为因噎废食；也别说”完全放开“。"},
+ {q:"双减 / 教育内卷",b:"官方口径：减的是**过量、无效、同质化**负担，不是减质量。\n你的角度：减量必须靠提质补上，提质靠设计与技术（AI批改、结构化任务单）。\n风险：不要抱怨教师更累，会被认为格局小。要落到”我怎么做“。"},
+ {q:"五育并举 / 每天一节体育课 / 课间15分钟",b:"官方口径：健康第一，身心并重。\n你的角度：综合实践是五育天然的融合载体，在一个真实任务里自然发生。\n金句：顾明远”教书育人在细微处，学生成长在活动中“。"},
+ {q:"科学教育加法",b:"官方口径：在”双减“中做好科学教育加法（习总书记指示）；2023年十八部门《意见》；2026年《”做中学“领航行动指南》。\n你的角度：加的是**探究实践**，不是加知识、加课时。\n数据：4-9年级每学期不少于1个任务、不少于4课时。"},
+ {q:"劳动教育",b:"官方口径：《义务教育劳动课程标准（2022）》10个任务群（整理收纳、烹饪营养、家用电器、农业生产、传统工艺、工业生产、新技术体验、现代服务、公益劳动等）。\n你的角度：劳动教育的”劳“是载体，”育“是目的——育的是劳动观念、能力与习惯。\n风险：别把劳动课等同于打扫卫生或手工。"},
+ {q:"学生心理健康",b:"官方口径：《全面加强和改进新时代学生心理健康工作专项行动计划（2023—2025）》，”医-教-家“联动。\n你的角度：综合实践活动中的心理安全设计（自愿分享、匿名通道、不贴标签）。\n风险：**不要越界做心理治疗**，教师做的是”营造安全氛围 + 及时转介“。"},
+ {q:"校园欺凌",b:"官方口径：预防全闭环，守师德十条红线。\n你的角度：同伴反馈类活动本身就是”友善表达“的训练场——教句式就是教关系。\n风险：不要用”冷暴力“”霸凌“这类未经核实的词定性。"},
+ {q:"家校社协同",b:"官方口径：健全学校家庭社会协同育人机制。\n你的角度：**给家长具体任务，而不是发通知**（一次15分钟访谈、提供职业资源、参与真实性核查）。\n深圳抓手：每周半天计划、近2000人志愿者队伍。"},
+ {q:"教育评价改革",b:"官方口径：《深化新时代教育评价改革总体方案》，破除”五唯“。\n你的角度：过程性评价、表现性评价、增值评价；把量规前置给学生。\n金句：评价不是为了证明，而是为了改进。"},
+ {q:"拔尖创新人才 / 沃土工程",b:"官方口径：不掐尖、护好奇，让每个孩子被看见。\n你的角度：创新不是少数人的特权，”未知我“就是每个孩子的沃土。\n风险：别说”选拔“，说”发现和培育“。"}
+],
+"金句库":[
+ {q:"【开头】亮观点",a:"· 我做的不是一节AI课，是一节教孩子在AI面前守住判断力的课。\n· 真正的自我认知，不是找到答案，而是学会提问。\n· 教育不是灌满一桶水，而是点燃一把火。\n· 综合实践的价值，不在于学生带回了什么作品，而在于他们带走了什么证据。\n· 我想先回到《指导纲要》里的那句话——"},
+ {q:"【中间】讲做法",a:"· 我不直接告诉学生答案，我给他们一套不得不自己想的流程。\n· 每一步都要留痕，因为**留痕就是思考的证据**。\n· 我先让他自己写，再让AI说，最后让他判AI。\n· 我给内向的孩子三条通道：写、投、录——话筒不是唯一的表达方式。\n· 量规我在课前就发给学生，因为**被怎么评，决定了怎么学**。"},
+ {q:"【深化】讲边界",a:"· 当然，我的做法也有它的边界——\n· 这件事我目前只有启动机制，还没有长周期数据，这是我下一步要补的。\n· 技术可以替我们做得更快，但不能替我们决定做什么。\n· 我不敢说这是最好的方案，只能说它在我班上真的发生过。\n· 教育最怕的不是慢，是把”看起来在学“当成”真的在学“。"},
+ {q:"【收尾】升华",a:"· 我们要培养的不是会用AI的人，是敢对AI说不的人。\n· 未知我不是”没有“，是”尚未被发现“——每个孩子都有一座还没开采的矿。\n· 让每个孩子在技术面前，依然是那个会提问、会怀疑、会负责任的人。\n· 三尺讲台系国运，一生秉烛铸民魂。\n· 用心育人，静待花开。"},
+ {q:"【答辩】过渡",a:"· 谢谢评委老师，您问的其实是——\n· 这个问题我在实施中也反复追问过自己。\n· 我想先回到政策里的那句话……\n· 当然，我的做法也有它的边界——\n· 如果换到一所硬件薄弱的学校，我会把……替换为……\n· 这件事我目前只能说有启动机制，还没有数据，这是我下一步要补的。"}
+],
+"数据与事例":[
+ {q:"深圳 / 龙岗 可背数据",a:"· 深圳“每周半天计划”：全市 **54%** 义务教育学校、**65万** 学生常态化走出校园\n· 校外基地 **1228** 个，校企合作开发校外课程 **1500+** 门，志愿者近 **2000** 人\n· 山海资源 1100+ 、文化艺术科技空间 170+ 、校际共享场馆近 1000 个、高科技企业近万家\n· 龙岗“AI龙老师”：2025年智能批改作业 **197.2万** 份，生成 **7万** 册“一生一案”成长手册\n· 深教AI平台：上线课程资源近 **3万** 节，服务全市近 **900** 所学校\n· 深圳教师AI提效：组卷时间 120分钟→20分钟，效率提升 83%"},
+ {q:"国家层面可背数据",a:"· 跨学科主题学习课时不少于 **10%**\n· 科学教育“做中学”：4-9年级每学期 **≥1个任务、≥4课时**\n· 劳动课程标准 **10个任务群**\n· 《教师生成式AI应用指引》：学教评管研 **6大方向、30个场景**，**6条红线**\n· 综合实践活动：四大核心素养、四种活动方式"},
+ {q:"本案例可背数据（必须脱口而出）",a:"· **6** 课时，三大板块（向内探索／向外求证／向前规划）\n· **7+2** 资源工具包：7套学生活动单 + 2套教师工具表\n· 评价六维权重：实践过程25% · 证据意识20% · 问题质量15% · AI使用规范15% · 成果方案15% · 展示与反思10%\n· 最低达成线 **5 条全达标**\n· 展示模式 **3+2+1**（3分钟陈述/2分钟答辩/1分钟承诺）\n· 行动方案 **七要素**；追踪周期 **30天/90天**\n· 反思四栏：原判断｜新证据｜我的修改｜下一步"},
+ {q:"全国综合实践典型做法（拓宽视野用）",a:"· 上海“馆校合作”：博物馆课程化，学生真实策展\n· 北京“社会大课堂”：把城市资源纳入学分体系\n· 浙江研学旅行：行前课程—行中探究—行后展评三段式\n· 江苏“STEM+工程与技术实践”\n· 重庆“雏鹰计划”：高中生进高校实验室\n· 深圳明德实验学校：AI+项目式学习，学生作品转化为城市工程（梅观高速“生物通道”）\n· 深圳南山“科学小屋”近千个社区点位\n· 深圳中学AI智能体设计选修课：两学期产出百余个学生作品"}
+],
+"活动方法库":[
+ {q:"考察探究 · 通用流程与工具",a:"流程：发现问题 → 提出假设 → 制定方案 → 收集证据 → 分析解释 → 表达交流 → 反思改进\n\n工具：KWL表（已知-想知-学知）、5W1H提问、观察记录表、访谈提纲、**证据矩阵**、鱼骨图归因\n\n评价：问题质量 · 证据意识 · 方法规范 · 合作交流 · 反思改进\n\n**常见败因**：做成”查资料汇报“。破解：必须有一手数据（自己数、自己量、自己问）"},
+ {q:"社会服务 · 通用流程与工具",a:"流程：发现需求 → 明确对象 → 设计方案 → 实施服务 → 记录反思 → 评估影响 → 持续跟进\n\n工具：需求调研问卷、服务日志、服务对象反馈表、服务时长质量记录\n\n评价：价值体认 · 责任担当 · 服务规范 · **真实影响** · 持续承诺\n\n**常见败因**：拍照打卡。破解：要有服务对象的一句真实反馈，要问”对方变好了吗“"},
+ {q:"设计制作 · 通用流程与工具",a:"流程：明确需求 → 创意构思 → 绘制方案 → 选择材料 → 制作迭代 → 测试优化 → 展示评价\n\n工具：设计思维五步（同理-定义-构想-原型-测试）、SCAMPER、草图三视图、迭代记录表\n\n评价：创意性 · 技术性 · **迭代次数** · 实用性 · 表达展示\n\n**常见败因**：变成手工课。破解：必须有失败与改版记录，并给迭代分"},
+ {q:"职业体验 · 通用流程与工具",a:"流程：职业认知（是什么） → 职业理解（难在哪/为什么） → 职业应用（我能不能做） → 对标反思\n\n工具：职业信息卡、岗位任务清单、工作流程观察表、人物访谈提纲、**能力对标矩阵**、反思修订单\n\n评价：认知准确 · 体验真实 · 责任体认 · 自我对标 · 行动转化\n\n**常见败因**：变成参观。破解：必须动手做一件岗位上的真事，能说出”我原以为…现在发现…“"},
+ {q:"一份好活动单的 5 个要素",a:"① **一个明确的产出**（写什么/填什么，可检查）\n② **足够的留白**（学生手写空间，不是教师印好的结论）\n③ **可见的思维支架**（提示句式、提问框、示例）\n④ **留痕位**（时间、来源、修改痕迹）\n⑤ **一句元认知提示**（”你是怎么想到的？“）\n\n反例：把活动单做成填空题 = 把探究变成抄写。"},
+ {q:"访谈提纲设计要点",a:"① 先问**事实**再问感受：「您一天要走多少步？」优于「您辛苦吗？」\n② 问**具体场景**而非抽象评价：「上次遇到最难处理的一件事是？」\n③ 留一个**开放尾巴**：「还有什么我没问到但您觉得重要的？」\n④ 禁忌：诱导性提问、涉及隐私、带价值判断\n⑤ 记录：**原话优先**，当场记，事后24小时内整理"},
+ {q:"表现性量规怎么写",a:"① 维度 ≤6 个（多了评不动）\n② 每维度 3-4 级描述，用**可观察的行为动词**（”能提出…“”能区分…“）\n③ 设**最低达成线**（合格底线，不是平均分）\n④ 权重向过程倾斜（过程 > 成品）\n⑤ **量规前置**——课前发给学生\n⑥ 用 SOLO 或”三级达成线“描述思维层级"}
+],
+"我的案例":[
+ {q:"案例核心创新（一句话，必背）",a:"把“AI审辩”从教师的口头要求，变成学生必须走完的流程：\n**人先（纸笔留痕）→ AI后（限定指令，严禁替我做判断）→ 人判断（交叉核验，红笔圈AI幻觉，明确采纳/修改/拒绝并说明理由）**\n\n三步缺一不可，每步留痕。其他案例教学生用AI，我的案例教学生用AI之前先用自己。"},
+ {q:"六课时任务链（能默背）",a:"第1课时 我是谁——周哈里窗初体验（向内·唤醒未知）→《未知我“种子”记录单》\n第2课时 放大镜下的我——愿望化为问题（聚焦问题）→《个人探究问题卡》\n第3课时 别人眼中的我——微访谈与资料核查（向外·求证）→《多维证据矩阵表》\n第4课时 AI帮我看到更多——人机协同分析（审辩求真）→《人机对比单》\n第5课时 梦想起航——行动方案设计（知行合一）→《个人成长行动方案》\n第6课时 行动在路上——展示答辩与反思修订（反思迭代）→《反思修订报告》"},
+ {q:"7+2 资源工具包",a:"7大学生活动单：《未知我“种子”记录单》《个人探究问题卡》《微访谈记录与资料核查表》《多维证据矩阵表》《人机对比与AI交叉验证单》《个人成长行动方案》《成果展示与反思修订单》\n\n2大教师工具表：《教师课前准备与实施核查清单》《表现性评价量规与最低达成线标准》"},
+ {q:"三大学生痛点（设计起点）",a:"**痛点一**：自我认知表面化，缺乏行为实证——”我喜欢画画“”我性格活泼“，说不出证据\n**痛点二**：盲从网络标签与AI输出，把概率性回答当权威，把思考外包\n**痛点三**：职业想象脱离实际（影视/长辈口传），要么好高骛远要么迷茫，缺落地路径"},
+ {q:"四个教学方法（专业名词要会说）",a:"① 项目化学习 PBL：以”制定一份可落地的个人成长行动方案“为大项目\n② 真实情境调查法 Micro-Interview & Inquiry：走出教室做一手实证\n③ 人机协同双螺旋 Human-AI Co-inquiry：人先—AI后—人判断\n④ 表现性评价驱动 Performance-based Assessment：量规+证据质询会+答辩反思"},
+ {q:"学情应对策略（五维表）",a:"自我认知特点 → 先体验后命名\n同伴互动心理 → 规范反馈句式（情境+行为+特质），隐藏我自愿保护\nAI应用误区 → 《人机对比单》+ 强制留痕 + 反例质询\n表达能力差异 → 多元通道：书面卡片／匿名投递／轮流分享／录音\n生涯发展需求 → 淡化一次性定终身，小步验证、30-90天微行动"},
+ {q:"三条教学反思（说”不足“时最好用）",a:"① 坚决防范技术异化与思维外包——三个必查：是否保留AI前独立思考记录？能否指出结论依据的原始事实？是否依据反馈实质修改了方案？\n② 牢筑心理安全与伦理防护堤——隐藏我绝不强制分享，内向/敏感学生匿名通道。\n③ 强化长效追踪与持续发展——档案袋对接班级德育与综合素质评价，形成闭环。"}
+]};
+LIB["政策前沿2026"]=[
+ {q:"《教育发展“十五五”规划》（国务院 2026.6）——最新国家规划",a:"六大改革方向中与你最相关的四条：\n① **推进教育数智化变革**：深入实施国家教育数字化战略，开展**“人工智能+教育”行动**，推动教育理念、培养模式、考试考核、科研范式和治理机制深层次变革；建设国家人工智能（教育）应用中试基地；强化人工智能伦理规范和安全监管。\n② **深化教育评价改革**：有序推进中考改革，扩大优质高中招生指标到校比例，支持有条件的地方开展**均衡派位、登记入学**试点；营造**开放包容、宽容失败**的创新环境；探索用AI、大数据赋能评价改革，切实减轻基层负担。\n③ **构建引导学生德智体美劳全面发展的考试或考核内容体系**。\n④ 保证国家财政性教育经费支出占GDP比例**高于4%**。\n\n用法：被问“国家最新要求”时，不要只说2022课标，说“十五五”规划＝你跟得上形势。"},
+ {q:"《义务教育阶段科学教育“做中学”领航行动指南》（教育部 2026）——必背，与综合实践高度相关",a:"**定位**：落实“在教育‘双减’中做好科学教育加法”，回答科学教育加法“加什么、怎么加”。\n\n**六大主题**：生命健康 · 生态环境 · 地球奥秘 · 航空航天 · 新兴产业 · **人工智能**\n\n**课时安排（关键数字）**：\n· 4-9年级：统筹使用科学类课程中的**跨学科主题学习课时**，以及**综合实践活动、地方课程、校本课程**课时\n· 确保每生**每学期不少于1个任务、不少于4课时**\n· 1-3年级：完成科学课程规定的探究实践活动即可，不另作要求\n\n**教学方式**：运用**项目式、探究式、场景式学习**；提供学习任务单、方法导引、工具资源等**支架**；**鼓励学生大胆尝试，包容失败**\n\n**评价四维度**：①问题意识 ②探究实践能力 ③反思改进能力 ④合作交流能力；坚持主体多元、强化过程性评价；表现性评价以**纪实性方式**纳入综合素质评价档案，**不另作考试要求**\n\n**你的接法**：我的第3课时微访谈、第4课时人机对比，正对应“探究实践能力”与“反思改进能力”；我的“30天微目标”对应“长周期、持续性”——《指南》明确要求支持学生开展长周期探究。"},
+ {q:"《深入推进基础教育高质量发展》（教育部 2026.9）——最新表述",a:"**课程改革**：加强**十二年一体化**改革设计，提高体育、艺术、劳动等课程比重，**强化小学、初中阶段综合课程设置**，开展**项目化、探究式和团队合作学习**，推动从知识传授向核心素养、关键能力培育转变。\n\n**数字化战略**：深入推进国家中小学智慧教育平台集成化、智能化、国际化；**稳慎推进人工智能应用**，推动AI赋能**教、学、管、评、研**；**严格管控面向未成年人的算法推荐**，防范数字安全与伦理风险。\n\n**教师队伍**：以**教育家精神**为引领，实施教师发展国家行动；加强教师**数智和科技素养、人文素养、创新思维、跨学科综合素养**培养；建立新招聘教师在办学水平较高学校**见习培养制度**；师德师风第一标准、失范“零容忍”。\n\n**中考改革**：依标命题、突出素养导向；优化考试方式；招考联动、增加普通高中招生计划；探索登记入学、均衡派位、划片招生等多元录取方式；**缓解教育内卷和社会焦虑**。\n\n金句：“推动从知识传授向核心素养、关键能力培育转变”——这句话可直接用在任何课程类题目。"},
+ {q:"《弘扬教育家精神 推动基础教育高质量发展》（人民日报 2026.9.10）",a:"三个可直接引用的表述：\n① **“让课堂回归探究本质，以启发式、探究式教学替代单向灌输”**，积极开展项目式学习、跨学科主题教学。\n② **“把学生解决真实情境问题的能力作为重要衡量标准”**——这是表现性评价的国家级背书。\n③ **“加快教联体建设全覆盖”**，健全家校社协同育人机制，形成党委领导、政府统筹、学校主导、家庭尽责、社会参与的育人格局。\n\n另：全社会（党政机关、社区街道、科研院所、高校、体育馆、博物馆、科技馆、文化馆、社会实践基地）应为青少年实践活动提供场所、资源和阵地——**这是你做校外访谈时最有底气的政策依据**。"},
+ {q:"《教育强国建设规划纲要（2024—2035）》基础教育要点（补强版）",a:"· **拓展实践育人和网络育人空间和阵地**：探索课上课下协同、校内校外一体、线上线下融合的育人机制；**增加实践教学比重**\n· 促进学生健康成长全面发展：**中小学生每天综合体育活动时间不低于2小时**；实施劳动习惯养成计划；普及心理健康教育与监测预警系统；深入实施青少年学生读书行动\n· 统筹推进“双减”和教育教学质量提升：**加强科学教育，强化核心素养培育**\n· 面向中小学生实施科学素养培育**“沃土计划”**；面向具有创新潜质的高中学生实施**“脱颖计划”**\n· **支持普通中小学开展职业启蒙教育、劳动教育**（职普融通部分）——**这是你案例最直接的国家级依据**\n· 有序推进**小班化教学**；实施**教育家精神铸魂强师行动**；促进人工智能助力教育变革"},
+ {q:"中考改革与教育评价改革（近年最热）",a:"**方向**：依标命题、突出素养导向；优化考试方式、完善计分科目；**招考联动、增加普通高中招生计划**；探索登记入学、均衡派位、划片招生等多元录取；推动高中特色发展；**扭转唯分应试导向**，引导树立科学的人才观、成才观、教育观。\n\n**你的角度**：综合实践不考，但它培养的“提出真问题、找证据、做方案、自我修订”正是新中考素养导向命题要考的东西。\n\n**边界**：不要说“综合实践能提分”——那是投降。要说“它培养的能力，是任何一种素养导向的考试都在考的能力”。"},
+ {q:"教师减负与教育家精神",a:"**政策**：减轻中小学教师**非教育教学负担**；完善教师发展权益保障；让教师**潜心教书、静心育人**；实施教育家精神铸魂强师行动；坚持师德师风第一标准，严格落实师德失范“零容忍”。\n\n**教育家精神六内涵**（必会）：心有大我、至诚报国的理想信念；言为士则、行为世范的道德情操；启智润心、因材施教的育人智慧；勤学笃行、求是创新的躬耕态度；乐教爱生、甘于奉献的仁爱之心；胸怀天下、以文化人的弘道追求。\n\n**风险**：被问“你工作量这么大不矛盾吗”，不要诉苦。答：“我的做法是把研究和教学合并，不另起炉灶。”"},
+ {q:"家校社协同与“教联体”",a:"**政策**：健全学校家庭社会协同育人机制，**加快教联体建设全覆盖**；推动形成党委领导、政府统筹、学校主导、家庭尽责、社会参与的育人格局。\n\n**你的角度**：给家长的是**具体任务**，不是通知——一次15分钟访谈、提供一份职业资料、参与一次真实性核查。让家长从“被通知者”变成“课程的共同设计者”。\n\n**风险**：不要把家长当资源库。要设计“家长也受益”的环节（如孩子问家长“您工作中最需要什么能力”，本身就是一次家庭对话）。"}
+];
+
+LIB["理论与实践·做中学"]=[
+ {q:"“做中学”源流：杜威 → 克伯屈 → 当代 PBL",a:"**杜威**（1859-1952）：教育即生活、学校即社会、**从做中学**（Learning by Doing）。核心在《经验与教育》(1938)：经验 + 反思 = 学习。**只有做不够，做完必须反思，否则只是活动。**\n**克伯屈**（1918《设计教学法》）：杜威的学生，首次系统化“项目”概念，定义设计为**“热诚的自愿活动”**（hearty purposeful act）——强调学生的自愿与目的性。\n**当代**：设计教学法 → 项目化学习（PBL）→ 2022 新课标写入几乎所有学科教学建议 → 2026《做中学领航行动指南》。\n\n**一句话串联**：从“做中学”到“创中学”，从克伯屈的“自愿活动”到今天的“驱动性问题”，一脉相承的是——**让学生在真实任务中经历完整的探究过程**。"},
+ {q:"陶行知“教学做合一” + 陈鹤琴“活教育”",a:"**陶行知**：生活即教育、社会即学校、**教学做合一**。核心命题：**“行是知之始，知是行之成”**；主张“以宇宙为教室，奉自然为宗师”。\n关键辨析：**“教学做合一”不是“做”排第一，而是“做”是学的中心，教与学都以做为中心**——事怎样做就怎样学，怎样学就怎样教。\n**陈鹤琴“活教育”**：**“大自然、大社会都是活教材”**；做中教、做中学、做中求进步。\n\n用法：这是中国本土的“做中学”传统。评委问“你的理论依据”，说杜威是国际源流，**再补一句陶行知、陈鹤琴，立刻有本土根脉**。\n\n风险：别说“教学做合一”＝“多动手”，它强调的是**教法和学法统一于“做”**。"},
+ {q:"库伯经验学习圈（Kolb, 1984）",a:"四环节循环：**具体体验 → 反思性观察 → 抽象概念化 → 主动实验**\n\n用在你的课上：微访谈（体验）→ 记录与回顾（反思）→ 提炼“好问题的特征”（概念化）→ 30天微行动（主动实验）。\n\n**价值**：它解释了“为什么活动之后必须有复盘”——**没有第二个环节，第一个环节就白做了**。答辩被问“活动后你做什么”，用这四个词回答，专业度立刻不一样。"},
+ {q:"情境认知与实践共同体（Lave & Wenger, 1991）",a:"**核心**：知识的意义与使用场景不可分离，脱离情境的知识是“惰性知识”；学习发生在**实践共同体**中，新手通过**合法的边缘性参与**（legitimate peripheral participation）逐步成长为成熟实践者。\n\n**三个关键词**：真实情境 · 实践共同体 · 从边缘到中心\n\n**你的接法**：我的微访谈让学生短暂进入“职业共同体”的边缘——他不采访专家，他采访门口的保安、食堂的师傅，但这已经是一次**合法的边缘性参与**。\n\n**警惕**：别把“情境”做成PPT背景图。情境的真实性在于**学生的行为后果是真实的**（被拒绝、被追问、被感谢）。"},
+ {q:"具身认知 / 具身学习（第二代认知科学）——2026 高频热词",a:"**核心命题**：认知并非只发生在大脑，而是**身体—大脑—环境**耦合的产物。被称为第二代认知科学革命。\n\n**三个特征**：**涉身性**（认知根植于身体结构与感觉运动系统）· **体验性**（通过直接参与获得知识情感技能）· **嵌入性/情境性**（认知发生在具体物理、社会、文化环境中）\n\n**源流**：梅洛-庞蒂知觉现象学（**“身体是我们拥有世界的媒介”**）→ 瓦雷拉 & 马图拉纳（**“所有的做都是知，所有的知都是做”**）→ 莱考夫 & 约翰逊（概念隐喻根植于身体经验）→ 皮亚杰（**儿童的思维始于动作**）→ 杜威（做中学）。\n**中国源流**：王阳明**“知行合一”**、身心一元论。\n\n**三种具身类型**（殷明、刘电芝）：**实感具身**（真的摸、真的做）· **实境具身**（在真实场景中）· **离线具身**（脱离现场后用想象和语言复现）。\n\n**批判性金句**：传统课堂是**“离身的牢笼”**，学习被压缩成**“脖颈以上的学习”**，身体沦为心灵的搬运工。"},
+ {q:"具身学习如何落到课堂（+ 警惕神经神话）",a:"**可操作做法**：\n① 手势与动作辅助概念理解（方位、结构、过程）\n② 操作与制作：真摸、真拆、真种、真量\n③ 角色扮演与戏剧：把抽象关系演出来\n④ 实地考察：走出教室，用全通道感知\n⑤ 身体状态管理：改变提问时的站位与距离（走下讲台、俯身）\n⑥ VR/AR 作为**身体经验的延伸而非替代**\n\n**⚠ 必须会说的批评**：\n· **警惕“神经神话”**——不能把观察学习简化为镜像神经元的机械反射，不能宣称“动作训练可直接提升共情能力”。神经科学发现**需经教育学转化的二次过滤**才能用于实践。\n· 引用：英国教育神经科学家保罗·琼斯——**“神经科学是教育的罗盘，而非地图。”**\n· **具身与数字的悖论**：VR 让“做”突破物理限制，但也可能解构真实的“触嗅听味”全通道体验。技术应当**延伸而非取代身体经验**（唐·伊德技术现象学）。\n\n**你的接法**：我的课上，学生把“未知我”写进种子信封、亲手封起来——这个动作本身就是具身设计；30天后拆开，是**实感具身 → 离线具身**的完整闭环。"},
+ {q:"PBL 黄金标准七要素（PBLWorks / 原巴克教育研究院）",a:"① **富有挑战性的问题**（驱动性问题）\n② **持续探究**（rigorous, in-depth, 不是查一次资料）\n③ **真实性**（真实情境、真实工具、真实标准、真实影响，或与学生的关切真实相关）\n④ **学生声音与选择**（对学习方式与成果形式有决策权）\n⑤ **反思**（师生共同反思过程与成果）\n⑥ **批判与修订**（给予、接收并应用反馈来改进——**这是PBL最容易被省掉的一环**）\n⑦ **公开产品**（向课堂之外的人展示、分享、解释）\n\n**判断金句**：做一份海报不是PBL，**理解并呈现一个学科概念**的海报才是；做一个模型不是PBL，**在制作中运用学科知识分析结构与功能**才是。\n\n**常见误解纠正**：不是任何一个“让学生动手做东西”的活动都叫 PBL。**一定始于一个开放性的驱动问题，且必须经过持续探究**。"},
+ {q:"夏雪梅：学习素养视角的项目化学习（本土标准）",a:"**界定**：学生在一段时间内对**与学科或跨学科有关的驱动性问题**进行深入持续的探索，在调动所有知识、能力、品质等创造性地解决新问题、形成公开成果中，形成对**核心知识和学习历程的深刻理解**，能够在新情境中迁移。\n\n**设计四要素**：素养目标 · 驱动性问题 · 持续探究 · 全程评估\n\n**最关键的一条**：项目化学习指向**核心知识的再建构**——不只是说出定义、举出例子，而是**在新情境中迁移、运用、转换，并在行动中做出来**。\n\n**两条重要论断**：\n① **用高阶学习带动低阶学习**（先有挑战性问题激发内动力，再在查资料、识记、组织信息的过程中完成低阶学习）\n② **真实性不等于“生活中真实发生”**——真实指的是**知识和能力在人类世界中真能用**，以及**所运用的思维方式是真实的**（模拟联合国也是真实的）\n\n**学习素养的本质**：**心智的灵活转换**。有学习素养的人是**心智自由的人**——有自己的价值准则和独立判断，能灵活调用所知在新情境中做出合理而有创意的决定。"},
+ {q:"浅项目化学习的五种病（评委最爱听的自我诊断）",a:"① **只有活动没有目标**——“花瓶式项目”，有趣但没料，目标与过程脱节\n② **只动手不动脑**——只看重做出好看的结果，学生不理解背后原理（**从动脑的机械化变成动手的机械化**）\n③ **只看结果不看过程**——评价只盯成品精致度\n④ **先学知识再运用**——把应用当成一个“尾巴”加上去（PBL不排斥讲授，但讲授应整合在回答驱动性问题的过程中，以微讲座、微报告形式出现）\n⑤ **只做内容拼盘**——多学科主题堆叠，不指向关键概念的理解（**主题式学习像水果沙拉，各学科仍是独立的；跨学科PBL像混合果汁，打成汁**）\n\n**用法**：答辩被问“你的项目有什么不足/你怎么防止走偏”，主动说这五条中的两三条，并说明你的对策——**这是极其加分的自省动作**。"},
+ {q:"项目化学习的课程样态与“真实性”三层",a:"**四种样态**（由小到大）：微项目（15-20分钟课堂内，或课外小探索）→ 学科项目化 → 跨学科项目化 → 超学科项目化。\n**STEM** 是跨学科项目化学习的一种，成果偏向制作表现类。\n\n**真实性的三层**（可接受的三种真实）：\n① **学术性项目**：学科中的关键问题，促进对内容的理解\n② **虚拟情境项目**：情境虚构但角色真实（数据分析专家、交通系统创建者），关键在**身份代入感**\n③ **真实生活世界项目**：资源要求高，可结合春游、社区服务等活动转化\n\n**增进真实体验的三个做法**：学生**全身心的行动** · 进行**社会性互动和评论** · 产生**可改善自己或周围环境的成果**。\n\n**深圳本地案例**（拓宽视野）：南山区2025年启动项目式学习/跨学科主题学习研究共同体（31所种子校），五年级《扬帆启航：设计制作一艘小船》以大沙河治理为背景；盐田区为全国项目式学习标杆实验区。"}
+];
+
+LIB["教育热词"]=[
+ {q:"教育强国",a:"**官方口径**：《教育强国建设规划纲要（2024—2035年）》，到2027年取得重要阶段性成效，到2035年建成教育强国；“八大体系”之一即**公平优质的基础教育体系**。\n**你的角度**：落到一线，教育强国就是**每一节课的质量**。我能做的是让一门“边缘”的综合实践课上出含金量。\n**风险**：别空喊。必须接一句“落到我这门课，就是……”。"},
+ {q:"人工智能+教育（2026 最新提法）",a:"**官方口径**：《教育发展“十五五”规划》明确开展**“人工智能+教育”行动**，推动教育理念、培养模式、考试考核、科研范式和治理机制深层次变革；建设国家人工智能（教育）应用中试基地；强化人工智能伦理规范和安全监管。\n**你的角度**：不是“AI+课堂”的技术叠加，是**育人方式的重构**——我的做法是让AI进入流程而不是进入答案。\n**风险**：不要说“AI能解决教育的所有问题”，2026年的官方关键词是**“稳慎推进”**。"},
+ {q:"教育数智化变革",a:"**官方口径**：单列部署教育数智化变革重点任务，深入实施国家教育数字化战略；建强用好国家智慧教育公共服务平台；**开展新型教学模式研究**；深化数据赋能教育治理；探索用AI、大数据赋能教育评价改革，切实减轻基层负担。\n**你的角度**：数智化的终点不是“数字化”，是**支撑大规模因材施教**。\n**风险**：别说“技术越先进课堂越好”——这是最容易被追问的一句话。"},
+ {q:"实践育人",a:"**官方口径**：拓展实践育人和网络育人空间和阵地；探索课上课下协同、校内校外一体、线上线下融合的育人机制；**增加实践教学比重**；提升学生动手能力、协同能力和合作意识。\n**你的角度**：实践育人的“育”不在活动里，在**活动后的复盘与修订**里。\n**金句**：顾明远——**“教书育人在细微处，学生成长在活动中。”**"},
+ {q:"五育融合（不是五育并举）",a:"**区别**：并举是“都要有”，融合是“在一个真实任务里自然长出来”。\n**官方口径**：健全德智体美劳全面培养体系；构建以身心健康为基础的**“五育”融合育人新体系**。\n**你的角度**：一次微访谈里，德（尊重劳动者）、智（提问与取证）、体（走出校园走访）、美（呈现与表达）、劳（理解劳动本身）同时发生——这就是融合。\n**风险**：别把五育做成“一节课塞五个环节”。"},
+ {q:"科学教育加法",a:"**官方口径**：在教育“双减”中做好科学教育加法（习总书记指示）；2023年十八部门《关于加强新时代中小学科学教育工作的意见》；2026年《“做中学”领航行动指南》。\n**加的是什么**：加**探究实践**，不是加知识、加课时、加考试。\n**金句**：**“加的是探究实践，减的是机械训练。”**\n**边界**：领航行动明确——表现性评价**不另作考试要求**。"},
+ {q:"做中学（2026 最新政策词）",a:"**官方口径**：《义务教育阶段科学教育“做中学”领航行动指南》；以学生为主体、以兴趣为导向、**以实践为路径**；运用项目式、探究式、场景式学习；**鼓励学生大胆尝试，包容失败**。\n**关键数字**：4-9年级每学期≥1个任务、≥4课时；评价四维度（问题意识/探究实践能力/反思改进能力/合作交流能力）。\n**你的角度**：做中学的“做”不是目的，**“做”之后的理解与迁移**才是。\n**风险**：别说“做中学就是让孩子多动手”。"},
+ {q:"项目式学习 / 项目化学习",a:"**官方口径**：2022版义务教育课程方案与课标写入几乎所有学科；2026年教育部文件提出开展**项目化、探究式和团队合作学习**。\n**你的角度**：我的“制定一份可落地的个人成长行动方案”就是一个大项目，六个课时是它的子任务链。\n**必背区分**：PBL ≠ 主题式学习 ≠ STEM ≠ 探究式学习。**PBL 一定产生公开的、可见的成果**。\n**深圳坐标**：南山区研究共同体、盐田区全国标杆实验区。"},
+ {q:"跨学科主题学习",a:"**官方口径**：各门课程用不少于 **10%** 课时设计跨学科主题学习；2026《做中学》指南允许统筹使用这部分课时。\n**你的角度**：跨学科不是多学科拼盘，是**围绕一个关键概念的深度理解**（混合果汁 vs 水果沙拉）。\n**风险**：不要说“我这节课融合了语文数学英语科学”——那是拼盘。"},
+ {q:"大单元教学 / 深度学习",a:"**官方口径**：探索大单元教学，积极开展主题化、项目式学习等综合性教学活动，促进学生举一反三、融会贯通，加强知识间的内在关联，促进**知识结构化**（崔允漷）。\n**你的角度**：我的六课时就是一个大单元——向内、向外、向前，围绕“自我认知的证据”这一个核心概念展开。\n**金句**：**“大单元不是内容的增加，而是以素养目标为线索组织形成的更大意义网络。”**"},
+ {q:"核心素养",a:"**官方口径**：2022版课标以核心素养为纲；课程方案强调从知识传授向核心素养、关键能力培育转变。\n**你的角度**：核心素养的标志不是“知道”，是**“在新情境中能调用”**。所以我的评价重心在迁移，不在复述。\n**金句**：怀特海把不能被激活的知识称为**“惰性知识”**——素养的反面就是惰性知识。"},
+ {q:"综合素质评价",a:"**官方口径**：综合素质评价档案；2026《做中学》指南要求把科学探究实践表现性评价以**纪实性方式**纳入综合素质评价档案。\n**你的角度**：我的档案袋（六课时连续记录 + 涂改 + 时间线）天然就是纪实性材料，可以无障碍对接。\n**风险**：别说“用综合素质评价给学生排名”——它是**纪实与改进**，不是甄别。"},
+ {q:"表现性评价",a:"**官方口径**：把学生**解决真实情境问题的能力**作为重要衡量标准；强化过程性评价，在关键环节设置观测点。\n**要素**：真实/模拟情境中的真实任务 + **前置量规** + 可观察的行为动词 + 过程证据。\n**你的角度**：量规我在课前就发给学生，因为**被怎么评，决定了怎么学**。\n**工具**：UbD 逆向设计（先定结果→再定证据→最后设计活动）；SOLO 分类看思维层级。"},
+ {q:"教联体 / 家校社协同",a:"**官方口径**：加快**教联体建设全覆盖**；健全学校家庭社会协同育人机制；形成党委领导、政府统筹、学校主导、家庭尽责、社会参与的育人格局。\n**你的角度**：给家长**具体任务**而不是通知；把社区（保安、食堂师傅、社区店主）变成课程资源。\n**深圳抓手**：每周半天计划、1228个校外基地、近2000人志愿者。"},
+ {q:"大规模因材施教",a:"**官方口径**：以数智变革支撑**大规模因材施教**；坚持面向全体、因材施教，为每个人提供适合的教育；关注青年教师成长。\n**你的角度**：我的三级达成线 + 多元表达通道（写/投/录）+ 最低合格线，就是一间普通教室里能做到的因材施教。\n**风险**：别把因材施教说成“分层分班”——官方口径强调**面向全体**。\n**金句**：**“公平不是一样对待，是给不同的支架。”**"},
+ {q:"数字伦理与未成年人保护",a:"**官方口径**：**严格管控面向未成年人的算法推荐**，防范数字安全与伦理风险；强化人工智能伦理规范和安全监管；《未成年人网络保护条例》（2024.1施行）。\n**你的角度**：我的课上，凡涉及个人信息一律不进对话框；访谈“三不”承诺（不单独入户、不拍正脸、不索取联系方式）；教学生识别算法推荐的信息茧房。\n**风险**：这是近两年新增考点，**答不出基本等于失分**。务必准备。"}
+];
+const LIBKEYS=Object.keys(LIB);
+let ALLCARDS=[]; LIBKEYS.forEach(k=>LIB[k].forEach(c=>ALLCARDS.push(Object.assign({c:k},c))));
+
+/* ============ 数据：自测 ============ */
+const QUIZ=[
+{q:"《中小学综合实践活动课程指导纲要》文号？",o:["教材〔2017〕4号","教基〔2022〕5号","教材〔2020〕3号","教基〔2017〕1号"],a:0},
+{q:"综合实践四大核心素养不包括？",o:["价值体认","责任担当","问题解决","学科竞赛"],a:3},
+{q:"四种活动方式是？",o:["考察探究·社会服务·设计制作·职业体验","听讲·练习·复习·考试","阅读·写作·计算·实验","观察·模仿·训练·展示"],a:0},
+{q:"跨学科主题学习课时不少于？",o:["5%","10%","15%","20%"],a:1},
+{q:"《使用指南》对初中的规定？",o:["全面禁止","可适度探索生成内容的逻辑性分析，指导交叉验证","可完全自主使用","仅限教师使用"],a:1},
+{q:"《使用指南》对小学的规定？",o:["可自由使用","禁止学生独自使用开放式内容生成功能","仅限高中以下禁止","未作规定"],a:1},
+{q:"《教师生成式AI应用指引》红线不包括？",o:["坚持育人主体地位","加强内容审查把关","要求所有教师必须使用AI","合规合法处理数据"],a:2},
+{q:"《教师应用指引》六大方向？",o:["学教评管研+管","德智体美劳+心","听说读写译+背","备课上课批改+辅导"],a:0},
+{q:"《中小学AI通识教育指南》初中段重点？",o:["兴趣培养","技术原理与基础应用","系统思维与创新实践","仅限伦理"],a:1},
+{q:"2026《科学教育“做中学”领航行动》4-9年级要求？",o:["每学期≥1任务≥4课时","每学期≥5课时","每学年1次","不作要求"],a:0},
+{q:"“最近发展区”是谁提出的？",o:["杜威","维果茨基","皮亚杰","布鲁纳"],a:1},
+{q:"“教是为了不教”是谁说的？",o:["陶行知","叶圣陶","蔡元培","于漪"],a:1},
+{q:"舒伯生涯理论中初中生处于？",o:["建立期","成长晚期向探索期过渡","维持期","衰退期"],a:1},
+{q:"周哈里窗“盲目我”指？",o:["自知人知","自不知人知","自知人不知","双方不知"],a:1},
+{q:"本案例第4课时核心是？",o:["微访谈","人机协同分析与核查","行动方案设计","成果展示"],a:1},
+{q:"三步法中禁止AI做什么？",o:["归纳高频词","指出逻辑漏洞","直接给“我适合什么职业”的判断","提供反向追问"],a:2},
+{q:"本案例评价权重最高的是？",o:["问题质量15%","实践过程25%","成果方案15%","展示与反思10%"],a:1},
+{q:"最低达成线要求至少排查几条AI信息？",o:["0条","1条","3条","5条"],a:1},
+{q:"学生活动单共几套？",o:["5套","6套","7套","9套"],a:2},
+{q:"同伴反馈规范句式？",o:["你很好/你真棒","在[情境]中我观察到[行为]，体现了[特质]","我觉得你不靠谱","你和别人不一样"],a:1},
+{q:"第6课时展示模式？",o:["3+2+1","1+1+1","5+5","10分钟自由"],a:0},
+{q:"行动方案七要素不包括？",o:["目标·证据·步骤","资源·指标","风险预案·复盘","家庭收入"],a:3},
+{q:"深圳“每周半天计划”性质？",o:["课外补习","义务教育每周完整半天走出校园学习","教师培训","考试安排"],a:1},
+{q:"龙岗区区域战略提法？",o:["All in AI + 鸿蒙之区","数字龙岗","智慧校园","教育优先"],a:0},
+{q:"本案例最佳定位句？",o:["一节使用先进AI工具的课","一节教孩子在AI面前守住判断力的课","一节生涯规划知识课","一节心理辅导课"],a:1},
+{q:"“巴纳姆效应”指？",o:["从众心理","认为笼统人格描述精准揭示自己","首因效应","晕轮效应"],a:1},
+{q:"PBL黄金标准不含？",o:["挑战性问题","持续探究","教师全程讲授","公开展示成果"],a:2},
+{q:"UbD逆向设计的顺序？",o:["活动→评价→目标","目标→评价→活动","评价→目标→活动","目标→活动→评价"],a:0}
+];
+
+/* ============ 出奇制胜 & 风险 ============ */
+const WINS=[
+{t:"一句记忆钉子，三关通用",lv:"必做",b:"准备一句话，每次开口都让人记住你。\n推荐：<b>「我做的不是一节AI课，是一节教孩子在AI面前守住判断力的课。」</b>\n用法：演讲开场亮出、试讲导入埋一句、答辩最后30秒再说一次。评委一天听十几个人，只记得住有钉子的那个。"},
+{t:"实物道具：让评委看见课堂真的发生过",lv:"必做",b:"无声试讲最缺真实感。带上：<b>周哈里窗四开窗卡纸</b>（现场逐格开窗）、<b>《未知我种子》信封</b>（封存仪式）、<b>2-3份学生匿名化任务单原件</b>（有笔迹、有涂改）。\n效果：别的选手在”演“课堂，你在”展“课堂。这一项分差最大。"},
+{t:"第4课时准备一个真实的AI幻觉案例",lv:"必做",b:"现场复现：同一个模糊提问 → AI给出前后矛盾/刻板印象的回答 → 学生红笔圈出。\n<b>用你课堂上真实发生的那一条</b>（如：AI仅凭”喜欢画画“就推断”适合做设计“）。真实案例自带说服力，无法被追问。"},
+{t:"六课时板书各备一版，且必须”长出来“",lv:"必做",b:"板书不是提纲，是<b>学生思维的可视化痕迹</b>。20字内主标题 + 3-4个随回答生成的关键词。\n边说边写，写完回头指一指。无板书扣5-7分，是单独扣分点。"},
+{t:"时间双保险：目标11:30 + 可剪枝清单",lv:"必做",b:"8-12分钟，不足8分钟严重扣分，超时每分钟扣1分。\n按<b>11:30</b>设计，每课时标 ★必做 / ☆可剪。现场慢了果断剪 ☆，宁可少一个例子也不要超时。"},
+{t:"建5张「学生故事卡」",lv:"必做",b:"每张60字可脱稿：<b>谁 + 说了什么/做了什么 + 我怎么处理 + 后来怎样</b>。\n覆盖：被AI误导的、不敢发言的、自我认知被推翻的、坚持打卡的、给你提尖锐问题的。\n任何题都能挂一个——这就是”思维深度“和”真实感“的来源。（在「我的弹药库」里写）"},
+{t:"答辩必杀：每答必带「政策一句 + 证据一个 + 边界一句」",lv:"必做",b:"评委的”答题准确性“最吃这个。<b>边界一句</b>是大多数人丢的分：”当然，我的做法也有它的边界——“。这一句把你从”背书“拉到”有思想“。"},
+{t:"把深圳/龙岗元素钉进语言",lv:"加分",b:"“每周半天计划”、龙岗“All in AI”“AI龙老师”“趣龙岗·育未来”。\n本地评委一听就知道你懂区域语境。但<b>不要硬塞</b>，只在被问资源、条件、推广时用。"},
+{t:"准备一句「可控的真不足」",lv:"必做",b:"“你的案例最大不足”几乎必问。<b>必须真答一个已在改的真问题</b>（推荐：长周期追踪落地率），并给补救措施。假不足会被追问击穿，真不足反而加分。"},
+{t:"⚠️ 先处理「年级不一致」风险",lv:"必做",b:"你的案例正文写<b>初中七年级</b>，《学习过程设计》写<b>八年级</b>，提示词文档也提八年级。<b>评委一翻材料就会发现。</b>\n立刻统一口径，并准备解释：”主体实施于七/八年级，学习过程设计为同主题跨学段实施版本“——无论如何先统一，别裸考。"},
+{t:"开场30秒用「情境钩子」，不要打招呼",lv:"加分",b:"不要”同学们好，今天我们学习…“。第一句就抛：一个反常识问题、一句学生原话、一张图。\n例：”上周五，小A问保安叔叔——您一天要走多少步？” 前30秒决定评委期待值。"},
+{t:"数字化手段要「必要」不要「炫」",lv:"加分",b:"“数字化教学手段”是单独评分项。标准：<b>去掉它，目标还能不能达成？</b> 达不成的才留。\n推荐三处：来源核查联网、人机对比真实调用、词云让看不见的自我变可见。"},
+{t:"设计一个只有你会做的课堂仪式",lv:"加分",b:"“未知我种子信封封存仪式”——写种子→封入信封→约定30天后亲手打开。\n仪式感＝记忆点＝传播力。评委记不住你的教学目标，但会记住那个信封。"},
+{t:"上场前10分钟流程卡",lv:"必做",b:"① 腹式呼吸（4吸-7停-8呼）×3\n② 开嗓+绕口令2分钟（防口糊）\n③ 确认：U盘/PPT/道具/翻页笔/计时器\n④ 默念记忆钉子1遍，不看新资料\n⑤ 站定后再开口，第一句慢30%"}];
+const RISKS=[
+"⚠️ 年级不一致：案例正文写七年级，《学习过程设计》写八年级，提示词文档亦提八年级 —— 必须统一口径并准备解释。",
+"⚠️ 学生作品真实性：若提交材料含AI生成的学生作品，属学术诚信硬伤。确认所有图位均为真实、匿名化、经审核的学生作品；没采集到就留白或放空白模板+说明。",
+"⚠️ AI合规性：答辩必被追问“初中生用生成式AI是否合规”。答案必须精准落到《使用指南》初中段“可适度探索生成内容的逻辑性分析，指导学生交叉验证”。",
+"⚠️ 断网/设备故障：第4课时依赖AI，必须准备离线脱敏资料卡 + 投屏预录视频两套兜底，并在试讲中主动说出兜底方案（这本身加分）。",
+"⚠️ 心理安全：同伴反馈可能引发情绪。试讲中必须显性说出“隐藏我永不强制分享”与匿名通道，否则易被判专业性不足。",
+"⚠️ 时间失控：8-12分钟。不足8分钟严重扣分，超时每分钟扣1分。必须备可剪枝清单，练习时用真实计时器校准。",
+"⚠️ 无板书或板书一次写完：无板书扣5-7分；板书必须随“学生回答”逐步生成。",
+"⚠️ 答辩被问倒时沉默：宁可说“这个问题我目前只有启动机制、还没有数据，我准备这样做…”，也不要硬编或沉默（无故不回答扣4-20分）。",
+"⚠️ PPT错别字与版本混乱：目录里同名近似文件10+个，交前务必确认最终版，PPT与案例数据完全一致。",
+"⚠️ 三处数据必须对齐：课时数、年级、工具单数量（7+2）、权重表 —— 案例/PPT/答辩口径三处一致。"];
+
+/* ============ 状态 ============ */
+const KEY="qgs_v2"; let S=load();
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}}
+S=Object.assign({plan:{},speeches:[],teach:0,master:{},quiz:[],mine:[]},S);
+function save(){localStorage.setItem(KEY,JSON.stringify(S))}
+
+/* ============ 导航 ============ */
+const TABS=[["p-plan","📅 7天计划"],["p-speech","🎤 即兴演讲"],["p-mind","🧠 思维训练"],["p-teach","🎬 无声试讲"],["p-def","🛡️ 答辩"],["p-lib","📚 资源库存"],["p-mine","🗂️ 我的弹药库"],["p-quiz","🧪 自测"],["p-win","💡 出奇制胜"],["p-stat","📈 成长"]];
+nav.innerHTML=TABS.map((t,i)=>`<button class="${i===0?'on':''}" onclick="go(${i})">${t[1]}</button>`).join("");
+function go(i){document.querySelectorAll(".pane").forEach(p=>p.classList.remove("on"));document.getElementById(TABS[i][0]).classList.add("on");
+ document.querySelectorAll("#nav button").forEach((b,j)=>b.classList.toggle("on",i===j));window.scrollTo({top:0,behavior:"smooth"});}
+(function(){const t=new Date("2026-09-25"),n=new Date(),d=Math.max(0,Math.ceil((t-n)/864e5));
+ document.getElementById("hdays").textContent="⏳ 冲刺剩余约 "+d+" 天";})();
+
+/* ============ 计划 ============ */
+function renderPlan(){const box=document.getElementById("planList");let tot=0,done=0;
+ box.innerHTML=PLAN.map((day,di)=>{const its=day.items.map((it,ii)=>{const k=di+"-"+ii;tot++;const on=!!S.plan[k];if(on)done++;
+  return `<div class="ck ${on?'done':''}"><input type="checkbox" id="ck${k}" ${on?'checked':''} onchange="tick('${k}')"><label for="ck${k}">${it}</label></div>`;}).join("");
+  return `<div class="dayhead"><span>${day.d}</span><span style="font-size:11.5px;opacity:.7">90 分钟</span></div>${its}`;}).join("");
+ document.getElementById("planProg").textContent=`完成 ${done}/${tot}（${Math.round(done/tot*100)}%）`;}
+function tick(k){S.plan[k]=!S.plan[k];save();renderPlan();}
+function resetPlan(){if(confirm("清空所有打卡记录？")){S.plan={};save();renderPlan();}}
+renderPlan();
+
+/* ============ 计时内核 ============ */
+let T={id:null,left:0,total:0};
+function paint(){const m=Math.floor(Math.abs(T.left)/60),s=Math.abs(T.left)%60;const el=document.getElementById(T.clockId);
+ if(!el)return;el.textContent=(T.left<0?"-":"")+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+ el.className="clock"+(T.left<0?" over":(T.left<=15?" warn":""));
+ const p=Math.max(0,Math.min(100,(T.total-Math.max(0,T.left))/T.total*100));const b=document.getElementById(T.barId);if(b)b.style.width=p+"%";
+ if(T.labelFn&&T.labelId){const l=document.getElementById(T.labelId);if(l)l.textContent=T.labelFn(T.left);}}
+function run(clockId,barId,labelId,sec,labelFn,onEnd){stopT();T={id:setInterval(()=>{T.left--;paint();if(T.left<=0){clearInterval(T.id);T.id=null;beep();if(T.onEnd)T.onEnd();}},1000),left:sec,total:sec,clockId,barId,labelId,labelFn,onEnd};paint();}
+function stopT(){if(T.id)clearInterval(T.id);T.id=null;}
+function beep(){try{const c=new (window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator(),g=c.createGain();
+ o.connect(g);g.connect(c.destination);o.frequency.value=880;g.gain.value=.2;o.start();setTimeout(()=>{o.stop();c.close()},400);}catch(e){}}
+
+/* ============ 演讲 ============ */
+const cats=["全部"].concat([...new Set(SPEECH.map(x=>x.c))]);
+spCat.innerHTML=cats.map(c=>`<option>${c}</option>`).join("");
+document.getElementById("spCount").textContent="题库 "+SPEECH.length+" 题";
+let curQ="";
+function pool(){const c=spCat.value;return c==="全部"?SPEECH:SPEECH.filter(x=>x.c===c);}
+function drawSpeech(){const p=pool();const q=p[Math.floor(Math.random()*p.length)];curQ=q.q;
+ document.getElementById("spQ").textContent="《"+q.q+"》";spReset();}
+function customSpeech(){const v=prompt("输入自定义题目：");if(v){curQ=v;document.getElementById("spQ").textContent="《"+v+"》";spReset();}}
+function spStart(){if(!curQ){alert("请先抽题");return;}
+ run("spClock","spBar","spLabel",60,l=>{
+  if(l>45)return "思考①定性：这是观点题/现象题/材料题/自我题？";
+  if(l>30)return "思考②定骨架：8种骨架选一个（见思维训练）";
+  if(l>15)return "思考③定弹药：政策一句 + 学生故事一个 + 金句一条";
+  return "最后15秒 —— 只留3个关键词，抬头，起身";},
+ ()=>{const L=document.getElementById("spLabel");L.textContent="⏰ 思考结束 —— 现在开始 4 分钟演讲！";
+  const b=document.getElementById("spStart");b.textContent="▶ 开始 4 分钟演讲";
+  b.onclick=function(){run("spClock","spBar","spLabel",240,l=>{const e=240-l;
+   if(e<15)return "0:00-0:15 亮观点（一句话，必须带立场）";
+   if(e<60)return "0:15-1:00 是什么/为什么 —— 拆概念 + 一句政策";
+   if(e<150)return "1:00-2:30 怎么做 —— 你的课堂 + 一个具体学生细节";
+   if(e<210)return "2:30-3:30 深化 —— 讲边界/风险/反面（思维深度在这）";
+   return "3:30-4:00 收束 —— 金句 + 回到我 + 致谢";},
+   ()=>{L.textContent="✅ 时间到 —— 立刻收束并致谢";});};});
+ const b=document.getElementById("spStart");b.disabled=true;setTimeout(()=>b.disabled=false,900);}
+function spReset(){stopT();const c=document.getElementById("spClock");c.textContent="01:00";c.className="clock";
+ document.getElementById("spBar").style.width="0%";document.getElementById("spLabel").textContent="思考阶段 · 草稿纸上只写 3 个关键词 + 1 个真实故事";
+ const b=document.getElementById("spStart");b.textContent="▶ 开始 1 分钟思考";b.onclick=spStart;}
+const DIMS=["教育理念","课程理解","逻辑组织","语言表达","应变能力","思维深度"];
+spScore.innerHTML=DIMS.map((d,i)=>`<div class="sc"><label>${d}</label><input type="range" min="1" max="10" value="6" id="sc${i}" oninput="document.getElementById('sv${i}').textContent=this.value"><b id="sv${i}">6</b></div>`).join("");
+function saveSpeech(){const s=DIMS.map((d,i)=>+document.getElementById("sc"+i).value);
+ S.speeches.push({t:new Date().toLocaleString("zh-CN",{month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}),q:curQ||"(未抽题)",s,total:s.reduce((a,b)=>a+b,0),note:document.getElementById("spNote").value});
+ save();document.getElementById("spSaveTip").textContent="✅ 已保存（"+s.reduce((a,b)=>a+b,0)+"/60）";setTimeout(()=>document.getElementById("spSaveTip").textContent="",2500);renderStat();}
+
+/* ============ 思维训练 ============ */
+const MINDS=[
+ {k:"frame",n:"🧩 结构约束训练",d:"抽骨架 + 抽题目，强制用指定结构讲 4 分钟（最有效）"},
+ {k:"split",n:"🔪 概念拆词",d:"随机教育概念，60 秒拆成 3 个维度"},
+ {k:"triple",n:"🎯 三词成篇",d:"随机三词，2 分钟串成一段完整演讲"},
+ {k:"rebut",n:"⚔️ 反驳训练",d:"给一句流行说法：1 点认同 + 2 点反驳 + 1 句限定"},
+ {k:"assoc",n:"💡 60秒联想",d:"随机物品，说出尽量多的教育活动联想"}
+];
+mindNav.innerHTML=MINDS.map(m=>`<button class="btn ghost" onclick="mind('${m.k}')">${m.n}</button>`).join("");
+function mind(k){const B=document.getElementById("mindBody");stopT();
+ if(k==="frame"){const f=FRAMES[Math.floor(Math.random()*FRAMES.length)];
+  const q=SPEECH[Math.floor(Math.random()*SPEECH.length)].q;
+  B.innerHTML=`<h3>${MINDS[0].n}</h3>
+   <div class="note blue"><b>抽到的骨架：${f.n}</b>（${f.d}）— 适合：${f.u}<br><b>骨架步骤：</b>${f.s}</div>
+   <div class="qbox">题目：《${q}》</div>
+   <div class="timerbox"><div class="clock" id="mClock">04:00</div><div class="tlabel" id="mLabel">按「${f.n}」讲满 4 分钟，不许换结构</div><div class="bar"><i id="mBar"></i></div>
+   <div class="row" style="justify-content:center;margin-top:12px"><button class="btn" onclick="run('mClock','mBar','mLabel',240,null,()=>document.getElementById('mLabel').textContent='✅ 时间到')">▶ 开始</button>
+   <button class="btn gray sm" onclick="mind('frame')">🎲 换一组</button></div></div>
+   <div class="note">训练要点：同一道题用<b>不同骨架各讲一遍</b>，你会发现自己的思维盲区。哪种结构讲得顺，就固定成你的“第一反应”。</div>
+   <details class="acc"><summary>📖 查看全部 8 种骨架</summary><div class="body">${FRAMES.map(f=>`【${f.n}】${f.d}　适用：${f.u}\n步骤：${f.s}`).join("\n\n")}</div></details>`;}
+ if(k==="split"){const c=CONCEPTS[Math.floor(Math.random()*CONCEPTS.length)];
+  B.innerHTML=`<h3>${MINDS[1].n}</h3><div class="qbox">请拆词：<b>${c}</b></div>
+  <div class="timerbox"><div class="clock" id="mClock">01:00</div><div class="tlabel" id="mLabel">60秒内说出三个维度，并指出最容易被忽略的一个</div><div class="bar"><i id="mBar"></i></div>
+  <div class="row" style="justify-content:center;margin-top:12px"><button class="btn" onclick="run('mClock','mBar','mLabel',60,null,()=>document.getElementById('mLabel').textContent='✅ 时间到')">▶ 开始</button>
+  <button class="btn gray sm" onclick="mind('split')">🎲 换一个</button></div></div>
+  <div class="note green">模板：「<b>${c}</b>包含三层——第一层是…；第二层是…；第三层是…。其中最容易被忽略的是第__层，因为人们常把它等同于…。在课堂上我对应这样做：…」</div>`;}
+ if(k==="triple"){const t=TRIPLE[Math.floor(Math.random()*TRIPLE.length)];
+  B.innerHTML=`<h3>${MINDS[2].n}</h3><div class="qbox">三个词：${t.map(x=>`<span class="tag">${x}</span>`).join(" ")}</div>
+  <div class="timerbox"><div class="clock" id="mClock">02:00</div><div class="tlabel" id="mLabel">2分钟内把三个词串成一段完整的教育演讲</div><div class="bar"><i id="mBar"></i></div>
+  <div class="row" style="justify-content:center;margin-top:12px"><button class="btn" onclick="run('mClock','mBar','mLabel',120,null,()=>document.getElementById('mLabel').textContent='✅ 时间到')">▶ 开始</button>
+  <button class="btn gray sm" onclick="mind('triple')">🎲 换一组</button></div></div>
+  <div class="note">这是最练<b>联想速度</b>的训练。诀窍：先把三个词各自换算成一个教育场景，再找一条主线串起来（主线通常是“学生成长”或“教师角色”）。</div>`;}
+ if(k==="rebut"){const r=REBUT[Math.floor(Math.random()*REBUT.length)];
+  B.innerHTML=`<h3>${MINDS[3].n}</h3><div class="qbox">“${r}”—— 你同意吗？</div>
+  <div class="timerbox"><div class="clock" id="mClock">01:30</div><div class="tlabel" id="mLabel">90秒：1点认同 + 2点反驳 + 1句限定</div><div class="bar"><i id="mBar"></i></div>
+  <div class="row" style="justify-content:center;margin-top:12px"><button class="btn" onclick="run('mClock','mBar','mLabel',90,null,()=>document.getElementById('mLabel').textContent='✅ 时间到')">▶ 开始</button>
+  <button class="btn gray sm" onclick="mind('rebut')">🎲 换一句</button></div></div>
+  <div class="note red"><b>为什么必须练这个？</b>评委打“思维深度”分，看的就是你能不能<b>既不全盘接受也不全盘否定</b>。会说“这句话在__前提下成立，在__条件下要改”的人，立刻和背稿的拉开距离。</div>`;}
+ if(k==="assoc"){const a=ASSOC[Math.floor(Math.random()*ASSOC.length)];
+  B.innerHTML=`<h3>${MINDS[4].n}</h3><div class="qbox">随机物品：<b>${a}</b></div>
+  <div class="timerbox"><div class="clock" id="mClock">01:00</div><div class="tlabel" id="mLabel">60秒内说出尽量多的教育活动联想（目标≥8个）</div><div class="bar"><i id="mBar"></i></div>
+  <div class="row" style="justify-content:center;margin-top:12px"><button class="btn" onclick="run('mClock','mBar','mLabel',60,null,()=>document.getElementById('mLabel').textContent='✅ 时间到')">▶ 开始</button>
+  <button class="btn gray sm" onclick="mind('assoc')">🎲 换一个</button></div></div>
+  <div class="note green">联想方向：它能当<b>教具</b>吗？能当<b>隐喻</b>吗？能当<b>任务载体</b>吗？能引出什么<b>问题</b>？哪个学科能用它？<br>例：“一扇窗”→周哈里窗 / 打开视野 / 只能从里面打开（成长的主动性）/ 玻璃会脏（要擦，如反思）/ 窗外是真实世界（真实情境）/ 窗帘（隐私边界）…</div>`;}
+}
+mind("frame");
+
+/* ============ 试讲 ============ */
+lsSel.innerHTML=LESSONS.map((l,i)=>`<option value="${i}">${l.t}</option>`).join("");
+function drawLesson(){const i=Math.floor(Math.random()*LESSONS.length);lsSel.value=i;showLesson(i);document.getElementById("lsBox").scrollIntoView({behavior:"smooth",block:"start"});}
+function showLesson(i){const l=LESSONS[i];
+ document.getElementById("lsBox").innerHTML=`
+ <div class="lesson" style="border-color:var(--brand);background:var(--brand-soft)">
+  <h4>${l.t}</h4><div style="font-size:13.6px"><b>一句话价值：</b>${l.aim}</div>
+  <div style="margin-top:8px;font-size:13.6px"><b>🎣 开场钩子（前30秒，照抄）：</b><br><span style="color:var(--brand-dark)">${l.hook}</span></div></div>
+ <div class="lesson"><h4>⏱ 时间轴（12分钟版）</h4>
+  <table class="tl"><tr><th>时间</th><th>环节</th><th>教师行为</th><th>预设学生回答（必须说出来）</th><th>板书</th></tr>
+  ${l.tl.map(r=>`<tr><td class="t">${r[0]}</td><td><b>${r[1]}</b></td><td>${r[2]}</td><td style="color:var(--purple)">${r[3]}</td><td>${r[4]}</td></tr>`).join("")}</table></div>
+ <div class="grid2">
+  <div class="lesson"><h4>🖊 板书设计</h4><div style="white-space:pre-wrap;font-size:13.3px;font-family:ui-monospace,Consolas,monospace">${l.board}</div></div>
+  <div class="lesson"><h4>💻 数字化手段</h4><div style="font-size:13.4px">${l.digital}</div></div>
+  <div class="lesson"><h4>🔥 本课记忆点（高潮）</h4><div style="font-size:13.4px">${l.climax}</div></div>
+  <div class="lesson"><h4>✂️ 控时剪枝</h4><div style="font-size:13.4px">${l.cut}</div></div></div>
+ <div class="note blue"><b>试讲自检6条：</b>①复述学生回答了吗？②真停3秒了吗？③固定方位指人了吗？④板书跟着长出来了吗？⑤预设错误答案了吗？⑥拿出实物了吗？</div>`;}
+showLesson(0);
+function startTeach(){S.teach=(S.teach||0)+1;save();
+ run("lsClock","lsBar","lsLabel",720,l=>{
+  if(l>480)return "倒计时 · 前4分钟：建情境，抛出核心问题";
+  if(l>240)return "倒计时 · 中段：学生活动 + 你的点拨（最多讲2分钟）";
+  if(l>90)return "⚠️ 最后1.5分钟：开始收束，别开新环节";
+  return "🔴 最后90秒：总结 + 板书回指 + 布置延伸";},
+ ()=>document.getElementById("lsLabel").textContent="⏰ 12分钟到 —— 必须收尾");}
+function stopTeach(){stopT();}
+ktBox.innerHTML=KETYPES.map(k=>`<details class="acc"><summary>${k.n}　<span class="tag t">${k.f.split(" → ")[0]}…</span></summary><div class="body">
+<b>通用流程：</b>${k.f}\n\n<b>常用工具：</b>${k.tool.join(" · ")}\n\n<b>评价维度：</b>${k.eval}\n\n<b>⚠️ 常见败因：</b>${k.tip}</div></details>`).join("");
+
+/* ============ 答辩 ============ */
+DEF.push(
+{c:"新政·理论",q:"你的案例与教育部 2026 年《科学教育“做中学”领航行动指南》是什么关系？",a:"①《指南》允许 4-9 年级统筹使用综合实践活动课时，我的六课时正是这种统筹；②《指南》评价四维度是问题意识、探究实践能力、反思改进能力、合作交流能力——我的第2课时对应问题意识，第3课时对应探究实践，第4课时对应反思改进，第6课时对应合作交流；③《指南》强调“包容失败、长周期、持续性”，我的 30 天微目标正是长周期设计。 政 ④我的不同在于：《指南》面向科学类课程，我做的是**自我认知与生涯启蒙**——把“做中学”的方法迁移到了人文与社会领域。 界 当然，这份指南 2026 年才发布，我的案例是在它之前设计的，属于**不谋而合**，我不敢说是“对标”。"},
+{c:"新政·理论",q:"你怎么理解“科学教育加法”？加的是什么？",a:"加的是**探究实践**，不是加知识、加课时、加考试。 政 《做中学领航行动指南》明确：表现性评价以纪实性方式纳入综合素质评价档案，**不另作考试要求**——这一句最能说明“加的是什么”。 证 我的课上，学生不是多学了一章内容，而是多经历了“提出问题—设计方案—搜集证据—解释结论—迭代改进”的完整链条。 界 需要说明的是，加法也有边界：如果一所学校把加法做成“再加一门课、再考一次试”，那就违背了减负的初衷。我的做法是**统筹课时，不增总量**。"},
+{c:"新政·理论",q:"《教育发展“十五五”规划》提出“人工智能+教育”行动，你怎么落地？",a:"我的理解是三个层次，从浅到深：**用 AI 提效**（组卷、批改、资源）——这是最浅的，也是最容易被替代的；**用 AI 助学**（个性化推送、学伴）——中间层；**用 AI 促思**（制造认知冲突、训练审辩）——最深，也最该由教师主导。 证 我的第 4 课时在第三层：AI 的作用不是给出答案，是**给出一个必须被审判的参考答案**。 政 规划同时要求“强化人工智能伦理规范和安全监管”“严格管控面向未成年人的算法推荐”，所以我的硬规矩是：**凡涉及个人信息，一律不进对话框**。 界 我这是课堂层面的实践，和区域层面的平台建设不是一回事，我能贡献的是可被复制的流程。"},
+{c:"新政·理论",q:"你的案例是真正的 PBL 吗？请对照标准说说。",a:"对照 PBLWorks 黄金标准七要素：①驱动性问题——“我到底是一个怎样的人，证据在哪”；②持续探究——六课时，不是一节课；③真实性——访谈对象是真实的人，后果真实（会被拒绝）；④学生声音与选择——探究问题自选、表达通道自选；⑤反思——每课时有反思栏，第6课时是完整复盘；⑥批判与修订——证据矩阵第三栏“待验证”永不填满，允许 30 天后推翻；⑦公开成果——“3+2+1”展示答辩，面向同学与家长。 界 **但我必须诚实：第⑥项“批判与修订”是我做得最弱的一环**——学生往往只改一次就停，如何让他们真的迭代两三轮，是我下一步要解决的。"},
+{c:"新政·理论",q:"如何防止你的项目变成“浅项目化学习”？",a:"我给自己列了五条自查：①只有活动没有目标——所以我的目标前置且可观测；②只动手不动脑——所以《人机对比单》必须写出“AI 说得不对在哪”；③只看结果不看过程——所以过程分权重高于成果分；④先学知识再运用——所以我的讲授以微讲座形式嵌在探究过程中；⑤只做内容拼盘——所以我围绕“证据”这一个核心概念展开，不做多学科堆砌。 界 这五条里我最警惕的是第②条，因为它最隐蔽：**做出一份漂亮的作品，不等于发生了学习**。"},
+{c:"新政·理论",q:"具身认知对你的课堂设计有什么影响？",a:"三点。①**让抽象概念有身体落点**——学生把“未知我”写进种子信封、亲手封存、30天后亲手拆开，抽象的自我认知变成了一个可触摸的动作；②**改变我的身体**——反馈环节我走下讲台、俯身、拉近距离，教师的身体状态本身就是学习环境的一部分；③**设计全通道体验**——微访谈要求学生“到现场、看环境、记原话”，而不是发问卷。 政 理论上，具身学习强调**涉身性、体验性、嵌入性**；梅洛-庞蒂说“身体是我们拥有世界的媒介”。 界 但我也要警惕神经神话——不能宣称“做个动作就能提升共情能力”，神经科学的发现必须经教育学的二次过滤才能用。"},
+{c:"新政·理论",q:"“做中学”与“学中做”，你如何理解？",a:"**做中学**是从经验出发，先有体验再提炼（杜威、库伯经验学习圈：体验→反思→概念化→实验）；**学中做**是先有知识再做应用，做的是验证。两者不是对错，是**适用场景不同**。 我的判断标准是：**如果目标是理解一个陌生概念，做中学更好**；**如果目标是熟练一项已有技能，学中做更有效率**。 证 我的课属于前者——学生对“我是谁”没有现成概念，必须先有体验。 界 但我不否认后者：时间紧、内容难时，讲授加练习依然是最有效率的。**我不认为存在一种永远正确的教学法。**"},
+{c:"新政·理论",q:"“核心素养”在你的案例里如何体现？",a:"核心素养的标志不是“知道”，是**在新情境中能调用**。所以我设计了两次迁移检验：第5课时把自我认知转成行动方案（第一次迁移），第6课时 30 天后自我核对（第二次迁移，且有时间间隔）。 证 最能说明问题的不是作品，是学生说“原来我妈的工作需要这么多我不具备的能力”——这句话表明他的认知结构真的变了。 界 但我必须承认：**素养的长周期变化，我这六课时只能看到起点，看不到终点**——这是评价上的真实困难，我不掩饰。"},
+{c:"新政·理论",q:"综合素质评价与你的档案袋怎么对接？",a:"①《做中学》指南要求把探究实践表现性评价以**纪实性方式**纳入综合素质评价档案——我的档案袋（六课时连续记录、带涂改、带时间线）本身就是纪实性材料，不用另行加工；②对接方式：由我提供原始记录与量规结果，交班主任整合进综合素质评价；③长周期追踪接入班级德育，由班主任协同。 界 我要提醒的是：**综合素质评价是纪实与改进，不是甄别与排名**——如果被用来分等，它会立刻异化成新的应试。所以我只提供过程证据，不提供综合等级。"},
+{c:"新政·理论",q:"你的评价是表现性评价吗？量规是怎么来的？",a:"是。三个特征：真实任务（个人成长行动方案）、前置量规（课前发给学生）、可观察的行为动词（能提出/能完成/能区分/能排查）。 量规的来源：我用 **UbD 逆向设计**——先定预期结果，再定评价证据，最后设计活动；思维层级参考 **SOLO 分类**（单点→多点→关联→拓展抽象）；权重向过程倾斜（过程25%、证据20%）。 界 不足是：量规六个维度对一线来说偏多，评一次很耗时。我的折中是**平时只评三个核心维度，期末才评全量**。"},
+{c:"新政·理论",q:"教育家精神对你意味着什么？",a:"六个内涵里，对我触动最深的是两条：**“启智润心、因材施教的育人智慧”**和**“勤学笃行、求是创新的躬耕态度”**。 前者提醒我：方法不是为了好看，是为了让不同的孩子都够得着——所以我有最低达成线和多元表达通道；后者提醒我：青年教师的优势不是经验，是**愿意承认自己不知道并去试**。 证 我的课改了三轮，第1课时从十条改成六条，就是因为试过才发现写不动。 界 我不敢说自己有“教育家精神”，我只能说我在按这个方向要求自己。"},
+{c:"新政·理论",q:"“教联体”背景下，你的家长和社区资源怎么用？",a:"原则：**给家长具体任务，而不是发通知**。①一次 15 分钟的微访谈（孩子问，家长答）；②提供一份真实的职业资料（不是让孩子写作业）；③参与一次真实性核查（孩子问“这是真的吗”，家长给判断）。社区资源方面：保安、食堂师傅、图书管理员、社区店主都是合法且低成本的访谈对象。 界 我给自己划的底线是两条：**不布置需要家长代做的任务**；**不让没有家长资源的孩子在评价上吃亏**——所以校内替代方案必须等效。"},
+{c:"新政·理论",q:"“大规模因材施教”，一线教师怎么做得到？",a:"我把它拆成三件能做的事：①**目标分层**——三级达成线，最低合格线五条，人人够得着；②**通道多元**——写、投、录三种表达方式，话筒不是唯一出口；③**支架差异化**——提不出问题的学生给句式支架，提得出问题的学生给追问支架。 技术能做的是推送与记录，但**判断给谁什么支架，只能由教师来**。 界 我必须承认：在 40 多人的班级里，我只能做到“对大多数”，做不到“对每一个”——**这是班级授课制的固有局限，不是我努力就能完全克服的**。"},
+{c:"新政·理论",q:"数字伦理教育在你的课上怎么体现？",a:"三条硬规矩 + 一个讨论。硬规矩：①凡涉及姓名、住址、成绩等个人信息，一律不进对话框；②只用学校白名单平台；③访谈“三不”——不单独入户、不拍正脸、不索取联系方式。讨论：第4课时专门讨论“AI 为什么会说出听起来很像你的话”——让学生理解**算法在迎合你，不是在认识你**。 政 这对应《规划》“严格管控面向未成年人的算法推荐，防范数字安全与伦理风险”。 界 这个讨论我只做一次、15 分钟，不展开成整节课——**伦理教育靠日常渗透，不靠一次专题**。"},
+{c:"新政·理论",q:"如果评委说你的课“理论支撑不足”，你怎么回应？",a:"谢谢您的提醒，这确实是我需要补强的地方。我的理论依据主要有三处：周哈里窗（自我认知的脚手架）、杜威/陶行知的“做中学”脉络（实践路径）、以及《指导纲要》四大核心素养（目标框架）。 界 但我接受这个批评——**我目前的短板在于：我用了理论，但没有把理论“显性化”**。学生在做事，但我没有明确告诉他们“我们正在用的是什么方法”。我下一步会在每个课时加一句“方法命名”，让方法可见、可迁移。 这是我能立刻改的。"},
+{c:"新政·理论",q:"用一句话说明你的案例与“教育强国建设”的关系。",a:"教育强国最终要落到每一节课的质量上。我能做的，是让一门容易被当成“副课”的综合实践课，**上出它对一个国家真正的价值**——让十几岁的孩子第一次用证据认识自己，并且愿意为自己的判断负责。 这是很小的切口，但它是真实的。"},
+{c:"新政·理论",q:"“包容失败”在政策里被反复强调，你的课真的包容失败吗？",a:"我在三个地方做了制度化安排，而不是口头说说：①第3课时**必须先碰壁一次**，并要求学生交“失败记录”；②证据矩阵第三栏“待验证”永不允许填满，**承认不知道是被允许的**；③30 天目标允许推翻重来，推翻不扣分。 界 但我要坦白：**我在“评价”上仍然给完成度打分，这在客观上会惩罚失败者**。我还没找到既记录真实过程、又不让学生因为“没做成”而吃亏的平衡点——这是我目前最想解决的问题。"},
+{c:"新政·理论",q:"谈谈你对“从做中学到创中学”的理解。",a:"**做中学**解决的是“知识从哪来”——从经验中来；**创中学**解决的是“知识往哪去”——产出一件世界上原本没有的东西。 从做到创，中间多了一步：**设计**。学生不再只是完成任务，而是要做出选择——选材料、选方案、选妥协。 证 我的第5课时行动方案七要素里，有一栏是“如果做不到，我的替代方案是什么”——**会做预案，就是从“做”走向“创”的标志**。 界 但创中学对教师的要求高得多，我目前只能做到“在部分环节给选择权”，离真正的开放还差得远。"}
+);
+const dcats=["全部"].concat([...new Set(DEF.map(x=>x.c))]);
+dfCat.innerHTML=dcats.map(c=>`<option>${c}</option>`).join("");
+function drawDef(){const c=dfCat.value;const p=c==="全部"?DEF:DEF.filter(x=>x.c===c);const d=p[Math.floor(Math.random()*p.length)];
+ document.getElementById("dfQ").textContent=d.q;
+ document.getElementById("dfAns").innerHTML=`<details class="acc" style="margin-top:10px"><summary>👀 查看参考要点（先自己答完再看）</summary><div class="body">${d.a}</div></details>`;
+ stopT();document.getElementById("dfClock").textContent="03:00";document.getElementById("dfBar").style.width="0%";}
+function startDef(){run("dfClock","dfBar",null,180,null,()=>beep());}
+function stopDef(){stopT();}
+
+/* ============ 资源库存 ============ */
+let curC=0,flipped=false,cardPool=ALLCARDS.slice();
+libCats.innerHTML=["全部"].concat(LIBKEYS).map(c=>`<span class="pill" onclick="setCat('${c}',this)">${c}</span>`).join("");
+function setCat(c,el){document.querySelectorAll("#libCats .pill").forEach(p=>p.classList.remove("on"));el.classList.add("on");
+ cardPool=c==="全部"?ALLCARDS.slice():ALLCARDS.filter(x=>x.c===c);curC=0;flipped=false;renderCard();}
+document.querySelector("#libCats .pill").classList.add("on");
+function renderCard(){const c=cardPool[curC];if(!c)return;const f=document.getElementById("flash");
+ const body=c.a||`【背景】${c.b||""}`;
+ f.innerHTML=flipped?`<div class="a">${body}</div><div class="hint">👆 点卡片翻回正面</div>`
+  :`<div class="q">${c.q}</div><div class="hint">👆 点卡片看内容 · ${S.master[c.q]?"✅ 已掌握":"未掌握"}</div>`;
+ document.getElementById("cardPos").textContent=`${curC+1} / ${cardPool.length}`;}
+function flipCard(){flipped=!flipped;renderCard();}
+function nextCard(){curC=(curC+1)%cardPool.length;flipped=false;renderCard();}
+function prevCard(){curC=(curC-1+cardPool.length)%cardPool.length;flipped=false;renderCard();}
+function shuffleCard(){cardPool.sort(()=>Math.random()-.5);curC=0;flipped=false;renderCard();}
+function markMastered(){const c=cardPool[curC];S.master[c.q]=!S.master[c.q];save();renderCard();
+ document.getElementById("masterTip").textContent=S.master[c.q]?"✅ 已标记":"已取消";setTimeout(()=>document.getElementById("masterTip").textContent="",1800);renderStat();}
+renderCard();
+
+/* ============ 我的弹药库 ============ */
+function renderMine(){const L=document.getElementById("mineList");
+ L.innerHTML=S.mine.length?S.mine.map((m,i)=>`<div><span class="tag p">${m.ty}</span>${m.tx.replace(/</g,"&lt;")}
+  <button class="btn gray sm" style="float:right;padding:2px 7px" onclick="delMine(${i})">×</button></div>`).join("")
+  :`<div style="color:var(--ink3)">还没有内容 —— 今天先写满 5 张学生故事卡</div>`;}
+function addMine(){const tx=document.getElementById("mineText").value.trim();if(!tx){alert("请先写点内容");return;}
+ S.mine.push({ty:document.getElementById("mineType").value,tx});save();document.getElementById("mineText").value="";
+ document.getElementById("mineTip").textContent="✅ 已保存";setTimeout(()=>document.getElementById("mineTip").textContent="",1800);renderMine();renderStat();}
+function delMine(i){if(confirm("删除这条？")){S.mine.splice(i,1);save();renderMine();renderStat();}}
+renderMine();
+
+/* ============ 自测 ============ */
+function startQuiz(){document.getElementById("quizBox").innerHTML=QUIZ.map((q,i)=>`<div style="padding:9px 0;border-bottom:1px dashed var(--line)">
+ <div style="font-weight:600;margin-bottom:5px;font-size:14px">${i+1}. ${q.q}</div>
+ <div class="row">${q.o.map((o,j)=>`<span class="pill" id="q${i}_${j}" onclick="pick(${i},${j})">${o}</span>`).join("")}</div>
+ <div id="qa${i}" style="font-size:12.6px;margin-top:4px"></div></div>`).join("")
+ +`<div class="row" style="margin-top:12px"><button class="btn" onclick="grade()">✅ 交卷</button><span id="quizScore" style="font-weight:700;color:var(--brand)"></span></div>`;
+ window._ans={};}
+function pick(i,j){window._ans[i]=j;QUIZ[i].o.forEach((_,k)=>document.getElementById("q"+i+"_"+k).classList.toggle("on",k===j));}
+function grade(){let sc=0;QUIZ.forEach((q,i)=>{const a=window._ans[i];const ok=a===q.a;if(ok)sc++;
+ document.getElementById("qa"+i).innerHTML=ok?`<span style="color:var(--ok)">✅ 正确</span>`:`<span style="color:var(--danger)">❌ 你选：${q.o[a]||"（未答）"}　正确：${q.o[q.a]}</span>`;});
+ document.getElementById("quizScore").textContent=`得分 ${sc}/${QUIZ.length}`+(sc>=24?"　🏆 素养过关":(sc>=19?"　⚠️ 再刷一遍错题库":"　🔴 危险！先刷政策卡和案例卡"));
+ S.quiz.push({t:new Date().toLocaleDateString(),s:sc});save();renderStat();}
+startQuiz();
+
+/* ============ 出奇制胜 ============ */
+winList.innerHTML=WINS.map((w,i)=>`<details class="acc" ${i<3?"open":""}><summary><span>${i+1}. ${w.t}</span><span class="tag ${w.lv==="必做"?"r":"o"}">${w.lv}</span></summary><div class="body">${w.b}</div></details>`).join("");
+riskList.innerHTML=RISKS.map(r=>`<div class="note red" style="margin:7px 0">${r}</div>`).join("");
+
+/* ============ 统计 ============ */
+function renderStat(){
+ document.getElementById("s1").textContent=(S.speeches||[]).length;
+ document.getElementById("s2").textContent=S.teach||0;
+ document.getElementById("s3").textContent=Object.values(S.master||{}).filter(Boolean).length;
+ document.getElementById("s4").textContent=(S.mine||[]).length;
+ const sp=S.speeches||[],sk=document.getElementById("spark");
+ sk.innerHTML=sp.length?sp.slice(-14).map(r=>`<i style="height:${Math.max(4,r.total/60*100)}%" title="${r.total}分"><span>${r.total}</span></i>`).join("")
+  :`<div style="color:var(--ink3);margin:auto;font-size:12.5px">暂无数据</div>`;
+ document.getElementById("speechRec").innerHTML=sp.length?sp.slice().reverse().map(r=>`<div><b>${r.t}</b> · <b style="color:var(--brand)">${r.total}</b>/60 · ${r.q}${r.note?`<br><span style="color:var(--ink3)">复盘：${r.note.replace(/</g,"&lt;")}</span>`:""}</div>`).join("")
+  :`<div style="color:var(--ink3)">还没有记录 —— 去「即兴演讲」练一次并保存成绩</div>`;}
+renderStat();
+function exportData(){const b=new Blob([JSON.stringify(S,null,2)],{type:"application/json"});const a=document.createElement("a");
+ a.href=URL.createObjectURL(b);a.download="青工赛训练数据_"+new Date().toISOString().slice(0,10)+".json";a.click();}
+function clearAll(){if(confirm("清空全部训练数据？不可恢复。")){localStorage.removeItem(KEY);location.reload();}}
+
+/* ============ 录音 ============ */
+let rec={mr:null,key:null,chunks:[]};
+async function toggleRec(k){const btn=document.getElementById(k+"Rec"),box=document.getElementById(k+"RecBox");
+ if(rec.key===k){rec.mr.stop();btn.textContent="🔴 录音";return;}
+ try{const st=await navigator.mediaDevices.getUserMedia({audio:true});rec.key=k;rec.chunks=[];
+  const mr=new MediaRecorder(st);rec.mr=mr;mr.ondataavailable=e=>rec.chunks.push(e.data);
+  mr.onstop=()=>{st.getTracks().forEach(t=>t.stop());const b=new Blob(rec.chunks,{type:"audio/webm"});const url=URL.createObjectURL(b);
+   box.innerHTML=`<div style="margin-top:9px;background:#fff;border-radius:9px;padding:9px"><audio controls src="${url}" style="width:100%"></audio>
+   <a class="btn ghost sm" download="练习录音_${new Date().toLocaleTimeString("zh-CN")}.webm" href="${url}">⬇ 保存录音</a></div>`;rec.key=null;};
+  mr.start();btn.textContent="⏹ 停止录音";
+ }catch(e){box.innerHTML=`<div class="note red" style="margin-top:9px">无法访问麦克风（浏览器可能限制 file:// 权限）。用手机录音后回听，效果相同。</div>`;}}
+</script>
+<div class="pkgbar">
+  <a href="index.html">🏠 首页</a>
+  <a href="破茧七日-答案库.html">📖 答案库</a>
+  <a href="青工赛7天冲刺训练营.html" class="on">🏋️ 训练营</a>
+  <a href="无声试讲逐字稿_6课时.html">🎬 逐字稿</a>
+  <a href="青工赛_考场口袋卡.html">🗂️ 口袋卡</a>
+  <a href="政策原文-综合实践活动推荐主题库.html">📕 政策原文</a>
+</div>
+</body>
+</html>

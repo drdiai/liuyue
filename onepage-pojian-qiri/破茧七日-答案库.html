@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>破茧七日 · 答案库｜立·辩·行 三关通关手册</title>
+<style>
+:root{
+  --bg:#f5f3ee; --card:#ffffff; --ink:#1f2328; --ink2:#4a5057; --ink3:#7b8188;
+  --line:#e6e2d8; --jade:#1b4d3e; --jade-l:#e8f0ed; --gold:#8a6d3b; --gold-l:#f6f0e4;
+  --red:#a8322d; --red-l:#fbeceb; --blue:#22456b; --blue-l:#eaf0f7;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:system-ui,-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.75;padding-bottom:64px;-webkit-text-size-adjust:100%}
+.wrap{max-width:820px;margin:0 auto;padding:0 14px}
+
+/* 顶栏 */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(245,243,238,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .inner{max-width:820px;margin:0 auto;padding:8px 14px;display:flex;align-items:center;gap:8px}
+.brand{font-weight:700;font-size:14px;color:var(--jade);white-space:nowrap}
+.topbar .sp{flex:1}
+.fbtn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 11px;
+  font-size:13px;color:var(--ink2);cursor:pointer}
+.fbtn:active{background:var(--jade-l)}
+.navline{max-width:820px;margin:0 auto;padding:0 14px 8px;display:flex;gap:6px;overflow-x:auto;
+  scrollbar-width:none}
+.navline::-webkit-scrollbar{display:none}
+.navline a{flex:0 0 auto;font-size:12.5px;color:var(--ink2);text-decoration:none;
+  background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+.navline a:active{background:var(--jade-l);color:var(--jade)}
+
+/* 封面 */
+.hero{background:linear-gradient(160deg,#1b4d3e,#22456b);color:#fff;border-radius:16px;
+  padding:22px 20px;margin:14px 0 18px;box-shadow:0 6px 20px rgba(27,77,62,.18)}
+.hero h1{margin:0 0 8px;font-size:23px;line-height:1.35;letter-spacing:.5px}
+.hero p{margin:6px 0 0;font-size:13.5px;color:#d8e6e0;line-height:1.7}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+  border-radius:999px;padding:3px 10px;font-size:11.5px;margin:8px 6px 0 0}
+
+/* 板块 */
+.sec{margin:26px 0 10px;display:flex;align-items:baseline;gap:9px}
+.sec .no{font-size:12px;font-weight:700;color:#fff;background:var(--jade);
+  border-radius:6px;padding:2px 7px;letter-spacing:1px}
+.sec h2{margin:0;font-size:19px;color:var(--jade)}
+.sec .sub{font-size:12.5px;color:var(--ink3);font-weight:400}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  margin:12px 0;overflow:hidden;box-shadow:0 2px 8px rgba(31,35,40,.04)}
+.card>summary{padding:14px 16px;cursor:pointer;font-weight:600;font-size:15.5px;
+  list-style:none;display:flex;gap:10px;align-items:flex-start;line-height:1.6}
+.card>summary::-webkit-details-marker{display:none}
+.card>summary::before{content:"＋";color:var(--gold);font-weight:700;flex:0 0 auto;
+  transition:none}
+.card[open]>summary::before{content:"－";color:var(--jade)}
+.card>summary .q{font-size:12px;font-weight:500;color:var(--ink3);display:block;margin-top:3px}
+.body{padding:0 16px 16px;border-top:1px dashed var(--line);margin-top:2px;padding-top:12px}
+
+h4{font-size:14px;margin:16px 0 8px;color:var(--jade);display:flex;align-items:center;gap:6px}
+h4::before{content:"";width:3px;height:14px;background:var(--gold);border-radius:2px}
+p{margin:9px 0;font-size:14.5px;color:var(--ink)}
+.small{font-size:12.5px;color:var(--ink3)}
+
+/* 示范稿 */
+.script{background:#fbfaf7;border:1px solid var(--line);border-left:3px solid var(--jade);
+  border-radius:0 10px 10px 0;padding:12px 14px;margin:10px 0;font-size:14.5px;line-height:1.9}
+.script .tm{display:inline-block;font-size:11px;color:#fff;background:var(--gold);
+  border-radius:4px;padding:1px 6px;margin-right:6px;vertical-align:1px;letter-spacing:.5px}
+.script b{color:var(--jade)}
+.script em{color:var(--red);font-style:normal;font-weight:600}
+
+/* 拆解表 */
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0;
+  display:block;overflow-x:auto;white-space:nowrap}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--jade-l);color:var(--jade);font-weight:600;white-space:nowrap}
+td{background:#fff}
+td.wrapc{white-space:normal;min-width:230px}
+
+.box{border-radius:10px;padding:11px 13px;margin:11px 0;font-size:13.5px;line-height:1.8}
+.box.j{background:var(--jade-l);border:1px solid #cfe0d9}
+.box.g{background:var(--gold-l);border:1px solid #e8dcc0}
+.box.r{background:var(--red-l);border:1px solid #f0d6d4}
+.box.b{background:var(--blue-l);border:1px solid #d3e0ee}
+.box .t{font-weight:700;font-size:13px;display:block;margin-bottom:4px}
+.box.j .t{color:var(--jade)} .box.g .t{color:var(--gold)}
+.box.r .t{color:var(--red)} .box.b .t{color:var(--blue)}
+
+.nail{background:#fffdf5;border:1px dashed var(--gold);border-radius:10px;padding:10px 13px;
+  margin:10px 0;font-size:14px;color:#6b5327}
+.nail b{color:var(--gold)}
+
+.pill{display:inline-block;font-size:11.5px;border-radius:999px;padding:2px 9px;margin:2px 4px 2px 0}
+.pill.j{background:var(--jade-l);color:var(--jade)}
+.pill.g{background:var(--gold-l);color:var(--gold)}
+.pill.r{background:var(--red-l);color:var(--red)}
+.pill.b{background:var(--blue-l);color:var(--blue)}
+.pill.n{background:#f0efec;color:var(--ink2)}
+
+ol,ul{margin:9px 0;padding-left:22px;font-size:14.5px}
+li{margin:5px 0}
+.foot{text-align:center;color:var(--ink3);font-size:12px;margin:30px 0 10px;line-height:1.9}
+.lvl{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.lv{flex:1;min-width:150px;border:1px solid var(--line);border-radius:9px;padding:8px 10px;
+  background:#fff;font-size:12.5px;line-height:1.7}
+.lv .h{font-weight:700;font-size:12px;display:block;margin-bottom:3px}
+.lv.a{border-left:3px solid #c0b7a4} .lv.a .h{color:#8a8578}
+.lv.b{border-left:3px solid #c99a4b} .lv.b .h{color:#a3742c}
+.lv.c{border-left:3px solid #1b4d3e} .lv.c .h{color:#1b4d3e}
+
+/* ===== 破茧七日 · 阅读增强 ===== */
+.key{background:linear-gradient(90deg,#fff5df,#fffdf8);border:1px solid #ecd9ab;
+  border-left:4px solid var(--gold);border-radius:8px;padding:9px 12px;margin:12px 0 14px;
+  font-size:14.5px;color:#6b5327;line-height:1.75}
+.key .lb{display:inline-block;background:var(--gold);color:#fff;border-radius:4px;
+  font-size:11px;font-weight:600;padding:1px 7px;margin-right:7px;vertical-align:1px;letter-spacing:.5px}
+.key b{color:#7a5c26}
+
+.gm{border:1px solid var(--line);border-radius:11px;background:#fff;margin:11px 0;overflow:hidden}
+.gm .r{display:flex;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);align-items:flex-start}
+.gm .r:last-child{border-bottom:none}
+.gm .k{flex:0 0 auto;width:40px;height:40px;border-radius:10px;background:var(--jade);color:#fff;
+  font-size:17px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:0}
+.gm .k.b{background:var(--blue)} .gm .k.g{background:var(--gold)} .gm .k.r{background:var(--red)}
+.gm .c{flex:1;font-size:13.5px;line-height:1.7;min-width:0}
+.gm .c .t{font-weight:700;font-size:14px;color:var(--ink);display:block;margin-bottom:2px}
+.gm .c .m{color:var(--red);font-weight:600}
+.gm .c .n{color:var(--ink3);font-size:12.5px}
+
+.quick{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.quick a{font-size:12.5px;color:#fff;text-decoration:none;background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:4px 12px}
+.quick a:active{background:rgba(255,255,255,.3)}
+
+.fml{border:1px solid #e8dcc0;border-radius:10px;background:#fffdf6;padding:11px 13px;margin:10px 0}
+.fml .h{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:5px}
+.fml .v{font-size:14.5px;line-height:1.8;color:var(--ink)}
+.fml .v b{color:var(--jade)}
+.fml .v em{color:var(--red);font-style:normal;font-weight:600}
+.fml .u{font-size:12.5px;color:var(--ink3);margin-top:5px;line-height:1.65}
+
+
+/* ===== 翻页 · 章节 ===== */
+.chapbar{max-width:820px;margin:0 auto;padding:0 14px 8px;display:flex;gap:6px;overflow-x:auto;
+  scrollbar-width:none}
+.chapbar::-webkit-scrollbar{display:none}
+.chapbar a{flex:0 0 auto;font-size:12.5px;color:var(--ink3);text-decoration:none;
+  background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 11px;white-space:nowrap}
+.chapbar a.on{background:var(--jade);color:#fff;border-color:var(--jade);font-weight:600}
+.prog{height:3px;background:var(--line)}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--jade),#3a7d68);
+  transition:width .25s ease}
+.chaphead{padding:14px 2px 4px}
+.chaphead .t{font-size:17px;font-weight:700;color:var(--ink)}
+.chaphead .d{font-size:12.5px;color:var(--ink3);margin-top:3px;line-height:1.6}
+.pane{display:none}
+.pane.on{display:block;animation:fadein .22s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.pager{display:flex;align-items:center;gap:9px;margin:18px 0 6px}
+.pager button{flex:0 0 auto;border:1px solid var(--line);background:#fff;color:var(--jade);
+  border-radius:10px;padding:9px 14px;font-size:13.5px;font-family:inherit;cursor:pointer}
+.pager button:disabled{opacity:.35;color:var(--ink3)}
+.pager .mid{flex:1;text-align:center;font-size:12px;color:var(--ink3);line-height:1.5}
+.pager .mid b{display:block;font-size:13px;color:var(--ink);font-weight:600}
+
+/* ===== 资料包导航条 ===== */
+.pkgbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;gap:6px;
+  overflow-x:auto;padding:7px 10px;box-shadow:0 -2px 14px rgba(20,30,20,.07);scrollbar-width:none}
+.pkgbar::-webkit-scrollbar{display:none}
+.pkgbar a{flex:0 0 auto;font-size:12.5px;text-decoration:none;color:#4a5057;
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#fff;white-space:nowrap}
+.pkgbar a.on{background:#1b4d3e;color:#fff;border-color:#1b4d3e;font-weight:600}
+body{padding-bottom:78px}
+
+/* ===== 门户首页 ===== */
+.pk{card:0}
+.pklist{margin:6px 0}
+.pk{display:block;text-decoration:none;background:#fff;border:1px solid var(--line);
+  border-left:4px solid var(--jade);border-radius:12px;padding:13px 15px;margin:10px 0;
+  box-shadow:0 1px 3px rgba(20,40,30,.05)}
+.pk:active{background:var(--jade-l)}
+.pk .n{font-size:15px;font-weight:700;color:var(--jade)}
+.pk .n span{font-size:11px;font-weight:400;color:#fff;background:var(--gold);border-radius:4px;
+  padding:1px 6px;margin-left:7px;vertical-align:2px}
+.pk .d{font-size:13px;color:var(--ink2);margin-top:4px;line-height:1.65}
+.pk .w{font-size:12px;color:var(--ink3);margin-top:5px}
+.pk .go{float:right;font-size:18px;color:var(--gold);margin-top:-2px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="inner">
+    <div class="brand">破茧七日 · 答案库</div>
+    <div class="sp"></div>
+    <button class="fbtn" onclick="toggleAll(true)">展开</button>
+    <button class="fbtn" onclick="toggleAll(false)">收起</button>
+    <button class="fbtn" onclick="zoom(1)">A+</button>
+    <button class="fbtn" onclick="zoom(-1)">A-</button>
+  </div>
+  <div class="prog"><i id="progi" style="width:14%"></i></div>
+  <div class="chapbar">
+    <a href="#c0" onclick="show(0);return false;">纲·总纲</a>  
+<a href="#c1" onclick="show(1);return false;">壹·知彼</a>  
+<a href="#c2" onclick="show(2);return false;">贰·立言</a>  
+<a href="#c3" onclick="show(3);return false;">叁·应对</a>  
+<a href="#c4" onclick="show(4);return false;">肆·锦囊</a>  
+<a href="#c5" onclick="show(5);return false;">伍·避坑</a>  
+<a href="#c6" onclick="show(6);return false;">陆·底气</a>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="pane" id="c0">
+<div class="chaphead"><div class="t">纲 总纲 · 一屏看懂</div><div class="d">三关命门 · 三条万能公式 · 六件套地图 · 7 天路径</div></div>
+<div class="sec" id="s0"><span class="no">纲</span><h2>总纲 · 一屏看懂<span class="q" style="display:block;font-weight:400">先读这一页，2 分钟建立全局感</span></h2></div>
+
+<details class="card" id="s0a" open>
+<summary>① 三关命门 · 每关只有一件事最关键<span class="q">记住这张表，比背十篇稿有用</span></summary>
+<div class="body">
+<div class="gm">
+  <div class="r"><div class="k">立</div><div class="c">
+    <span class="t">第一关 · 案例 ＋ PPT</span>
+    评委看的是 <b>真实、完整、可复制</b>——不是看文采。
+    <span class="m">命门：口径一致。</span>
+    <span class="n">年级、课时数、学生数据在案例、学习过程设计、PPT 三处必须完全对得上。这是唯一一处"不用答辩就会自动扣分"的地方。</span>
+  </div></div>
+  <div class="r"><div class="k b">辩</div><div class="c">
+    <span class="t">第二关 · 5 分钟即兴演讲</span>
+    六维打分里 <b>五个维度大家差距很小</b>，真正拉开档差的只有一个。
+    <span class="m">命门：思维深度——说"边界"。</span>
+    <span class="n">讲完主张后补一句"我这个判断成立的前提是……超出就不成立"。绝大多数选手不讲这句，讲了就上一档。</span>
+  </div></div>
+  <div class="r"><div class="k g">行</div><div class="c">
+    <span class="t">第三关 · 无声试讲 ＋ 答辩（8-12 分钟＋3 分钟）</span>
+    无生课堂评委看不见学生，全靠你嘴里说出来。
+    <span class="m">命门：每 60 秒让学生出现一次。</span>
+    <span class="n">复述学生的话、转述错误答案、点名、停顿。全程没有学生的试讲＝0 分的课堂调控。</span>
+  </div></div>
+</div>
+<div class="box r"><span class="t">贯穿三关的一句总纲</span>
+<b>让评委记住你，不是因为你讲得多，而是因为你有别人拿不出来的两样东西——学生真实说过的话，和你自己承认的边界。</b></div>
+</div>
+</details>
+
+<details class="card" id="s0b" open>
+<summary>📖 这份东西怎么用<span class="q">2 分钟看完，别直接背</span></summary>
+<div class="body">
+<div class="box r"><span class="t">最重要的一句</span>
+这些答案<b>不是让你照抄上场的</b>。评委一天听几十个人，背稿的痕迹一听就出来——语速均匀、没有停顿、没有"想"的过程。
+正确用法：<b>拆零件，不搬整件</b>。把每篇里的「开场小场景」「理论一句」「政策一句」「边界一句」「收束金句」拆下来，装进你自己的话里。</div>
+<h4>三步用法</h4>
+<ol>
+<li><b>先看拆解，再看稿子。</b>每篇下面的「得分拆解」才是核心——它告诉你这一分是怎么拿到的，换任何题目都能复用。</li>
+<li><b>每篇只背三样</b>：① 那个 30 秒的小场景（有画面感，别人编不出来）；② 一句理论或政策原话（显功力）；③ 收束金句（记忆钉子）。</li>
+<li><b>用自己的学生替换场景。</b>稿子里写"我的学生"的地方，全部换成你班上真实发生的事。真实细节 = 无法质疑 = 高分。</li>
+</ol>
+<div class="box g"><span class="t">考场节奏</span>
+演讲：<b>1 分钟思考（列三点，不要写句子）→ 4 分钟讲 → 最后 30 秒必须收束</b>，宁可讲不完也不要没结尾。<br>
+答辩：<b>先接（肯定提问）→ 再立（亮判断）→ 给证据 → 说边界 → 收一句</b>，全程 90 秒内。</div>
+</div>
+</details>
+
+<details class="card" id="s0c" open>
+<summary>② 三条万能公式 · 考场上只靠这三句<span class="q">忘掉所有内容时，记住这个</span></summary>
+<div class="body">
+<div class="fml"><div class="h">公式一 · 即兴演讲（4 分钟怎么分）</div>
+  <div class="v"><b>0:00-0:30 场景</b>（一个具体瞬间，越具体越可信）　↓<br>
+  <b>0:30-0:45 亮明判断</b>（一句话，带"我认为"）　↓<br>
+  <b>0:45-3:10 三层递进</b>（表层→深层→价值，或 正→反→合）　↓<br>
+  <b>3:10-3:40 <em>边界</em></b>（说我这个主张不成立的条件）　↓<br>
+  <b>3:40-4:00 收束</b>（回到开头的意象，一句金句砸落）</div>
+  <div class="u">第三层"价值"和第四步"边界"是 9 分档的分水岭，缺一个就掉到 7 分。</div></div>
+
+<div class="fml"><div class="h">公式二 · 答辩（90 秒怎么答）</div>
+  <div class="v"><b>政策一句</b> ＋ <b>学生证据一个</b> ＋ <em>边界一句</em></div>
+  <div class="u">只答"我怎么做的"＝7 分；加政策＝懂规范；加学生证据＝真做过；<b>加边界＝有思想</b>。三者齐全才够 9 分。</div></div>
+
+<div class="fml"><div class="h">公式三 · 无声试讲（8-12 分钟怎么撑）</div>
+  <div class="v"><b>每 60 秒让学生出现一次</b>：转述一句学生的话 → 抓一个预设错误 → 当场追问 → 把错误变成资源</div>
+  <div class="u">评委看不见学生。你嘴里不说出学生，这堂课在你嘴里就只有你自己。</div></div>
+</div>
+</details>
+
+<details class="card" id="s0d">
+<summary>③ 六件套地图 · 什么时候用哪一块<span class="q">按需取用，不必从头读到尾</span></summary>
+<div class="body">
+<div class="gm">
+  <div class="r"><div class="k">壹</div><div class="c"><span class="t">知彼 · 评委在打什么分</span>
+    <span class="n">把评分表翻译成"评委脑内的三个问题 + 5/7/9 分长什么样"。<b>第一遍就读这个。</b></span></div></div>
+  <div class="r"><div class="k">贰</div><div class="c"><span class="t">立言 · 即兴演讲 12 篇</span>
+    <span class="n">每篇 800 字带时间轴，下面挂得分拆解表。<b>第二关前主攻。</b></span></div></div>
+  <div class="r"><div class="k">叁</div><div class="c"><span class="t">应对 · 答辩 21 题</span>
+    <span class="n">七类各 3 题，答案里标了 政/证/界。<b>第三关前一晚过一遍。</b></span></div></div>
+  <div class="r"><div class="k">肆</div><div class="c"><span class="t">锦囊 · 高分表达库</span>
+    <span class="n">开场 12 式、过渡 10 句、升华 12 句、收束 8 式、应急 8 条。<b>临考当天扫一遍。</b></span></div></div>
+  <div class="r"><div class="k r">伍</div><div class="c"><span class="t">避坑 · 加减分清单</span>
+    <span class="n">加分 10 条、<b>扣分黑名单 12 条</b>、上场前 10 分钟。<b>上场前 5 分钟只看这个。</b></span></div></div>
+  <div class="r"><div class="k g">陆</div><div class="c"><span class="t">底气 · 政策与理论速查</span>
+    <span class="n">2026 新政、做中学/PBL/具身认知、教育热词。<b>每天翻 3 张，攒底气。</b></span></div></div>
+</div>
+<h4>推荐的 7 天路径</h4>
+<div class="box j"><span class="t">一轮＝7 天，可以反复跑</span>
+<b>D1</b> 读「知彼」＋统一案例口径　·　<b>D2</b> 攻「底气」政策理论（每天 3 张）<br>
+<b>D3</b> 练演讲结构（公式一，每天 2 题）　·　<b>D4</b> 攻无声试讲（公式三，每天 1 课时）<br>
+<b>D5</b> 攻答辩（公式二，每天 7 题）　·　<b>D6</b> 全真模拟＋录音回放<br>
+<b>D7</b> 只做两件事：扫「避坑」、背「锦囊」。不学新东西。</div>
+</div>
+</details>
+</div>
+
+<div class="pane" id="c1">
+<div class="chaphead"><div class="t">壹 知彼 · 评委在打什么分</div><div class="d">评分表翻译成行为锚点与 5/7/9 分档长相</div></div>
+<div class="sec" id="s1"><span class="no">壹</span><h2>知彼 · 评委到底在打什么分<span class="sub">把评分表翻译成行为锚点和分档长相</span></h2></div>
+
+<div class="box b"><span class="t">先懂这一件事</span>
+评分表上的六个维度，评委<b>不是逐项独立打分</b>的。真实情况是：前 30 秒形成印象分区间，后面所有维度都被这个区间拉住（"光圈效应"）。
+所以第一句话的权重，远高于它应得的。这也是为什么下面每一篇示范稿都把前 30 秒写死——那 30 秒决定你落在哪一档。</div>
+
+<details class="card">
+<summary>A. 第二关 即兴演讲：六维解构<span class="q">教育理念 / 课程理解 / 逻辑组织 / 语言表达 / 应变能力 / 思维深度</span></summary>
+<div class="body">
+
+<h4>1. 教育理念 —— 评委在听什么</h4>
+<p class="small">内隐三问：① 这个老师脑子里的"好教育"长什么样？② 是背的口号还是自己的信念？③ 遇到冲突时她站在哪一边？</p>
+<div class="lvl">
+<div class="lv a"><span class="h">5 分档</span>通篇正确但空：素质教育、立德树人、以学生为中心，一个不落地全说了，但哪句都能换成别人。</div>
+<div class="lv b"><span class="h">7 分档</span>有自己的主张，能用一句"我认为……"把口号落到具体判断上，配了一个真实场景。</div>
+<div class="lv c"><span class="h">9 分档</span>理念之间有张力，能说出"我一直这样做，但最近我开始怀疑……"——<b>有信念又有反思，才是成熟的教育理念</b>。</div>
+</div>
+<div class="box j"><span class="t">提分动作</span>把"我认为教育要……"改成"我以前认为……直到有一次……现在我认为……"。<b>带时间变化的理念才是你的。</b></div>
+
+<h4>2. 课程理解 —— 评委在听什么</h4>
+<p class="small">内隐三问：① 她真的懂综合实践这门课吗，还是在用学科课的思路讲？② 知道《指导纲要》吗？③ 能说出这门课"不可替代"的地方吗？</p>
+<div class="lvl">
+<div class="lv a"><span class="h">5 分档</span>把综合实践说成"课外活动""做手工""研学"，或套用语文数学课的逻辑讲目标。</div>
+<div class="lv b"><span class="h">7 分档</span>能准确说出课程的四大核心属性：综合性、实践性、开放性、生成性，并举出对应设计。</div>
+<div class="lv c"><span class="h">9 分档</span>能说出<b>与其他课程的本质区别</b>：学科课程是"已知→理解"，综合实践是"真实问题→方案→行动→反思"，<b>知识是工具不是目的</b>；还能指出它和劳动、班队、校本的边界与统筹。</div>
+</div>
+<div class="box g"><span class="t">必背原话</span>《中小学综合实践活动课程指导纲要》（教材〔2017〕4 号）：课程目标以<b>价值体认、责任担当、问题解决、创意物化</b>四个方面为纲；<b>《义务教育课程方案（2022年版）》</b>规定综合实践活动与跨学科主题学习统筹，不少于 10% 课时。</div>
+
+<h4>3. 逻辑组织 —— 评委在听什么</h4>
+<p class="small">内隐三问：① 她说到第 3 句时，我知不知道她要讲几个点？② 四个点之间是什么关系？③ 结尾回到开头了吗？</p>
+<div class="lvl">
+<div class="lv a"><span class="h">5 分档</span>想到哪说到哪，"首先、其次、再者、还有、另外"连用，听不出层次。</div>
+<div class="lv b"><span class="h">7 分档</span>有显式结构词（第一/第二/第三，或"是什么—为什么—怎么做"），四点并列不交叉。</div>
+<div class="lv c"><span class="h">9 分档</span>结构有<b>递进关系</b>（表层→深层，技术→制度→价值；或 正—反—合），并且<b>开头预言结尾</b>：开场就说"我想讲三句话"，结束时"三句话讲完了"。</div>
+</div>
+<div class="box j"><span class="t">提分动作</span>开口第一句就报数：<b>"关于这个问题，我想说三句话。"</b>——评委立刻知道结构，好感+1，你自己也不会跑偏。这一招成本为零，效果最大。</div>
+
+<h4>4. 语言表达 —— 评委在听什么</h4>
+<p class="small">内隐三问：① 咬字清楚吗？② 有废话吗（然后、就是说、那个、嗯）？③ 有没有一句让人想记下来的话？</p>
+<div class="lvl">
+<div class="lv a"><span class="h">5 分档</span>大量口头禅、重复词，句子拖长不断句，全程平调。</div>
+<div class="lv b"><span class="h">7 分档</span>流畅、少废话、有停顿，能用一个比喻或一个短句收束。</div>
+<div class="lv c"><span class="h">9 分档</span><b>有节奏</b>：长句铺陈 + 短句砸落；有<b>一处留白</b>（说完关键句停 2 秒）；全篇至少有一句<b>可摘录的金句</b>。</div>
+</div>
+<div class="box r"><span class="t">最大扣分项</span>口头禅。练的时候录一次音，数"然后""就是""那个"出现几次。<b>超过 5 次就要专门改</b>——改法：想不起来时闭嘴停顿，不许用填充词。</div>
+
+<h4>5. 应变能力 —— 评委在听什么</h4>
+<p class="small">内隐三问：① 1 分钟思考时她慌了吗？② 被追问时是防守还是接住？③ 承认不知道时是什么态度？</p>
+<div class="lvl">
+<div class="lv a"><span class="h">5 分档</span>思考时间发呆或反复重复题目；被追问时语塞、硬撑、绕圈子。</div>
+<div class="lv b"><span class="h">7 分档</span>1 分钟内能列出关键词；被追问能给出补充例子。</div>
+<div class="lv c"><span class="h">9 分档</span>会<b>重构问题</b>（"您问的其实是一个更根本的问题……"），会<b>主动限定</b>（"这个说法在小学阶段成立，到高中我保留"），被问住时坦率承认并给出补救路径。</div>
+</div>
+
+<h4>6. 思维深度 —— 这是唯一能拉开档差的维度</h4>
+<p class="small">内隐三问：① 她有没有看到问题的反面？② 她有没有说出"边界"？③ 她有没有把一件事放到更大的坐标系里？</p>
+<div class="lvl">
+<div class="lv a"><span class="h">5 分档</span>单向论证，只说好处或只说坏处，结尾喊口号。</div>
+<div class="lv b"><span class="h">7 分档</span>能正反两面都说到，结尾做折中。</div>
+<div class="lv c"><span class="h">9 分档</span>具备以下任意两项：<b>① 说出边界</b>（"这个做法的条件是……，超出就不成立"）；<b>② 说出代价</b>（"这样做要放弃的是……，我认为值得，因为……"）；<b>③ 说出自己被推翻过</b>；<b>④ 把个人做法上升到制度或时代</b>。</div>
+</div>
+<div class="box j"><span class="t">万能加分句（思维深度专用）</span>
+「当然，我这个做法<b>有明确的边界</b>——它成立的前提是……如果……，那我会换一种做法。」<br>
+「这样做<b>是有代价的</b>：我放弃了……我接受这个代价，因为……」<br>
+「三年前我不会这么想。是<b>一个学生改变了我</b>……」</div>
+</div>
+</details>
+
+<details class="card">
+<summary>B. 第三关 无生上课 + 答辩：六项解构<span class="q">内容目标 / 过程调控 / 方法理念 / 技能素养 / 数字化 / 答辩</span></summary>
+<div class="body">
+
+<h4>1. 教学内容与目标</h4>
+<p class="small">评委在翻：目标是不是"可观测"的？和《指导纲要》四维对得上吗？重难点是不是真的难？</p>
+<div class="lvl">
+<div class="lv a"><span class="h">5 分档</span>目标是"了解……、培养……意识"这类不可测动词。</div>
+<div class="lv b"><span class="h">7 分档</span>目标用行为动词（能提出/能完成/能区分），对应纲要四维，重难点各一条。</div>
+<div class="lv c"><span class="h">9 分档</span>目标<b>分层</b>（基础线/达成线/挑战线），并说明<b>最低合格线是什么</b>——评委一听就知道你心里有后进生。</div>
+</div>
+
+<h4>2. 教学过程与调控 —— 无生上课的最大分差就在这里</h4>
+<div class="lvl">
+<div class="lv a"><span class="h">5 分档</span>全程"老师说、同学答"，没有预设学生，没有转折，一讲到底。</div>
+<div class="lv b"><span class="h">7 分档</span>有环节、有时间分配、有提问，偶尔说"这位同学说……"。</div>
+<div class="lv c"><span class="h">9 分档</span>三件事必做：<b>① 复述学生原话</b>（"你说的是……对吗"）；<b>② 展示一次真实的"错误"</b>并当场处理（这是"调控"的唯一证据）；<b>③ 有明确的"卡住了"的时刻</b>和你怎么救。</div>
+</div>
+<div class="box r"><span class="t">无生上课第一大忌</span>全程没有"学生"。评委看不见学生，<b>你嘴里不说出学生，就等于这堂课只有你自己</b>。每 60 秒至少让学生"出现"一次。</div>
+
+<h4>3. 教学方法与理念</h4>
+<div class="lvl">
+<div class="lv a"><span class="h">5 分档</span>满堂讲 + 问答，方法和理念两张皮。</div>
+<div class="lv b"><span class="h">7 分档</span>用了情境、任务、合作等可命名的方法，且和环节对得上。</div>
+<div class="lv c"><span class="h">9 分档</span><b>能说清"为什么用这个方法而不是那个"</b>，并且方法里藏着理念（如：为什么先纸笔后 AI——因为顺序本身就是价值）。</div>
+</div>
+
+<h4>4. 教学技能与素养</h4>
+<p class="small">板书、教态、语言、时间。最容易被忽视的：<b>板书是否随讲解"生长"</b>，还是提前写完或最后补。</p>
+<div class="lvl">
+<div class="lv c"><span class="h">9 分档特征</span>板书在关键结论出现时<b>当场写下</b>；有一次俯身/巡视/停顿的肢体表演；时间误差 ≤30 秒（宁可提前收，不要超时）。</div>
+</div>
+
+<h4>5. 数字化教学手段</h4>
+<div class="lvl">
+<div class="lv a"><span class="h">5 分档</span>PPT 放视频、展示图片，纯粹点缀。</div>
+<div class="lv b"><span class="h">7 分档</span>用工具提升效率或呈现（词云、投屏、在线协作）。</div>
+<div class="lv c"><span class="h">9 分档</span><b>去掉它，目标就达不成</b>——这才是"必需"。并且有<b>兜底方案</b>（断网怎么办）。说一句判断标准："我判断一个技术要不要用的标准是——删掉它，这个环节的目标还能不能达成。"</div>
+</div>
+
+<h4>6. 答辩水平</h4>
+<div class="lvl">
+<div class="lv a"><span class="h">5 分档</span>背稿、答非所问、被追问就顶撞或沉默。</div>
+<div class="lv b"><span class="h">7 分档</span>直接回答，有例子，态度诚恳。</div>
+<div class="lv c"><span class="h">9 分档</span><b>每答必带三件</b>：政策一句 + 学生证据一个 + <b>边界一句</b>；被指出问题时先认后解（"您说得对，这确实是我的不足，我当时的考虑是……现在看可以改成……"）。</div>
+</div>
+<div class="box j"><span class="t">答辩万能骨架（5 步，90 秒）</span>
+<b>①接</b>：您问的其实是……（重构，3秒）→ <b>②立</b>：我的判断是……（一句话亮明，10秒）→
+<b>③证</b>：政策/理论一句 + 课堂上一个具体瞬间（40秒）→ <b>④界</b>：当然这有边界/代价……（20秒）→
+<b>⑤收</b>：所以……（回到你的核心主张，15秒）。</div>
+</div>
+</details>
+
+<details class="card">
+<summary>C. 第一关 案例文本 + PPT：评委在纸上打的分<span class="q">虽然已交，第二三关仍会被追问</span></summary>
+<div class="body">
+<table>
+<tr><th>评审点</th><th class="wrapc">高分特征</th><th class="wrapc">常见失分</th></tr>
+<tr><td>主题价值</td><td class="wrapc">回应真实时代问题（AI 时代人的主体性），不是"为了 AI 而 AI"</td><td class="wrapc">跟风选题，说不清为什么非要现在做</td></tr>
+<tr><td>目标与内容</td><td class="wrapc">目标可观测、分层，与纲要四维一一对应</td><td class="wrapc">目标空泛，内容与目标错位</td></tr>
+<tr><td>过程与方法</td><td class="wrapc">有递进、有生成、有学生的真实产出与真实失败</td><td class="wrapc">过程顺得不像真的，全程无波折</td></tr>
+<tr><td>评价</td><td class="wrapc">量规 + 过程性证据 + 最低达成线</td><td class="wrapc">只有一张打分表，或只有成果展示</td></tr>
+<tr><td>成果与推广</td><td class="wrapc">可复制：说清工具可替换、可迁移到薄弱校</td><td class="wrapc">依赖特定硬件/学校资源，别人做不了</td></tr>
+<tr><td>文本规范</td><td class="wrapc">数据前后一致、学段口径统一、引用有出处</td><td class="wrapc">年级前后矛盾、数字对不上（<b>这是硬伤</b>）</td></tr>
+</table>
+<div class="box r"><span class="t">⚠ 必须马上自查的硬伤</span>
+你目前材料里：案例正文写<b>七年级</b>，《学习过程设计》写<b>八年级</b>。评委只要翻两页就能发现。<br>
+<b>处理办法</b>：① 立刻统一为一个学段；② 若来不及改全部文档，至少准备一句解释（"案例初稿面向七年级，后根据试教对象调整为八年级，两份材料分属不同轮次"）——但这是下策，<b>能在上场前改完就改完</b>。</div>
+</div>
+</details>
+
+<!-- ============ 板块二 ============ -->
+</div>
+
+<div class="pane" id="c2">
+<div class="chaphead"><div class="t">贰 立言 · 即兴演讲 12 篇</div><div class="d">每篇 800 字带时间轴，附逐段得分拆解</div></div>
+<div class="sec" id="s2"><span class="no">贰</span><h2>立言 · 即兴演讲 12 篇完整示范稿<span class="q" style="display:block;font-weight:400">每篇 ≈4 分钟 / 800 字 · 带时间轴 · 附得分拆解</span></h2></div>
+
+<div class="box g"><span class="t">12 篇通用结构（背下这个骨架，任何题目都能装）</span>
+<b>0:00–0:30 场景</b>（一个具体瞬间，越具体越可信）→ <b>0:30–0:45 亮明判断</b>（一句话，带"我认为"）→
+<b>0:45–3:10 三层递进</b>（表层→深层→价值 / 正→反→合）→ <b>3:10–3:40 边界</b>（说我这个主张不成立的条件）→
+<b>3:40–4:00 收束</b>（回到开头的意象，一句金句砸落）</div>
+
+<details class="card" open>
+<summary>01 · 有人说"有了AI，教师会被取代"，你怎么看？<span class="q">AI与教育 · 场景开场＋正反正 · 最常考</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>AI 不会取代教师，但会取代<b>不追问的教师</b>。</div>
+<div class="script">
+<span class="tm">0:00</span>我先说一个我课堂上的瞬间。<br>
+我上《寻找未知的自己》第 4 课时，让学生把自己的愿望交给 AI 分析。有个男孩把 AI 给的结论工整抄在任务单上——"你适合做程序员"。我问他：<em>这是谁说的？</em>他说：AI 说的。我又问：<em>AI 凭什么知道？</em>他愣了大概五秒，说：它……看过很多数据吧。<br>
+那一刻我特别清楚地意识到一件事：<b>AI 不会取代教师，但会取代"不追问的教师"。</b><br><br>
+
+<span class="tm">0:45</span>关于这个问题，我想说三句话。<br><br>
+
+<b>第一句：有一部分教师的工作，确实在被替代，而且应该被替代。</b>知识传递、标准化反馈、资料检索、作文初批——这些工作 AI 做得更快更稳。我们如果还把职业尊严建立在这些事上，那被替代是迟早的，也是合理的。承认这一点，比愤怒地辩护要诚实。<br><br>
+
+<b>第二句：有三样东西，AI 拿不走。</b>第一是<b>判断力的养成</b>——AI 能给一百个答案，但"这一百个里哪个对我有意义"，这件事只能由人来练，而且必须从小练。第二是<b>价值的选择</b>——当 AI 说"你适合做程序员"，要不要信、信多少、信了之后要不要试，这是价值判断，不是技术问题。第三是<b>关系的建立</b>。雅斯贝尔斯说，教育意味着一棵树摇动另一棵树，一朵云推动另一朵云——摇动和推动，是发生在两个真实的人之间的事。<br><br>
+
+<b>第三句：真正的风险不是被取代，是被降维。</b>我最担心的不是 AI 抢走教师的饭碗，而是教师主动把判断交出去，慢慢变成"提示词输入员"——AI 出方案，我执行；AI 给评语，我转发；AI 做判断，我背书。这个职业真正的塌陷，是从<b>不判断</b>开始的，不是从被替代开始的。也正因如此，教育部《教师生成式人工智能应用指引》才明确要求：教师不得直接使用 AI 生成的内容作为对学生的评价依据——这条红线保护的不是流程，是<b>判断的主体必须是人</b>。<br><br>
+
+<span class="tm">3:15</span><b>当然，我这个判断有边界。</b>它成立的前提是：我们讨论的是"育人"，不是"培训"。如果一所学校只需要把知识点高效送进学生脑子里，那 AI 确实更好用、更便宜。我之所以认为教师不可取代，是因为<b>我相信学校要做的从来不只是这件事</b>。<br><br>
+
+<span class="tm">3:40</span>所以回到开头那个男孩。我后来在他的任务单上加了一栏，标题是"我同意 / 我修改 / 我拒绝"，理由必填。他最后写的是：<b>"我修改，因为我连编程都没学过。"</b><br>
+这一行字，是 AI 写不出来的。<br>
+<b>教育的终极产品不是答案，是有能力审判答案的人。</b>
+</div>
+
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>0:00 五秒对话</td><td class="wrapc">具体、有地点有人物有原话，<b>无法质疑真实性</b>；同时把题目从一个大命题落到一个人身上</td><td>教育理念·语言表达</td></tr>
+<tr><td>0:30 亮明判断</td><td class="wrapc">不回答"会/不会"，而是<b>重构问题</b>（不是取代，是"不追问的教师"被取代）——应变能力满分动作</td><td>应变能力·思维深度</td></tr>
+<tr><td>第一句：承认被替代</td><td class="wrapc">先承认反方，<b>让评委放下防御</b>；这是"正反合"的"正"</td><td>思维深度</td></tr>
+<tr><td>第二句：三个不可取代</td><td class="wrapc">判断力/价值/关系，<b>三层并列且各自可展开</b>；引雅斯贝尔斯提升学养感</td><td>教育理念·逻辑组织</td></tr>
+<tr><td>第三句：被降维</td><td class="wrapc">从"会不会被取代"上升到"这个职业如何塌陷"，<b>这是思维深度的核心得分点</b></td><td>思维深度</td></tr>
+<tr><td>政策一句</td><td class="wrapc">《教师生成式人工智能应用指引》不是堆砌，而是<b>为自己的论点做权威支撑</b></td><td>课程理解</td></tr>
+<tr><td>3:15 边界</td><td class="wrapc">明确说"我的主张在什么条件下不成立"——<b>9 分档的分水岭</b></td><td>思维深度</td></tr>
+<tr><td>结尾回扣</td><td class="wrapc">回到开头男孩，形成闭环；最后一行原话 + 金句双重记忆钉子</td><td>语言表达</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「AI 不会取代教师，但会取代不追问的教师。」「教育的终极产品不是答案，是有能力审判答案的人。」</div>
+<div class="box j"><span class="t">迁移提示</span>换任何 AI 类题目，保留：<b>①五秒对话开场 ②"承认—不可取代—真正风险"三层 ③政策红线 ④"我同意/我修改/我拒绝"这个实物</b>。换成"AI 与作业""AI 与评价""AI 与公平"都能用。</div>
+</div>
+</details>
+
+<details class="card">
+<summary>02 · 学生用AI写作业，你是禁止还是引导？<span class="q">AI与教育 · 拆词法＋制度思维</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>禁不如疏：把"能不能用"变成"<b>用到哪一步为止</b>"，规则要写在流程里，不写在口号里。</div>
+<div class="script">
+<span class="tm">0:00</span>我班上曾经出现过一份"完美"的职业访谈记录：格式规范、语言成熟、连被访者的口头禅都没有。我问学生是怎么写的，他很坦白：用 AI 生成的。<br>
+我当时的第一反应是想没收。但我忍住了，因为我知道<b>没收的是这一次，失去的是他下次还敢跟我说真话</b>。<br><br>
+
+<span class="tm">0:40</span>所以我的答案是：<b>既不禁止，也不放任，而是把"用"变成"必须走完的流程"。</b><br><br>
+
+<b>先说为什么不禁止。</b>第一，禁不住。工具在书包外面的世界里，我们禁的是教室里的动作，不是学生的能力。第二，禁止的代价太大——它换来的是<b>更隐蔽的使用</b>：学生学会了不告诉你。而教育里最危险的事，从来不是学生做错，是<b>学生做错了但不再让你看见</b>。<br><br>
+
+<b>再说为什么不放任。</b>因为"用 AI"和"会用 AI"是两回事。前者是把思考外包，后者是把 AI 放在被审判的位置上。<br><br>
+
+<b>所以我做了三步，每一步都留痕：</b><br>
+<b>第一步，人先。</b>开 AI 之前必须先有纸笔的个人版本，写不出也要写"我卡在哪"。这一步要的不是对，是<b>真实的起点</b>——没有起点，就没有比较。<br>
+<b>第二步，限定指令。</b>我明令禁止学生向 AI 提"我适合做什么职业"这类问题，只能问"要判断这件事，我还需要哪些信息"。前者要结论，后者要方法——<b>AI 可以给方法，但不能替人下判断</b>。<br>
+<b>第三步，红笔判 AI。</b>学生必须填一张《人机对比单》，写出"AI 说的哪一句我不同意，为什么"。<b>抄的人写不出这一栏</b>——这是防作弊最有效的一招，因为它考的不是结果，是判断。<br><br>
+
+<span class="tm">3:15</span><b>当然，这套做法有代价。</b>它比让学生直接用 AI 慢得多，同样一节课，我的产出量明显更少。我接受这个代价，因为<b>我省下来的不是时间，是学生思考的机会</b>。而且它也有边界：对低学段、对基础薄弱到无法形成个人版本的学生，这三条要放宽——那时候该做的是帮他们先有东西可写。<br><br>
+
+<span class="tm">3:40</span>回到那个学生。他后来在《人机对比单》上写：<b>AI 说我适合当老师，但我不同意——我连上课发言都不敢。</b><br>
+你看，当他开始反驳 AI 的那一刻，AI 就从"代写者"变成了"陪练"。<br>
+<b>面对新技术，与其在门口设卡，不如在教室里立规矩。</b>
+</div>
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>"忍住了没收"</td><td class="wrapc"><b>展示真实的情绪冲突与克制</b>，比直接给方法更打动人；同时带出教育信念</td><td>教育理念·思维深度</td></tr>
+<tr><td>拆词：既不/也不/而是</td><td class="wrapc">拒绝二选一，<b>重构为第三选项</b>（流程化使用）——典型高阶答法</td><td>思维深度</td></tr>
+<tr><td>"禁不住"+代价</td><td class="wrapc">从可行性 + 教育代价双角度论证，<b>不喊口号讲机制</b></td><td>思维深度</td></tr>
+<tr><td>三步留痕</td><td class="wrapc">操作具体可复制，<b>证明是真做过不是想出来</b>；"抄的人写不出"是点睛</td><td>课程理解·逻辑组织</td></tr>
+<tr><td>代价与边界</td><td class="wrapc">主动说慢、说对薄弱生要放宽——<b>有自我限定的主张才可信</b></td><td>思维深度</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「教育里最危险的不是学生做错，是学生做错了但不再让你看见。」「与其在门口设卡，不如在教室里立规矩。」</div>
+</div>
+</details>
+
+<details class="card">
+<summary>03 · 谈谈青年教师应具备的"人工智能素养"<span class="q">AI与教育 · 三层递进＋反常识</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>AI 素养不是会用工具，是<b>AI 给答案时你还能问出"凭什么"</b>。</div>
+<div class="script">
+<span class="tm">0:00</span>去年我参加区里的 AI 培训，老师说了一句让我记到现在的话：<b>"你们最该学的不是怎么用 AI，是什么时候不用。"</b><br><br>
+
+<span class="tm">0:30</span>所以关于人工智能素养，我想讲三层，从低到高。<br><br>
+
+<b>第一层是操作层：会用。</b>会写提示词、会选工具、会做资源、会用 AI 批改客观题节省时间。这一层必要，但它是<b>最容易被时代追平的一层</b>——今年你比同事强，明年工具一升级，人人都会。<br><br>
+
+<b>第二层是设计层：会教。</b>知道 AI 该放在哪个环节、放在学生动作之前还是之后、放进去之后目标变没变。我的判断标准只有一条：<b>删掉这个技术，这个环节的目标还能不能达成？能达成，就是装饰；达不成，才是必需。</b>我课上只有三个环节是真需要技术的：来源核查要联网、人机对比要真实调用、词云要让"看不见的自我描述"变得可见。其余一律不用。<br><br>
+
+<b>第三层是判断层：会守。</b>这一层最少被提到，但我认为最重要。它包括：知道 AI 会编造，所以要教学生交叉验证；知道 AI 会讨好，所以禁止它做确定性判断；知道数据会泄露，所以不让学生输入姓名住址成绩；知道不是每个家庭都有条件，所以准备离线兜底包。<br>
+<b>说到底，人工智能素养的核心不是"用得多"，而是"知道边界在哪"。</b>一个只会用的老师，和只会刷题的学生没有本质区别。<br><br>
+
+<span class="tm">3:10</span><b>而且我要坦白一件事。</b>这三层里，我最弱的恰恰是第三层。我曾经让一个学生把家庭情况输进 AI 做分析，后来才意识到那可能是这个孩子最不想被记录的东西。从那以后我的规则里多了一条硬规定：<b>凡涉及个人信息，一律不进对话框。</b><br>
+我把这件事讲出来，是因为我觉得<b>人工智能素养里有一条应当被写进去：愿意承认自己用错过，并且把错误变成规则。</b><br><br>
+
+<span class="tm">3:45</span>所以我理解的教师人工智能素养，可以用一句话概括：<b>手上会用，课上会教，心里会守。</b><br>
+<em>会用是技能，会教是专业，会守才是师者。</em>
+</div>
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>引用培训老师一句反常识的话</td><td class="wrapc"><b>反常识开场</b>（最该学的是"什么时候不用"），立刻与所有"要拥抱 AI"的答案区分开</td><td>思维深度</td></tr>
+<tr><td>三层：会用/会教/会守</td><td class="wrapc">递进结构，且<b>主动贬低第一层</b>（会被追平），显示判断力</td><td>逻辑组织</td></tr>
+<tr><td>"删掉它目标还成立吗"</td><td class="wrapc">给出一个<b>可复用的判断标准</b>，这是评委最想要的"工具型答案"</td><td>课程理解</td></tr>
+<tr><td>坦白自己用错过</td><td class="wrapc"><b>自我批评放进演讲里</b>——这是极罕见的加分动作，直接拉升"教育理念"与"思维深度"两维</td><td>教育理念·思维深度</td></tr>
+<tr><td>"会用/会教/会守"</td><td class="wrapc">三字诀收束，<b>易记、易传播</b>，评委记分表上会写这一句</td><td>语言表达</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「手上会用，课上会教，心里会守。会用是技能，会教是专业，会守才是师者。」</div>
+</div>
+</details>
+
+<details class="card">
+<summary>04 · 如何理解"以学生为中心"？<span class="q">教育理念 · 破误区＋正反合</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>以学生为中心，不是学生说了算，是教师把"讲完了"换成"<b>他学会了</b>"。</div>
+<div class="script">
+<span class="tm">0:00</span>我刚教书那年，把一节公开课设计得"很以学生为中心"：四个小组自选主题、自主探究、自由展示。结果一节课下来热热闹闹，下课前我问"你们今天学到了什么"，一个学生很认真地回答：<b>老师，我们组讨论了很久到底做哪个主题。</b><br>
+那节课让我明白：热闹不等于中心，<b>选择不等于学习</b>。<br><br>
+
+<span class="tm">0:45</span>今天我想讲三句话。<br><br>
+
+<b>第一句：以学生为中心，不是以学生的"意愿"为中心，而是以学生的"发展"为中心。</b>这是最大的误区。学生说想玩游戏，满足他不是学生中心；学生说不出来想要什么，替他决定也不是。<b>真正的中心，是他此刻的真实水平、真实困惑、真实最近发展区</b>——维果茨基讲，教学应当走在发展的前面。所以"中心"这个词的关键不在学生说了算，而在<b>一切设计从他的发展出发</b>。<br><br>
+
+<b>第二句：以学生为中心，恰恰对教师提出了更高而不是更低的要求。</b>满堂讲只要备好一本书；学生中心要准备五条路径、预设十种回答、还要在现场判断"这个问题值不值得花八分钟"。我在《寻找未知的自己》里让学生自己提探究问题，光是第一课时我就预设了四类"提不出来的情况"和对应的支架。<b>自由是有成本的，这个成本由教师来付。</b><br><br>
+
+<b>第三句：以学生为中心，最后要让学生不再需要这个中心。</b>教育的终点是<b>自我教育</b>——叶圣陶先生说，教是为了不教。我在第 6 课时只做一件事：让学生把 30 天后的目标写成可验证的小行动，一个月后自己回头核对。<b>教师退场，学习才真正发生。</b><br><br>
+
+<span class="tm">3:20</span><b>当然，这个主张有边界。</b>在知识系统性强的学科、在学生完全陌生的领域、在时间紧任务重的阶段，讲授依然是最有效率的方式。我不认为学生中心和教师讲授是对立的——<b>它们的区别在于：讲授之后，学生有没有机会把知识用一次。</b>有，就是学生中心；没有，哪怕分组讨论了，也不是。<br><br>
+
+<span class="tm">3:45</span>回到那节失败的公开课。第二年我重上它，只改了一处：把"自选主题"改成"先给我三个你必须亲自去问才能知道答案的问题"。<br>
+<b>以学生为中心，不是把方向盘交给学生，是让他知道车要往哪儿开，以及——为什么是他来开。</b>
+</div>
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>自曝失败课例</td><td class="wrapc"><b>用失败开场比用成功开场高级</b>——真诚、有反思能力，评委立刻加分</td><td>教育理念</td></tr>
+<tr><td>破误区（意愿≠发展）</td><td class="wrapc">指出全社会的共同误读，<b>体现独立思考</b></td><td>思维深度</td></tr>
+<tr><td>维果茨基 + 叶圣陶</td><td class="wrapc">两个理论用在不同层次（起点/终点），<b>不是堆砌而是各司其职</b></td><td>教育理念</td></tr>
+<tr><td>"自由的成本由教师付"</td><td class="wrapc">反直觉的深刻表述，<b>金句型</b></td><td>语言表达·思维深度</td></tr>
+<tr><td>边界（讲授仍有效）</td><td class="wrapc">不否定传统教学，<b>给出兼容条件</b>，避免显得偏激</td><td>思维深度</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「以学生为中心，不是把方向盘交给学生，是让他知道车要往哪儿开。」「自由是有成本的，这个成本由教师来付。」</div>
+</div>
+</details>
+
+<details class="card">
+<summary>05 · "立德树人"如何在综合实践活动中落实？<span class="q">教育理念 · 政策＋反"贴标签"</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>立德树人不能贴标签，要<b>长在活动的流程里</b>——设计什么环节，就长出什么品质。</div>
+<div class="script">
+<span class="tm">0:00</span>有一次我让学生写"我是一个怎样的人"，收上来我看见一张纸条上写着：<b>我是一个成绩不好的人。</b><br>
+十四个字，写在一张只要求写十条的纸上，它是第一条。<br>
+那一刻我特别具体地理解了什么是"立德树人"——<b>它不是要在课里加一段德育，是要把一个孩子对自己的定义，改一改。</b><br><br>
+
+<span class="tm">0:50</span>综合实践活动落实立德树人，我认为胜在三个"不是"。<br><br>
+
+<b>第一，不是讲道理，是做事。</b>《指导纲要》把课程目标表达为价值体认、责任担当、问题解决、创意物化——<b>四个词全是动词性的</b>。价值体认不是"懂得了道理"，是在真实访谈里被人认真回答了一次之后，体会到的那种"我被当回事"。德育在综合实践里不是内容，是<b>副产品</b>：你把事做真了，价值自然长出来。<br><br>
+
+<b>第二，不是统一标准，是尊重差异。</b>我的评价量规里设了"最低达成线"：提出一个可探究的问题、完成一次真实访谈、保留全套记录、排查出一条需核实的 AI 信息、制定一个带量化指标的 30 天微目标。做到就是合格。我把过程分的权重放在成果分之上，因为<b>德育最忌讳的，是让踏实做事但不会表达的孩子再一次失败</b>。<br><br>
+
+<b>第三，不是一次活动，是可追踪的生长。</b>我要求每个学生的目标必须带时间点，30 天后自己核对，允许推翻重来。<b>允许推翻，是我这堂课里最重要的一条规则</b>——因为生涯启蒙最大的风险，就是给学生贴标签。<br><br>
+
+<span class="tm">3:15</span><b>这里我要说一个我警惕的东西。</b>综合实践最容易出现"假德育"：活动一结束，横幅一拉，照片一拍，价值体认就完成了。我的做法是<b>拒绝产出任何一句话式的职业结论</b>，连 AI 都被明令禁止做确定性判断。因为我们做的是启蒙，不是定型。<br>
+<b>这一点上我给自己划的底线是：宁可结论模糊，不可判断过早。</b><br><br>
+
+<span class="tm">3:45</span>那张纸条后来的故事是：一个月后他在"未知我"那一栏补了一句——<b>我还没试过的事情是，主动举手回答一次。</b><br>
+<b>立德树人，落到最小处，就是让一个孩子愿意再试一次。</b>
+</div>
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>纸条十四字</td><td class="wrapc">具体到字数、位置，<b>真实感无可辩驳</b>；把宏大命题瞬间人格化</td><td>教育理念</td></tr>
+<tr><td>三个"不是"</td><td class="wrapc"><b>反向界定法</b>——说清"不是什么"比说"是什么"更显功力</td><td>逻辑组织·思维深度</td></tr>
+<tr><td>《指导纲要》四词全是动词性</td><td class="wrapc"><b>对政策原文的个性化解读</b>（不是说"纲要指出"，而是"四个词全是动词性的"），高出一个层次</td><td>课程理解</td></tr>
+<tr><td>最低达成线 + 权重</td><td class="wrapc">证明<b>心里有后进生</b>，评委极看重</td><td>教育理念</td></tr>
+<tr><td>警惕"假德育"</td><td class="wrapc"><b>批评自己所在的课程领域</b>——罕见的独立立场，思维深度加分</td><td>思维深度</td></tr>
+<tr><td>结尾回扣纸条</td><td class="wrapc">闭环 + 具体细节，收得稳</td><td>语言表达</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「德育在综合实践里不是内容，是副产品。」「宁可结论模糊，不可判断过早。」「立德树人，落到最小处，就是让一个孩子愿意再试一次。」</div>
+</div>
+</details>
+
+<details class="card">
+<summary>06 · 综合实践活动与其他课程的本质区别是什么？<span class="q">综合实践 · 本质追问＋一句说清</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>一句话说清区别：别的课教<b>已知</b>，综合实践带学生去探<b>未知</b>。</div>
+<div class="script">
+<span class="tm">0:00</span>如果只能用一句话回答，我会说：<br>
+<em>学科课程走的是"已知 → 理解"，综合实践走的是"真实问题 → 方案 → 行动 → 反思"。在这个课堂上，知识是工具，不是目的。</em><br><br>
+
+<span class="tm">0:35</span>这个区别体现在三个地方。<br><br>
+
+<b>第一，起点不同。</b>学科课的起点是课标规定的内容，综合实践的起点是<b>学生真实生活里的问题</b>。《指导纲要》要求课程"从学生的真实生活和发展需要出发"。我的课为什么能启动？因为"我将来能做什么"这个问题，学生自己在问，不是我要他们问。<b>学生不问的问题，走不远。</b><br><br>
+
+<b>第二，过程不同。</b>学科课上，答案是预设的，学生的任务是抵达；综合实践课上，<b>方案是学生自己写的，问题要自己去问，错了要自己改</b>。我让学生做微访谈，第一课时我一句话都不教"怎么访谈"，让他们先失败一次。因为<b>失败带来的规则需求，比我讲十遍访谈礼仪更有效</b>。这就是综合实践最珍贵的东西——<b>生成性</b>。<br><br>
+
+<b>第三，产物不同。</b>学科课的产物主要是可测的学业成果；综合实践的产物是<b>价值体认、责任担当、问题解决、创意物化</b>，是人的变化。我的课结束时，最好的产物不是那张精美的职业卡，而是有学生说"原来我妈的工作需要这么多我不具备的能力"。<b>这句话没法打分，但它就是这堂课的全部。</b><br><br>
+
+<span class="tm">3:00</span><b>这里我要加一个限定，因为这类问题最容易讲偏。</b>我并不是说综合实践比学科课高级。恰恰相反，<b>没有学科课打下的知识底座，综合实践就是空转</b>——学生连"证据"和"感觉"都分不清，谈何探究。两者是互补关系：学科课给学生"认识世界的工具"，综合实践给学生"使用工具的理由"。<br><br>
+
+<span class="tm">3:35</span>还有一点必须说清：综合实践不等于活动。<b>有活动没反思，是热闹；有体验没证据，是感觉；有成果没过程，是展演。</b>判断它是不是课程，我只问一句：<b>学生的想法，在这节课里被改变过吗？</b><br>
+<b>被改变过，它就是课程；没有，它就只是一次活动。</b>
+</div>
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>开场给"一句话版本"</td><td class="wrapc"><b>先给结论再展开</b>，评委立刻知道你答到点上了（对比公式式表达极清晰）</td><td>逻辑组织</td></tr>
+<tr><td>起点/过程/产物</td><td class="wrapc">三个维度<b>互斥且穷尽</b>，是标准的高分结构</td><td>逻辑组织</td></tr>
+<tr><td>"先让学生失败一次"</td><td class="wrapc">具体教学法 + 理由，<b>证明真懂"生成性"</b></td><td>课程理解</td></tr>
+<tr><td>限定：不比学科课高级</td><td class="wrapc"><b>主动避免贬低其他课程</b>，显示成熟与全局观</td><td>思维深度</td></tr>
+<tr><td>三个排比 + 判断标准</td><td class="wrapc">"有…没…是…"排比 + 给评委一个<b>可复用的判据</b></td><td>语言表达</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「有活动没反思是热闹，有体验没证据是感觉，有成果没过程是展演。」「学生的想法被改变过吗？被改变过，它就是课程。」</div>
+</div>
+</details>
+
+<details class="card">
+<summary>07 · 综合实践活动如何避免"活动化、形式化、空心化"？<span class="q">综合实践 · 四药方＋自曝问题</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>治"三化"的四味药：<b>真问题、真证据、真修订、真展示</b>。</div>
+<div class="script">
+<span class="tm">0:00</span>我先承认：我自己的课，也曾经"形式化"过。<br>
+第一年做职业启蒙，我带学生做了职业卡、拍了照片、做了展板、开了班会。学期末我问自己一个问题：<b>除了这些纸，学生身上留下了什么？</b>我想了很久，答不上来。<br>
+从那以后我给自己立了四条规矩。<br><br>
+
+<span class="tm">0:45</span><b>第一条：必须有"卡住"的环节。</b>凡是顺顺利利做完的活动，大概率是假的。我的课第 3 课时做微访谈，学生第一次出去问，八成会碰壁——被拒绝、问不到、记录不全。<b>碰壁是课程的资产，不是事故。</b>我把"记录一次失败及原因"写进了必交材料。<br><br>
+
+<b>第二条：必须有"证据"，不能只有"感受"。</b>学生说"我觉得我适合当老师"，我会追问：你的证据来自谁？是一次访谈、一次尝试，还是一次想象？我用一张三栏证据表——<b>支持 / 反对 / 待验证</b>。第三栏永远留着，不允许填满。<b>留白，是为了防止过早下结论。</b><br><br>
+
+<b>第三条：必须有"可验证的下一步"。</b>活动结束那一刻，学习不能停。我的最后一课时只做一件事：把目标写成 30 天内可核查的小行动，带数量、带时间、带验证方式。<b>没有时间点的目标，都是愿望。</b><br><br>
+
+<b>第四条：必须有一件"不是为展示而做"的东西。</b>展板、照片、汇报 PPT，这些是给别人看的。我心里真正看重的是那张写满涂改的《人机对比单》——<b>它不漂亮，但它证明思考真的发生过</b>。评价权重我也照这个来：过程 25%、证据意识 20%，成果展示占比最低。<br><br>
+
+<span class="tm">3:20</span><b>当然，这四条有代价。</b>它让我的课"不好看"。同样的课时，隔壁班能出一整面墙的作品，我只能出一叠皱巴巴的记录单。<b>在需要成果展示的场合，我是吃亏的。</b>我接受这个代价，因为我判断：<b>综合实践的成果，长在学生身上，不长在墙上。</b><br><br>
+
+<span class="tm">3:45</span>所以如果问我怎么避免形式化，我的答案只有一句：<br>
+<b>把"学生做了什么"，换成"学生改变了什么"——然后想办法证明它。</b>
+</div>
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>自曝"我曾形式化过"</td><td class="wrapc"><b>先认领问题再给方案</b>，比批判别人有力十倍；也是"自我批评"维度体现</td><td>教育理念·思维深度</td></tr>
+<tr><td>四条规矩（动词化）</td><td class="wrapc">每条都是一个<b>可执行的动作</b>，不是原则——评委喜欢能落地的答案</td><td>课程理解</td></tr>
+<tr><td>"碰壁是资产不是事故"</td><td class="wrapc"><b>反直觉金句</b>，一句顶一段</td><td>语言表达</td></tr>
+<tr><td>证据三栏 + 永远留白</td><td class="wrapc">工具设计 + 防标签意识，<b>双重加分</b></td><td>课程理解·思维深度</td></tr>
+<tr><td>承认"我的课不好看"</td><td class="wrapc"><b>主动说出代价</b>——9 分档标志动作</td><td>思维深度</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「碰壁是课程的资产，不是事故。」「没有时间点的目标，都是愿望。」「综合实践的成果，长在学生身上，不长在墙上。」</div>
+</div>
+</details>
+
+<details class="card">
+<summary>08 · 你怎样看待"后进生"？<span class="q">学生观 · 反标签＋可操作</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>没有"后进生"，只有<b>还没被看见的未知我</b>——标签会自我实现。</div>
+<div class="script">
+<span class="tm">0:00</span>先说一件小事。我给学生的"未知我"卡片上有个男孩写：<b>我没试过的事情是，被老师点名回答一个问题。</b><br>
+他不是不会，是从来没被叫到过——因为他坐在最后一排，成绩排在后面，从来不举手。<br>
+<b>我一直觉得，"后进生"这三个字，描述的从来不是学生，是我们给他留的位置。</b><br><br>
+
+<span class="tm">0:45</span>我有三个判断。<br><br>
+
+<b>第一，警惕"后进"这个词本身。</b>它预设了一条单一赛道和一把统一尺子。综合实践课给我最大的启发是：<b>换一把尺子，后排的那个孩子可能是第一个举手的人。</b>在我的课上，衡量的是"能不能提出一个值得问的问题、能不能真的去问一次、能不能保留证据"——这三件事跟语数外成绩几乎不相关。有个平时沉默的孩子，访谈保安师傅时问出了一句我都没想到的话："您站一天，最累的是腿还是没人说话？"<b>这种敏感和善意，考卷测不出来。</b><br><br>
+
+<b>第二，后进往往是"评价反馈"造成的，不是能力造成的。</b>一个孩子连续三年听到的都是"你还差一点"，他学到的不是"我要努力"，而是"我努力也没用"。所以我给自己定的规矩是：<b>评价必须指向可改变的具体行为，不指向人。</b>我不说"你要更自信"，我说"这周你举手一次，我等你"——<b>前者是判决书，后者是阶梯。</b><br><br>
+
+<b>第三，真正的公平不是一样对待，是给不同的支架。</b>我的量规设了最低达成线：做到五件事就是合格，过程分权重高于成果分。这不是降低标准，是<b>把标准从"谁表达得好"改成"谁真的做了"</b>。<br><br>
+
+<span class="tm">3:20</span><b>但我要承认一个我做不到的地方。</b>在 45 分钟的班级授课里，我依然很难真正顾及到每一个孩子。<b>我不相信有哪位老师能凭一己之力解决这个问题</b>——它更需要的是小班化、分层作业和评价制度的配合。我能做的，是在我这一门课上，至少不让任何一个孩子因为"不擅长展示"而再失败一次。<br><br>
+
+<span class="tm">3:45</span>那个男孩后来有没有举手，我今天不能确定。但我知道他写下那句话的时候，<b>他至少承认了自己还想要一次机会</b>。<br>
+<b>教育的公平，不是让所有人跑到同一个终点，是让每个人相信：我还没跑完。</b>
+</div>
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>具体学生的一句话</td><td class="wrapc">细节真实、情感克制（不煽情），<b>比任何理论都有力</b></td><td>教育理念</td></tr>
+<tr><td>解构"后进生"这个词</td><td class="wrapc"><b>质疑题目本身的前提</b>——应变与思维深度的高阶动作</td><td>应变能力·思维深度</td></tr>
+<tr><td>学生提问原话</td><td class="wrapc">一句原话胜过三段论证，<b>证明学生观不是口号</b></td><td>教育理念</td></tr>
+<tr><td>"判决书 vs 阶梯"</td><td class="wrapc">对比金句，<b>易记易用</b></td><td>语言表达</td></tr>
+<tr><td>承认做不到</td><td class="wrapc">坦承制度性局限，<b>不假装全能</b>——极难得的诚实分</td><td>思维深度</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「'后进生'描述的不是学生，是我们给他留的位置。」「'你要更自信'是判决书，'这周你举手一次，我等你'是阶梯。」</div>
+</div>
+</details>
+
+<details class="card">
+<summary>09 · 如何培养学生的"问题意识"？<span class="q">学生观 · 方法＋真实失败</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>问题意识不是教出来的，是<b>被保护出来的</b>——少一点"标准答案"的急切。</div>
+<div class="script">
+<span class="tm">0:00</span>我做过一次失败的尝试。第一课时我让学生写"你想探究的问题"，收上来一多半是：<b>"我想知道怎么成功""我适合什么工作"。</b><br>
+这些不是问题，是<b>愿望</b>。愿望没法查、没法问、没法验证——<b>它是问题意识最大的伪装者</b>。<br><br>
+
+<span class="tm">0:40</span>从那以后，我教学生三件事。<br><br>
+
+<b>第一件：把愿望翻译成问题。</b>我给一个句式：<b>我要……必须亲自去问谁 / 做什么 / 看到什么，才能知道……</b>。"我想当老师"变成"我要问一位老师，他一天里最不想做的事是什么"。差别在哪？<b>愿望指向结果，问题指向行动。</b>我把不合格的问题原样投影出来，带着全班一起改——<b>示范"怎么改"，比讲十遍"什么是好问题"有用。</b><br><br>
+
+<b>第二件：给问题装三个过滤器。</b>能查到的（不用问人）、能亲自验证的（不用猜）、一个月内能做完的（不做梦）。三条都过的才进探究清单。<b>问题意识的本质不是"敢问"，是"知道什么值得问"。</b><br><br>
+
+<b>第三件：先让他们问砸一次。</b>第 3 课时微访谈，我故意不教访谈技巧。学生回来报告：被拒绝了、问出的是"是/否"、忘了记录。这时候我再讲"开放式提问、追问、记录原话"——<b>规则长在失败上，才记得住。</b><br><br>
+
+<span class="tm">3:10</span><b>这里有个我后来才想明白的边界。</b>问题意识不是越早越好、越多越好。<b>没有问题意识的"多问"，会变成表演性提问</b>——学生学会揣摩老师想听什么，然后问出来。我不给"提问多"加分，只给"问题被改进过"加分：你提了一个，改了三稿，比提十个更有价值。<br>
+<b>我宁可要一个改了三遍的问题，也不要十个一次性的问题。</b><br><br>
+
+<span class="tm">3:40</span>还有一句我常跟学生说：<b>能提出一个好问题，比答对一道题更值得骄傲——因为题是别人出的，问题是你的。</b><br>
+<b>保护问题意识最好的方式，不是教他们怎么问，是忍住别替他们答。</b>
+</div>
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>"失败尝试"开场</td><td class="wrapc">用<b>真实失败</b>引出话题，可信且显功力</td><td>教育理念</td></tr>
+<tr><td>愿望 ≠ 问题</td><td class="wrapc"><b>精准的概念区分</b>——"愿望是问题意识最大的伪装者"是金句</td><td>思维深度</td></tr>
+<tr><td>给句式 / 给过滤器</td><td class="wrapc">两个<b>可直接复制的工具</b>，评委听得出是实操出来的</td><td>课程理解</td></tr>
+<tr><td>先问砸一次</td><td class="wrapc">体现<b>对学习规律的尊重</b>（体验先于规则）</td><td>教育理念</td></tr>
+<tr><td>不奖励"多问"</td><td class="wrapc"><b>防止自己的方法走向反面</b>——思维深度的标准动作</td><td>思维深度</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「愿望指向结果，问题指向行动。」「题是别人出的，问题是你的。」「保护问题意识最好的方式，是忍住别替他们答。」</div>
+</div>
+</details>
+
+<details class="card">
+<summary>10 · 青年教师如何处理"教学"与"教研"的关系？<span class="q">教师成长 · 反常识＋一体化</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>教研不是教学的额外负担，是把<b>教学做第二遍</b>。</div>
+<div class="script">
+<span class="tm">0:00</span>我入行第一年最讨厌的词是"教研"。那时候我觉得，课都上不完，还写什么论文。<br>
+后来一位老教师跟我说了一句话：<b>"教研不是上课之外的事，教研是上课的另一种姿势。"</b><br><br>
+
+<span class="tm">0:40</span>今天我想讲三层。<br><br>
+
+<b>第一层：教学是教研的原料。</b>我所有的教研起点，都是课堂里一句让我不舒服的话。比如学生说"AI 说的"——这句话我越想越不对，后来它变成了我的课例、我的量规、我的课题。<b>没有真实课堂的人做教研，做的是别人的教研。</b><br><br>
+
+<b>第二层：教研是教学的复盘。</b>我给自己定了一个很小的规矩：每上完一轮课，写三行字——<b>① 哪个环节学生卡住了？② 我当时的处理是什么？③ 重上一次我改哪里？</b>就三行。一年下来，这三行比任何培训都管用。<b>教师成长不靠顿悟，靠复盘。</b><br><br>
+
+<b>第三层，也是我最想说的一层：警惕"教研表演化"。</b>现在有些教研，写是为了评、做是为了展、课题是为了结题。我的判断标准很简单：<b>这个研究，有没有让任何一个学生的一节课变得更好？</b>有，就是教研；没有，就是文案。<br>
+我自己的《寻找未知的自己》也在这条线上——如果它只能拿奖，不能在另一所普通学校被另一位老师上出来，那它就不算成功。<b>所以我做设计时刻意让它零硬件依赖：断网能上、没平板能上、没有家长资源也能上。</b><br><br>
+
+<span class="tm">3:20</span><b>当然，青年教师有一个真实困难我不回避：时间是零和的。</b>备课、批改、班级管理已经占满，再谈教研是一种奢侈。我的做法不是"挤时间"，是<b>合并</b>——把要写的东西，写成明天要用的东西；把要研究的问题，定成这学期正在头疼的问题。<b>不另起炉灶，就没有额外负担。</b><br><br>
+
+<span class="tm">3:45</span>所以我的答案是：<b>不要把教学和教研当成两件事去平衡，把它们当成一件事的两个动作——课上做，课后想；想完了，回去改。</b><br>
+<b>好教师不是课上得最多的那个，是同一个内容，敢上第二遍、且第二遍不一样的那个人。</b>
+</div>
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>老教师一句话</td><td class="wrapc">借他人之口给论点，<b>自然且有现场感</b></td><td>语言表达</td></tr>
+<tr><td>三层：原料/复盘/警惕</td><td class="wrapc">递进 + 最后一层<b>批判本领域</b>，层次比普通答案高一档</td><td>逻辑组织·思维深度</td></tr>
+<tr><td>三行复盘法</td><td class="wrapc"><b>极简可复制工具</b>，评委会想抄</td><td>课程理解</td></tr>
+<tr><td>零硬件依赖</td><td class="wrapc">把自己的案例<b>当场当论据用</b>，一素材多用</td><td>教育理念</td></tr>
+<tr><td>不回避时间困难</td><td class="wrapc"><b>说真话</b>，并给"合并"而非"挤时间"的解法</td><td>思维深度</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「教研不是上课之外的事，教研是上课的另一种姿势。」「好教师不是课上得最多的，是敢上第二遍且第二遍不一样的人。」</div>
+</div>
+</details>
+
+<details class="card">
+<summary>11 · 公开课上学生说"老师，我不信你讲的AI"，你怎么办？<span class="q">情境突发 · 现场处置＋三层价值</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>学生当场质疑，是<b>最好的课堂资源</b>，不是教学事故。</div>
+<div class="script">
+<span class="tm">0:00</span>我的第一反应会是：<b>先谢谢你把它说出来。</b><br>
+因为在一节公开课上，一个学生愿意当众说"我不信"，说明这个课堂里说真话是安全的——<b>这比这节课顺不顺利重要得多。</b><br><br>
+
+<span class="tm">0:35</span>接下来我会做四步。<br><br>
+
+<b>第一步：接住，不评判。</b>我不说"你先听我讲完"，也不说"你有什么依据"。我会问一句：<b>你不信的是哪一部分？是它做不到，还是它不该做？</b>——把情绪拆成问题。<b>课堂上的质疑，最怕的不是内容错，是被当成捣乱。</b><br><br>
+
+<b>第二步：把一个人的质疑，变成全班的任务。</b>我会说：好，那我们来验证一下。你现在提一个你最想让 AI 回答的问题，我们一起问，然后一起看它答得怎么样。<b>质疑的价值在于可检验，不在于立场。</b>这一步同时把课堂拉回主线——原本我就要上"人机对比"，他替我开了场。<br><br>
+
+<b>第三步：让结果说话，包括对我不利的结果。</b>如果 AI 答得确实不错，我会说：你看，它有它的强项，所以我们要用它——但正因为这样，我们才更要想清楚<b>哪一部分不能交给它</b>。如果 AI 答得不好，更好：这就是我们今天要填的那张《人机对比单》存在的理由。<b>我不预设结果，因为一旦预设，验证就成了表演。</b><br><br>
+
+<b>第四步：课后单独聊两句。</b>问他是真的怀疑这件事，还是只是不想参与。<b>有些"不信"，其实是"不想做"</b>——这两件事的处理方式完全不同。<br><br>
+
+<span class="tm">3:10</span><b>这里我要说一句可能不太讨巧的话。</b>公开课上的"突发"，很多时候是我们自己造成的：我们把学生训练得太好了，好到他们知道什么时候该说什么。所以<b>我从来不为公开课做"预演问答"</b>——我宁可要一个真实的分歧，也不要十个整齐的正确答案。<br>
+<b>当然，这个做法风险很大</b>：它可能导致我这节课"上不完"。我接受，因为<b>上不完是遗憾，上假了是事故。</b><br><br>
+
+<span class="tm">3:45</span>最后一句话：作为青年教师，我最怕的不是被学生问住，是<b>有一天学生不再问我问题</b>。
+</div>
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>第一反应是"谢谢你"</td><td class="wrapc"><b>开场即价值观</b>：把突发视为资产，瞬间区别于"先稳住场面"类答案</td><td>教育理念</td></tr>
+<tr><td>四步处置</td><td class="wrapc">有顺序、有话术、有分支（答得好/不好两种走向），<b>证明想得深</b></td><td>应变能力·逻辑组织</td></tr>
+<tr><td>"不信的是做不到还是不该做"</td><td class="wrapc"><b>精准拆分质疑</b>，一句显专业</td><td>思维深度</td></tr>
+<tr><td>不预设结果</td><td class="wrapc"><b>拒绝表演式验证</b>——这是全篇最高分点</td><td>教育理念·思维深度</td></tr>
+<tr><td>公开课本不预演 + 代价</td><td class="wrapc">批判行业积弊 + 说出代价，<b>9 分档双标志</b></td><td>思维深度</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「上不完是遗憾，上假了是事故。」「我最怕的不是被学生问住，是有一天学生不再问我问题。」</div>
+</div>
+</details>
+
+<details class="card">
+<summary>12 · "双减"背景下，综合实践活动的独特价值是什么？<span class="q">教育热点 · 政策＋反常识收束</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>双减减的是负担，综合实践补的是<b>"我为什么要学"</b>。</div>
+<div class="script">
+<span class="tm">0:00</span>"双减"减的是两样东西：过重的作业负担、过度的校外培训。<br>
+很多人理解成"减量"，但我认为它真正要减的是一样东西——<b>把学习异化成重复训练的那套逻辑。</b><br>
+而在这个意义上，综合实践活动不是"减出来的空隙里加的课"，它恰恰是双减要的那个东西本身。<br><br>
+
+<span class="tm">0:50</span>三个理由。<br><br>
+
+<b>第一，它提供的是"减不掉"的学习。</b>重复训练可以被替代、被压缩、被AI接管；但"提出一个真问题、走出去问一次、失败了改方案、三十天后自己核对"——<b>这些事减不掉，因为它们本来就轻负担、重经历</b>。我的六个课时，课外作业只有一件事：这个月做一件你没做过的小事。<b>减负不是什么都不做，是把无效的那部分拿掉。</b><br><br>
+
+<b>第二，它接住了"减下来的时间"该往哪去。</b>减负最大的风险不是学生闲着，是<b>空出来的时间被短视频和游戏填满</b>。综合实践给的是另一种可能：让时间去做一个真实的项目，产出一点看得见的东西，获得一次<b>不来自分数的成就感</b>。我班上有个孩子，成绩中等，做完访谈之后第一次在班上被同学追问"后来呢"——<b>这个眼神，比一张奖状更能留住一个孩子。</b><br><br>
+
+<b>第三，它回应了减负之后家长真正的焦虑。</b>家长怕的不是作业少，是"我的孩子将来干什么"。我的课不解决升学，但它做一件家长没法做的事：<b>让孩子提前用证据想一想自己是谁</b>。周哈里窗、微访谈、30 天微目标——这些不是在定职业，是在给一个十几岁的孩子<b>第一次认真地、有凭据地看待自己</b>。<br><br>
+
+<span class="tm">3:20</span><b>但我必须说一个前提：这一切成立的条件，是综合实践不能被办成新的"培训项目"。</b>如果它变成另一个要打卡、要评比、要出成果的负担，那它不但不能减负，反而是加负。<br>
+我给自己划的底线是两条：<b>第一，不布置需要家长代做的任务；第二，不把成果展示纳入硬性评分。</b><br><br>
+
+<span class="tm">3:45</span>所以我的结论是：<br>
+<b>减负减到最后，减掉的是"为分数而学"；留下的应当是"为生活而学"。而综合实践活动，目前是学校里最名正言顺属于后者的那块地方。</b>
+</div>
+<h4>得分拆解</h4>
+<table>
+<tr><th>位置</th><th class="wrapc">为什么这一分拿到了</th><th>命中维度</th></tr>
+<tr><td>重新定义"双减"</td><td class="wrapc">不说官方表述，<b>给出自己的提炼</b>（减的是异化逻辑）</td><td>思维深度</td></tr>
+<tr><td>反常识定位</td><td class="wrapc">"不是空隙里加的课，是双减要的东西本身"——<b>一句话拉高立意</b></td><td>教育理念</td></tr>
+<tr><td>三点各自对应减什么/留什么</td><td class="wrapc">结构清晰，<b>每点都有课堂细节支撑</b></td><td>逻辑组织</td></tr>
+<tr><td>"被追问'后来呢'的眼神"</td><td class="wrapc">极具体的一句，<b>画面感强</b></td><td>语言表达</td></tr>
+<tr><td>两条底线</td><td class="wrapc">主动设限，<b>防止自己的主张走向反面</b></td><td>思维深度</td></tr>
+</table>
+<div class="nail"><b>记忆钉子：</b>「减负不是什么都不做，是把无效的那部分拿掉。」「减负减到最后，减掉的是为分数而学，留下的是为生活而学。」</div>
+</div>
+</details>
+
+<!-- ============ 板块三 ============ -->
+</div>
+
+<div class="pane" id="c3">
+<div class="chaphead"><div class="t">叁 应对 · 答辩 21 题</div><div class="d">七类各 3 题，答案标注 政 / 证 / 界</div></div>
+<div class="sec" id="s3"><span class="no">叁</span><h2>应对 · 答辩 21 题高分口述答案<span class="q" style="display:block;font-weight:400">每题 ≈90 秒 · 接—立—证—界—收 · 标 政/证/界</span></h2></div>
+
+<div class="box j"><span class="t">答辩唯一要背的公式</span>
+<b>政策一句 + 学生证据一个 + 边界一句。</b><br>
+只答"我怎么做的"＝7 分；加上政策＝证明你懂规范；加上学生证据＝证明你真做过；<b>加上边界＝证明你有思想</b>。三者齐全才是 9 分。
+下面每题答案里，<span class="pill j">政</span>=政策 <span class="pill g">证</span>=证据 <span class="pill r">界</span>=边界，一眼可查。</div>
+
+<details class="card">
+<summary>类型一 · 理念追问（3题）<span class="q">最基础，但也最容易答成背书</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>说"为什么"时，<b>每一个理论都要落到一个具体学生身上</b>，否则就是背书。</div>
+
+<p><b>Q1. 你的案例为什么选择"周哈里窗"？理论依据是什么？</b></p>
+<div class="script">我选它，是因为我需要一个能把"自我认知"这件抽象的事<b>变成可探究问题</b>的脚手架 <span class="pill j">政</span>《指导纲要》要求课程从学生真实生活和发展需要出发 —— 而"我是谁"恰恰是学生自己在问的问题。<br>
+但要说明：<b>我用的是它的结构，不是它的疗法</b>。我只取两格——"盲目我"用来产出同伴反馈的证据，"未知我"用来产出可验证的探究种子；<b>隐藏我一格严格自愿，永不强制分享</b>。 <span class="pill g">证</span>实际课堂上，写"我是一个成绩不好的人"的那张纸条，就是盲目我格子带来的。<br>
+<span class="pill r">界</span>它不是心理课，我也没有资质做心理干预；一旦涉及真实困扰，我的处理是转介给心理教师。<b>它是问题生成器，不是诊断工具。</b></div>
+
+<p><b>Q2. 请用一句话概括你案例的核心创新。</b></p>
+<div class="script"><b>把"AI 审辩"从教师的口头要求，变成学生必须走完的流程。</b><br>
+其他案例大多在教学生"用 AI"，我的案例在教学生"用 AI 之前，先用自己的脑子"。具体三步、每步留痕：<b>人先留痕（开 AI 前必须纸笔）——限定指令（禁止 AI 做确定性判断）——红笔判 AI（必须写出一条不同意的理由）</b>。 <span class="pill g">证</span>有个学生写"AI 说我适合当老师，但我不同意——我连上课发言都不敢"，这就是流程生效的证据。<br>
+<span class="pill r">界</span>当然，这套流程的代价是慢，同样课时产出量明显更少；它适合需要思考品质的环节，不适合需要效率的部分——所以我只在 6 课时里的第 4 课时用它。</div>
+
+<p><b>Q3. 六个课时的逻辑递进关系是什么？抽掉一课会怎样？</b></p>
+<div class="script">逻辑是<b>向内探索（1-2）→ 向外求证（3-4）→ 向前规划（5-6）</b>。<br>
+抽掉第 2 课时：学生带着空泛愿望去访谈，问题无法落地，第 3 课时的证据就是无的放矢。<b>抽掉第 4 课时：整门课退化成普通生涯课，AI 赋能失去依托</b>，这也是为什么它被抽中概率最高、我准备得最细。抽掉第 6 课时：没有闭环，回到"活动结束即学习终止"。<br>
+<span class="pill r">界</span>但我要诚实说一句：<b>6 课时是理想形态，实际执行是"4 个集中课时 + 2 个弹性时段"</b>，访谈放在课外、最后一课时与班会合并——这是受课时总量所限的妥协，不是设计初衷。</div>
+</div>
+</details>
+
+<details class="card">
+<summary>类型二 · 合规与伦理（3题）<span class="q">近两年必问，答错直接掉档</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>红线要背死，边界要说出——<b>我不是不敢用，是知道用在哪一步必须停</b>。</div>
+
+<p><b>Q4. 学生使用生成式 AI，是否符合《使用指南》要求？</b></p>
+<div class="script">符合，而且是精准对标。 <span class="pill j">政</span>《中小学生成式人工智能使用指南》明确：<b>初中阶段可适度探索生成内容的逻辑性分析，指导学生交叉验证生成内容的合理性</b> —— 我做的正是交叉验证训练，不是让 AI 代写。<br>
+三重保障：①白名单平台，只用学校审核过的工具；②<b>禁止输入姓名、住址、成绩等个人信息</b>；③断网时用离线脱敏资料包兜底。 <span class="pill j">政</span>另按《教师生成式人工智能应用指引》，<b>我从不用 AI 生成的内容作为学生最终评价</b>。<br>
+<span class="pill r">界</span>如果对象是小学低段，我的做法要改：不让学生独立使用 AI，改为教师投屏演示、全班共同审辩。<b>分学段是我判断合规的第一依据。</b></div>
+
+<p><b>Q5. 怎么证明学生真的思考了，而不是抄 AI？</b></p>
+<div class="script">三层证据。<b>第一是时序证据</b>——AI 开启之前必须先有纸笔留痕，涂改、时间线都在档案袋里，横跨 6 课时，做不了假。<b>第二是矛盾证据</b>——《人机对比单》必须写出一条"AI 说得不对"，<b>抄的人写不出这一栏</b>。<b>第三是反例证据</b>——第 6 课时追问"你的证据来自谁"，答不上来就要重做。<br>
+<span class="pill g">证</span>我抽查过，全班真正写出有效反驳的约占七成，其余三成写的是"我觉得不对"这种无理由否定——<b>这部分我判定为仍需支持，不是合格</b>。<br>
+<span class="pill r">界</span>我不宣称能百分之百杜绝抄袭，只能做到"抄的成本高于自己想的成本"。</div>
+
+<p><b>Q6. 微访谈涉及校外人员，安全与伦理怎么保障？</b></p>
+<div class="script">四条硬性规定。<b>①对象优先校内</b>——教职工、家长优先，校外需家长知情同意；<b>②签署承诺书，"三不"：不单独入户、不拍摄正脸、不索取联系方式</b>；<b>③所有记录匿名化</b>，只拍材料特写；<b>④提供校内替代方案</b>——保安、食堂师傅、图书管理员同样能完成探究任务。<br>
+<span class="pill j">政</span>这对应《指导纲要》里"责任担当"这一维，我把安全规则本身设计成了课程内容：<b>让学生签署并遵守承诺，就是责任担当的学习过程</b>，而不是老师的免责声明。<br>
+<span class="pill r">界</span>如果家长不同意孩子参与校外环节，校内替代方案必须等效——<b>不能让不参与的孩子在评价上吃亏</b>，这是底线。</div>
+</div>
+</details>
+
+<details class="card">
+<summary>类型三 · 落地实施（3题）<span class="q">评委在判断"这个案例能不能被别人用"</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>能被别的老师照着做一遍，才算好案例。<b>可复制性 = 说服力</b>。</div>
+
+<p><b>Q7. 6 课时怎么放得下？课时从哪来？</b></p>
+<div class="script">这是最现实的问题，我给的是可执行的方案，不是理想方案。<b>①第 3 课时访谈放课外</b>（课前微实践），不占课时；<b>②第 6 课时与班会课合并</b>； <span class="pill j">政</span><b>③依据《义务教育课程方案（2022年版）》，综合实践活动与跨学科主题学习统筹，不少于 10% 课时</b>，可统筹地方课程与校本课程课时；<b>④实际执行是"4 个集中课时 + 2 个弹性时段"</b>。<br>
+<span class="pill r">界</span>我要说明：这依赖于学校对综合实践课时的统筹授权。<b>如果学校课时完全刚性、一节也挤不出来，这个设计需要压缩到 4 课时</b>——砍掉的是第 5 课时的职业探索广度，保留 1-2-4-6 的主干。</div>
+
+<p><b>Q8. 学生不愿分享"隐藏我"，甚至抗拒，怎么办？</b></p>
+<div class="script">这在<b>我的设计预期之内</b>，不是意外。三条防线：<b>①规则前置</b>——第一节课就宣布隐藏我永不强制分享，并且当场说明"写不出来也没关系"；<b>②替代通道</b>——匿名纸条、书面提交、录音替代，不一定要开口；<b>③评价不参与深度</b>——量规评的是"参与质量"，不是"表露深度"，说得浅不影响得分。<br>
+<span class="pill g">证</span>实际结果是：安全感到位之后，自愿分享率反而比强制时更高，有学生在课后单独把纸条塞给我。<br>
+<span class="pill r">界</span>如果孩子出现明显情绪反应，我会立刻停止该环节并转介心理教师——<b>课程目标让位于学生安全，这条不商量。</b></div>
+
+<p><b>Q9. 如何迁移到硬件薄弱或农村学校？</b></p>
+<div class="script">我的设计原则就是<b>方法可复制、工具可替换</b>。三种情况：①<b>无网络</b>——用离线脱敏资料卡和纸笔表格；②<b>无平板</b>——用纸质《人机对比单》，AI 环节由教师投屏演示一次即可；③<b>无家长职业资源</b>——访谈对象换成校内保安、食堂师傅、社区店主，同样成立。<br>
+<span class="pill g">证</span>它的核心工具是三样纸：自我描述单、证据三栏表、人机对比单，<b>全部可手写</b>。<br>
+<span class="pill r">界</span>但有一件事我替代不了：<b>"人先留痕"这条要靠教师守</b>。如果执行老师为了省时间跳过了这一步，整套设计的价值就归零——这是迁移中最大的风险点，我会在推广时明确标注为不可省略。</div>
+</div>
+</details>
+
+<details class="card">
+<summary>类型四 · 评价（3题）<span class="q">后进生相关的追问几乎必考</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>综合实践<b>不打分，只记录</b>——用证据记录成长，不用分数裁定成长。</div>
+
+<p><b>Q10. 评价量规如何保证后进生也够得着？</b></p>
+<div class="script">我设了<b>最低达成线</b>——五件事全做到即合格：提出 1 个可探究的问题、完成 1 次真实访谈、保留全套记录、排查出 1 条需核实的 AI 信息、制定 1 个带量化指标的 30 天微目标。<br>
+权重上，<b>实践过程 25%、证据意识 20%，过程分远大于成果分</b>——让踏实做但不擅表达的孩子不吃亏。 <span class="pill j">政</span>这对应《指导纲要》"注重过程性评价与表现性评价"的要求。<br>
+<span class="pill r">界</span>我也有做不到的地方：对于<b>完全不参与</b>的学生，量规无能为力，那已经不是评价问题，是动机和关系问题——我的处理是先单独谈，再降低起点（比如只要求完成一次访谈）。</div>
+
+<p><b>Q11. 四大核心素养在你案例里怎么落地？</b></p>
+<div class="script">逐条对应：<b>价值体认</b>——技术主体意识，"科技赋能而非替代自我"；<b>责任担当</b>——隐私边界、数据安全、访谈承诺的签署与遵守；<b>问题解决</b>——愿望转问题、多源取证、矛盾矩阵；<b>创意物化</b>——七要素行动方案的设计与迭代。<br>
+<span class="pill g">证</span>最典型的一幕是学生在证据表"反对"栏写下"我妈说我不适合"——<b>能把自己听到的否定写进证据链，就是价值体认在发生</b>。<br>
+<span class="pill r">界</span>我额外加了第五维"信息与 AI 审辩素养"，但必须说明：<b>这是我个人的校本化处理，不是纲要原文</b>，我不会把它说成政策要求。</div>
+
+<p><b>Q12. 成果如何评价？会不会只看最后的展示？</b></p>
+<div class="script">恰恰相反，<b>我刻意压低成果展示的权重</b>。因为综合实践最大的风险就是办成展演。我心里真正看重的是那张写满涂改的《人机对比单》——它不漂亮，但证明思考真的发生过。<br>
+我的三类证据是：<b>过程档案袋</b>（6 课时的连续记录，带时间线）、<b>改进轨迹</b>（问题的初稿到第三稿）、<b>自我核对</b>（30 天后自己核对目标，允许推翻重来）。<br>
+<span class="pill r">界</span>成果展示我只作为激励手段，<b>不纳入硬性评价</b>——因为一旦计分，家长就会介入代做，那就违背了减负和不添负担的初衷。</div>
+</div>
+</details>
+
+<details class="card">
+<summary>类型五 · 自我批评（3题）<span class="q">最安全也最危险：假谦虚会被一眼看穿</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>说<b>真问题</b>不说假谦虚：一个真实缺陷 + 已经在改，比十个优点可信。</div>
+<div class="box r"><span class="t">铁律</span>被问不足，<b>必须说真问题</b>。说"理论研究还不够深入"这类话，等于告诉评委你没有反思能力。真问题 + 已在改 = 加分；假问题 = 直接掉档。</div>
+
+<p><b>Q13. 你的案例最大的不足是什么？</b></p>
+<div class="script">真实答案是：<b>长周期追踪的落地率</b>。<br>
+课上能做出 30 天、90 天的承诺，但跨学期之后，靠综合实践教师一个人很难持续追访。<b>更诚实地说：我目前只有启动机制，还没有验证过长周期的数据</b>——这是我要补的，不是已经做到的。<br>
+改进思路：把档案袋接入班级德育与综合素质评价，由班主任协同追踪；同时把 30 天核对改成"同伴互证"，降低对教师个人的依赖。<br>
+<span class="pill r">界</span>我不把这个包装成"特色"，它就是短板，而且我暂时没解决。</div>
+
+<p><b>Q14. 如果重上第 1 课时，你会改什么？</b></p>
+<div class="script">两处。<b>第一，把"我是……"十条降到 6 条</b>，腾出 5 分钟给同伴反馈 —— 上一轮实操里，部分学生写到第 8 条已经开始重复表面信息，稀释了后面的反馈质量。<b>第二，增加一句显性的许可："写不出来也没关系"</b>，减少书写焦虑。<br>
+<span class="pill g">证</span>这个改动来自一个观察：有个孩子第 9 条写的是"我是一个喜欢睡觉的人"，那是敷衍，不是自我认知。<br>
+<span class="pill r">界</span>但我不打算增加课时——<b>减量不减质是我的原则，宁可少做两条，也要让反馈真的发生。</b></div>
+
+<p><b>Q15. 你觉得自己的设计，哪里不如别人？</b></p>
+<div class="script">两点。<b>第一，我的产出"不好看"。</b>同样课时，别的班能出一整面墙的作品，我只能出一叠皱巴巴的记录单——<b>在需要成果展示的场合，我是吃亏的</b>。<br>
+<b>第二，我对教师执行的依赖偏高。</b>"人先留痕"这一步如果被执行者省略，整套设计就退化为普通的 AI 课。这是设计上的脆弱点。<br>
+<span class="pill r">界</span>我接受第一点，因为它服务于我的价值取向；第二点我正在改——把留痕设计成不可跳过的任务卡顺序，而不是靠教师自觉。</div>
+</div>
+</details>
+
+<details class="card">
+<summary>类型六 · 刁钻追问（3题）<span class="q">答好直接上一档，答砸很难挽回</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span><b>先接住，再反转。</b>不否认对方的预设，而是把预设往前推一步。</div>
+
+<p><b>Q16. AI 在你的案例里是必需的吗？去掉会怎样？</b></p>
+<div class="script">去掉仍然成立，会是一堂<b>不错的职业启蒙课</b>。<br>
+但加上 AI，它回应了一个<b>这个时代特有的真问题</b>：学生不是不想思考，是有了更轻松的选项。所以我真正要解决的，不是"认识自己"，而是——<b>"在有 AI 的世界里，还愿不愿意自己先想一遍"</b>。<br>
+<span class="pill g">证</span>最能说明这点的是：当我问"这是谁说的"，学生答"AI 说的"——那一刻他放弃的不是答案，是判断权。<br>
+<span class="pill r">界</span>所以我给它的定位不是 AI 课，是<b>守住判断力的课</b>。如果一所学校完全禁用 AI，我的第 4 课时可以换成"同伴反例质询"，目标不变、工具变——<b>我教的是审辩的方法，不是某个软件的操作。</b></div>
+
+<p><b>Q17. 生涯启蒙会不会过早给学生贴标签？</b></p>
+<div class="script">这是我<b>最警惕的风险</b>，所以我设了三重防标签：<br>
+<b>①全程使用"暂时判断"而非"结论"</b>——证据三栏表里"待验证"一栏永远保留，不允许填满；<b>②不产出任何一句话式的职业推荐</b>，AI 被明令禁止做确定性判断；<b>③目标是可验证的小行动，不是职业定向</b>，30 天后允许推翻重来，推翻不加扣分。<br>
+<span class="pill j">政</span>舒伯的生涯发展理论把这一阶段定位为"探索期"——<b>是启蒙，不是定型</b>。<br>
+<span class="pill r">界</span>如果家长拿着孩子的职业卡来问"是不是就定这个了"，我的回答永远是：<b>这是一张地图草稿，不是毕业证。</b></div>
+
+<p><b>Q18. 数字化手段体现在哪？会不会是炫技？</b></p>
+<div class="script">我给自己的判断标准只有一条：<b>删掉它，这个环节的目标还能不能达成？能达成就是装饰，达不成才是必需。</b><br>
+按这个标准，我全课只有三个环节是真需要技术的：<b>①第 3 课时来源核查必须联网；②第 4 课时人机对比必须真实调用；③词云让"看不见的自我描述"变可见</b>。此外没有额外技术，PPT 上不放视频。<br>
+<span class="pill r">界</span>而且我有兜底：断网时第 4 课时退化为"人先—同伴互审—人判断"，AI 的角色由"同伴反例质询"替代，<b>目标（审辩）不变，只是工具变</b>。这也正是它能迁移到薄弱学校的原因。</div>
+</div>
+</details>
+
+<details class="card">
+<summary>类型七 · 区域政策（3题）<span class="q">深圳/龙岗选手的专属加分题，也是最容易露怯的题</span></summary>
+<div class="body">
+<div class="key"><span class="lb">一句话记住</span>区域政策是<b>加分题也是送命题</b>——说不出具体文件名，就别说"我落实了"。</div>
+<div class="box r"><span class="t">提醒</span>区域政策类题目<b>务必先核实最新表述再引用</b>，不确定的就说"据我所知"，并立刻接回自己的做法。说错一个文件名，比不说更伤。</div>
+
+<p><b>Q19. 深圳推进"教育人工智能先锋城市"，你的课怎么回应？</b></p>
+<div class="script">我的理解是：深圳推进 AI 教育，<b>要的不只是"用得广"，更是"用得正"</b>。我的课在"正"这一侧做了一个很小的切口——<b>不是教学生多用一个工具，而是教学生在工具面前保持判断</b>。<br>
+<span class="pill g">证</span>具体做法是可复制的三步：人先留痕、限定指令、红笔判 AI，每一步都留痕、可检查。<br>
+<span class="pill r">界</span>需要说明的是，我这是<b>一线教师的课堂级实践</b>，和区域层面的平台建设、师资培训不是一回事；我能贡献的是"可被其他老师直接拿去上的流程"，这也是我在设计时坚持零硬件依赖的原因。</div>
+
+<p><b>Q20. "每周半天计划"与综合实践活动的关系，你怎么处理？</b></p>
+<div class="script">我的处理原则是：<b>不另起炉灶，做统筹</b>。 <span class="pill j">政</span>《课程方案（2022年版）》明确综合实践活动与跨学科主题学习统筹、不少于 10% 课时，地方课程与校本课程也可统筹使用。<br>
+具体做法：把第 3 课时的微访谈放进课外实践时段，不占正课；把第 6 课时与班会合并；4 个集中课时 + 2 个弹性时段。<br>
+<span class="pill r">界</span>但我要提醒自己一点：<b>统筹不等于挪用</b>。如果为了做这个项目把其他内容全挤掉，那就是另一种失衡。我的底线是——<b>不增加学生课外负担，所有实践任务都能在校内或家庭周边完成。</b></div>
+
+<p><b>Q21. 你认为综合实践教师最需要提升的能力是什么？</b></p>
+<div class="script">我最想说的是三项，按重要性排：<br>
+<b>第一，设计真实任务的能力</b>——能分辨"活动"和"任务"：活动做完就完了，任务会逼学生做出决定。<br>
+<b>第二，把突发事件变成课程资源的能力</b>——学生问砸了、被拒绝了、AI 答错了，这些才是综合实践最值钱的时刻。<br>
+<b>第三，克制的能力</b>——<b>忍住不替学生回答，忍住不把作品改漂亮</b>。这一条最难，因为它要求教师接受"我的课堂看起来不够好"。<br>
+<span class="pill r">界</span>这三项我自己也只做到六七成，尤其第三条——我承认我偶尔还是会帮学生把方案改得更完整一点。</div>
+</div>
+</details>
+
+<!-- ============ 板块四 ============ -->
+</div>
+
+<div class="pane" id="c4">
+<div class="chaphead"><div class="t">肆 锦囊 · 高分表达库</div><div class="d">开场 12 式 · 过渡 10 · 升华 12 · 收束 8 · 应急 8</div></div>
+<div class="sec" id="s4"><span class="no">肆</span><h2>锦囊 · 高分表达库<span class="q" style="display:block;font-weight:400">拆下来直接装进你的答案里</span></h2></div>
+
+<details class="card" open>
+<summary>开场 12 式<span class="q">30 秒定档，必须练熟至少 3 式</span></summary>
+<div class="body">
+<p class="small">用法：抽到题，1 分钟思考时先定开场式子，再去填内容。<b>开场定下来，整篇就不会散。</b></p>
+<ol>
+<li><b>场景式</b>（最推荐）：「我先说一个课堂上的瞬间……」——具体到一句话、一个停顿、一个动作。</li>
+<li><b>自曝失败式</b>：「我先承认，这节课我曾经上砸过一次……」——真诚度最高。</li>
+<li><b>反常识式</b>：「关于这个问题，我的答案可能和大家不太一样：我认为最该学的不是怎么用，是什么时候不用。」</li>
+<li><b>借人之口式</b>：「一位老教师跟我说过一句话，我记到今天……」</li>
+<li><b>拆题式</b>：「题目里有三个词，我想一个一个说。」——稳，不会跑题。</li>
+<li><b>报数式</b>：「关于这个问题，我想说三句话。」——零成本，效果最大。</li>
+<li><b>定义式</b>：「如果只能用一句话回答，我会说……」——先给结论再展开。</li>
+<li><b>时间对照式</b>：「三年前我不会这么想。是一个学生改变了我……」</li>
+<li><b>数据/事实式</b>：「我做过一次统计：我们班 42 个人，能说清父母具体做什么的，只有 9 个。」</li>
+<li><b>提问式</b>：「在回答之前，我想先问一个问题：我们到底在担心什么？」</li>
+<li><b>材料式</b>：「我手里有一张学生写的纸条，上面只有十四个字……」——配合实物道具。</li>
+<li><b>让步式</b>：「这个问题我想了很久，直到今天我也不敢说有答案，但我有一个判断……」</li>
+</ol>
+</div>
+</details>
+
+<details class="card">
+<summary>过渡与推进 10 句<span class="q">防止"首先其次再者"连用的救命句</span></summary>
+<div class="body">
+<ul>
+<li>「到这里只是第一层。往下还有一层……」</li>
+<li>「但光说这一句是不够的，因为它有一个前提……」</li>
+<li>「接下来是最难的部分，也是我改变想法的地方……」</li>
+<li>「我们把镜头拉远一点看……」</li>
+<li>「换个角度，如果站在学生的立场上……」</li>
+<li>「这里我要停一下，因为最容易被误解的就是这一点……」</li>
+<li>「说到这儿，您可能会问：那代价呢？」</li>
+<li>「还有一件事，是我后来才想明白的……」</li>
+<li>「这一层说完，我要反过来讲它的反面……」</li>
+<li>「最后我想回到开头那个人身上……」</li>
+</ul>
+</div>
+</details>
+
+<details class="card">
+<summary>升华 12 句（按主题分类）<span class="q">结尾前 20 秒用，直接拉升立意</span></summary>
+<div class="body">
+<p><b>【技术与人】</b></p>
+<ul>
+<li>AI 不会取代教师，但会取代"不追问的教师"。</li>
+<li>教育的终极产品不是答案，是有能力审判答案的人。</li>
+<li>技术的边界，就是教育的起点。</li>
+</ul>
+<p><b>【学生观】</b></p>
+<ul>
+<li>"后进生"这三个字，描述的从来不是学生，是我们给他留的位置。</li>
+<li>每一个"我不想"，背后都藏着一个"我不敢"。</li>
+<li>教育的公平，不是让所有人跑到同一个终点，是让每个人相信：我还没跑完。</li>
+</ul>
+<p><b>【课程理解】</b></p>
+<ul>
+<li>有活动没反思是热闹，有体验没证据是感觉，有成果没过程是展演。</li>
+<li>学科课给学生"认识世界的工具"，综合实践给学生"使用工具的理由"。</li>
+<li>综合实践的成果，长在学生身上，不长在墙上。</li>
+</ul>
+<p><b>【教师成长】</b></p>
+<ul>
+<li>教研不是上课之外的事，教研是上课的另一种姿势。</li>
+<li>好教师不是课上得最多的，是敢上第二遍、且第二遍不一样的人。</li>
+</ul>
+</div>
+</details>
+
+<details class="card">
+<summary>收束 8 式<span class="q">最后 15 秒，砸落而不是飘走</span></summary>
+<div class="body">
+<ol>
+<li><b>回扣式</b>：回到开头那个学生/那张纸条，形成闭环。</li>
+<li><b>三字诀式</b>：手上会用，课上会教，心里会守。</li>
+<li><b>对照式</b>：不是……而是……（不是把方向盘交给学生，而是让他知道车往哪儿开）。</li>
+<li><b>降维式</b>：落到最小处——立德树人，就是让一个孩子愿意再试一次。</li>
+<li><b>承诺式</b>：我不知道他后来有没有做到，但我知道……（克制、不煽情）。</li>
+<li><b>设问式</b>：所以，回到今天这个问题……</li>
+<li><b>行动式</b>：我能做的只有一件……</li>
+<li><b>留白式</b>：说完全句，停两秒，微笑，结束——<b>不要再加"我的演讲完毕谢谢大家"以外的任何话</b>。</li>
+</ol>
+</div>
+</details>
+
+<details class="card">
+<summary>应急话术 8 条<span class="q">背下来，遇到就用，不丢分反而加分</span></summary>
+<div class="body">
+<div class="box r"><span class="t">1. 完全不会答</span>「这个领域我确实没有深入研究过，不敢随便说。但如果让我从自己的课堂经验去理解，我会先问三个问题……」<b>（诚实 + 迁移，比硬编强一百倍）</b></div>
+<div class="box r"><span class="t">2. 被指出错误</span>「您说得对，这是我表述不准确，应该是……感谢指正。」<b>（先认，再改，绝不辩解）</b></div>
+<div class="box r"><span class="t">3. 被问最大不足</span>说真问题 + 已在改。<b>绝不说"理论学习还不够"。</b></div>
+<div class="box r"><span class="t">4. 被质疑真实性</span>「过程性材料带笔迹、涂改、时间线，横跨 6 课时，我可以提供任一学生的完整档案袋。」</div>
+<div class="box r"><span class="t">5. 最后 30 秒没讲完</span>立刻放弃当前论点：「时间关系，我最后只说一句……」<b>（主动收尾 > 被叫停）</b></div>
+<div class="box r"><span class="t">6. 大脑空白</span>喝一口水/停顿两秒，说：「我整理一下。」——<b>停顿不是失分，嗯啊才是。</b></div>
+<div class="box r"><span class="t">7. 题目太大</span>「这个题目很大，我只能从我熟悉的一个角度说……」<b>（主动限定范围＝专业）</b></div>
+<div class="box r"><span class="t">8. 题目很偏</span>「这个问题我平时想得不多，但它可以拆成两部分……」<b>（拆词法救场）</b></div>
+</div>
+</details>
+
+<!-- ============ 板块五 ============ -->
+</div>
+
+<div class="pane" id="c5">
+<div class="chaphead"><div class="t">伍 避坑 · 加减分清单</div><div class="d">加分 10 条 · 扣分黑名单 12 条 · 上场前 10 分钟</div></div>
+<div class="sec" id="s5"><span class="no">伍</span><h2>避坑 · 加减分清单<span class="q" style="display:block;font-weight:400">上场前 5 分钟只扫这一块</span></h2></div>
+
+<details class="card" open>
+<summary>➕ 加分白名单 10 条<span class="q">做到 6 条即可进入第一梯队</span></summary>
+<div class="body">
+<ol>
+<li>开场 30 秒给一个<b>具体到原话</b>的场景。</li>
+<li>开口报数：「我想说三句话」。</li>
+<li>引用政策时<b>说出自己的解读</b>，而不只是"文件指出"。</li>
+<li>主动说出<b>自己做法的边界</b>（什么条件下不成立）。</li>
+<li>主动说出<b>代价</b>（我放弃了什么，我认为值得）。</li>
+<li>承认一次<b>真实的失败或错误</b>，并说清改了什么。</li>
+<li>提到<b>具体的后进生</b>是怎么被照顾到的。</li>
+<li>无生上课时，每 60 秒让"学生"出现一次（复述原话）。</li>
+<li>答辩每答必带：政策 + 证据 + 边界。</li>
+<li>结尾有一句<b>可摘录的金句</b>。</li>
+</ol>
+</div>
+</details>
+
+<details class="card">
+<summary>➖ 扣分黑名单 12 条<span class="q">中一条，掉一档</span></summary>
+<div class="body">
+<ol>
+<li>口头禅密集：然后 / 就是 / 那个 / 嗯（<b>超过 5 次</b>）。</li>
+<li>通篇正确的空话，没有一句是"你的"。</li>
+<li>把综合实践说成"课外活动""研学""做手工"。</li>
+<li>背稿痕迹：语速均匀、无停顿、眼神不落人。</li>
+<li>超时被叫停（<b>宁可提前 30 秒收</b>）。</li>
+<li>被追问时辩解、顶撞或沉默超过 3 秒。</li>
+<li>说"我最大的不足是理论学习不够"。</li>
+<li>无生上课全程没有学生（不复述、不预设）。</li>
+<li>技术炫技：用了一堆工具但说不出必要性。</li>
+<li>材料数据前后不一（<b>年级矛盾是硬伤</b>）。</li>
+<li>对政策文件名张冠李戴（不确定就说"据我所知"）。</li>
+<li>结尾喊口号、加"让我们共同努力"。</li>
+</ol>
+</div>
+</details>
+
+<details class="card">
+<summary>⏱ 上场前 10 分钟<span class="q">按顺序做完，手不抖</span></summary>
+<div class="body">
+<ol>
+<li>口袋卡拿出来，只看第 1 页的"高分三件套"。</li>
+<li>默念你要用的<b>开场式子</b>（场景式优先）。</li>
+<li>默念一句<b>政策原话</b>（只背一句，别贪多）。</li>
+<li>默念你的<b>记忆钉子</b>：「AI 不会取代教师，但会取代不追问的教师。」</li>
+<li>把水放在手边，抿一口。</li>
+<li>把"然后"这两个字从词典里删掉。</li>
+<li>提醒自己：<b>停顿不扣分，空白才扣分；想不起来就说"我整理一下"。</b></li>
+</ol>
+<div class="box j"><span class="t">最后一句</span>
+评委不是在找"最完美的老师"，是在找<b>"最像会一直想下去的老师"</b>。<br>
+所以——被问住时坦率，讲到边界时诚实，说到学生时有细节。<b>这三点做到，分数不会低。</b></div>
+</div>
+</details>
+</div>
+
+<div class="pane" id="c6">
+<div class="chaphead"><div class="t">陆 底气 · 政策与理论速查</div><div class="d">2026 新政 · 做中学 / PBL / 具身认知 · 教育热词</div></div>
+<div class="sec" id="s6"><span class="no">陆</span><h2>底气 · 政策与理论速查<span class="q" style="display:block;font-weight:400">2026 新政 · 做中学/PBL/具身认知 · 教育热词</span></h2></div>
+<details class="card">
+<summary>政策前沿2026<span class="q">8 张 · 2026 新政与核心理论</span></summary>
+<div class="body">
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>1. 《教育发展“十五五”规划》（国务院 2026.6）——最新国家规划</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px">六大改革方向中与你最相关的四条：<br>① <b>推进教育数智化变革</b>：深入实施国家教育数字化战略，开展<b>“人工智能+教育”行动</b>，推动教育理念、培养模式、考试考核、科研范式和治理机制深层次变革；建设国家人工智能（教育）应用中试基地；强化人工智能伦理规范和安全监管。<br>② <b>深化教育评价改革</b>：有序推进中考改革，扩大优质高中招生指标到校比例，支持有条件的地方开展<b>均衡派位、登记入学</b>试点；营造<b>开放包容、宽容失败</b>的创新环境；探索用AI、大数据赋能评价改革，切实减轻基层负担。<br>③ <b>构建引导学生德智体美劳全面发展的考试或考核内容体系</b>。<br>④ 保证国家财政性教育经费支出占GDP比例<b>高于4%</b>。<br><br>用法：被问“国家最新要求”时，不要只说2022课标，说“十五五”规划＝你跟得上形势。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>2. 《义务教育阶段科学教育“做中学”领航行动指南》（教育部 2026）——必背，与综合实践高度相关</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>定位</b>：落实“在教育‘双减’中做好科学教育加法”，回答科学教育加法“加什么、怎么加”。<br><br><b>六大主题</b>：生命健康 · 生态环境 · 地球奥秘 · 航空航天 · 新兴产业 · <b>人工智能</b><br><br><b>课时安排（关键数字）</b>：<br>· 4-9年级：统筹使用科学类课程中的<b>跨学科主题学习课时</b>，以及<b>综合实践活动、地方课程、校本课程</b>课时<br>· 确保每生<b>每学期不少于1个任务、不少于4课时</b><br>· 1-3年级：完成科学课程规定的探究实践活动即可，不另作要求<br><br><b>教学方式</b>：运用<b>项目式、探究式、场景式学习</b>；提供学习任务单、方法导引、工具资源等<b>支架</b>；<b>鼓励学生大胆尝试，包容失败</b><br><br><b>评价四维度</b>：①问题意识 ②探究实践能力 ③反思改进能力 ④合作交流能力；坚持主体多元、强化过程性评价；表现性评价以<b>纪实性方式</b>纳入综合素质评价档案，<b>不另作考试要求</b><br><br><b>你的接法</b>：我的第3课时微访谈、第4课时人机对比，正对应“探究实践能力”与“反思改进能力”；我的“30天微目标”对应“长周期、持续性”——《指南》明确要求支持学生开展长周期探究。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>3. 《深入推进基础教育高质量发展》（教育部 2026.9）——最新表述</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>课程改革</b>：加强<b>十二年一体化</b>改革设计，提高体育、艺术、劳动等课程比重，<b>强化小学、初中阶段综合课程设置</b>，开展<b>项目化、探究式和团队合作学习</b>，推动从知识传授向核心素养、关键能力培育转变。<br><br><b>数字化战略</b>：深入推进国家中小学智慧教育平台集成化、智能化、国际化；<b>稳慎推进人工智能应用</b>，推动AI赋能<b>教、学、管、评、研</b>；<b>严格管控面向未成年人的算法推荐</b>，防范数字安全与伦理风险。<br><br><b>教师队伍</b>：以<b>教育家精神</b>为引领，实施教师发展国家行动；加强教师<b>数智和科技素养、人文素养、创新思维、跨学科综合素养</b>培养；建立新招聘教师在办学水平较高学校<b>见习培养制度</b>；师德师风第一标准、失范“零容忍”。<br><br><b>中考改革</b>：依标命题、突出素养导向；优化考试方式；招考联动、增加普通高中招生计划；探索登记入学、均衡派位、划片招生等多元录取方式；<b>缓解教育内卷和社会焦虑</b>。<br><br>金句：“推动从知识传授向核心素养、关键能力培育转变”——这句话可直接用在任何课程类题目。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>4. 《弘扬教育家精神 推动基础教育高质量发展》（人民日报 2026.9.10）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px">三个可直接引用的表述：<br>① <b>“让课堂回归探究本质，以启发式、探究式教学替代单向灌输”</b>，积极开展项目式学习、跨学科主题教学。<br>② <b>“把学生解决真实情境问题的能力作为重要衡量标准”</b>——这是表现性评价的国家级背书。<br>③ <b>“加快教联体建设全覆盖”</b>，健全家校社协同育人机制，形成党委领导、政府统筹、学校主导、家庭尽责、社会参与的育人格局。<br><br>另：全社会（党政机关、社区街道、科研院所、高校、体育馆、博物馆、科技馆、文化馆、社会实践基地）应为青少年实践活动提供场所、资源和阵地——<b>这是你做校外访谈时最有底气的政策依据</b>。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>5. 《教育强国建设规划纲要（2024—2035）》基础教育要点（补强版）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px">· <b>拓展实践育人和网络育人空间和阵地</b>：探索课上课下协同、校内校外一体、线上线下融合的育人机制；<b>增加实践教学比重</b><br>· 促进学生健康成长全面发展：<b>中小学生每天综合体育活动时间不低于2小时</b>；实施劳动习惯养成计划；普及心理健康教育与监测预警系统；深入实施青少年学生读书行动<br>· 统筹推进“双减”和教育教学质量提升：<b>加强科学教育，强化核心素养培育</b><br>· 面向中小学生实施科学素养培育<b>“沃土计划”</b>；面向具有创新潜质的高中学生实施<b>“脱颖计划”</b><br>· <b>支持普通中小学开展职业启蒙教育、劳动教育</b>（职普融通部分）——<b>这是你案例最直接的国家级依据</b><br>· 有序推进<b>小班化教学</b>；实施<b>教育家精神铸魂强师行动</b>；促进人工智能助力教育变革</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>6. 中考改革与教育评价改革（近年最热）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>方向</b>：依标命题、突出素养导向；优化考试方式、完善计分科目；<b>招考联动、增加普通高中招生计划</b>；探索登记入学、均衡派位、划片招生等多元录取；推动高中特色发展；<b>扭转唯分应试导向</b>，引导树立科学的人才观、成才观、教育观。<br><br><b>你的角度</b>：综合实践不考，但它培养的“提出真问题、找证据、做方案、自我修订”正是新中考素养导向命题要考的东西。<br><br><b>边界</b>：不要说“综合实践能提分”——那是投降。要说“它培养的能力，是任何一种素养导向的考试都在考的能力”。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>7. 教师减负与教育家精神</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>政策</b>：减轻中小学教师<b>非教育教学负担</b>；完善教师发展权益保障；让教师<b>潜心教书、静心育人</b>；实施教育家精神铸魂强师行动；坚持师德师风第一标准，严格落实师德失范“零容忍”。<br><br><b>教育家精神六内涵</b>（必会）：心有大我、至诚报国的理想信念；言为士则、行为世范的道德情操；启智润心、因材施教的育人智慧；勤学笃行、求是创新的躬耕态度；乐教爱生、甘于奉献的仁爱之心；胸怀天下、以文化人的弘道追求。<br><br><b>风险</b>：被问“你工作量这么大不矛盾吗”，不要诉苦。答：“我的做法是把研究和教学合并，不另起炉灶。”</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>8. 家校社协同与“教联体”</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>政策</b>：健全学校家庭社会协同育人机制，<b>加快教联体建设全覆盖</b>；推动形成党委领导、政府统筹、学校主导、家庭尽责、社会参与的育人格局。<br><br><b>你的角度</b>：给家长的是<b>具体任务</b>，不是通知——一次15分钟访谈、提供一份职业资料、参与一次真实性核查。让家长从“被通知者”变成“课程的共同设计者”。<br><br><b>风险</b>：不要把家长当资源库。要设计“家长也受益”的环节（如孩子问家长“您工作中最需要什么能力”，本身就是一次家庭对话）。</p>
+</div>
+</details>
+<details class="card">
+<summary>理论与实践·做中学<span class="q">10 张 · 2026 新政与核心理论</span></summary>
+<div class="body">
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>1. “做中学”源流：杜威 → 克伯屈 → 当代 PBL</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>杜威</b>（1859-1952）：教育即生活、学校即社会、<b>从做中学</b>（Learning by Doing）。核心在《经验与教育》(1938)：经验 + 反思 = 学习。<b>只有做不够，做完必须反思，否则只是活动。</b><br><b>克伯屈</b>（1918《设计教学法》）：杜威的学生，首次系统化“项目”概念，定义设计为<b>“热诚的自愿活动”</b>（hearty purposeful act）——强调学生的自愿与目的性。<br><b>当代</b>：设计教学法 → 项目化学习（PBL）→ 2022 新课标写入几乎所有学科教学建议 → 2026《做中学领航行动指南》。<br><br><b>一句话串联</b>：从“做中学”到“创中学”，从克伯屈的“自愿活动”到今天的“驱动性问题”，一脉相承的是——<b>让学生在真实任务中经历完整的探究过程</b>。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>2. 陶行知“教学做合一” + 陈鹤琴“活教育”</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>陶行知</b>：生活即教育、社会即学校、<b>教学做合一</b>。核心命题：<b>“行是知之始，知是行之成”</b>；主张“以宇宙为教室，奉自然为宗师”。<br>关键辨析：<b>“教学做合一”不是“做”排第一，而是“做”是学的中心，教与学都以做为中心</b>——事怎样做就怎样学，怎样学就怎样教。<br><b>陈鹤琴“活教育”</b>：<b>“大自然、大社会都是活教材”</b>；做中教、做中学、做中求进步。<br><br>用法：这是中国本土的“做中学”传统。评委问“你的理论依据”，说杜威是国际源流，<b>再补一句陶行知、陈鹤琴，立刻有本土根脉</b>。<br><br>风险：别说“教学做合一”＝“多动手”，它强调的是<b>教法和学法统一于“做”</b>。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>3. 库伯经验学习圈（Kolb, 1984）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px">四环节循环：<b>具体体验 → 反思性观察 → 抽象概念化 → 主动实验</b><br><br>用在你的课上：微访谈（体验）→ 记录与回顾（反思）→ 提炼“好问题的特征”（概念化）→ 30天微行动（主动实验）。<br><br><b>价值</b>：它解释了“为什么活动之后必须有复盘”——<b>没有第二个环节，第一个环节就白做了</b>。答辩被问“活动后你做什么”，用这四个词回答，专业度立刻不一样。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>4. 情境认知与实践共同体（Lave & Wenger, 1991）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>核心</b>：知识的意义与使用场景不可分离，脱离情境的知识是“惰性知识”；学习发生在<b>实践共同体</b>中，新手通过<b>合法的边缘性参与</b>（legitimate peripheral participation）逐步成长为成熟实践者。<br><br><b>三个关键词</b>：真实情境 · 实践共同体 · 从边缘到中心<br><br><b>你的接法</b>：我的微访谈让学生短暂进入“职业共同体”的边缘——他不采访专家，他采访门口的保安、食堂的师傅，但这已经是一次<b>合法的边缘性参与</b>。<br><br><b>警惕</b>：别把“情境”做成PPT背景图。情境的真实性在于<b>学生的行为后果是真实的</b>（被拒绝、被追问、被感谢）。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>5. 具身认知 / 具身学习（第二代认知科学）——2026 高频热词</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>核心命题</b>：认知并非只发生在大脑，而是<b>身体—大脑—环境</b>耦合的产物。被称为第二代认知科学革命。<br><br><b>三个特征</b>：<b>涉身性</b>（认知根植于身体结构与感觉运动系统）· <b>体验性</b>（通过直接参与获得知识情感技能）· <b>嵌入性/情境性</b>（认知发生在具体物理、社会、文化环境中）<br><br><b>源流</b>：梅洛-庞蒂知觉现象学（<b>“身体是我们拥有世界的媒介”</b>）→ 瓦雷拉 & 马图拉纳（<b>“所有的做都是知，所有的知都是做”</b>）→ 莱考夫 & 约翰逊（概念隐喻根植于身体经验）→ 皮亚杰（<b>儿童的思维始于动作</b>）→ 杜威（做中学）。<br><b>中国源流</b>：王阳明<b>“知行合一”</b>、身心一元论。<br><br><b>三种具身类型</b>（殷明、刘电芝）：<b>实感具身</b>（真的摸、真的做）· <b>实境具身</b>（在真实场景中）· <b>离线具身</b>（脱离现场后用想象和语言复现）。<br><br><b>批判性金句</b>：传统课堂是<b>“离身的牢笼”</b>，学习被压缩成<b>“脖颈以上的学习”</b>，身体沦为心灵的搬运工。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>6. 具身学习如何落到课堂（+ 警惕神经神话）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>可操作做法</b>：<br>① 手势与动作辅助概念理解（方位、结构、过程）<br>② 操作与制作：真摸、真拆、真种、真量<br>③ 角色扮演与戏剧：把抽象关系演出来<br>④ 实地考察：走出教室，用全通道感知<br>⑤ 身体状态管理：改变提问时的站位与距离（走下讲台、俯身）<br>⑥ VR/AR 作为<b>身体经验的延伸而非替代</b><br><br><b>⚠ 必须会说的批评</b>：<br>· <b>警惕“神经神话”</b>——不能把观察学习简化为镜像神经元的机械反射，不能宣称“动作训练可直接提升共情能力”。神经科学发现<b>需经教育学转化的二次过滤</b>才能用于实践。<br>· 引用：英国教育神经科学家保罗·琼斯——<b>“神经科学是教育的罗盘，而非地图。”</b><br>· <b>具身与数字的悖论</b>：VR 让“做”突破物理限制，但也可能解构真实的“触嗅听味”全通道体验。技术应当<b>延伸而非取代身体经验</b>（唐·伊德技术现象学）。<br><br><b>你的接法</b>：我的课上，学生把“未知我”写进种子信封、亲手封起来——这个动作本身就是具身设计；30天后拆开，是<b>实感具身 → 离线具身</b>的完整闭环。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>7. PBL 黄金标准七要素（PBLWorks / 原巴克教育研究院）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px">① <b>富有挑战性的问题</b>（驱动性问题）<br>② <b>持续探究</b>（rigorous, in-depth, 不是查一次资料）<br>③ <b>真实性</b>（真实情境、真实工具、真实标准、真实影响，或与学生的关切真实相关）<br>④ <b>学生声音与选择</b>（对学习方式与成果形式有决策权）<br>⑤ <b>反思</b>（师生共同反思过程与成果）<br>⑥ <b>批判与修订</b>（给予、接收并应用反馈来改进——<b>这是PBL最容易被省掉的一环</b>）<br>⑦ <b>公开产品</b>（向课堂之外的人展示、分享、解释）<br><br><b>判断金句</b>：做一份海报不是PBL，<b>理解并呈现一个学科概念</b>的海报才是；做一个模型不是PBL，<b>在制作中运用学科知识分析结构与功能</b>才是。<br><br><b>常见误解纠正</b>：不是任何一个“让学生动手做东西”的活动都叫 PBL。<b>一定始于一个开放性的驱动问题，且必须经过持续探究</b>。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>8. 夏雪梅：学习素养视角的项目化学习（本土标准）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>界定</b>：学生在一段时间内对<b>与学科或跨学科有关的驱动性问题</b>进行深入持续的探索，在调动所有知识、能力、品质等创造性地解决新问题、形成公开成果中，形成对<b>核心知识和学习历程的深刻理解</b>，能够在新情境中迁移。<br><br><b>设计四要素</b>：素养目标 · 驱动性问题 · 持续探究 · 全程评估<br><br><b>最关键的一条</b>：项目化学习指向<b>核心知识的再建构</b>——不只是说出定义、举出例子，而是<b>在新情境中迁移、运用、转换，并在行动中做出来</b>。<br><br><b>两条重要论断</b>：<br>① <b>用高阶学习带动低阶学习</b>（先有挑战性问题激发内动力，再在查资料、识记、组织信息的过程中完成低阶学习）<br>② <b>真实性不等于“生活中真实发生”</b>——真实指的是<b>知识和能力在人类世界中真能用</b>，以及<b>所运用的思维方式是真实的</b>（模拟联合国也是真实的）<br><br><b>学习素养的本质</b>：<b>心智的灵活转换</b>。有学习素养的人是<b>心智自由的人</b>——有自己的价值准则和独立判断，能灵活调用所知在新情境中做出合理而有创意的决定。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>9. 浅项目化学习的五种病（评委最爱听的自我诊断）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px">① <b>只有活动没有目标</b>——“花瓶式项目”，有趣但没料，目标与过程脱节<br>② <b>只动手不动脑</b>——只看重做出好看的结果，学生不理解背后原理（<b>从动脑的机械化变成动手的机械化</b>）<br>③ <b>只看结果不看过程</b>——评价只盯成品精致度<br>④ <b>先学知识再运用</b>——把应用当成一个“尾巴”加上去（PBL不排斥讲授，但讲授应整合在回答驱动性问题的过程中，以微讲座、微报告形式出现）<br>⑤ <b>只做内容拼盘</b>——多学科主题堆叠，不指向关键概念的理解（<b>主题式学习像水果沙拉，各学科仍是独立的；跨学科PBL像混合果汁，打成汁</b>）<br><br><b>用法</b>：答辩被问“你的项目有什么不足/你怎么防止走偏”，主动说这五条中的两三条，并说明你的对策——<b>这是极其加分的自省动作</b>。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>10. 项目化学习的课程样态与“真实性”三层</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>四种样态</b>（由小到大）：微项目（15-20分钟课堂内，或课外小探索）→ 学科项目化 → 跨学科项目化 → 超学科项目化。<br><b>STEM</b> 是跨学科项目化学习的一种，成果偏向制作表现类。<br><br><b>真实性的三层</b>（可接受的三种真实）：<br>① <b>学术性项目</b>：学科中的关键问题，促进对内容的理解<br>② <b>虚拟情境项目</b>：情境虚构但角色真实（数据分析专家、交通系统创建者），关键在<b>身份代入感</b><br>③ <b>真实生活世界项目</b>：资源要求高，可结合春游、社区服务等活动转化<br><br><b>增进真实体验的三个做法</b>：学生<b>全身心的行动</b> · 进行<b>社会性互动和评论</b> · 产生<b>可改善自己或周围环境的成果</b>。<br><br><b>深圳本地案例</b>（拓宽视野）：南山区2025年启动项目式学习/跨学科主题学习研究共同体（31所种子校），五年级《扬帆启航：设计制作一艘小船》以大沙河治理为背景；盐田区为全国项目式学习标杆实验区。</p>
+</div>
+</details>
+<details class="card">
+<summary>教育热词<span class="q">16 张 · 2026 新政与核心理论</span></summary>
+<div class="body">
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>1. 教育强国</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：《教育强国建设规划纲要（2024—2035年）》，到2027年取得重要阶段性成效，到2035年建成教育强国；“八大体系”之一即<b>公平优质的基础教育体系</b>。<br><b>你的角度</b>：落到一线，教育强国就是<b>每一节课的质量</b>。我能做的是让一门“边缘”的综合实践课上出含金量。<br><b>风险</b>：别空喊。必须接一句“落到我这门课，就是……”。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>2. 人工智能+教育（2026 最新提法）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：《教育发展“十五五”规划》明确开展<b>“人工智能+教育”行动</b>，推动教育理念、培养模式、考试考核、科研范式和治理机制深层次变革；建设国家人工智能（教育）应用中试基地；强化人工智能伦理规范和安全监管。<br><b>你的角度</b>：不是“AI+课堂”的技术叠加，是<b>育人方式的重构</b>——我的做法是让AI进入流程而不是进入答案。<br><b>风险</b>：不要说“AI能解决教育的所有问题”，2026年的官方关键词是<b>“稳慎推进”</b>。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>3. 教育数智化变革</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：单列部署教育数智化变革重点任务，深入实施国家教育数字化战略；建强用好国家智慧教育公共服务平台；<b>开展新型教学模式研究</b>；深化数据赋能教育治理；探索用AI、大数据赋能教育评价改革，切实减轻基层负担。<br><b>你的角度</b>：数智化的终点不是“数字化”，是<b>支撑大规模因材施教</b>。<br><b>风险</b>：别说“技术越先进课堂越好”——这是最容易被追问的一句话。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>4. 实践育人</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：拓展实践育人和网络育人空间和阵地；探索课上课下协同、校内校外一体、线上线下融合的育人机制；<b>增加实践教学比重</b>；提升学生动手能力、协同能力和合作意识。<br><b>你的角度</b>：实践育人的“育”不在活动里，在<b>活动后的复盘与修订</b>里。<br><b>金句</b>：顾明远——<b>“教书育人在细微处，学生成长在活动中。”</b></p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>5. 五育融合（不是五育并举）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>区别</b>：并举是“都要有”，融合是“在一个真实任务里自然长出来”。<br><b>官方口径</b>：健全德智体美劳全面培养体系；构建以身心健康为基础的<b>“五育”融合育人新体系</b>。<br><b>你的角度</b>：一次微访谈里，德（尊重劳动者）、智（提问与取证）、体（走出校园走访）、美（呈现与表达）、劳（理解劳动本身）同时发生——这就是融合。<br><b>风险</b>：别把五育做成“一节课塞五个环节”。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>6. 科学教育加法</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：在教育“双减”中做好科学教育加法（习总书记指示）；2023年十八部门《关于加强新时代中小学科学教育工作的意见》；2026年《“做中学”领航行动指南》。<br><b>加的是什么</b>：加<b>探究实践</b>，不是加知识、加课时、加考试。<br><b>金句</b>：<b>“加的是探究实践，减的是机械训练。”</b><br><b>边界</b>：领航行动明确——表现性评价<b>不另作考试要求</b>。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>7. 做中学（2026 最新政策词）</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：《义务教育阶段科学教育“做中学”领航行动指南》；以学生为主体、以兴趣为导向、<b>以实践为路径</b>；运用项目式、探究式、场景式学习；<b>鼓励学生大胆尝试，包容失败</b>。<br><b>关键数字</b>：4-9年级每学期≥1个任务、≥4课时；评价四维度（问题意识/探究实践能力/反思改进能力/合作交流能力）。<br><b>你的角度</b>：做中学的“做”不是目的，<b>“做”之后的理解与迁移</b>才是。<br><b>风险</b>：别说“做中学就是让孩子多动手”。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>8. 项目式学习 / 项目化学习</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：2022版义务教育课程方案与课标写入几乎所有学科；2026年教育部文件提出开展<b>项目化、探究式和团队合作学习</b>。<br><b>你的角度</b>：我的“制定一份可落地的个人成长行动方案”就是一个大项目，六个课时是它的子任务链。<br><b>必背区分</b>：PBL ≠ 主题式学习 ≠ STEM ≠ 探究式学习。<b>PBL 一定产生公开的、可见的成果</b>。<br><b>深圳坐标</b>：南山区研究共同体、盐田区全国标杆实验区。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>9. 跨学科主题学习</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：各门课程用不少于 <b>10%</b> 课时设计跨学科主题学习；2026《做中学》指南允许统筹使用这部分课时。<br><b>你的角度</b>：跨学科不是多学科拼盘，是<b>围绕一个关键概念的深度理解</b>（混合果汁 vs 水果沙拉）。<br><b>风险</b>：不要说“我这节课融合了语文数学英语科学”——那是拼盘。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>10. 大单元教学 / 深度学习</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：探索大单元教学，积极开展主题化、项目式学习等综合性教学活动，促进学生举一反三、融会贯通，加强知识间的内在关联，促进<b>知识结构化</b>（崔允漷）。<br><b>你的角度</b>：我的六课时就是一个大单元——向内、向外、向前，围绕“自我认知的证据”这一个核心概念展开。<br><b>金句</b>：<b>“大单元不是内容的增加，而是以素养目标为线索组织形成的更大意义网络。”</b></p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>11. 核心素养</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：2022版课标以核心素养为纲；课程方案强调从知识传授向核心素养、关键能力培育转变。<br><b>你的角度</b>：核心素养的标志不是“知道”，是<b>“在新情境中能调用”</b>。所以我的评价重心在迁移，不在复述。<br><b>金句</b>：怀特海把不能被激活的知识称为<b>“惰性知识”</b>——素养的反面就是惰性知识。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>12. 综合素质评价</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：综合素质评价档案；2026《做中学》指南要求把科学探究实践表现性评价以<b>纪实性方式</b>纳入综合素质评价档案。<br><b>你的角度</b>：我的档案袋（六课时连续记录 + 涂改 + 时间线）天然就是纪实性材料，可以无障碍对接。<br><b>风险</b>：别说“用综合素质评价给学生排名”——它是<b>纪实与改进</b>，不是甄别。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>13. 表现性评价</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：把学生<b>解决真实情境问题的能力</b>作为重要衡量标准；强化过程性评价，在关键环节设置观测点。<br><b>要素</b>：真实/模拟情境中的真实任务 + <b>前置量规</b> + 可观察的行为动词 + 过程证据。<br><b>你的角度</b>：量规我在课前就发给学生，因为<b>被怎么评，决定了怎么学</b>。<br><b>工具</b>：UbD 逆向设计（先定结果→再定证据→最后设计活动）；SOLO 分类看思维层级。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>14. 教联体 / 家校社协同</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：加快<b>教联体建设全覆盖</b>；健全学校家庭社会协同育人机制；形成党委领导、政府统筹、学校主导、家庭尽责、社会参与的育人格局。<br><b>你的角度</b>：给家长<b>具体任务</b>而不是通知；把社区（保安、食堂师傅、社区店主）变成课程资源。<br><b>深圳抓手</b>：每周半天计划、1228个校外基地、近2000人志愿者。</p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>15. 大规模因材施教</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：以数智变革支撑<b>大规模因材施教</b>；坚持面向全体、因材施教，为每个人提供适合的教育；关注青年教师成长。<br><b>你的角度</b>：我的三级达成线 + 多元表达通道（写/投/录）+ 最低合格线，就是一间普通教室里能做到的因材施教。<br><b>风险</b>：别把因材施教说成“分层分班”——官方口径强调<b>面向全体</b>。<br><b>金句</b>：<b>“公平不是一样对待，是给不同的支架。”</b></p>
+<div class="script" style="border-left-color:var(--gold);margin:10px 0"><b>16. 数字伦理与未成年人保护</b></div>
+<p style="font-size:14px;line-height:1.85;margin:0 0 14px"><b>官方口径</b>：<b>严格管控面向未成年人的算法推荐</b>，防范数字安全与伦理风险；强化人工智能伦理规范和安全监管；《未成年人网络保护条例》（2024.1施行）。<br><b>你的角度</b>：我的课上，凡涉及个人信息一律不进对话框；访谈“三不”承诺（不单独入户、不拍正脸、不索取联系方式）；教学生识别算法推荐的信息茧房。<br><b>风险</b>：这是近两年新增考点，<b>答不出基本等于失分</b>。务必准备。</p>
+</div>
+</details>
+
+<details class="card">
+<summary>📚 另外三份资料（同一站点，可直接打开）<span class="q">训练营 / 逐字稿 / 口袋卡</span></summary>
+<div class="body">
+<ul>
+<li><a href="青工赛7天冲刺训练营.html">青工赛7天冲刺训练营</a> —— <b>已扩容：186 道演讲题、87 张素材卡（10 个卡组）</b>、思维训练器（<b>电脑上体验更好</b>）</li>
+<li><a href="无声试讲逐字稿_6课时.html">无声试讲逐字稿（6课时）</a> —— 可直接开口念的稿子</li>
+<li><a href="青工赛_考场口袋卡.html">考场口袋卡</a>
+  <a href="政策原文-综合实践活动推荐主题库.html">📕 政策原文</a> —— A4 两页，建议打印随身</li>
+</ul>
+</div>
+</details>
+</div>
+
+<div class="pager">
+  <button id="bp" onclick="go(-1)">← 上一章</button>
+  <div class="mid"><b id="pno">1 / 7</b><span id="pdesc"></span></div>
+  <button id="bn" onclick="go(1)">下一章 →</button>
+</div>
+<div class="foot">破茧七日 · 立·辩·行 三关通关手册<br>点标题展开／收起 · 右上角 A+ A- 调字号</div>
+</div>
+
+<div class="pkgbar">
+  <a href="index.html">🏠 首页</a>
+  <a href="破茧七日-答案库.html" class="on">📖 答案库</a>
+  <a href="青工赛7天冲刺训练营.html">🏋️ 训练营</a>
+  <a href="无声试讲逐字稿_6课时.html">🎬 逐字稿</a>
+  <a href="青工赛_考场口袋卡.html">🗂️ 口袋卡</a>
+</div>
+
+<script>
+function toggleAll(open){
+  document.querySelectorAll('details.card').forEach(function(d){ d.open = open; });
+}
+var CH=["纲·总纲","壹·知彼","贰·立言","叁·应对","肆·锦囊","伍·避坑","陆·底气"];
+var CD=["三关命门 · 三条万能公式 · 六件套地图 · 7 天路径","评分表翻译成行为锚点与 5/7/9 分档长相","每篇 800 字带时间轴，附逐段得分拆解","七类各 3 题，答案标注 政 / 证 / 界","开场 12 式 · 过渡 10 · 升华 12 · 收束 8 · 应急 8","加分 10 条 · 扣分黑名单 12 条 · 上场前 10 分钟","2026 新政 · 做中学 / PBL / 具身认知 · 教育热词"];
+var ci=0;
+function show(n){
+  ci=Math.max(0,Math.min(CH.length-1,n));
+  document.querySelectorAll('.pane').forEach(function(p,i){ p.classList.toggle('on', i===ci); });
+  document.querySelectorAll('.chapbar a').forEach(function(a,i){ a.classList.toggle('on', i===ci); });
+  document.getElementById('pno').textContent=(ci+1)+' / '+CH.length;
+  document.getElementById('pdesc').textContent=CH[ci]+'　'+CD[ci];
+  document.getElementById('progi').style.width=Math.round((ci+1)/CH.length*100)+'%';
+  document.getElementById('bp').disabled=(ci===0);
+  document.getElementById('bn').disabled=(ci===CH.length-1);
+  var act=document.querySelector('.chapbar a.on');
+  if(act&&act.scrollIntoView){ try{ act.scrollIntoView({block:'nearest',inline:'center'}); }catch(e){} }
+  try{ localStorage.setItem('pjy_ch', ci); }catch(e){}
+  window.scrollTo(0,0);
+}
+function go(d){ show(ci+d); }
+var sizes=[15,16,17.5,19], cur=1;
+try{ var v=parseInt(localStorage.getItem('qgs_fs')); if(sizes.indexOf(v)>=0) cur=sizes.indexOf(v); }catch(e){}
+function apply(){ document.documentElement.style.fontSize=sizes[cur]+'px';
+  try{ localStorage.setItem('qgs_fs', sizes[cur]); }catch(e){} }
+function zoom(d){ cur=Math.max(0,Math.min(sizes.length-1,cur+d)); apply(); }
+apply();
+var start=0;
+try{ var st=parseInt(localStorage.getItem('pjy_ch')); if(!isNaN(st)) start=st; }catch(e){}
+var h=location.hash||''; var m=h.match(/^#c(\d)$/); if(m) start=parseInt(m[1]);
+show(start);
+window.addEventListener('hashchange',function(){ var m2=(location.hash||'').match(/^#c(\d)$/); if(m2) show(parseInt(m2[1])); });
+</script>
+</body>
+</html>
